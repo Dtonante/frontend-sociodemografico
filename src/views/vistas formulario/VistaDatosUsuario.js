@@ -44,6 +44,7 @@ const VistaDatosUsuario = () => {
     "Raizal del Archipiélago de San Andrés",
     "Palenquero",
     "Rom",
+    "Mestizo",
     "Ninguno"
   ];
 
@@ -79,8 +80,8 @@ const VistaDatosUsuario = () => {
 
 
   return (
-    <div>
-      <Card variant="outlined" sx={{ p: 0 }}>
+    <div >
+      <Card variant="outlined" sx={{  p: 0,  width: "100%",  maxWidth: 800,  margin: "50px auto" }}>
         <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
           <Box flexGrow={1}>
             <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>
@@ -91,24 +92,28 @@ const VistaDatosUsuario = () => {
         <Divider />
         <CardContent sx={{ padding: "30px" }}>
           <form onSubmit={manejarEnvio}>
-            <TextField name="var_nombreCompleto" label="Nombre Completo" variant="outlined" value={formData.var_nombreCompleto} onChange={handleInputChange} fullWidth sx={{ mb: 2 }}/>
-            <TextField select name="int_tipoDocumentoFK" label="Tipo de Documento" variant="outlined" value={formData.int_tipoDocumentoFK} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} >
+            <Typography variant="h6">Nombre Completo:</Typography>
+            <TextField name="var_nombreCompleto" variant="outlined" value={formData.var_nombreCompleto} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} />
+            <Typography variant="h6">Tipo de Documento:</Typography>
+            <TextField select name="int_tipoDocumentoFK" label="" variant="outlined" value={formData.int_tipoDocumentoFK} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} >
               {tiposDocumento.map((option) => (
                 <MenuItem key={option.id_tipoDocumentoPK} value={option.id_tipoDocumentoPK}> {option.var_nombreDocumento} </MenuItem>
               ))}
             </TextField>
-            <TextField name="var_numeroDocumento" label="Número de Documento" variant="outlined" value={formData.var_numeroDocumento} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} />
-            <TextField name="date_fechaNacimiento" label="Fecha de Nacimiento" type="date" variant="outlined" value={formData.date_fechaNacimiento} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} InputLabelProps={{ shrink: true }} />
-            
+            <Typography variant="h6">Número de Documento:</Typography>
+            <TextField name="var_numeroDocumento" variant="outlined" value={formData.var_numeroDocumento} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} />
+            <Typography variant="h6">Fecha de Nacimiento:</Typography>
+            <TextField name="date_fechaNacimiento" type="date" variant="outlined" value={formData.date_fechaNacimiento} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} InputLabelProps={{ shrink: true }} />
+            <Typography variant="h6">Género:</Typography>
             <FormControl component="fieldset" sx={{ mb: 2 }}>
-              <RadioGroup aria-label="Género" name="var_genero" value={formData.var_genero} onChange={handleInputChange} row >
+              <RadioGroup name="var_genero" value={formData.var_genero} onChange={handleInputChange} row >
                 <FormControlLabel value="Masculino" control={<Radio />} label="Masculino" />
                 <FormControlLabel value="Femenino" control={<Radio />} label="Femenino" />
                 <FormControlLabel value="Otro" control={<Radio />} label="Otro" />
               </RadioGroup>
             </FormControl>
-
-            <TextField select name="var_rh" label="Grupo Sanguíneo" variant="outlined" value={formData.var_rh} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} >
+            <Typography variant="h6">Grupo Sanguíneo:</Typography>
+            <TextField select name="var_rh" variant="outlined" value={formData.var_rh} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} >
               <MenuItem value="A+">A+</MenuItem>
               <MenuItem value="A-">A-</MenuItem>
               <MenuItem value="B+">B+</MenuItem>
@@ -118,23 +123,24 @@ const VistaDatosUsuario = () => {
               <MenuItem value="AB+">AB+</MenuItem>
               <MenuItem value="AB-">AB-</MenuItem>
             </TextField>
-
-            <TextField select name="var_grupoEtnico" label="Grupo Étnico" value={formData.var_grupoEtnico} onChange={handleInputChange} fullWidth sx={{ mb: 2 }}>
+            <Typography variant="h6">Grupo Étnico:</Typography>
+            <TextField select name="var_grupoEtnico" value={formData.var_grupoEtnico} onChange={handleInputChange} fullWidth sx={{ mb: 2 }}>
               {gruposEtnicos.map(grupo => (
                 <MenuItem key={grupo} value={grupo}>
                   {grupo}
                 </MenuItem>
               ))}
             </TextField>
+            <Typography variant="h6">Correo Electrónico Personal:</Typography>
+            <TextField name="var_correoElectronicoPersonal" type="email" variant="outlined" value={formData.var_correoElectronicoPersonal} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} />
+            <Typography variant="h6">Correo Electrónico Institucional:</Typography>
+            <TextField name="var_correoElectronicoInstitucional" type="email" variant="outlined" value={formData.var_correoElectronicoInstitucional} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} />
+            <Typography variant="h6">Celular:</Typography>
+            <TextField name="var_celular" variant="outlined" value={formData.var_celular} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} />
+            <Typography variant="h6">Telefono fijo:</Typography>
+            <TextField name="var_telefonoFijo" variant="outlined" value={formData.var_telefonoFijo} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} />
 
-            <TextField name="var_correoElectronicoPersonal" label="Correo Electrónico Personal" type="email" variant="outlined" value={formData.var_correoElectronicoPersonal} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} />
-            <TextField name="var_correoElectronicoInstitucional" label="Correo Electrónico Institucional" type="email" variant="outlined" value={formData.var_correoElectronicoInstitucional} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} />
-            <TextField name="var_celular" label="var_celular" variant="outlined" value={formData.var_celular} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} />
-            <TextField name="var_telefonoFijo" label="var_telefonoFijo"  variant="outlined" value={formData.var_telefonoFijo} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} />
-
-            <Button color="primary" variant="contained" type="submit">
-              Enviar
-            </Button>
+            <Button color="primary" variant="contained" type="submit"> Enviar </Button>
           </form>
         </CardContent>
       </Card>

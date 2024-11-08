@@ -85,7 +85,7 @@ const VistaDatosProfesional5 = () => {
                 // Establecer todos los campos como "N/A" si la respuesta es "no"
                 const areaNA = estructuraOrganizacional.find(area => area.var_nombreArea === "N/A");
                 if (areaNA) {
-                    setAreaSeleccionada(areaNA.id_areaPk); 
+                    setAreaSeleccionada(areaNA.id_areaPk);
                 }
                 setFechaIngreso("0000-00-00");
                 setTipoVinculacion("N/A");
@@ -150,13 +150,13 @@ const VistaDatosProfesional5 = () => {
     };
 
     const manejarSiguiente = () => {
-        
+
         navigate("/datosProfesional6");
     };
 
     return (
         <div style={{ padding: "20px" }}>
-            <Card variant="outlined" sx={{ p: 0, mt: 2 }}>
+            <Card variant="outlined" sx={{  p: 0,  width: "100%",   maxWidth: 800,  margin: "50px auto" }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
                         <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>¿Ya estás afiliado?</Typography>
@@ -165,8 +165,8 @@ const VistaDatosProfesional5 = () => {
                 <Divider />
                 <CardContent sx={{ padding: "30px" }}>
                     <FormControl fullWidth sx={{ mb: 2 }}>
-                        <InputLabel id="afiliado-label">¿Ya estás afiliado?</InputLabel>
-                        <Select labelId="afiliado-label" name="afiliado" value={afiliado} onChange={manejarCambio} label="¿Ya estás afiliado?" >
+                        <Typography variant="h6">¿Ya estás afiliado?:</Typography>
+                        <Select labelId="afiliado-label" name="afiliado" value={afiliado} onChange={manejarCambio}  >
                             <MenuItem value="si">Sí</MenuItem>
                             <MenuItem value="no">No</MenuItem>
                         </Select>
@@ -175,16 +175,16 @@ const VistaDatosProfesional5 = () => {
                     {afiliado === "si" && (
                         <form>
                             <FormControl fullWidth sx={{ mb: 2 }}>
-                                <InputLabel id="tipo-vinculacion-label">Tipo de Vinculación</InputLabel>
-                                <Select labelId="tipo-vinculacion-label" name="tipoVinculacion" value={tipoVinculacion} onChange={manejarCambio} label="Tipo de Vinculación" >
+                                <Typography variant="h6">Tipo de Vinculación:</Typography>
+                                <Select labelId="tipo-vinculacion-label" name="tipoVinculacion" value={tipoVinculacion} onChange={manejarCambio}  >
                                     <MenuItem value="vinculado">Vinculado</MenuItem>
                                     <MenuItem value="temporal">Temporal</MenuItem>
                                 </Select>
                             </FormControl>
 
                             <FormControl fullWidth sx={{ mb: 2 }}>
-                                <InputLabel id="tipo-contrato-label">Tipo de Contrato</InputLabel>
-                                <Select labelId="tipo-contrato-label" name="tipoContrato" value={tipoContrato} onChange={manejarCambio} label="Tipo de Contrato" >
+                                <Typography variant="h6">Tipo de Contrato:</Typography>
+                                <Select labelId="tipo-contrato-label" name="tipoContrato" value={tipoContrato} onChange={manejarCambio}  >
                                     <MenuItem value="indefinido">Contrato a término indefinido</MenuItem>
                                     <MenuItem value="fijo">Contrato a término fijo</MenuItem>
                                     <MenuItem value="prestacion_servicios">Contrato por prestación de servicios</MenuItem>
@@ -194,11 +194,14 @@ const VistaDatosProfesional5 = () => {
                                 </Select>
                             </FormControl>
 
-                            <TextField label="var_salario" variant="outlined" fullWidth name="var_salario" value={salario} onChange={manejarCambio} sx={{ mb: 2 }} />
+                            <Typography variant="h6">Salario:</Typography>
+                            <TextField variant="outlined" fullWidth name="var_salario" value={salario} onChange={manejarCambio} sx={{ mb: 2 }} />
 
-                            <TextField name="date_fechaIngresoInstitucion" label="Fecha de Ingreso" type="date" variant="outlined" value={fechaIngreso} onChange={manejarCambio} fullWidth sx={{ mb: 2 }} InputLabelProps={{ shrink: true }} />
+                            <Typography variant="h6">Fecha de Ingreso:</Typography>
+                            <TextField name="date_fechaIngresoInstitucion" type="date" variant="outlined" value={fechaIngreso} onChange={manejarCambio} fullWidth sx={{ mb: 2 }} InputLabelProps={{ shrink: true }} />
 
-                            <TextField name="var_antiguedadInstitucion" label="Antigüedad en la Institución (días)" type="text" variant="outlined" value={antiguedadInstitucion} onChange={manejarCambio} fullWidth sx={{ mb: 2 }} disabled />
+                            <Typography variant="h6">Antigüedad en la Institución (días):</Typography>
+                            <TextField name="var_antiguedadInstitucion" type="text" variant="outlined" value={antiguedadInstitucion} onChange={manejarCambio} fullWidth sx={{ mb: 2 }} disabled />
                             <FormControl fullWidth sx={{ mb: 2 }}>
                                 <InputLabel id="area-label">Área</InputLabel>
                                 <Select labelId="area-label" name="area" value={areaSeleccionada} onChange={manejarCambio} label="Área" >
@@ -208,12 +211,14 @@ const VistaDatosProfesional5 = () => {
                                 </Select>
                             </FormControl>
 
-                            <TextField label="Cargo" variant="outlined" fullWidth name="var_cargo" value={cargo} onChange={manejarCambio} sx={{ mb: 2 }} />
+                            <Typography variant="h6">Cargo:</Typography>
+                            <TextField variant="outlined" fullWidth name="var_cargo" value={cargo} onChange={manejarCambio} sx={{ mb: 2 }} />
 
-                            <TextField label="Jefe Inmediato" variant="outlined" fullWidth name="var_jefeInmediato" value={jefeInmediato} onChange={manejarCambio} sx={{ mb: 2 }} />
+                            <Typography variant="h6">Jefe Inmediato:</Typography>
+                            <TextField variant="outlined" fullWidth name="var_jefeInmediato" value={jefeInmediato} onChange={manejarCambio} sx={{ mb: 2 }} />
 
                             <FormControl fullWidth sx={{ mb: 2 }}>
-                                <InputLabel id="sede-label">Sede</InputLabel>
+                                <Typography variant="h6">Sede:</Typography>
                                 <Select labelId="sede-label" name="var_sede" value={sede} onChange={manejarCambio} label="Sede">
                                     <MenuItem value="robledo">Robledo</MenuItem>
                                     <MenuItem value="premium_plaza">Premium Plaza</MenuItem>
@@ -222,8 +227,8 @@ const VistaDatosProfesional5 = () => {
                             </FormControl>
 
                             <FormControl fullWidth sx={{ mb: 2 }}>
-                                <InputLabel id="turno-label">Turno trabajo</InputLabel>
-                                <Select labelId="turno-label" name="var_turnoTrabajo" value={turnoTrabajo} onChange={manejarCambio} label="Turno">
+                                <Typography variant="h6">Turno de trabajo:</Typography>
+                                <Select labelId="turno-label" name="var_turnoTrabajo" value={turnoTrabajo} onChange={manejarCambio}>
                                     <MenuItem value="diurno">Diurno</MenuItem>
                                     <MenuItem value="jornada_Extendida">jornada extendida </MenuItem>
                                 </Select>

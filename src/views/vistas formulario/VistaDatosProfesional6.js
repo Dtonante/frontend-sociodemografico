@@ -67,7 +67,7 @@ const VistaDatosProfesional6 = () => {
 
     return (
         <div style={{ padding: "20px" }}>
-            <Card variant="outlined" sx={{ p: 0, mt: 2 }}>
+            <Card variant="outlined" sx={{  p: 0,  width: "100%",   maxWidth: 800,  margin: "50px auto" }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
                         <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>

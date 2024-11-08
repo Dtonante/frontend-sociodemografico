@@ -101,13 +101,13 @@ const VistaDatosProfesional = () => {
         // Almacenar todos los datos en localStorage
         localStorage.setItem('datosProfesional', JSON.stringify(formData));
         localStorage.setItem('direccion', JSON.stringify(direccion));
-        navigate('/datosProfesional2'); 
+        navigate('/datosProfesional2');
     };
 
 
     return (
         <div>
-            <Card variant="outlined" sx={{ p: 0 }}>
+            <Card variant="outlined" sx={{  p: 0,  width: "100%",   maxWidth: 800,  margin: "50px auto" }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
                         <Typography sx={{ fontSize: "18px", fontWeight: "500" }}> Formulario de Profesional </Typography>
@@ -116,99 +116,111 @@ const VistaDatosProfesional = () => {
                 <Divider />
                 <CardContent sx={{ padding: "30px" }}>
                     <form onSubmit={manejarSiguiente}>
-                        {/* campos de departamento y ciudad */}
-                        <TextField select name="var_departamentoResidencia" label="Departamento" variant="outlined" value={formData.var_departamentoResidencia} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} >
+                        <Typography variant="h6">Departamento:</Typography>
+                        <TextField select name="var_departamentoResidencia" variant="outlined" value={formData.var_departamentoResidencia} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} >
                             {departamentos.map(departamento => (<MenuItem key={departamento.nombre} value={departamento.nombre}> {departamento.nombre} </MenuItem>))}
                         </TextField>
-                        <TextField select name="var_ciudadResidencia" label="Ciudad" variant="outlined" value={formData.var_ciudadResidencia} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} >
+                        <Typography variant="h6">Ciudad:</Typography>
+                        <TextField select name="var_ciudadResidencia" variant="outlined" value={formData.var_ciudadResidencia} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} >
                             {ciudades.map(ciudad => (<MenuItem key={ciudad} value={ciudad}> {ciudad} </MenuItem>))}
                         </TextField>
 
-                        {/* Campos de Dirección en varias columnas */}
+
                         <Grid container spacing={2} sx={{ mb: 2 }}>
                             <Grid item xs={3}>
-                                <TextField select name="tipoVia" label="Tipo de Vía" value={direccion.tipoVia} onChange={manejarCambioDireccion} fullWidth>
+                                <Typography variant="h6">Tipo de Vía:</Typography>
+                                <TextField select name="tipoVia" value={direccion.tipoVia} onChange={manejarCambioDireccion} fullWidth>
                                     {["Autopista", "Avenida", "Avenida Calle", "Avenida Carrera", "Bulevar", "Calle", "Carrera", "Circular", "Circunvalar", "Cuentas Corridas", "Diagonal", "Pasaje", "Paseo", "Peatonal", "Transversal", "Troncal", "Variante", "Via"].map(via => (
                                         <MenuItem key={via} value={via}>{via}</MenuItem>
                                     ))}
                                 </TextField>
                             </Grid>
                             <Grid item xs={3}>
-                                <TextField select name="numeroPrincipal" label="Número Principal" value={direccion.numeroPrincipal} onChange={manejarCambioDireccion} fullWidth>
+                                <Typography variant="h6">Número Principal:</Typography>
+                                <TextField select name="numeroPrincipal" value={direccion.numeroPrincipal} onChange={manejarCambioDireccion} fullWidth>
                                     {numeros.map(numero => (
                                         <MenuItem key={numero} value={numero}>{numero}</MenuItem>
                                     ))}
                                 </TextField>
                             </Grid>
                             <Grid item xs={2}>
-                                <TextField select name="letraPrincipal" label="Letra" value={direccion.letraPrincipal} onChange={manejarCambioDireccion} fullWidth>
+                                <Typography variant="h6">Letra:</Typography>
+                                <TextField select name="letraPrincipal" value={direccion.letraPrincipal} onChange={manejarCambioDireccion} fullWidth>
                                     {["", ...letras].map(letra => (
                                         <MenuItem key={letra} value={letra}>{letra}</MenuItem>
                                     ))}
                                 </TextField>
                             </Grid>
                             <Grid item xs={2}>
-                                <TextField select name="bisGuion" label="Bis o -" value={direccion.bisGuion} onChange={manejarCambioDireccion} fullWidth>
+                                <Typography variant="h6">Bis:</Typography>
+                                <TextField select name="bisGuion" value={direccion.bisGuion} onChange={manejarCambioDireccion} fullWidth>
                                     {["", "Bis", "-"].map(bis => (
                                         <MenuItem key={bis} value={bis}>{bis}</MenuItem>
                                     ))}
                                 </TextField>
                             </Grid>
                             <Grid item xs={2}>
-                                <TextField select name="letraSecundaria" label="Letra Secundaria" value={direccion.letraSecundaria} onChange={manejarCambioDireccion} fullWidth>
+                                <Typography variant="h6">Letra Secundaria:</Typography>
+                                <TextField select name="letraSecundaria" value={direccion.letraSecundaria} onChange={manejarCambioDireccion} fullWidth>
                                     {["", ...letras].map(letra => (
                                         <MenuItem key={letra} value={letra}>{letra}</MenuItem>
                                     ))}
                                 </TextField>
                             </Grid>
                             <Grid item xs={2}>
-                                <TextField select name="orientacion" label="Orientación" value={direccion.orientacion} onChange={manejarCambioDireccion} fullWidth>
+                                <Typography variant="h6">Orientación:</Typography>
+                                <TextField select name="orientacion" value={direccion.orientacion} onChange={manejarCambioDireccion} fullWidth>
                                     {["", "Norte", "Sur", "Este", "Oeste"].map(orient => (
                                         <MenuItem key={orient} value={orient}>{orient}</MenuItem>
                                     ))}
                                 </TextField>
                             </Grid>
                             <Grid item xs={3}>
-                                <TextField select name="numeroSecundario" label="Número Secundario" value={direccion.numeroSecundario} onChange={manejarCambioDireccion} fullWidth>
+                                <Typography variant="h6">Número Secundario:</Typography>
+                                <TextField select name="numeroSecundario" value={direccion.numeroSecundario} onChange={manejarCambioDireccion} fullWidth>
                                     {numeros.map(numero => (
                                         <MenuItem key={numero} value={numero}>{numero}</MenuItem>
                                     ))}
                                 </TextField>
                             </Grid>
                             <Grid item xs={2}>
-                                <TextField select name="letraAdicional" label="Letra Adicional" value={direccion.letraAdicional} onChange={manejarCambioDireccion} fullWidth>
+                                <Typography variant="h6">Letra Adicional:</Typography>
+                                <TextField select name="letraAdicional" value={direccion.letraAdicional} onChange={manejarCambioDireccion} fullWidth>
                                     {["", ...letras].map(letra => (
                                         <MenuItem key={letra} value={letra}>{letra}</MenuItem>
                                     ))}
                                 </TextField>
                             </Grid>
                             <Grid item xs={3}>
-                                <TextField select name="numeroFinal" label="Número Final" value={direccion.numeroFinal} onChange={manejarCambioDireccion} fullWidth >
+                                <Typography variant="h6">Número Final:</Typography>
+                                <TextField select name="numeroFinal" value={direccion.numeroFinal} onChange={manejarCambioDireccion} fullWidth >
                                     {numeros.map(numero => (
                                         <MenuItem key={numero} value={numero}>{numero}</MenuItem>
                                     ))}
                                 </TextField>
                             </Grid>
                             <Grid item xs={2}>
-                                <TextField select name="orientacionFinal" label="Orientación Final" value={direccion.orientacionFinal} onChange={manejarCambioDireccion} fullWidth>
+                                <Typography variant="h6">Orientación Final:</Typography>
+                                <TextField select name="orientacionFinal" value={direccion.orientacionFinal} onChange={manejarCambioDireccion} fullWidth>
                                     {["", "Norte", "Sur", "Este", "Oeste"].map(orient => (
                                         <MenuItem key={orient} value={orient}>{orient}</MenuItem>
                                     ))}
                                 </TextField>
                             </Grid>
                             <Grid item xs={12}>
-                                <TextField name="detalle" label="Detalle de la Dirección (Ej. Edificio, Apartamento)" value={direccion.detalle} onChange={manejarCambioDireccion} fullWidth />
+                                <Typography variant="h6">Detalle de la Dirección (Ej. Edificio, Apartamento):</Typography>
+                                <TextField name="detalle" value={direccion.detalle} onChange={manejarCambioDireccion} fullWidth />
                             </Grid>
                         </Grid>
-
-                        <TextField select name="var_estratoVivienda" label="Estrato de Vivienda" value={formData.var_estratoVivienda} onChange={manejarCambioInput} sx={{ mb: 2 }} fullWidth >
+                        <Typography variant="h6">Estrato de Vivienda:</Typography>
+                        <TextField select name="var_estratoVivienda" value={formData.var_estratoVivienda} onChange={manejarCambioInput} sx={{ mb: 2 }} fullWidth >
                             {estratos.map(estrato => (
                                 <MenuItem key={estrato} value={estrato}>{estrato}</MenuItem>
                             ))}
                         </TextField>
 
-
-                        <TextField select name="var_tipoVivienda" label="Tipo de Vivienda" value={formData.var_tipoVivienda} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} >
+                        <Typography variant="h6">Tipo de Vivienda:</Typography>
+                        <TextField select name="var_tipoVivienda" value={formData.var_tipoVivienda} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} >
                             {tiposVivienda.map(tipo => (
                                 <MenuItem key={tipo} value={tipo}>{tipo}</MenuItem>
                             ))}

@@ -8,7 +8,7 @@ const VistaDatosProfesional4 = () => {
     const [selectedBanco, setSelectedBanco] = useState("");
     const [tipoCuenta, setTipoCuenta] = useState("");
     const [numeroCuenta, setNumeroCuenta] = useState("");
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     useEffect(() => {
         // Recuperamos todos los datos guardados en localStorage
@@ -70,14 +70,14 @@ const VistaDatosProfesional4 = () => {
         localStorage.setItem('tipoCuenta', tipoCuenta);
         localStorage.setItem('numeroCuenta', numeroCuenta);
 
-        
+
         navigate("/datosProfesional5");
     };
 
 
     return (
         <div style={{ padding: "20px" }}>
-            <Card variant="outlined" sx={{ p: 0, mt: 2 }}>
+            <Card variant="outlined" sx={{  p: 0,  width: "100%",   maxWidth: 800,  margin: "50px auto" }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}> <Typography sx={{ fontSize: "18px", fontWeight: "500" }}> Selección de Banco </Typography> </Box>
                 </Box>
@@ -86,8 +86,8 @@ const VistaDatosProfesional4 = () => {
                     <form>
 
                         <FormControl fullWidth sx={{ mb: 2 }}>
-                            <InputLabel id="banco-select-label">Seleccione Banco</InputLabel>
-                            <Select labelId="banco-select-label" name="banco" value={selectedBanco} onChange={manejarCambio} label="Seleccione Banco" >
+                            <Typography variant="h6">Seleccione Banco:</Typography>
+                            <Select labelId="banco-select-label" name="banco" value={selectedBanco} onChange={manejarCambio} >
                                 {bancos.map((banco) => (
                                     <MenuItem key={banco.id_cuentaBancariaPK} value={banco.id_cuentaBancariaPK}> {banco.var_nombreCuentaBancaria} </MenuItem>
                                 ))}
@@ -102,7 +102,8 @@ const VistaDatosProfesional4 = () => {
                             </RadioGroup>
                         </FormControl>
 
-                        <TextField label="Número de Cuenta" variant="outlined" fullWidth sx={{ mb: 2 }} name="numeroCuenta" value={numeroCuenta} onChange={manejarCambio} />
+                        <Typography variant="h6">Número de Cuenta:</Typography>
+                        <TextField label="" variant="outlined" fullWidth sx={{ mb: 2 }} name="numeroCuenta" value={numeroCuenta} onChange={manejarCambio} />
 
                         <Button variant="contained" onClick={manejarSiguiente} color="primary" sx={{ mt: 2 }} > Siguiente </Button>
                     </form>

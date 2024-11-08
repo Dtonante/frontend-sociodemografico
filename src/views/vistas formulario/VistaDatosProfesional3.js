@@ -131,7 +131,7 @@ const VistaDatosProfesional3 = () => {
 
     return (
         <div style={{ padding: "20px" }}>
-            <Card variant="outlined" sx={{ p: 0, mt: 2 }}>
+            <Card variant="outlined" sx={{  p: 0,  width: "100%",   maxWidth: 800,  margin: "50px auto" }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
                         <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>Datos Adicionales del Profesional</Typography>
@@ -141,8 +141,8 @@ const VistaDatosProfesional3 = () => {
                 <CardContent sx={{ padding: "30px" }}>
                     <form>
                         <FormControl fullWidth sx={{ mb: 2 }}>
-                            <InputLabel id="fondoPension-label">Seleccione Fondo de Pensión</InputLabel>
-                            <Select labelId="fondoPension-label" value={selectedFondoPension} label="Seleccione Fondo de Pensión" onChange={(event) => manejarCambio(event, 'fondoPension')} >
+                            <Typography variant="h6">Seleccione Fondo de Pensión: </Typography>
+                            <Select labelId="fondoPension-label" value={selectedFondoPension} onChange={(event) => manejarCambio(event, 'fondoPension')} >
                                 {fondoPensionOptions.map((fondo) => (
                                     <MenuItem key={fondo.id_fondoPensionPK} value={fondo.id_fondoPensionPK}>
                                         {fondo.var_nombreFondoPension}
@@ -164,7 +164,8 @@ const VistaDatosProfesional3 = () => {
                                 <FormControlLabel value={false} control={<Radio />} label="No" />
                             </RadioGroup>
                         </Box>
-                        <TextField select label="Seleccione EPS" value={selectedEps} onChange={(event) => manejarCambio(event, 'eps')} fullWidth variant="outlined" sx={{ mb: 2 }} >
+                        <Typography variant="h6">Seleccione EPS: </Typography>
+                        <TextField select value={selectedEps} onChange={(event) => manejarCambio(event, 'eps')} fullWidth variant="outlined" sx={{ mb: 2 }} >
                             {epsOptions.map((eps) => (
                                 <MenuItem key={eps.id_epsPK} value={eps.id_epsPK}> {eps.var_nombreEps} </MenuItem>
                             ))}
@@ -176,7 +177,7 @@ const VistaDatosProfesional3 = () => {
                                 labelId="serviciosSaludAdicional-label"
                                 multiple
                                 value={selectedServiciosSaludAdicional}
-                                onChange={(event) => manejarCambio(event, 'serviciosSaludAdicional')} 
+                                onChange={(event) => manejarCambio(event, 'serviciosSaludAdicional')}
                                 renderValue={(selected) => {
                                     const selectedNames = serviciosSaludAdicionalOptions.filter(servicio =>
                                         selected.includes(servicio.id_servicioDeSaludAdicionalPK)
