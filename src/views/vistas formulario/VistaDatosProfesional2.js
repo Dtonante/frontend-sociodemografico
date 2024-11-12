@@ -16,10 +16,17 @@ const VistaDatosProfesional2 = () => {
 
     useEffect(() => {
         const datosProfesional = JSON.parse(localStorage.getItem('datosProfesional'));
+        const var_tipoVivienda = datosProfesional.var_tipoVivienda
+        localStorage.setItem('var_tipoVivienda', JSON.stringify(var_tipoVivienda));
+        const var_estratoVivienda = datosProfesional.var_estratoVivienda
+        localStorage.setItem('var_estratoVivienda', JSON.stringify(var_estratoVivienda));
         const direccion = JSON.parse(localStorage.getItem('direccion'));
+        const factoresRiesgo = JSON.parse(localStorage.getItem('selectedFactoresRiesgo'));
+
 
         console.log("Datos del Profesional:", datosProfesional);
         console.log("Dirección:", direccion);
+        console.log("Factores de Riesgo:", factoresRiesgo); 
     }, []);
 
     // Manejar el cambio de los campos
@@ -29,11 +36,15 @@ const VistaDatosProfesional2 = () => {
         setFormData((prevData) => {
             // Condición para "¿Vive Solo?"
             if (name === "boolean_viveSolo") {
+                localStorage.setItem('boolean_viveSolo', value);
                 return {
                     ...prevData,
                     [name]: value,
                     set_personasConLasQueVive: value === "true" ? "N/A" : []
                 };
+            }
+            if (name === "var_estadoCivil") {
+                localStorage.setItem('var_estadoCivil', value); 
             }
 
             // Para el campo "set_personasConLasQueVive"
@@ -42,6 +53,14 @@ const VistaDatosProfesional2 = () => {
                     ...prevData,
                     [name]: value
                 };
+            }
+
+            if (name === "var_personasDependeciaEconimica") {
+                localStorage.setItem('var_personasDependeciaEconimica', value);
+            }else if (name === "boolean_viveConMascotas") {
+                localStorage.setItem('boolean_viveConMascotas', value);
+            } else if (name === "var_totalIngresosPropiosYGrupoFamiliar") {
+                localStorage.setItem('var_totalIngresosPropiosYGrupoFamiliar', value);
             }
 
             return { ...prevData, [name]: value };
@@ -71,6 +90,7 @@ const VistaDatosProfesional2 = () => {
                             <MenuItem value="Casado">Casado</MenuItem>
                             <MenuItem value="Divorciado">Divorciado</MenuItem>
                             <MenuItem value="Viudo">Viudo</MenuItem>
+                            <MenuItem value="Viudo">Unión libre</MenuItem>
                         </TextField>
                         <Typography variant="h6">¿Vive Solo?:</Typography>
                         <TextField select name="boolean_viveSolo" variant="outlined" value={formData.boolean_viveSolo} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }}>
@@ -80,7 +100,7 @@ const VistaDatosProfesional2 = () => {
 
                         {formData.boolean_viveSolo === "false" && (
                             <>
-                                <Typography variant="h6">¿Vive con Mascotas?:</Typography>
+                                <Typography variant="h6">¿Vive con?:</Typography>
                                 <TextField select name="set_personasConLasQueVive"  variant="outlined" value={formData.set_personasConLasQueVive} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} SelectProps={{ multiple: true }} >
                                     <MenuItem value="tio">Tío</MenuItem>
                                     <MenuItem value="hermanos">Hermanos</MenuItem>
@@ -110,7 +130,7 @@ const VistaDatosProfesional2 = () => {
                         <Typography variant="h6">Total ingresos propios y grupo familiar:</Typography>
                         <TextField select name="var_totalIngresosPropiosYGrupoFamiliar" variant="outlined" value={formData.var_totalIngresosPropiosYGrupoFamiliar} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} >
                             <MenuItem value="Menos de 1'000.000 de pesos">Menos de 1'000.000 de pesos</MenuItem>
-                            <MenuItem value="Entre 1'000.000 de pesos y 2'ooo.ooo de pesos">Entre 1'000.000 de pesos y 2'ooo.ooo de pesos</MenuItem>
+                            <MenuItem value="Entre 1'000.000 de pesos y 2'ooo.ooo de pesos">Entre 1'000.000 de pesos y 2'000.000 de pesos</MenuItem>
                             <MenuItem value="Entre 2'000.000 de pesos y 4'000.000 de pesos">Entre 2'000.000 de pesos y 4'000.000 de pesos</MenuItem>
                             <MenuItem value="Entre 4'000.000 de pesos y 8'000.000 de pesos">Entre 4'000.000 de pesos y 8'000.000 de pesos</MenuItem>
                             <MenuItem value="Mas de 8'000.000 de pesos">Mas de 8'000.000 de pesos</MenuItem>

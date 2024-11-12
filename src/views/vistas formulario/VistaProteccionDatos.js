@@ -20,9 +20,9 @@ const VistaProteccionDatos = () => {
 
   return (
     <div style={{ padding: '20px', maxWidth: '600px', margin: 'auto' }}>
-      <h1>Ley de Protección y Manipulación de Datos</h1>
+      <h1>Ley de Protección y Tratamiento de Datos</h1>
       <p>
-        En cumplimiento con la normativa vigente sobre protección y manipulación de datos, queremos informarle sobre la política de manejo de sus datos personales. Al aceptar, usted consiente el uso de sus datos bajo las condiciones expuestas.
+        En cumplimiento con la normativa vigente sobre protección y tratamiento de datos, queremos informarle sobre la política de manejo de sus datos personales. Al aceptar, usted consiente el uso de sus datos bajo las condiciones expuestas.
       </p>
       <div style={{ display: 'block', margin: '20px 0' }}>
         <label>
@@ -33,7 +33,7 @@ const VistaProteccionDatos = () => {
             checked={aceptaDatos === true}
             onChange={manejarCambioCheckbox}
           />
-          Sí, acepto la manipulación de mis datos
+          Sí, acepto la tratamiento de mis datos
         </label>
         <label style={{ marginLeft: '15px' }}>
           <input
@@ -43,7 +43,7 @@ const VistaProteccionDatos = () => {
             checked={aceptaDatos === false}
             onChange={manejarCambioCheckbox}
           />
-          No acepto la manipulación de mis datos
+          No acepto la tratamiento de mis datos
         </label>
       </div>
       <button

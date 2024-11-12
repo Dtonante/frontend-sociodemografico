@@ -78,12 +78,15 @@ const VistaDatosProfesional3 = () => {
         // Recuperamos los datos de 'formDataProfesional' que guardamos antes
         const formDataProfesional = JSON.parse(localStorage.getItem('formDataProfesional'));
         console.log("Datos del Profesional en VistaDatosProfesional3:", formDataProfesional);
+        const set_personasConLasQueVive = formDataProfesional.set_personasConLasQueVive
+        localStorage.setItem('set_personasConLasQueVive', JSON.stringify(set_personasConLasQueVive));
 
         const datosProfesional = JSON.parse(localStorage.getItem('datosProfesional'));
         const direccion = JSON.parse(localStorage.getItem('direccion'));
 
         console.log("Datos del Profesional:", datosProfesional);
         console.log("Dirección:", direccion);
+        console.log("set_personasConLasQueVive:", set_personasConLasQueVive);
     }, []);
 
     // Guardar los datos en el localStorage al cambiar alguna selección
@@ -140,25 +143,16 @@ const VistaDatosProfesional3 = () => {
                 <Divider />
                 <CardContent sx={{ padding: "30px" }}>
                     <form>
-                        <FormControl fullWidth sx={{ mb: 2 }}>
-                            <Typography variant="h6">Seleccione Fondo de Pensión: </Typography>
-                            <Select labelId="fondoPension-label" value={selectedFondoPension} onChange={(event) => manejarCambio(event, 'fondoPension')} >
-                                {fondoPensionOptions.map((fondo) => (
-                                    <MenuItem key={fondo.id_fondoPensionPK} value={fondo.id_fondoPensionPK}>
-                                        {fondo.var_nombreFondoPension}
-                                    </MenuItem>
-                                ))}
-                            </Select>
-                        </FormControl>
-                        <Box sx={{ mb: 2 }}>
+                        
+                        {/* <Box sx={{ mb: 2 }}>
                             <Typography variant="h6">¿Está afiliado a una Caja de Compensación?</Typography>
                             <RadioGroup row value={afiliadoCajaCompensacion} onChange={(event) => manejarCambio(event, 'afiliadoCajaCompensacion')} >
                                 <FormControlLabel value={true} control={<Radio />} label="Sí" />
                                 <FormControlLabel value={false} control={<Radio />} label="No" />
                             </RadioGroup>
-                        </Box>
+                        </Box> */}
                         <Box sx={{ mb: 2 }}>
-                            <Typography variant="h6">¿Ha cambiado de EPS o ARL?</Typography>
+                            <Typography variant="h6">¿Ha cambiado de EPS o AFP?</Typography>
                             <RadioGroup row value={cambioEpsOArl} onChange={(event) => manejarCambio(event, 'cambioEpsOArl')} >
                                 <FormControlLabel value={true} control={<Radio />} label="Sí" />
                                 <FormControlLabel value={false} control={<Radio />} label="No" />
@@ -170,6 +164,16 @@ const VistaDatosProfesional3 = () => {
                                 <MenuItem key={eps.id_epsPK} value={eps.id_epsPK}> {eps.var_nombreEps} </MenuItem>
                             ))}
                         </TextField>
+                        <FormControl fullWidth sx={{ mb: 2 }}>
+                            <Typography variant="h6">Seleccione Fondo de Pensión: </Typography>
+                            <Select labelId="fondoPension-label" value={selectedFondoPension} onChange={(event) => manejarCambio(event, 'fondoPension')} >
+                                {fondoPensionOptions.map((fondo) => (
+                                    <MenuItem key={fondo.id_fondoPensionPK} value={fondo.id_fondoPensionPK}>
+                                        {fondo.var_nombreFondoPension}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
 
                         <Box sx={{ mb: 2 }}>
                             <Typography variant="h6">Seleccione los servicios de salud adicional:</Typography>

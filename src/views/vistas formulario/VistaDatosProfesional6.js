@@ -46,7 +46,7 @@ const VistaDatosProfesional6 = () => {
 
         if (name === "nivelEscolaridad") {
             setNivelEscolaridad(value);
-            localStorage.setItem('nivelEscolaridad', value);  // Guardamos el valor en localStorage
+            localStorage.setItem('nivelEscolaridad', value); 
         } else if (name === "boolean_actualmenteEstudia") {
             const estudia = value === "true";
             setActualmenteEstudia(estudia);

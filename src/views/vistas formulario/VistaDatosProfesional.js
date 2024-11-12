@@ -1,10 +1,15 @@
-import { Card, CardContent, Divider, Box, Typography, TextField, FormControlLabel, Checkbox, Button, MenuItem, Grid } from "@mui/material";
+import { Select, Card, CardContent, Divider, Box, Typography, TextField, FormControl, ListItemText, Checkbox, Button, MenuItem, Grid, } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import departamentosCiudades from './departamentosCiudades.json';
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
 const VistaDatosProfesional = () => {
+    const [factoresRiesgoOptions, setFactoresRiesgoOptions] = useState([]);
+    const [selectedFactoresRiesgo, setSelectedFactoresRiesgo] = useState([]);
+
+
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         id_usuarioFK: localStorage.getItem('usuarioId'),
@@ -21,6 +26,22 @@ const VistaDatosProfesional = () => {
         var_tipoVivienda: ""
 
     });
+
+
+    // fectch para los factores de riesgo
+    useEffect(() => {
+        const fetchFactoresRiesgo = async () => {
+            try {
+                const response = await axios.get('http://localhost:3001/factoresRiesgo/');
+                setFactoresRiesgoOptions(response.data);
+            } catch (error) {
+                console.error('Error al obtener los factores de riesgo:', error);
+            }
+        };
+
+        fetchFactoresRiesgo();
+    }, []);
+
 
     const [departamentos, setDepartamentos] = useState(departamentosCiudades.departamentos);
     const [ciudades, setCiudades] = useState([]);
@@ -44,10 +65,6 @@ const VistaDatosProfesional = () => {
         "Casa unifamiliar",
         "Apartamento",
         "Condominio",
-        "Casa adosada",
-        "Cabaña",
-        "Chalet",
-        "Mobile home",
         "Vivienda de interés social",
         "Vivienda colaborativa",
         "Vivienda sustentable"
@@ -73,17 +90,30 @@ const VistaDatosProfesional = () => {
     // Generar los números del 1 al 200
     const numeros = Array.from({ length: 300 }, (_, i) => i + 1);
 
-    // Función para manejar el cambio de los inputs
-    const manejarCambioInput = (event) => {
+    const manejarCambioInput = (event, campo) => {
         const { name, value } = event.target;
-        setFormData({ ...formData, [name]: value });
+        setFormData(prev => ({ ...prev, [name]: value }));
+
+        if (campo === 'factoresRiesgo') {
+            setSelectedFactoresRiesgo(value);
+            localStorage.setItem('selectedFactoresRiesgo', JSON.stringify(value));
+        }
 
         // Si se cambia el departamento, actualizar las ciudades
         if (name === "var_departamentoResidencia") {
+            localStorage.setItem('departamentoResidencia', value);
             const departamentoSeleccionado = departamentos.find(departamento => departamento.nombre === value);
             setCiudades(departamentoSeleccionado ? departamentoSeleccionado.ciudades : []);
+        } else if (name === 'var_ciudadResidencia') {
+            localStorage.setItem('ciudadResidencia', value);
+        } else if (name === 'var_estratoVivienda') {
+            console.log("Guardando estrato en localStorage:", value); 
+            localStorage.setItem('estratoVivienda', value);
+        } else if (name === 'var_tipoVivienda') {
+            localStorage.setItem('tipoVivienda', value);
         }
     };
+
 
     // Función para manejar el cambio de los inputs de dirección
     const manejarCambioDireccion = (event) => {
@@ -93,6 +123,9 @@ const VistaDatosProfesional = () => {
         // Construir la dirección completa
         const direccionCompleta = `${direccion.tipoVia} ${direccion.numeroPrincipal} ${direccion.letraPrincipal} ${direccion.bisGuion} ${direccion.letraSecundaria} ${direccion.orientacion} No. ${direccion.numeroSecundario} ${direccion.letraAdicional} - ${direccion.numeroFinal} ${direccion.orientacionFinal}${direccion.detalle}`;
         setFormData({ ...formData, var_direccionResidencia: direccionCompleta });
+
+        localStorage.setItem('direccionCompleta', direccionCompleta);
+
     };
 
     // Redirigir a la siguiente vista
@@ -101,13 +134,14 @@ const VistaDatosProfesional = () => {
         // Almacenar todos los datos en localStorage
         localStorage.setItem('datosProfesional', JSON.stringify(formData));
         localStorage.setItem('direccion', JSON.stringify(direccion));
+        
         navigate('/datosProfesional2');
     };
 
 
     return (
         <div>
-            <Card variant="outlined" sx={{  p: 0,  width: "100%",   maxWidth: 800,  margin: "50px auto" }}>
+            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "50px auto" }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
                         <Typography sx={{ fontSize: "18px", fontWeight: "500" }}> Formulario de Profesional </Typography>
@@ -225,13 +259,50 @@ const VistaDatosProfesional = () => {
                                 <MenuItem key={tipo} value={tipo}>{tipo}</MenuItem>
                             ))}
                         </TextField>
+                        <FormControl fullWidth sx={{ mb: 2 }}>
+                            <Typography variant="h6">Seleccione Factores de Riesgo: </Typography>
+                            <Select
+                                multiple
+                                value={selectedFactoresRiesgo}
+                                onChange={(event) => manejarCambioInput(event, 'factoresRiesgo')}
+                                renderValue={(selected) => {
+                                    // Obtener los nombres de los factores de riesgo seleccionados
+                                    const selectedNames = factoresRiesgoOptions
+                                        .filter(factor => selected.includes(factor.id_factoresRiesgoPK))
+                                        .map(factor => {
+                                            const name = factor.var_nombreRiesgo;
+                                            const index = name.indexOf('(');
+                                            // Si encuentra un paréntesis, extrae solo la parte antes del paréntesis
+                                            if (index !== -1) {
+                                                return name.substring(0, index).trim();
+                                            }
+                                            return name; // Si no hay paréntesis, devuelve el nombre completo
+                                        });
+
+                                    return selectedNames.join(' - '); // Unir los nombres con un guion
+                                }}
+                                fullWidth
+                                variant="outlined"
+                                MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }}
+                            >
+                                {factoresRiesgoOptions.map((factor) => (
+                                    <MenuItem key={factor.id_factoresRiesgoPK} value={factor.id_factoresRiesgoPK}>
+                                        <Checkbox checked={selectedFactoresRiesgo.indexOf(factor.id_factoresRiesgoPK) > -1} />
+                                        <ListItemText primary={factor.var_nombreRiesgo} />
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+
+
+
 
 
                         <Button variant="contained" color="primary" onClick={manejarSiguiente} type="submit"> Siguiente </Button>
                     </form>
                 </CardContent>
             </Card>
-        </div>
+        </div >
     );
 };
 

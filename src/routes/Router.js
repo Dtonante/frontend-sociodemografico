@@ -31,6 +31,11 @@ const VistaDatosProfesional6 = lazy(()=> import("../views/vistas formulario/Vist
 //fin vista profesional6
 //inicio vista profesional7
 const VistaDatosProfesional7 = lazy(()=> import("../views/vistas formulario/VistaDatosProfesional7.js"))
+//fin vista profesional7
+//inicio vista profesional8
+const VistaDatosProfesional8 = lazy(()=> import("../views/vistas formulario/VistaDatosProfesional8.js"))
+
+const VistaAgradecimientos = lazy(()=> import("../views/vistas formulario/VistaAgradesimientos.js"))
 
 
 //ruta de eps
@@ -93,6 +98,8 @@ const ThemeRoutes = [
   { path: "/datosProfesional5",  element: <VistaDatosProfesional5 /> },
   { path: "/datosProfesional6",  element: <VistaDatosProfesional6 /> },
   { path: "/datosProfesional7",  element: <VistaDatosProfesional7 /> },
+  { path: "/datosProfesional8",  element: <VistaDatosProfesional8 /> },
+  { path: "/agradecimientos",  element: <VistaAgradecimientos /> },
   {
     path: "/app",
     element: <FullLayout />,
