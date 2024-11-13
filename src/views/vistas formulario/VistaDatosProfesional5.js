@@ -33,31 +33,6 @@ const VistaDatosProfesional5 = () => {
         }
     }, [afiliado]);
 
-    useEffect(() => {
-        // Recuperamos todos los datos guardados en localStorage
-        const formDataProfesional = JSON.parse(localStorage.getItem('formDataProfesional'));
-        const datosProfesional = JSON.parse(localStorage.getItem('datosProfesional'));
-        const direccion = JSON.parse(localStorage.getItem('direccion'));
-        const banco = localStorage.getItem('selectedBanco');
-        const tipo_cuenta = localStorage.getItem('tipoCuenta');
-        const numero_cuenta = localStorage.getItem('numeroCuenta');
-        const selectedServiciosSaludAdicional = JSON.parse(localStorage.getItem('selectedServiciosSaludAdicional'));
-
-        // Agrupamos todos los datos en un solo objeto
-        const datosProfesionalCompleto = {
-            formDataProfesional,
-            datosProfesional,
-            direccion,
-            banco,
-            tipo_cuenta,
-            numero_cuenta,
-            selectedServiciosSaludAdicional,
-        };
-
-        // Mostramos el objeto completo en la consola
-        console.log("Datos completos del Profesional:", datosProfesionalCompleto);
-
-    }, []);
 
     useEffect(() => {
         if (afiliado === "no") {
@@ -85,9 +60,11 @@ const VistaDatosProfesional5 = () => {
                 // Establecer todos los campos como "N/A" si la respuesta es "no"
                 const areaNA = estructuraOrganizacional.find(area => area.var_nombreArea === "N/A");
                 if (areaNA) {
-                    setAreaSeleccionada(areaNA.id_areaPk);
+                    const areaId = Number(areaNA.id_areaPk); // Convertir el id a un número
+                    setAreaSeleccionada(areaId);
+                    localStorage.setItem('area', areaId.toString()); // Guardar como string pero asegurándonos que es un número
                 }
-                setFechaIngreso("0000-00-00");
+                setFechaIngreso("2024-11-03T00:00:00.000Z");
                 setTipoVinculacion("N/A");
                 setTipoContrato("N/A");
                 setSalario("N/A");
@@ -98,7 +75,7 @@ const VistaDatosProfesional5 = () => {
 
                 // Almacenar en localStorage
                 localStorage.setItem('var_tipoVinculacion', "N/A");
-                localStorage.setItem('date_fechaIngresoInstitucion', "0000-00-00");
+                localStorage.setItem('date_fechaIngresoInstitucion', "2024-11-03T00:00:00.000Z");
                 localStorage.setItem('var_tipoContrato', "N/A");
                 localStorage.setItem('var_salario', "N/A");
                 localStorage.setItem('var_antiguedadInstitucion', "N/A");
@@ -156,7 +133,7 @@ const VistaDatosProfesional5 = () => {
 
     return (
         <div style={{ padding: "20px" }}>
-            <Card variant="outlined" sx={{  p: 0,  width: "100%",   maxWidth: 800,  margin: "50px auto" }}>
+            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "50px auto" }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
                         <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>¿Ya estás afiliado?</Typography>

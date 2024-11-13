@@ -10,7 +10,6 @@ const VistaDatosProfesional3 = () => {
     const [selectedAntecedentes, setSelectedAntecedentes] = useState([]);
     const [fondoPensionOptions, setFondoPensionOptions] = useState([]);
     const [selectedFondoPension, setSelectedFondoPension] = useState('');
-    const [afiliadoCajaCompensacion, setAfiliadoCajaCompensacion] = useState(false);
     const [cambioEpsOArl, setCambioEpsOArl] = useState(false);
     const [serviciosSaludAdicionalOptions, setServiciosSaludAdicionalOptions] = useState([]);
     const [selectedServiciosSaludAdicional, setSelectedServiciosSaludAdicional] = useState([]);
@@ -102,9 +101,6 @@ const VistaDatosProfesional3 = () => {
         } else if (campo === 'fondoPension') {
             setSelectedFondoPension(value);
             localStorage.setItem('selectedFondoPension', value);
-        } else if (campo === 'afiliadoCajaCompensacion') {
-            setAfiliadoCajaCompensacion(value);
-            localStorage.setItem('afiliadoCajaCompensacion', value);
         } else if (campo === 'cambioEpsOArl') {
             setCambioEpsOArl(value);
             localStorage.setItem('cambioEpsOArl', value);
@@ -123,7 +119,6 @@ const VistaDatosProfesional3 = () => {
             selectedEps,
             selectedAntecedentes,
             selectedFondoPension,
-            afiliadoCajaCompensacion,
             cambioEpsOArl
         };
         localStorage.setItem('formDataProfesional', JSON.stringify(formData));  // Guardar todos los datos
@@ -144,13 +139,7 @@ const VistaDatosProfesional3 = () => {
                 <CardContent sx={{ padding: "30px" }}>
                     <form>
                         
-                        {/* <Box sx={{ mb: 2 }}>
-                            <Typography variant="h6">¿Está afiliado a una Caja de Compensación?</Typography>
-                            <RadioGroup row value={afiliadoCajaCompensacion} onChange={(event) => manejarCambio(event, 'afiliadoCajaCompensacion')} >
-                                <FormControlLabel value={true} control={<Radio />} label="Sí" />
-                                <FormControlLabel value={false} control={<Radio />} label="No" />
-                            </RadioGroup>
-                        </Box> */}
+                        
                         <Box sx={{ mb: 2 }}>
                             <Typography variant="h6">¿Ha cambiado de EPS o AFP?</Typography>
                             <RadioGroup row value={cambioEpsOArl} onChange={(event) => manejarCambio(event, 'cambioEpsOArl')} >
