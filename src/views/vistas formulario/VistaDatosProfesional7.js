@@ -137,7 +137,7 @@ const VistaDatosProfesional7 = () => {
                 <Divider />
                 <CardContent sx={{ padding: "30px" }}>
                     <FormControl fullWidth sx={{ mb: 2 }}>
-                        <Typography variant="body1" sx={{ fontWeight: "500" }}> ¿Cuál es el paso de mayor tiempo libre? </Typography>
+                        <Typography variant="h6" > ¿Cuál es el paso de mayor tiempo libre? </Typography>
                         <TextField select name="set_pasoMayorTiempoLibre" value={pasoMayorTiempoLibre} onChange={manejarCambio} fullWidth variant="outlined" sx={{ mb: 2 }}  SelectProps={{ multiple: true, }} >
                             <MenuItem value="">
                                 <em>Selecciona una opción</em>
@@ -153,18 +153,18 @@ const VistaDatosProfesional7 = () => {
                     </FormControl>
 
                     <FormControl fullWidth sx={{ mb: 2 }}>
-                        <Typography variant="body1" sx={{ fontWeight: "500" }}> Peso (kg) </Typography>
+                        <Typography variant="h6" > Peso (kg) </Typography>
                         <TextField name="var_peso" value={peso} onChange={manejarCambio} placeholder="Ingrese su peso en kg" fullWidth />
                     </FormControl>
 
                     <FormControl fullWidth sx={{ mb: 2 }}>
-                        <Typography variant="body1" sx={{ fontWeight: "500" }}> Altura (cm) </Typography>
+                        <Typography variant="h6" > Altura (cm) </Typography>
                         <TextField name="var_altura" value={altura} onChange={manejarCambio} placeholder="Ingrese su altura en cm" fullWidth />
                     </FormControl>
 
 
                     <FormControl component="fieldset" fullWidth sx={{ mb: 2 }}>
-                        <Typography variant="body1" sx={{ fontWeight: "500" }}> ¿Realiza actividad física? </Typography>
+                        <Typography variant="h6" > ¿Realiza actividad física? </Typography>
                         <RadioGroup name="boolean_actividadFisica" value={actividadFisica ? "true" : "false"} onChange={manejarCambio} row >
                             <FormControlLabel value="true" control={<Radio />} label="Sí" />
                             <FormControlLabel value="false" control={<Radio />} label="No" />
@@ -173,7 +173,7 @@ const VistaDatosProfesional7 = () => {
 
                     {actividadFisica && (
                         <FormControl fullWidth sx={{ mb: 2 }}>
-                            <Typography variant="body1" sx={{ fontWeight: "500" }}> Frecuencia de actividad física </Typography>
+                            <Typography variant="h6" > Frecuencia de actividad física </Typography>
                             <Select name="var_frecuenciaActividadFisica" value={frecuenciaActividadFisica} onChange={manejarCambio} displayEmpty >
                                 <MenuItem value="">Seleccione una frecuencia</MenuItem>
                                 <MenuItem value="diariamente">Diariamente</MenuItem>

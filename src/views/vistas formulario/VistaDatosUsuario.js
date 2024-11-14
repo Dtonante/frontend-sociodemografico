@@ -15,7 +15,9 @@ const VistaDatosUsuario = () => {
     var_grupoEtnico: "",
     date_fechaNacimiento: "",
     var_celular: "",
-    var_telefonoFijo: ""
+    var_telefonoFijo: "",
+    var_contrasena: "",
+    confirmar_contrasena: ""
   });
 
 
@@ -53,8 +55,18 @@ const VistaDatosUsuario = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+
+
   const manejarEnvio = async (event) => {
     event.preventDefault();
+
+    // Validación de contraseñas
+    if (formData.var_contrasena !== formData.confirmar_contrasena) {
+      console.error("Las contraseñas no coinciden.");
+      return;
+    }
+
+    
 
     try {
       const response = await axios.post("http://localhost:3001/usuarios/", formData);
@@ -81,7 +93,7 @@ const VistaDatosUsuario = () => {
 
   return (
     <div >
-      <Card variant="outlined" sx={{  p: 0,  width: "100%",  maxWidth: 800,  margin: "50px auto" }}>
+      <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "50px auto" }}>
         <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
           <Box flexGrow={1}>
             <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>
@@ -139,6 +151,20 @@ const VistaDatosUsuario = () => {
             <TextField name="var_celular" variant="outlined" value={formData.var_celular} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} />
             <Typography variant="h6">Telefono fijo:</Typography>
             <TextField name="var_telefonoFijo" variant="outlined" value={formData.var_telefonoFijo} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} />
+
+            <Typography variant="h6">Contraseña:</Typography>
+            <TextField 
+              name="var_contrasena" 
+              type="password" 
+              variant="outlined" 
+              value={formData.var_contrasena} 
+              onChange={handleInputChange} 
+              fullWidth 
+              sx={{ mb: 2 }} 
+            />
+
+            <Typography variant="h6">Confirmar Contraseña:</Typography>
+            <TextField name="confirmar_contrasena" type="password" variant="outlined" value={formData.confirmar_contrasena} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} />
 
             <Button color="primary" variant="contained" type="submit"> Enviar </Button>
           </form>
