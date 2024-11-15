@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const VistaProteccionDatos = () => {
   const [aceptaDatos, setAceptaDatos] = useState(null);
   const navigate = useNavigate();
+  const porcentajeProgreso = 6;
 
   const manejarCambioCheckbox = (e) => {
     setAceptaDatos(e.target.value === "si");
@@ -46,13 +47,27 @@ const VistaProteccionDatos = () => {
           No acepto la tratamiento de mis datos
         </label>
       </div>
-      <button
-        onClick={manejarClickSiguiente}
-        disabled={!aceptaDatos}
-        style={{ padding: '10px 20px', cursor: aceptaDatos ? 'pointer' : 'not-allowed' }}
-      >
-        Siguiente
-      </button>
+
+        {/* Contenedor con fondo para la barra de progreso y el porcentaje */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        backgroundColor: '#f0f0f0', 
+        padding: '10px 15px',
+        borderRadius: '20px',
+        marginBottom: '20px',
+        width: '100%',
+      }}>
+        {/* Barra de Progreso con borde */}
+        <div style={{ height: '10px', width: '90%', backgroundColor: 'white', borderRadius: '7px', overflow: 'hidden', border: '2px solid blue',  marginRight: '10px' }}>
+          <div style={{ width: `${porcentajeProgreso}%`,  height: '100%', backgroundColor: 'blue', borderRadius: '5px 0 0 5px' }}></div>
+        </div>
+        {/* Porcentaje al lado derecho */}
+        <span style={{ color: 'blue', fontWeight: 'bold' }}>{porcentajeProgreso}%</span>
+      </div>
+
+      
+      <button onClick={manejarClickSiguiente} disabled={!aceptaDatos} style={{ padding: '10px 20px', cursor: aceptaDatos ? 'pointer' : 'not-allowed' }} > Siguiente </button>
     </div>
   );
 };

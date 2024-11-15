@@ -1,11 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Box, Typography, Divider, CardContent, Button, FormControl, RadioGroup, Radio, FormControlLabel, Select, MenuItem, TextField } from '@mui/material';
+import { Card, Box, Typography, Divider, Checkbox, ListItemText, CardContent, Button, FormControl, RadioGroup, Radio, FormControlLabel, Select, MenuItem, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const VistaDatosProfesional7 = () => {
     const [pasoMayorTiempoLibre, setPasoMayorTiempoLibre] = useState([]);
 
+    const [actividadTiempoLibreOptions, setActividadTiempoLibre] = useState([]);
+    const [selectedActividadTiempoLibre, setSelectedActividadTiempoLibre] = useState([]);
+
     const navigate = useNavigate();
+
+    // fectch para los las actividades que realiza en su tiempo libre
+    useEffect(() => {
+        const fetchActividadTiempoLibre = async () => {
+            try {
+                const response = await axios.get('http://localhost:3001/tiempoLibre/');
+                setActividadTiempoLibre(response.data);
+            } catch (error) {
+                console.error('Error al obtener las actividades de tiempo libre:', error);
+            }
+        };
+
+        fetchActividadTiempoLibre();
+    }, []);
 
 
 
@@ -81,7 +99,7 @@ const VistaDatosProfesional7 = () => {
 
 
 
-    const manejarCambio = (event) => {
+    const manejarCambio = (event, campo) => {
         const { name, value } = event.target;
 
         if (name === "boolean_actividadFisica") {
@@ -117,7 +135,10 @@ const VistaDatosProfesional7 = () => {
         } else if (name === "set_pasoMayorTiempoLibre") {
             // Si el valor es un arreglo, se maneja de la siguiente manera
             setPasoMayorTiempoLibre(value);  // value será un arreglo
-            localStorage.setItem('set_pasoMayorTiempoLibre', JSON.stringify(value)); 
+            localStorage.setItem('set_pasoMayorTiempoLibre', JSON.stringify(value));
+        } else if (campo === 'actividadTiempoLibre') {
+            setSelectedActividadTiempoLibre(value);
+            localStorage.setItem('selectedActividadTiempoLibre', JSON.stringify(value));
         }
     };
 
@@ -136,9 +157,51 @@ const VistaDatosProfesional7 = () => {
                 </Box>
                 <Divider />
                 <CardContent sx={{ padding: "30px" }}>
+
+
                     <FormControl fullWidth sx={{ mb: 2 }}>
-                        <Typography variant="h6" > ¿Cuál es el paso de mayor tiempo libre? </Typography>
-                        <TextField select name="set_pasoMayorTiempoLibre" value={pasoMayorTiempoLibre} onChange={manejarCambio} fullWidth variant="outlined" sx={{ mb: 2 }}  SelectProps={{ multiple: true, }} >
+                        <Typography variant="h6">Seleccione las actividades que realiza en su tiempo libre: </Typography>
+                        <Select
+                            multiple
+                            value={selectedActividadTiempoLibre}
+                            onChange={(event) => manejarCambio(event, 'actividadTiempoLibre')}
+                            renderValue={(selected) => {
+                                // Obtener los nombres de los las actividades que realiza en su tiempo libre seleccionados
+                                const selectedNames = actividadTiempoLibreOptions
+                                    .filter(actividad => selected.includes(actividad.id_tiempoLibrePK))
+                                    .map(actividad => {
+                                        const name = actividad.var_nombreOcuapacionTiempoLibre;
+                                        const index = name.indexOf('(');
+                                        // Si encuentra un paréntesis, extrae solo la parte antes del paréntesis
+                                        if (index !== -1) {
+                                            return name.substring(0, index).trim();
+                                        }
+                                        return name; // Si no hay paréntesis, devuelve el nombre completo
+                                    });
+
+                                return selectedNames.join(' - '); // Unir los nombres con un guion
+                            }}
+                            fullWidth
+                            variant="outlined"
+                            MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }}
+                        >
+                            {actividadTiempoLibreOptions.map((actividad) => (
+                                <MenuItem key={actividad.id_tiempoLibrePK} value={actividad.id_tiempoLibrePK}>
+                                    <Checkbox checked={selectedActividadTiempoLibre.indexOf(actividad.id_tiempoLibrePK) > -1} />
+                                    <ListItemText primary={actividad.var_nombreOcuapacionTiempoLibre} />
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+
+
+
+
+
+
+                    <FormControl fullWidth sx={{ mb: 2 }}>
+                        <Typography variant="h6" > ¿con quien pasa el mayor tiempo libre ? </Typography>
+                        <TextField select name="set_pasoMayorTiempoLibre" value={pasoMayorTiempoLibre} onChange={manejarCambio} fullWidth variant="outlined" sx={{ mb: 2 }} SelectProps={{ multiple: true, }} >
                             <MenuItem value="">
                                 <em>Selecciona una opción</em>
                             </MenuItem>

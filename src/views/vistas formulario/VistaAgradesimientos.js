@@ -15,6 +15,11 @@ const VistaAgradecimientos = () => {
         const guardarDatos = async () => {
 
             const URI_PROFESIONAL = 'http://localhost:3001/profesional/'
+            const URI_PROFESIONAL_FACTORES_RIESGO = 'http://localhost:3001/profesionalFactoresRiesgo/'
+            const URI_PROFESIONAL_SERVICIOS_SALUD_ADICIONAL = 'http://localhost:3001/profesionalServicioSaludAdicional/'
+            const URI_PROFESIONAL_ANTECEDENTES_MEDICOS = 'http://localhost:3001/profesionalAntecedenteMedico/'
+            const URI_PROFESIONAL_TIEMPO_LIBRE = 'http://localhost:3001/profesionalTiempoLibre/'
+            const URI_PROFESIONAL_SERVICIO_QUE_NO_CUENTAN = 'http://localhost:3001/profesionalServiciosQueNoCuentan/'
 
             // Obtener todos los datos del localStorage
             const id_usuarioFK = parseInt(localStorage.getItem('usuarioId'), 10);
@@ -68,10 +73,73 @@ const VistaAgradecimientos = () => {
             const var_altura = localStorage.getItem('var_altura');
             const var_urlDatosAdjuntos = localStorage.getItem('certificadoUrl');
             try {
-                await axios.post(URI_PROFESIONAL, { id_usuarioFK: id_usuarioFK, boolean_aceptaTratamientoDatos: boolean_aceptaTratamientoDatos, date_fechaNacimiento: date_fechaNacimiento, var_departamentoResidencia: var_departamentoResidencia, var_ciudadResidencia: var_ciudadResidencia, var_direccionResidencia: var_direccionResidencia, var_estratoVivienda: var_estratoVivienda, var_tipoVivienda: var_tipoVivienda, var_estadoCivil: var_estadoCivil, boolean_viveSolo: boolean_viveSolo, set_personasConLasQueVive: set_personasConLasQueVive, boolean_viveConMascotas: boolean_viveConMascotas, var_personasDependeciaEconimica: var_personasDependeciaEconimica, var_totalIngresosPropiosYGrupoFamiliar: var_totalIngresosPropiosYGrupoFamiliar, var_grupoEtnico: var_grupoEtnico, var_rh: var_rh, id_epsFK: id_epsFK, id_fondoPensionFK: id_fondoPensionFK, boolean_cambioEpsOArl: boolean_cambioEpsOArl, id_cuentaBancariaFK: id_cuentaBancariaFK, var_tipoCuenta: var_tipoCuenta, var_numeroCuenta: var_numeroCuenta, var_tipoVinculacion: var_tipoVinculacion, var_tipoContrato: var_tipoContrato, var_salario: var_salario, date_fechaIngresoInstitucion: date_fechaIngresoInstitucion, var_antiguedadInstitucion: var_antiguedadInstitucion, id_areaFK: id_areaFK, var_cargo: var_cargo, var_jefeInmediato: var_jefeInmediato, var_sede: var_sede, var_celular: var_celular, var_telefonoFijo: var_telefonoFijo, var_turnoTrabajo: var_turnoTrabajo, var_nivelEscolaridad: var_nivelEscolaridad, var_nombreCarrera: var_nombreCarrera, boolean_actualmenteEstudia: boolean_actualmenteEstudia, boolean_actividadFisica: boolean_actividadFisica, var_frecuenciaActividadFisica: var_frecuenciaActividadFisica, boolean_fuma: boolean_fuma, var_frecuenciaFuma: var_frecuenciaFuma, boolean_toma: boolean_toma, var_frecuenciaToma: var_frecuenciaToma, boolean_sustanciasPsicoactivas: boolean_sustanciasPsicoactivas, var_frecuenciaSustanciasPsicoactivas: var_frecuenciaSustanciasPsicoactivas, set_mediosTransportePublico: set_mediosTransportePublico, set_pasoMayorTiempoLibre: set_pasoMayorTiempoLibre, var_peso: var_peso, var_altura: var_altura, var_urlDatosAdjuntos: var_urlDatosAdjuntos });
+                const response = await axios.post(URI_PROFESIONAL, { id_usuarioFK: id_usuarioFK, boolean_aceptaTratamientoDatos: boolean_aceptaTratamientoDatos, date_fechaNacimiento: date_fechaNacimiento, var_departamentoResidencia: var_departamentoResidencia, var_ciudadResidencia: var_ciudadResidencia, var_direccionResidencia: var_direccionResidencia, var_estratoVivienda: var_estratoVivienda, var_tipoVivienda: var_tipoVivienda, var_estadoCivil: var_estadoCivil, boolean_viveSolo: boolean_viveSolo, set_personasConLasQueVive: set_personasConLasQueVive, boolean_viveConMascotas: boolean_viveConMascotas, var_personasDependeciaEconimica: var_personasDependeciaEconimica, var_totalIngresosPropiosYGrupoFamiliar: var_totalIngresosPropiosYGrupoFamiliar, var_grupoEtnico: var_grupoEtnico, var_rh: var_rh, id_epsFK: id_epsFK, id_fondoPensionFK: id_fondoPensionFK, boolean_cambioEpsOArl: boolean_cambioEpsOArl, id_cuentaBancariaFK: id_cuentaBancariaFK, var_tipoCuenta: var_tipoCuenta, var_numeroCuenta: var_numeroCuenta, var_tipoVinculacion: var_tipoVinculacion, var_tipoContrato: var_tipoContrato, var_salario: var_salario, date_fechaIngresoInstitucion: date_fechaIngresoInstitucion, var_antiguedadInstitucion: var_antiguedadInstitucion, id_areaFK: id_areaFK, var_cargo: var_cargo, var_jefeInmediato: var_jefeInmediato, var_sede: var_sede, var_celular: var_celular, var_telefonoFijo: var_telefonoFijo, var_turnoTrabajo: var_turnoTrabajo, var_nivelEscolaridad: var_nivelEscolaridad, var_nombreCarrera: var_nombreCarrera, boolean_actualmenteEstudia: boolean_actualmenteEstudia, boolean_actividadFisica: boolean_actividadFisica, var_frecuenciaActividadFisica: var_frecuenciaActividadFisica, boolean_fuma: boolean_fuma, var_frecuenciaFuma: var_frecuenciaFuma, boolean_toma: boolean_toma, var_frecuenciaToma: var_frecuenciaToma, boolean_sustanciasPsicoactivas: boolean_sustanciasPsicoactivas, var_frecuenciaSustanciasPsicoactivas: var_frecuenciaSustanciasPsicoactivas, set_mediosTransportePublico: set_mediosTransportePublico, set_pasoMayorTiempoLibre: set_pasoMayorTiempoLibre, var_peso: var_peso, var_altura: var_altura, var_urlDatosAdjuntos: var_urlDatosAdjuntos });
+
+
+                //se traen los factores de riesgo para crear en la tabla relacional
+                const selectedFactoresRiesgo = JSON.parse(localStorage.getItem('selectedFactoresRiesgo'));
+                //se traen los servicios de salud adicional para crear en la tabla relacional
+                const selectedServiciosSaludAdicional = JSON.parse(localStorage.getItem('selectedServiciosSaludAdicional'));
+                //se traen los antecedentes medicos
+                const selectedAntecedentesMedicos = JSON.parse(localStorage.getItem('selectedAntecedentes'));
+                //se traen las actividadesd de tiempo libre
+                const selectedActividadesTiempoLibre = JSON.parse(localStorage.getItem('selectedActividadTiempoLibre'));
+                //se traen las actividadesd de tiempo libre
+                const selectedServiciosQueNoCuentan = JSON.parse(localStorage.getItem('selectedServiciosQueNoCuentan'));
+
+                // se atrapa el id del profesional que se crea para las tablas relacionales
+                const { id_profesionalPK } = response.data;
+
+                // Crear relación para cada factor de riesgo
+                for (const id_factoresRiesgoFK of selectedFactoresRiesgo) {
+                    await axios.post(URI_PROFESIONAL_FACTORES_RIESGO, {
+                        id_profesionalFK: id_profesionalPK,
+                        id_factoresRiesgoFK: id_factoresRiesgoFK,
+                    });
+                    console.log(`Relación creada: Profesional ID ${id_profesionalPK}, Factor de Riesgo ID ${id_factoresRiesgoFK}`);
+                }
+
+                // Crear relación para cada servicio de salud adicional
+                for (const id_ServicioDeSaludAdicionalFK of selectedServiciosSaludAdicional) {
+                    await axios.post(URI_PROFESIONAL_SERVICIOS_SALUD_ADICIONAL, {
+                        id_profesionalFK: id_profesionalPK,
+                        id_ServicioDeSaludAdicionalFK: id_ServicioDeSaludAdicionalFK,
+                    });
+                    console.log(`Relación creada: Profesional ID ${id_profesionalPK}, Servicio salud adicional ID ${id_ServicioDeSaludAdicionalFK}`);
+                }
+
+                // Crear relación para cada antecedente medico
+                for (const id_antecedenteMedicoFK of selectedAntecedentesMedicos) {
+                    await axios.post(URI_PROFESIONAL_ANTECEDENTES_MEDICOS, {
+                        id_profesionalFK: id_profesionalPK,
+                        id_antecedenteMedicoFK: id_antecedenteMedicoFK,
+                    });
+                    console.log(`Relación creada: Profesional ID ${id_profesionalPK}, Antecedente Medico ID ${id_antecedenteMedicoFK}`);
+                }
+                // Crear relación para cada tiempo libre
+                for (const id_tiempoLibreFK of selectedActividadesTiempoLibre) {
+                    await axios.post(URI_PROFESIONAL_TIEMPO_LIBRE, {
+                        id_profesionalFK: id_profesionalPK,
+                        id_tiempoLibreFK: id_tiempoLibreFK,
+                    });
+                    console.log(`Relación creada: Profesional ID ${id_profesionalPK}, Actividad Tiempo Libre ID ${id_tiempoLibreFK}`);
+                }
+                // Crear relación para cada servicio que no cuentan
+                for (const id_servicioQueNoCuentaFK of selectedServiciosQueNoCuentan) {
+                    await axios.post(URI_PROFESIONAL_SERVICIO_QUE_NO_CUENTAN, {
+                        id_profesionalFK: id_profesionalPK,
+                        id_servicioQueNoCuentaFK: id_servicioQueNoCuentaFK,
+                    });
+                    console.log(`Relación creada: Profesional ID ${id_profesionalPK}, Servicio Que No Cuentan ID ${id_servicioQueNoCuentaFK}`);
+                }
+
 
             } catch (error) {
                 if (error.response && error.response.status === 400) {
+
+                    const selectedAntecedentesMedicos = JSON.parse(localStorage.getItem('selectedAntecedentes'));
+
+                    console.log('Factores de riesgo seleccionados vista agradecimientos:', selectedAntecedentesMedicos);
                     // Si el error es por duplicado, muestra un mensaje amigable
                     console.log('Ya se ha creado un profesional con este usuario. No es necesario volver a crear.');
                 } else {
@@ -87,7 +155,7 @@ const VistaAgradecimientos = () => {
 
     }, []);
 
-    
+
 
     return (
         <div style={{ padding: "20px" }}>

@@ -8,6 +8,9 @@ import axios from "axios";
 const VistaDatosProfesional = () => {
     const [factoresRiesgoOptions, setFactoresRiesgoOptions] = useState([]);
     const [selectedFactoresRiesgo, setSelectedFactoresRiesgo] = useState([]);
+    const [serviciosQueNoCuentan, setServiciosQueNoCuentan] = useState([]);
+    const [selectedServiciosQueNoCuentan, setSelectedServiciosQueNoCuentan] = useState([]);
+
 
 
     const navigate = useNavigate();
@@ -26,6 +29,20 @@ const VistaDatosProfesional = () => {
         var_tipoVivienda: ""
 
     });
+
+    // fectch para los las actividades que realiza en su tiempo libre
+    useEffect(() => {
+        const fetchServiciosQueNoCuentan = async () => {
+            try {
+                const response = await axios.get('http://localhost:3001/serviciosQueNoCuentan/');
+                setServiciosQueNoCuentan(response.data);
+            } catch (error) {
+                console.error('Error al obtener los servicios que no cuentan:', error);
+            }
+        };
+
+        fetchServiciosQueNoCuentan();
+    }, []);
 
 
     // fectch para los factores de riesgo
@@ -107,10 +124,13 @@ const VistaDatosProfesional = () => {
         } else if (name === 'var_ciudadResidencia') {
             localStorage.setItem('ciudadResidencia', value);
         } else if (name === 'var_estratoVivienda') {
-            console.log("Guardando estrato en localStorage:", value); 
+            console.log("Guardando estrato en localStorage:", value);
             localStorage.setItem('estratoVivienda', value);
         } else if (name === 'var_tipoVivienda') {
             localStorage.setItem('tipoVivienda', value);
+        }else if (campo === 'servicioQueNoCuentan') {
+            setSelectedServiciosQueNoCuentan(value);
+            localStorage.setItem('selectedServiciosQueNoCuentan', JSON.stringify(value));
         }
     };
 
@@ -134,7 +154,7 @@ const VistaDatosProfesional = () => {
         // Almacenar todos los datos en localStorage
         localStorage.setItem('datosProfesional', JSON.stringify(formData));
         localStorage.setItem('direccion', JSON.stringify(direccion));
-        
+
         navigate('/datosProfesional2');
     };
 
@@ -259,6 +279,44 @@ const VistaDatosProfesional = () => {
                                 <MenuItem key={tipo} value={tipo}>{tipo}</MenuItem>
                             ))}
                         </TextField>
+
+                        {/* servicios con los que no cuentan */}
+                        <FormControl fullWidth sx={{ mb: 2 }}>
+                            <Typography variant="h6">Seleccione las actividades que realiza en su tiempo libre: </Typography>
+                            <Select
+                                multiple
+                                value={selectedServiciosQueNoCuentan}
+                                onChange={(event) => manejarCambioInput(event, 'servicioQueNoCuentan')}
+                                renderValue={(selected) => {
+                                    // Obtener los nombres de los servicios que no cuentan
+                                    const selectedNames = serviciosQueNoCuentan
+                                        .filter(actividad => selected.includes(actividad.id_servicioQueNoCuentaPK))
+                                        .map(actividad => {
+                                            const name = actividad.var_nombreServicioQueNoCuenta;
+                                            const index = name.indexOf('(');
+                                            // Si encuentra un paréntesis, extrae solo la parte antes del paréntesis
+                                            if (index !== -1) {
+                                                return name.substring(0, index).trim();
+                                            }
+                                            return name; // Si no hay paréntesis, devuelve el nombre completo
+                                        });
+
+                                    return selectedNames.join(' - '); // Unir los nombres con un guion
+                                }}
+                                fullWidth
+                                variant="outlined"
+                                MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }}
+                            >
+                                {serviciosQueNoCuentan.map((actividad) => (
+                                    <MenuItem key={actividad.id_servicioQueNoCuentaPK} value={actividad.id_servicioQueNoCuentaPK}>
+                                        <Checkbox checked={selectedServiciosQueNoCuentan.indexOf(actividad.id_servicioQueNoCuentaPK) > -1} />
+                                        <ListItemText primary={actividad.var_nombreServicioQueNoCuenta} />
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+
+
                         <FormControl fullWidth sx={{ mb: 2 }}>
                             <Typography variant="h6">Seleccione Factores de Riesgo: </Typography>
                             <Select
