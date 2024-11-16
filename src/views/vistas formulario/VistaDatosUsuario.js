@@ -21,38 +21,64 @@ const VistaDatosUsuario = () => {
   });
   const [tiposDocumento, setTiposDocumento] = useState([]);
   const navigate = useNavigate();
-
-  const [touched, setTouched] = useState(false); // Estado para rastrear si el formulario fue modificado
   const [errors, setErrors] = useState({});
+  const [touchedFields, setTouchedFields] = useState({});
 
+  // Validaciones basadas en los campos tocados
   useEffect(() => {
-    // Validar solo si el formulario ha sido "tocado"
-    if (touched) {
-      const nuevosErrores = {};
-      if (!formData.var_nombreCompleto.trim())
-        nuevosErrores.var_nombreCompleto = "El nombre completo es obligatorio";
-      if (!formData.int_tipoDocumentoFK)
-        nuevosErrores.int_tipoDocumentoFK = "El tipo de documento es obligatorio";
-      if (!formData.var_numeroDocumento.trim())
-        nuevosErrores.var_numeroDocumento = "El número de documento es obligatorio";
-      if (!formData.date_fechaNacimiento)
-        nuevosErrores.date_fechaNacimiento = "La fecha de nacimiento es obligatoria";
-      if (!formData.var_genero)
-        nuevosErrores.var_genero = "El género es obligatorio";
-      if (!formData.var_correoElectronicoPersonal.trim())
-        nuevosErrores.var_correoElectronicoPersonal = "El correo electrónico personal es obligatorio";
-      if (!formData.var_rh.trim())
-        nuevosErrores.var_rh = "El grupo sanguineo es obligatorio es obligatorio";
-      if (!formData.var_grupoEtnico.trim())
-        nuevosErrores.var_grupoEtnico = "El grupo etnico es obligatorio es obligatorio";
-      if (!formData.var_contrasena.trim())
-        nuevosErrores.var_contrasena = "La contraseña es obligatoria";
-      if (formData.var_contrasena !== formData.confirmar_contrasena)
-        nuevosErrores.confirmar_contrasena = "Las contraseñas no coinciden";
+    const nuevosErrores = {};
 
-      setErrors(nuevosErrores);
+    if (touchedFields.var_nombreCompleto && !formData.var_nombreCompleto.trim()) {
+      nuevosErrores.var_nombreCompleto = "El nombre completo es obligatorio";
     }
-  }, [formData, touched]); // El efecto se ejecuta cuando cambia el formulario o se toca
+
+    if (touchedFields.int_tipoDocumentoFK && !formData.int_tipoDocumentoFK) {
+      nuevosErrores.int_tipoDocumentoFK = "El tipo de documento es obligatorio";
+    }
+
+    if (touchedFields.var_numeroDocumento && !formData.var_numeroDocumento.trim()) {
+      nuevosErrores.var_numeroDocumento = "El número de documento es obligatorio";
+    }
+
+    if (touchedFields.var_genero && !formData.var_genero) {
+      nuevosErrores.var_genero = "El género es obligatorio";
+    }
+
+    if (touchedFields.var_correoElectronicoPersonal && !formData.var_correoElectronicoPersonal.trim()) {
+      nuevosErrores.var_correoElectronicoPersonal = "El correo electrónico personal es obligatorio";
+    }
+
+    if (touchedFields.var_rh && !formData.var_rh) {
+      nuevosErrores.var_rh = "El grupo sanguíneo (RH) es obligatorio";
+    }
+
+    if (touchedFields.var_grupoEtnico && !formData.var_grupoEtnico) {
+      nuevosErrores.var_grupoEtnico = "El grupo étnico es obligatorio";
+    }
+
+    if (touchedFields.date_fechaNacimiento && !formData.date_fechaNacimiento) {
+      nuevosErrores.date_fechaNacimiento = "La fecha de nacimiento es obligatoria";
+    }
+
+    if (touchedFields.var_celular && !formData.var_celular.trim()) {
+      nuevosErrores.var_celular = "El celular es obligatorio";
+    }
+
+    if (touchedFields.var_telefonoFijo && !formData.var_telefonoFijo.trim()) {
+      nuevosErrores.var_telefonoFijo = "El teléfono fijo es obligatorio";
+    }
+
+    if (touchedFields.var_contrasena && !formData.var_contrasena.trim()) {
+      nuevosErrores.var_contrasena = "La contraseña es obligatoria";
+    }
+
+    if (touchedFields.confirmar_contrasena && !formData.confirmar_contrasena.trim()) {
+      nuevosErrores.confirmar_contrasena = "Debe confirmar la contraseña";
+    }
+
+    setErrors(nuevosErrores);
+  }, [formData, touchedFields]);
+
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -61,9 +87,15 @@ const VistaDatosUsuario = () => {
       ...formData,
       [name]: value,
     });
+  };
 
-    // Marcar el formulario como tocado cuando se modifique por primera vez
-    if (!touched) setTouched(true);
+  // Marcar un campo como "tocado" cuando pierde el enfoque
+  const handleBlur = (event) => {
+    const { name } = event.target;
+    setTouchedFields({
+      ...touchedFields,
+      [name]: true,
+    });
   };
 
 
@@ -105,6 +137,60 @@ const VistaDatosUsuario = () => {
       console.error("Las contraseñas no coinciden.");
       return;
     }
+    const nuevosErrores = {};
+
+    if (!formData.var_nombreCompleto.trim()) {
+      nuevosErrores.var_nombreCompleto = "El nombre completo es obligatorio";
+    }
+
+    if (!formData.int_tipoDocumentoFK) {
+      nuevosErrores.int_tipoDocumentoFK = "El tipo de documento es obligatorio";
+    }
+
+    if (!formData.var_numeroDocumento.trim()) {
+      nuevosErrores.var_numeroDocumento = "El número de documento es obligatorio";
+    }
+
+    if (!formData.var_genero) {
+      nuevosErrores.var_genero = "El género es obligatorio";
+    }
+
+    if (!formData.var_correoElectronicoPersonal.trim()) {
+      nuevosErrores.var_correoElectronicoPersonal = "El correo electrónico personal es obligatorio";
+    }
+
+    if (!formData.var_rh) {
+      nuevosErrores.var_rh = "El grupo sanguíneo (RH) es obligatorio";
+    }
+
+    if (!formData.var_grupoEtnico) {
+      nuevosErrores.var_grupoEtnico = "El grupo étnico es obligatorio";
+    }
+
+    if (!formData.date_fechaNacimiento) {
+      nuevosErrores.date_fechaNacimiento = "La fecha de nacimiento es obligatoria";
+    }
+
+    if (!formData.var_celular.trim()) {
+      nuevosErrores.var_celular = "El celular es obligatorio";
+    }
+
+    if (!formData.var_telefonoFijo.trim()) {
+      nuevosErrores.var_telefonoFijo = "El teléfono fijo es obligatorio";
+    }
+
+    if (!formData.var_contrasena.trim()) {
+      nuevosErrores.var_contrasena = "La contraseña es obligatoria";
+    }
+
+    if (!formData.confirmar_contrasena.trim()) {
+      nuevosErrores.confirmar_contrasena = "Debe confirmar la contraseña";
+    }
+
+    if (Object.keys(nuevosErrores).length > 0) {
+      setErrors(nuevosErrores);
+      return;
+    }
 
     try {
       const response = await axios.post("http://localhost:3001/usuarios/", formData);
@@ -140,27 +226,60 @@ const VistaDatosUsuario = () => {
         <CardContent sx={{ padding: "30px" }}>
           <form onSubmit={manejarEnvio}>
             <Typography variant="h6">Nombre Completo:</Typography>
-            <TextField name="var_nombreCompleto" variant="outlined" value={formData.var_nombreCompleto} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} error={!!errors.var_nombreCompleto} helperText={errors.var_nombreCompleto} />
+            <TextField name="var_nombreCompleto" variant="outlined" value={formData.var_nombreCompleto} onChange={handleInputChange} fullWidth sx={{ mb: 2,  }} onBlur={handleBlur}
+              error={!!errors.var_nombreCompleto}
+              helperText={errors.var_nombreCompleto} FormHelperTextProps={{
+                sx: {
+                  marginLeft: 0, 
+                },
+              }} />
             <Typography variant="h6">Tipo de Documento:</Typography>
-            <TextField select name="int_tipoDocumentoFK" label="" variant="outlined" value={formData.int_tipoDocumentoFK} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} error={!!errors.int_tipoDocumentoFK} helperText={errors.int_tipoDocumentoFK} >
+            <TextField select name="int_tipoDocumentoFK" label="" variant="outlined" value={formData.int_tipoDocumentoFK} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.int_tipoDocumentoFK} helperText={errors.int_tipoDocumentoFK} FormHelperTextProps={{
+                sx: {
+                  marginLeft: 0, 
+                },
+              }} >
               {tiposDocumento.map((option) => (
                 <MenuItem key={option.id_tipoDocumentoPK} value={option.id_tipoDocumentoPK}> {option.var_nombreDocumento} </MenuItem>
               ))}
             </TextField>
             <Typography variant="h6">Número de Documento:</Typography>
-            <TextField name="var_numeroDocumento" variant="outlined" value={formData.var_numeroDocumento} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} error={!!errors.var_numeroDocumento} helperText={errors.var_numeroDocumento} />
+            <TextField name="var_numeroDocumento" variant="outlined" value={formData.var_numeroDocumento} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_numeroDocumento} helperText={errors.var_numeroDocumento} FormHelperTextProps={{
+                sx: {
+                  marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+                },
+              }} />
             <Typography variant="h6">Fecha de Nacimiento:</Typography>
-            <TextField name="date_fechaNacimiento" type="date" variant="outlined" value={formData.date_fechaNacimiento} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} InputLabelProps={{ shrink: true }} error={!!errors.date_fechaNacimiento} helperText={errors.date_fechaNacimiento} />
+            <TextField name="date_fechaNacimiento" type="date" variant="outlined" value={formData.date_fechaNacimiento} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} InputLabelProps={{ shrink: true }} onBlur={handleBlur} error={!!errors.date_fechaNacimiento} helperText={errors.date_fechaNacimiento} FormHelperTextProps={{
+                sx: {
+                  marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+                },
+              }} />
             <Typography variant="h6">Género:</Typography>
-            <FormControl component="fieldset" sx={{ mb: 2 }}>
-              <RadioGroup name="var_genero" value={formData.var_genero} onChange={handleInputChange} row error={!!errors.var_genero} helperText={errors.var_genero}  >
+            <FormControl component="fieldset" sx={{ mb: 2 }} error={!!errors.var_genero}>
+              <RadioGroup
+                name="var_genero"
+                value={formData.var_genero}
+                onChange={handleInputChange}
+                row
+                onBlur={handleBlur}
+              >
                 <FormControlLabel value="Masculino" control={<Radio />} label="Masculino" />
                 <FormControlLabel value="Femenino" control={<Radio />} label="Femenino" />
                 <FormControlLabel value="Otro" control={<Radio />} label="Otro" />
               </RadioGroup>
+              {errors.var_genero && (
+                <Typography variant="caption" color="error">
+                  {errors.var_genero}
+                </Typography>
+              )}
             </FormControl>
             <Typography variant="h6">Grupo Sanguíneo:</Typography>
-            <TextField select name="var_rh" variant="outlined" value={formData.var_rh} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} error={!!errors.var_rh} helperText={errors.var_rh} >
+            <TextField select name="var_rh" variant="outlined" value={formData.var_rh} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_rh} helperText={errors.var_rh} FormHelperTextProps={{
+                sx: {
+                  marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+                },
+              }} >
               <MenuItem value="A+">A+</MenuItem>
               <MenuItem value="A-">A-</MenuItem>
               <MenuItem value="B+">B+</MenuItem>
@@ -171,7 +290,11 @@ const VistaDatosUsuario = () => {
               <MenuItem value="AB-">AB-</MenuItem>
             </TextField>
             <Typography variant="h6">Grupo Étnico:</Typography>
-            <TextField select name="var_grupoEtnico" value={formData.var_grupoEtnico} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} error={!!errors.var_grupoEtnico} helperText={errors.var_grupoEtnico} >
+            <TextField select name="var_grupoEtnico" value={formData.var_grupoEtnico} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_grupoEtnico} helperText={errors.var_grupoEtnico} FormHelperTextProps={{
+                sx: {
+                  marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+                },
+              }} >
               {gruposEtnicos.map(grupo => (
                 <MenuItem key={grupo} value={grupo}>
                   {grupo}
@@ -179,17 +302,41 @@ const VistaDatosUsuario = () => {
               ))}
             </TextField>
             <Typography variant="h6">Correo Electrónico Personal:</Typography>
-            <TextField name="var_correoElectronicoPersonal" type="email" variant="outlined" value={formData.var_correoElectronicoPersonal} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} error={!!errors.var_correoElectronicoPersonal} helperText={errors.var_correoElectronicoPersonal} />
+            <TextField name="var_correoElectronicoPersonal" type="email" variant="outlined" value={formData.var_correoElectronicoPersonal} onChange={handleInputChange} onBlur={handleBlur} fullWidth sx={{ mb: 2 }} error={!!errors.var_correoElectronicoPersonal} helperText={errors.var_correoElectronicoPersonal} FormHelperTextProps={{
+                sx: {
+                  marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+                },
+              }} />
             <Typography variant="h6">Correo Electrónico Institucional:</Typography>
-            <TextField name="var_correoElectronicoInstitucional" type="email" variant="outlined" value={formData.var_correoElectronicoInstitucional} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} error={!!errors.var_correoElectronicoInstitucional} helperText={errors.var_correoElectronicoInstitucional} />
+            <TextField name="var_correoElectronicoInstitucional" type="email" variant="outlined" value={formData.var_correoElectronicoInstitucional} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_correoElectronicoInstitucional} helperText={errors.var_correoElectronicoInstitucional} FormHelperTextProps={{
+                sx: {
+                  marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+                },
+              }}/>
             <Typography variant="h6">Celular:</Typography>
-            <TextField name="var_celular" variant="outlined" value={formData.var_celular} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} error={!!errors.var_celular} helperText={errors.var_celular} />
+            <TextField name="var_celular" variant="outlined" value={formData.var_celular} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_celular} helperText={errors.var_celular} FormHelperTextProps={{
+                sx: {
+                  marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+                },
+              }} />
             <Typography variant="h6">Telefono fijo:</Typography>
-            <TextField name="var_telefonoFijo" variant="outlined" value={formData.var_telefonoFijo} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} error={!!errors.var_telefonoFijo} helperText={errors.var_telefonoFijo} />
+            <TextField name="var_telefonoFijo" variant="outlined" value={formData.var_telefonoFijo} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_telefonoFijo} helperText={errors.var_telefonoFijo} FormHelperTextProps={{
+                sx: {
+                  marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+                },
+              }} />
             <Typography variant="h6">Contraseña:</Typography>
-            <TextField name="var_contrasena" type="password" variant="outlined" value={formData.var_contrasena} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} error={!!errors.var_contrasena} helperText={errors.var_contrasena} />
+            <TextField name="var_contrasena" type="password" variant="outlined" value={formData.var_contrasena} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_contrasena} helperText={errors.var_contrasena} FormHelperTextProps={{
+                sx: {
+                  marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+                },
+              }} />
             <Typography variant="h6">Confirmar Contraseña:</Typography>
-            <TextField name="confirmar_contrasena" type="password" variant="outlined" value={formData.confirmar_contrasena} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} error={!!errors.confirmar_contrasena} helperText={errors.confirmar_contrasena} />
+            <TextField name="confirmar_contrasena" type="password" variant="outlined" value={formData.confirmar_contrasena} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.confirmar_contrasena} helperText={errors.confirmar_contrasena} FormHelperTextProps={{
+                sx: {
+                  marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+                },
+              }} />
 
             <Button color="primary" variant="contained" type="submit"> Enviar </Button>
           </form>

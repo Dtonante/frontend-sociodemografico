@@ -1,4 +1,4 @@
-import { Select, Card, CardContent, Divider, Box, Typography, TextField, FormControl, ListItemText, Checkbox, Button, MenuItem, Grid, } from "@mui/material";
+import { Select, Card, CardContent, Divider, Box, Typography, TextField, FormControl, FormHelperText, ListItemText, Checkbox, Button, MenuItem, Grid, } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import departamentosCiudades from './departamentosCiudades.json';
 import { useNavigate } from "react-router-dom";
@@ -10,18 +10,8 @@ const VistaDatosProfesional = () => {
     const [selectedFactoresRiesgo, setSelectedFactoresRiesgo] = useState([]);
     const [serviciosQueNoCuentan, setServiciosQueNoCuentan] = useState([]);
     const [selectedServiciosQueNoCuentan, setSelectedServiciosQueNoCuentan] = useState([]);
-
-
-
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        id_usuarioFK: localStorage.getItem('usuarioId'),
-        boolean_aceptaTratamientoDatos: JSON.parse(localStorage.getItem('aceptaDatos')),
-        var_rh: localStorage.getItem('var_rh'),
-        date_fechaNacimiento: localStorage.getItem('date_fechaNacimiento'),
-        var_grupoEtnico: localStorage.getItem('var_grupoEtnico'),
-        var_celular: localStorage.getItem('var_celular'),
-        var_telefonoFijo: localStorage.getItem('var_telefonoFijo'),
         var_departamentoResidencia: "",
         var_ciudadResidencia: "",
         var_direccionResidencia: "",
@@ -29,6 +19,37 @@ const VistaDatosProfesional = () => {
         var_tipoVivienda: ""
 
     });
+    const [errors, setErrors] = useState({});
+    const [touchedFields, setTouchedFields] = useState({});
+    // Validaciones basadas en los campos tocados
+    useEffect(() => {
+        const nuevosErrores = {};
+
+        if (touchedFields.var_departamentoResidencia && !formData.var_departamentoResidencia) {
+            nuevosErrores.var_departamentoResidencia = "El departamento es obligatorio";
+        }
+
+        if (touchedFields.var_ciudadResidencia && !formData.var_ciudadResidencia) {
+            nuevosErrores.var_ciudadResidencia = "El tipo de documento es obligatorio";
+        }
+
+        if (touchedFields.var_estratoVivienda && !formData.var_estratoVivienda) {
+            nuevosErrores.var_estratoVivienda = "El tipo de documento es obligatorio";
+        }
+        if (touchedFields.var_tipoVivienda && !formData.var_tipoVivienda) {
+            nuevosErrores.var_tipoVivienda = "El tipo de documento es obligatorio";
+        }
+
+        if (touchedFields.selectedServiciosQueNoCuentan && !selectedServiciosQueNoCuentan) {
+            nuevosErrores.selectedServiciosQueNoCuentan = "El tipo de documento es obligatorio";
+        }
+
+        if (touchedFields.selectedFactoresRiesgo && !selectedFactoresRiesgo) {
+            nuevosErrores.selectedFactoresRiesgo = "El tipo de documento es obligatorio";
+        }
+
+        setErrors(nuevosErrores);
+    }, [formData, touchedFields]);
 
     // fectch para los las actividades que realiza en su tiempo libre
     useEffect(() => {
@@ -62,18 +83,6 @@ const VistaDatosProfesional = () => {
 
     const [departamentos, setDepartamentos] = useState(departamentosCiudades.departamentos);
     const [ciudades, setCiudades] = useState([]);
-
-    // Agrega un useEffect para hacer el console.log al montar el componente
-    useEffect(() => {
-        console.log("Valores iniciales desde localStorage:");
-        console.log("ID Usuario:", formData.id_usuarioFK);
-        console.log("Grupo etnico:", formData.var_grupoEtnico);
-        console.log("Acepta Tratamiento de Datos:", formData.boolean_aceptaTratamientoDatos);
-        console.log("fecha nacimiento:", formData.date_fechaNacimiento);
-        console.log("rh:", formData.var_rh);
-        console.log("var_celular:", formData.var_celular);
-        console.log("var_telefonoFijo:", formData.var_telefonoFijo);
-    }, []);
 
     //Definicion de campo para el estrato
     const estratos = ["0", "1", "2", "3", "4", "5", "6"];
@@ -128,10 +137,19 @@ const VistaDatosProfesional = () => {
             localStorage.setItem('estratoVivienda', value);
         } else if (name === 'var_tipoVivienda') {
             localStorage.setItem('tipoVivienda', value);
-        }else if (campo === 'servicioQueNoCuentan') {
+        } else if (campo === 'servicioQueNoCuentan') {
             setSelectedServiciosQueNoCuentan(value);
             localStorage.setItem('selectedServiciosQueNoCuentan', JSON.stringify(value));
         }
+    };
+
+    // Marcar un campo como "tocado" cuando pierde el enfoque
+    const handleBlur = (event) => {
+        const { name } = event.target;
+        setTouchedFields({
+            ...touchedFields,
+            [name]: true,
+        });
     };
 
 
@@ -151,13 +169,43 @@ const VistaDatosProfesional = () => {
     // Redirigir a la siguiente vista
     const manejarSiguiente = (event) => {
         event.preventDefault();
+
+        const nuevosErrores = {};
+
+        if (!formData.var_departamentoResidencia) {
+            nuevosErrores.var_departamentoResidencia = "El departamento es obligatorio es obligatorio";
+        }
+
+        if (!formData.var_ciudadResidencia) {
+            nuevosErrores.var_ciudadResidencia = "La ciudad de residencia es obligatorio";
+        }
+
+        if (!formData.var_estratoVivienda) {
+            nuevosErrores.var_estratoVivienda = "El estrato de residencia es obligatorio";
+        }
+
+        if (!formData.var_tipoVivienda) {
+            nuevosErrores.var_tipoVivienda = "El tipo de vivienda es obligatorio";
+        }
+
+        if (!selectedServiciosQueNoCuentan) {
+            nuevosErrores.selectedServiciosQueNoCuentan = "El campo servicios con los que no cuentan es obligatorio";
+        }
+
+        if (!selectedFactoresRiesgo) {
+            nuevosErrores.selectedFactoresRiesgo = "El campo servicios con los que no cuentan es obligatorio";
+        }
+
+        if (Object.keys(nuevosErrores).length > 0) {
+            setErrors(nuevosErrores);
+            return;
+        }
         // Almacenar todos los datos en localStorage
         localStorage.setItem('datosProfesional', JSON.stringify(formData));
         localStorage.setItem('direccion', JSON.stringify(direccion));
 
         navigate('/datosProfesional2');
     };
-
 
     return (
         <div>
@@ -171,11 +219,22 @@ const VistaDatosProfesional = () => {
                 <CardContent sx={{ padding: "30px" }}>
                     <form onSubmit={manejarSiguiente}>
                         <Typography variant="h6">Departamento:</Typography>
-                        <TextField select name="var_departamentoResidencia" variant="outlined" value={formData.var_departamentoResidencia} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} >
+                        <TextField select name="var_departamentoResidencia" variant="outlined" value={formData.var_departamentoResidencia} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur}
+                            error={!!errors.var_departamentoResidencia}
+                            helperText={errors.var_departamentoResidencia} FormHelperTextProps={{
+                                sx: {
+                                    marginLeft: 0,
+                                },
+                            }}  >
                             {departamentos.map(departamento => (<MenuItem key={departamento.nombre} value={departamento.nombre}> {departamento.nombre} </MenuItem>))}
                         </TextField>
                         <Typography variant="h6">Ciudad:</Typography>
-                        <TextField select name="var_ciudadResidencia" variant="outlined" value={formData.var_ciudadResidencia} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} >
+                        <TextField select name="var_ciudadResidencia" variant="outlined" value={formData.var_ciudadResidencia} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_ciudadResidencia}
+                            helperText={errors.var_ciudadResidencia} FormHelperTextProps={{
+                                sx: {
+                                    marginLeft: 0,
+                                },
+                            }}  >
                             {ciudades.map(ciudad => (<MenuItem key={ciudad} value={ciudad}> {ciudad} </MenuItem>))}
                         </TextField>
 
@@ -267,24 +326,36 @@ const VistaDatosProfesional = () => {
                             </Grid>
                         </Grid>
                         <Typography variant="h6">Estrato de Vivienda:</Typography>
-                        <TextField select name="var_estratoVivienda" value={formData.var_estratoVivienda} onChange={manejarCambioInput} sx={{ mb: 2 }} fullWidth >
+                        <TextField select name="var_estratoVivienda" value={formData.var_estratoVivienda} onChange={manejarCambioInput} sx={{ mb: 2 }} fullWidth onBlur={handleBlur} error={!!errors.var_estratoVivienda}
+                            helperText={errors.var_estratoVivienda} FormHelperTextProps={{
+                                sx: {
+                                    marginLeft: 0,
+                                },
+                            }}  >
                             {estratos.map(estrato => (
                                 <MenuItem key={estrato} value={estrato}>{estrato}</MenuItem>
                             ))}
                         </TextField>
 
                         <Typography variant="h6">Tipo de Vivienda:</Typography>
-                        <TextField select name="var_tipoVivienda" value={formData.var_tipoVivienda} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} >
+                        <TextField select name="var_tipoVivienda" value={formData.var_tipoVivienda} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_tipoVivienda}
+                            helperText={errors.var_tipoVivienda} FormHelperTextProps={{
+                                sx: {
+                                    marginLeft: 0,
+                                },
+                            }}  >
                             {tiposVivienda.map(tipo => (
                                 <MenuItem key={tipo} value={tipo}>{tipo}</MenuItem>
                             ))}
                         </TextField>
-
+                        
                         {/* servicios con los que no cuentan */}
-                        <FormControl fullWidth sx={{ mb: 2 }}>
-                            <Typography variant="h6">Seleccione las actividades que realiza en su tiempo libre: </Typography>
+                        <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.selectedServiciosQueNoCuentan} >
+                            <Typography variant="h6">Seleccione los servicios con los que no cuentan: </Typography>
                             <Select
                                 multiple
+                                onBlur={handleBlur}
+                                name="selectedServiciosQueNoCuentan"
                                 value={selectedServiciosQueNoCuentan}
                                 onChange={(event) => manejarCambioInput(event, 'servicioQueNoCuentan')}
                                 renderValue={(selected) => {
@@ -305,8 +376,7 @@ const VistaDatosProfesional = () => {
                                 }}
                                 fullWidth
                                 variant="outlined"
-                                MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }}
-                            >
+                                MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }} >
                                 {serviciosQueNoCuentan.map((actividad) => (
                                     <MenuItem key={actividad.id_servicioQueNoCuentaPK} value={actividad.id_servicioQueNoCuentaPK}>
                                         <Checkbox checked={selectedServiciosQueNoCuentan.indexOf(actividad.id_servicioQueNoCuentaPK) > -1} />
@@ -314,13 +384,22 @@ const VistaDatosProfesional = () => {
                                     </MenuItem>
                                 ))}
                             </Select>
+                            {errors.selectedServiciosQueNoCuentan && (
+                                <FormHelperText FormHelperTextProps={{
+                                    sx: {
+                                        marginLeft: 0,
+                                    },
+                                }}>{errors.selectedServiciosQueNoCuentan}</FormHelperText>
+                            )}
                         </FormControl>
 
 
-                        <FormControl fullWidth sx={{ mb: 2 }}>
+                        <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.selectedFondoPension}>
                             <Typography variant="h6">Seleccione Factores de Riesgo: </Typography>
                             <Select
                                 multiple
+                                onBlur={handleBlur}
+                                name="selectedFactoresRiesgo"
                                 value={selectedFactoresRiesgo}
                                 onChange={(event) => manejarCambioInput(event, 'factoresRiesgo')}
                                 renderValue={(selected) => {
@@ -350,6 +429,13 @@ const VistaDatosProfesional = () => {
                                     </MenuItem>
                                 ))}
                             </Select>
+                            {errors.selectedFactoresRiesgo && (
+                                <FormHelperText FormHelperTextProps={{
+                                    sx: {
+                                        marginLeft: 0,
+                                    },
+                                }}>{errors.selectedFactoresRiesgo}</FormHelperText>
+                            )}
                         </FormControl>
 
 

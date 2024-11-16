@@ -9,35 +9,28 @@ const VistaDatosProfesional4 = () => {
     const [tipoCuenta, setTipoCuenta] = useState("");
     const [numeroCuenta, setNumeroCuenta] = useState("");
     const navigate = useNavigate();
+    const [errors, setErrors] = useState({});
+    const [touchedFields, setTouchedFields] = useState({});
 
+    // Validaciones basadas en los campos tocados
     useEffect(() => {
-        // Recuperamos todos los datos guardados en localStorage
-        const formDataProfesional = JSON.parse(localStorage.getItem('formDataProfesional'));
-        const datosProfesional = JSON.parse(localStorage.getItem('datosProfesional'));
-        const direccion = JSON.parse(localStorage.getItem('direccion'));
-        const selectedServiciosSaludAdicional = JSON.parse(localStorage.getItem('selectedServiciosSaludAdicional'));
+        const nuevosErrores = {};
 
-        // Mostramos los datos en la consola
-        console.log("Datos del Profesional en VistaDatosProfesional4:");
-        console.log("formDataProfesional:", formDataProfesional);
-        console.log("datosProfesional:", datosProfesional);
-        console.log("Dirección:", direccion);
-        console.log("Servicios de Salud Adicional:", selectedServiciosSaludAdicional);
+        if (touchedFields.numeroCuenta && !numeroCuenta) {
+            nuevosErrores.numeroCuenta = "El departamento es obligatorio";
+        }
 
-        // Verificamos si los datos están disponibles o no
-        if (!formDataProfesional) {
-            console.log("No hay datos guardados para 'formDataProfesional'.");
-        }
-        if (!datosProfesional) {
-            console.log("No hay datos guardados para 'datosProfesional'.");
-        }
-        if (!direccion) {
-            console.log("No hay datos guardados para 'direccion'.");
-        }
-        if (!selectedServiciosSaludAdicional) {
-            console.log("No hay datos guardados para 'selectedServiciosSaludAdicional'.");
-        }
-    }, []);
+        setErrors(nuevosErrores);
+    }, [numeroCuenta, touchedFields]);
+
+    // Marcar un campo como "tocado" cuando pierde el enfoque
+    const handleBlur = (event) => {
+        const { name } = event.target;
+        setTouchedFields({
+            ...touchedFields,
+            [name]: true,
+        });
+    };
 
     // useEffect para obtener los bancos desde el servidor
     useEffect(() => {
@@ -69,6 +62,18 @@ const VistaDatosProfesional4 = () => {
         localStorage.setItem('selectedBanco', selectedBanco);
         localStorage.setItem('tipoCuenta', tipoCuenta);
         localStorage.setItem('numeroCuenta', numeroCuenta);
+
+        const nuevosErrores = {};
+
+
+        if (!numeroCuenta) {
+            nuevosErrores.numeroCuenta = "El campo servicios con los que no cuentan es obligatorio";
+        }
+
+        if (Object.keys(nuevosErrores).length > 0) {
+            setErrors(nuevosErrores);
+            return;
+        }
 
 
         navigate("/datosProfesional5");
@@ -103,7 +108,12 @@ const VistaDatosProfesional4 = () => {
                         </FormControl>
 
                         <Typography variant="h6">Número de Cuenta:</Typography>
-                        <TextField label="" variant="outlined" fullWidth sx={{ mb: 2 }} name="numeroCuenta" value={numeroCuenta} onChange={manejarCambio} />
+                        <TextField variant="outlined" fullWidth sx={{ mb: 2 }} name="numeroCuenta" value={numeroCuenta} onChange={manejarCambio}onBlur={handleBlur} error={!!errors.numeroCuenta}
+                            helperText={errors.numeroCuenta} FormHelperTextProps={{
+                                sx: {
+                                    marginLeft: 0,
+                                },
+                            }}  />
 
                         <Button variant="contained" onClick={manejarSiguiente} color="primary" sx={{ mt: 2 }} > Siguiente </Button>
                     </form>
