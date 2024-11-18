@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { TextField, MenuItem, FormControl, InputLabel, Select, Card, Box, Typography, Button, Divider, CardContent, FormControlLabel, RadioGroup, Radio } from "@mui/material";
+import { TextField, MenuItem, FormControl, FormHelperText, InputLabel, Select, Card, Box, Typography, Button, Divider, CardContent, FormControlLabel, RadioGroup, Radio } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const VistaDatosProfesional4 = () => {
@@ -20,8 +20,16 @@ const VistaDatosProfesional4 = () => {
             nuevosErrores.numeroCuenta = "El departamento es obligatorio";
         }
 
+        if (touchedFields.tipoCuenta && !tipoCuenta) {
+            nuevosErrores.tipoCuenta = "El departamento es obligatorio";
+        }
+
+        if (touchedFields.selectedBanco && !selectedBanco) {
+            nuevosErrores.selectedBanco = "El departamento es obligatorio";
+        }
+
         setErrors(nuevosErrores);
-    }, [numeroCuenta, touchedFields]);
+    }, [selectedBanco, numeroCuenta, tipoCuenta,  touchedFields]);
 
     // Marcar un campo como "tocado" cuando pierde el enfoque
     const handleBlur = (event) => {
@@ -70,10 +78,22 @@ const VistaDatosProfesional4 = () => {
             nuevosErrores.numeroCuenta = "El campo servicios con los que no cuentan es obligatorio";
         }
 
+        if (!tipoCuenta) {
+            nuevosErrores.tipoCuenta = "El campo servicios con los que no cuentan es obligatorio";
+        }
+
+        if (!selectedBanco) {
+            nuevosErrores.selectedBanco = "El campo servicios con los que no cuentan es obligatorio";
+        }
+
+
+
         if (Object.keys(nuevosErrores).length > 0) {
             setErrors(nuevosErrores);
             return;
         }
+
+
 
 
         navigate("/datosProfesional5");
@@ -82,38 +102,54 @@ const VistaDatosProfesional4 = () => {
 
     return (
         <div style={{ padding: "20px" }}>
-            <Card variant="outlined" sx={{  p: 0,  width: "100%",   maxWidth: 800,  margin: "50px auto" }}>
+            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "50px auto" }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
-                    <Box flexGrow={1}> <Typography sx={{ fontSize: "18px", fontWeight: "500" }}> Selección de Banco </Typography> </Box>
+                    <Box flexGrow={1}> <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>Información bancaria</Typography> </Box>
                 </Box>
                 <Divider />
                 <CardContent sx={{ padding: "30px" }}>
-                    <form>
+                    <form onSubmit={(event) => {
+                        event.preventDefault();
+                    }}>
 
-                        <FormControl fullWidth sx={{ mb: 2 }}>
+                        <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.selectedBanco}>
                             <Typography variant="h6">Seleccione Banco:</Typography>
-                            <Select labelId="banco-select-label" name="banco" value={selectedBanco} onChange={manejarCambio} >
+                            <Select name="banco" value={selectedBanco} onChange={manejarCambio} >
                                 {bancos.map((banco) => (
                                     <MenuItem key={banco.id_cuentaBancariaPK} value={banco.id_cuentaBancariaPK}> {banco.var_nombreCuentaBancaria} </MenuItem>
                                 ))}
                             </Select>
+                            {errors.selectedBanco && (
+                                <FormHelperText
+                                    sx={{
+                                        marginLeft: 0,
+                                    }}
+                                >
+                                    {errors.selectedBanco}
+                                </FormHelperText>
+                            )}
                         </FormControl>
 
-                        <FormControl component="fieldset" sx={{ mb: 2 }}>
+                        <FormControl component="fieldset" sx={{ mb: 2 }} error={!!errors.tipoCuenta}>
                             <Typography variant="h6">Tipo de Cuenta</Typography>
-                            <RadioGroup name="tipoCuenta" value={tipoCuenta} onChange={manejarCambio} row>
+                            <RadioGroup name="tipoCuenta" value={tipoCuenta} onChange={manejarCambio} row onBlur={handleBlur}>
                                 <FormControlLabel value="ahorro" control={<Radio />} label="Ahorro" />
                                 <FormControlLabel value="corriente" control={<Radio />} label="Corriente" />
                             </RadioGroup>
+                            {errors.tipoCuenta && (
+                                <Typography variant="caption" color="error">
+                                    {errors.tipoCuenta}
+                                </Typography>
+                            )}
                         </FormControl>
 
                         <Typography variant="h6">Número de Cuenta:</Typography>
-                        <TextField variant="outlined" fullWidth sx={{ mb: 2 }} name="numeroCuenta" value={numeroCuenta} onChange={manejarCambio}onBlur={handleBlur} error={!!errors.numeroCuenta}
+                        <TextField variant="outlined" fullWidth sx={{ mb: 2 }} name="numeroCuenta" value={numeroCuenta} onChange={manejarCambio} onBlur={handleBlur} error={!!errors.numeroCuenta}
                             helperText={errors.numeroCuenta} FormHelperTextProps={{
                                 sx: {
                                     marginLeft: 0,
                                 },
-                            }}  />
+                            }} />
 
                         <Button variant="contained" onClick={manejarSiguiente} color="primary" sx={{ mt: 2 }} > Siguiente </Button>
                     </form>

@@ -1,15 +1,76 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Box, Typography, Divider, Checkbox, ListItemText, CardContent, Button, FormControl, RadioGroup, Radio, FormControlLabel, Select, MenuItem, TextField } from '@mui/material';
+import { Card, Box, Typography, Divider, Checkbox, FormHelperText, ListItemText, CardContent, Button, FormControl, RadioGroup, Radio, FormControlLabel, Select, MenuItem, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const VistaDatosProfesional7 = () => {
-    const [pasoMayorTiempoLibre, setPasoMayorTiempoLibre] = useState([]);
+    const [pasoMayorTiempoLibre, setPasoMayorTiempoLibre] = useState('');
 
     const [actividadTiempoLibreOptions, setActividadTiempoLibre] = useState([]);
     const [selectedActividadTiempoLibre, setSelectedActividadTiempoLibre] = useState([]);
+    const [actividadFisica, setActividadFisica] = useState(null);
+    const [frecuenciaActividadFisica, setFrecuenciaActividadFisica] = useState("");
+    const [fuma, setFuma] = useState(null);
+    const [frecuenciaFuma, setFrecuenciaFuma] = useState("");
+    const [toma, setToma] = useState(null);
+    const [frecuenciaToma, setFrecuenciaToma] = useState("");
+    const [sustanciaPsicoactiva, setSustanciaPsicoactiva] = useState(null);
+    const [frecuenciaSustanciaPsicoactiva, setFrecuenciaSustanciaPsicoactiva] = useState("");
+    const [peso, setPeso] = useState("");
+    const [altura, setAltura] = useState("");
 
     const navigate = useNavigate();
+    const [errors, setErrors] = useState({});
+    const [touchedFields, setTouchedFields] = useState({});
+
+    // Validaciones basadas en los campos tocados
+    useEffect(() => {
+        const nuevosErrores = {};
+
+        if (touchedFields.pasoMayorTiempoLibre && !pasoMayorTiempoLibre) {
+            nuevosErrores.pasoMayorTiempoLibre = "El nombre completo es obligatorio";
+        }
+
+        if (touchedFields.peso && !peso.thim()) {
+            nuevosErrores.peso = "El nombre completo es obligatorio";
+        }
+
+        if (touchedFields.altura && !altura.thim()) {
+            nuevosErrores.altura = "El nombre completo es obligatorio";
+        }
+
+        if (touchedFields.selectedActividadTiempoLibre && (!selectedActividadTiempoLibre || selectedActividadTiempoLibre.length === 0)) {
+            nuevosErrores.altura = "El nombre completo es obligatorio";
+        }
+
+        setErrors(nuevosErrores);
+    }, [pasoMayorTiempoLibre, peso, altura, selectedActividadTiempoLibre, touchedFields]);
+
+    // Marcar un campo como "tocado" cuando pierde el enfoque
+    const handleBlur = (event) => {
+        const { name } = event.target;
+        setTouchedFields({
+            ...touchedFields,
+            [name]: true,
+        });
+    };
+
+    const generarOpciones = () => {
+        const opciones = [
+            { value: "tio", label: "Tío" },
+            { value: "hermanos", label: "Hermanos" },
+            { value: "madre", label: "Madre" },
+            { value: "padre", label: "Padre" },
+            { value: "abuelos", label: "Abuelos" },
+            { value: "mascota", label: "Mascota" },
+        ];
+        return opciones.map((opcion) => (
+            <MenuItem key={opcion.value} value={opcion.value}>
+                {opcion.label}
+            </MenuItem>
+        ));
+    };
+
 
     // fectch para los las actividades que realiza en su tiempo libre
     useEffect(() => {
@@ -86,16 +147,7 @@ const VistaDatosProfesional7 = () => {
     }, []);
 
 
-    const [actividadFisica, setActividadFisica] = useState(null);
-    const [frecuenciaActividadFisica, setFrecuenciaActividadFisica] = useState("");
-    const [fuma, setFuma] = useState(null);
-    const [frecuenciaFuma, setFrecuenciaFuma] = useState("");
-    const [toma, setToma] = useState(null);
-    const [frecuenciaToma, setFrecuenciaToma] = useState("");
-    const [sustanciaPsicoactiva, setSustanciaPsicoactiva] = useState(null);
-    const [frecuenciaSustanciaPsicoactiva, setFrecuenciaSustanciaPsicoactiva] = useState("");
-    const [peso, setPeso] = useState("");
-    const [altura, setAltura] = useState("");
+
 
 
 
@@ -143,6 +195,30 @@ const VistaDatosProfesional7 = () => {
     };
 
     const manejarSiguiente = () => {
+        event.preventDefault();
+
+        const nuevosErrores = {};
+
+        if (!pasoMayorTiempoLibre) {
+            nuevosErrores.pasoMayorTiempoLibre = "Debe confirmar la contraseña";
+        }
+
+        if (!peso) {
+            nuevosErrores.peso = "Debe confirmar la contraseña";
+        }
+
+        if (!altura) {
+            nuevosErrores.altura = "Debe confirmar la contraseña";
+        }selectedActividadTiempoLibre
+
+        if (!selectedActividadTiempoLibre || selectedActividadTiempoLibre.length === 0) {
+            nuevosErrores.selectedActividadTiempoLibre = "Debe confirmar la contraseña";
+        }
+
+        if (Object.keys(nuevosErrores).length > 0) {
+            setErrors(nuevosErrores);
+            return;
+        }
 
         navigate("/datosProfesional8");
     };
@@ -152,20 +228,19 @@ const VistaDatosProfesional7 = () => {
             <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "50px auto" }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500" }}> Actividad Física </Typography>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>Salud física </Typography>
                     </Box>
                 </Box>
                 <Divider />
                 <CardContent sx={{ padding: "30px" }}>
+                    <form onSubmit={(event) => {
+                        event.preventDefault();
+                    }}>
 
 
-                    <FormControl fullWidth sx={{ mb: 2 }}>
-                        <Typography variant="h6">Seleccione las actividades que realiza en su tiempo libre: </Typography>
-                        <Select
-                            multiple
-                            value={selectedActividadTiempoLibre}
-                            onChange={(event) => manejarCambio(event, 'actividadTiempoLibre')}
-                            renderValue={(selected) => {
+                        <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.selectedActividadTiempoLibre}>
+                            <Typography variant="h6">Seleccione las actividades que realiza en su tiempo libre : </Typography>
+                            <Select multiple onBlur={handleBlur} value={selectedActividadTiempoLibre} onChange={(event) => manejarCambio(event, 'actividadTiempoLibre')} renderValue={(selected) => {
                                 // Obtener los nombres de los las actividades que realiza en su tiempo libre seleccionados
                                 const selectedNames = actividadTiempoLibreOptions
                                     .filter(actividad => selected.includes(actividad.id_tiempoLibrePK))
@@ -180,138 +255,149 @@ const VistaDatosProfesional7 = () => {
                                     });
 
                                 return selectedNames.join(' - '); // Unir los nombres con un guion
-                            }}
-                            fullWidth
-                            variant="outlined"
-                            MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }}
-                        >
-                            {actividadTiempoLibreOptions.map((actividad) => (
-                                <MenuItem key={actividad.id_tiempoLibrePK} value={actividad.id_tiempoLibrePK}>
-                                    <Checkbox checked={selectedActividadTiempoLibre.indexOf(actividad.id_tiempoLibrePK) > -1} />
-                                    <ListItemText primary={actividad.var_nombreOcuapacionTiempoLibre} />
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-
-
-
-
-
-
-                    <FormControl fullWidth sx={{ mb: 2 }}>
-                        <Typography variant="h6" > ¿con quien pasa el mayor tiempo libre ? </Typography>
-                        <TextField select name="set_pasoMayorTiempoLibre" value={pasoMayorTiempoLibre} onChange={manejarCambio} fullWidth variant="outlined" sx={{ mb: 2 }} SelectProps={{ multiple: true, }} >
-                            <MenuItem value="">
-                                <em>Selecciona una opción</em>
-                            </MenuItem>
-                            <MenuItem value="tio">Tío</MenuItem>
-                            <MenuItem value="hermanos">Hermanos</MenuItem>
-                            <MenuItem value="madre">Madre</MenuItem>
-                            <MenuItem value="padre">Padre</MenuItem>
-                            <MenuItem value="abuelos">Abuelos</MenuItem>
-                            <MenuItem value="mascota">Mascota</MenuItem>
-                        </TextField>
-
-                    </FormControl>
-
-                    <FormControl fullWidth sx={{ mb: 2 }}>
-                        <Typography variant="h6" > Peso (kg) </Typography>
-                        <TextField name="var_peso" value={peso} onChange={manejarCambio} placeholder="Ingrese su peso en kg" fullWidth />
-                    </FormControl>
-
-                    <FormControl fullWidth sx={{ mb: 2 }}>
-                        <Typography variant="h6" > Altura (cm) </Typography>
-                        <TextField name="var_altura" value={altura} onChange={manejarCambio} placeholder="Ingrese su altura en cm" fullWidth />
-                    </FormControl>
-
-
-                    <FormControl component="fieldset" fullWidth sx={{ mb: 2 }}>
-                        <Typography variant="h6" > ¿Realiza actividad física? </Typography>
-                        <RadioGroup name="boolean_actividadFisica" value={actividadFisica ? "true" : "false"} onChange={manejarCambio} row >
-                            <FormControlLabel value="true" control={<Radio />} label="Sí" />
-                            <FormControlLabel value="false" control={<Radio />} label="No" />
-                        </RadioGroup>
-                    </FormControl>
-
-                    {actividadFisica && (
-                        <FormControl fullWidth sx={{ mb: 2 }}>
-                            <Typography variant="h6" > Frecuencia de actividad física </Typography>
-                            <Select name="var_frecuenciaActividadFisica" value={frecuenciaActividadFisica} onChange={manejarCambio} displayEmpty >
-                                <MenuItem value="">Seleccione una frecuencia</MenuItem>
-                                <MenuItem value="diariamente">Diariamente</MenuItem>
-                                <MenuItem value="semanalmente">Semanalmente</MenuItem>
-                                <MenuItem value="quincenalmente">Quincenalmente</MenuItem>
-                                <MenuItem value="mensualmente">Mensualmente</MenuItem>
+                            }} fullWidth variant="outlined" MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }}  >
+                                {actividadTiempoLibreOptions.map((actividad) => (
+                                    <MenuItem key={actividad.id_tiempoLibrePK} value={actividad.id_tiempoLibrePK}>
+                                        <Checkbox checked={selectedActividadTiempoLibre.indexOf(actividad.id_tiempoLibrePK) > -1} />
+                                        <ListItemText primary={actividad.var_nombreOcuapacionTiempoLibre} />
+                                    </MenuItem>
+                                ))}
                             </Select>
+                            {errors.selectedActividadTiempoLibre && (
+                                <FormHelperText error sx={{ marginLeft: 0 }}>
+                                    {errors.selectedActividadTiempoLibre}
+                                </FormHelperText>
+                            )}
                         </FormControl>
-                    )}
-
-                    <FormControl component="fieldset" fullWidth sx={{ mb: 2 }}>
-                        <Typography variant="body1" sx={{ fontWeight: "500" }}> ¿Fuma? </Typography>
-                        <RadioGroup name="boolean_fuma" value={fuma ? "true" : "false"} onChange={manejarCambio} row >
-                            <FormControlLabel value="true" control={<Radio />} label="Sí" />
-                            <FormControlLabel value="false" control={<Radio />} label="No" />
-                        </RadioGroup>
-                    </FormControl>
-
-                    {fuma && (
-                        <FormControl fullWidth sx={{ mb: 2 }}>
-                            <Typography variant="body1" sx={{ fontWeight: "500" }}> Frecuencia de fumar </Typography>
-                            <Select name="var_frecuenciaFuma" value={frecuenciaFuma} onChange={manejarCambio} displayEmpty >
-                                <MenuItem value="">Seleccione una frecuencia</MenuItem>
-                                <MenuItem value="diariamente">Diariamente</MenuItem>
-                                <MenuItem value="semanalmente">Semanalmente</MenuItem>
-                                <MenuItem value="quincenalmente">Quincenalmente</MenuItem>
-                                <MenuItem value="mensualmente">Mensualmente</MenuItem>
+                        <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.pasoMayorTiempoLibre}>
+                            <Typography variant="h6">
+                                ¿Con quién pasa la mayor parte de su tiempo libre?:
+                            </Typography>
+                            <Select
+                                name="set_pasoMayorTiempoLibre"
+                                value={pasoMayorTiempoLibre}
+                                onChange={manejarCambio}
+                                fullWidth
+                                variant="outlined"
+                                onBlur={handleBlur}
+                                displayEmpty
+                            >
+                                {generarOpciones()}
                             </Select>
+                            {errors.pasoMayorTiempoLibre && (
+                                <FormHelperText error sx={{ marginLeft: 0 }}>
+                                    {errors.pasoMayorTiempoLibre}
+                                </FormHelperText>
+                            )}
                         </FormControl>
-                    )}
 
-                    <FormControl component="fieldset" fullWidth sx={{ mb: 2 }}>
-                        <Typography variant="body1" sx={{ fontWeight: "500" }}> ¿Toma? </Typography>
-                        <RadioGroup name="boolean_toma" value={toma ? "true" : "false"} onChange={manejarCambio} row  >
-                            <FormControlLabel value="true" control={<Radio />} label="Sí" />
-                            <FormControlLabel value="false" control={<Radio />} label="No" />
-                        </RadioGroup>
-                    </FormControl>
 
-                    {toma && (
+
                         <FormControl fullWidth sx={{ mb: 2 }}>
-                            <Typography variant="body1" sx={{ fontWeight: "500" }}> Frecuencia de toma </Typography>
-                            <Select name="var_frecuenciaToma" value={frecuenciaToma} onChange={manejarCambio} displayEmpty >
-                                <MenuItem value="">Seleccione una frecuencia</MenuItem>
-                                <MenuItem value="diariamente">Diariamente</MenuItem>
-                                <MenuItem value="semanalmente">Semanalmente</MenuItem>
-                                <MenuItem value="quincenalmente">Quincenalmente</MenuItem>
-                                <MenuItem value="mensualmente">Mensualmente</MenuItem>
-                            </Select>
+                            <Typography variant="h6" > Peso (kg) </Typography>
+                            <TextField name="var_peso" value={peso} onChange={manejarCambio} placeholder="Ingrese su peso en kg" fullWidth onBlur={handleBlur} error={!!errors.peso} helperText={errors.peso} FormHelperTextProps={{
+                                sx: {
+                                    marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+                                },
+                            }} />
                         </FormControl>
-                    )}
 
-                    <FormControl component="fieldset" fullWidth sx={{ mb: 2 }}>
-                        <Typography variant="body1" sx={{ fontWeight: "500" }}> ¿sustancia psicoactivas? </Typography>
-                        <RadioGroup name="boolean_sustanciasPsicoactivas" value={sustanciaPsicoactiva ? "true" : "false"} onChange={manejarCambio} row >
-                            <FormControlLabel value="true" control={<Radio />} label="Sí" />
-                            <FormControlLabel value="false" control={<Radio />} label="No" />
-                        </RadioGroup>
-                    </FormControl>
-
-                    {sustanciaPsicoactiva && (
                         <FormControl fullWidth sx={{ mb: 2 }}>
-                            <Typography variant="body1" sx={{ fontWeight: "500" }}> Frecuencia de toma </Typography>
-                            <Select name="var_frecuenciaSustanciasPsicoactivas" value={frecuenciaSustanciaPsicoactiva} onChange={manejarCambio} displayEmpty >
-                                <MenuItem value="">Seleccione una frecuencia</MenuItem>
-                                <MenuItem value="diariamente">Diariamente</MenuItem>
-                                <MenuItem value="semanalmente">Semanalmente</MenuItem>
-                                <MenuItem value="quincenalmente">Quincenalmente</MenuItem>
-                                <MenuItem value="mensualmente">Mensualmente</MenuItem>
-                            </Select>
+                            <Typography variant="h6" > Altura (cm) </Typography>
+                            <TextField name="var_altura" value={altura} onChange={manejarCambio} placeholder="Ingrese su altura en cm" fullWidth onBlur={handleBlur} error={!!errors.altura} helperText={errors.altura} FormHelperTextProps={{
+                                sx: {
+                                    marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+                                },
+                            }} />
                         </FormControl>
-                    )}
 
-                    <Button variant="contained" onClick={manejarSiguiente} color="primary" sx={{ mt: 2 }}>Siguiente</Button>
 
+                        <FormControl component="fieldset" fullWidth sx={{ mb: 2 }}>
+                            <Typography variant="h6" >¿Realiza actividad física? </Typography>
+                            <RadioGroup name="boolean_actividadFisica" value={actividadFisica ? "true" : "false"} onChange={manejarCambio} row >
+                                <FormControlLabel value="true" control={<Radio />} label="Sí" />
+                                <FormControlLabel value="false" control={<Radio />} label="No" />
+                            </RadioGroup>
+                        </FormControl>
+
+                        {actividadFisica && (
+                            <FormControl fullWidth sx={{ mb: 2 }}>
+                                <Typography variant="h6" >Frecuencia :</Typography>
+                                <Select name="var_frecuenciaActividadFisica" value={frecuenciaActividadFisica} onChange={manejarCambio} displayEmpty >
+                                    <MenuItem value="">Seleccione una frecuencia</MenuItem>
+                                    <MenuItem value="diariamente">Diariamente</MenuItem>
+                                    <MenuItem value="semanalmente">Semanalmente</MenuItem>
+                                    <MenuItem value="quincenalmente">Quincenalmente</MenuItem>
+                                    <MenuItem value="mensualmente">Mensualmente</MenuItem>
+                                </Select>
+                            </FormControl>
+                        )}
+
+                        <FormControl component="fieldset" fullWidth sx={{ mb: 2 }}>
+                            <Typography variant="body1" sx={{ fontWeight: "500" }}> ¿Fuma? </Typography>
+                            <RadioGroup name="boolean_fuma" value={fuma ? "true" : "false"} onChange={manejarCambio} row >
+                                <FormControlLabel value="true" control={<Radio />} label="Sí" />
+                                <FormControlLabel value="false" control={<Radio />} label="No" />
+                            </RadioGroup>
+                        </FormControl>
+
+                        {fuma && (
+                            <FormControl fullWidth sx={{ mb: 2 }}>
+                                <Typography variant="body1" sx={{ fontWeight: "500" }}>Frecuencia :</Typography>
+                                <Select name="var_frecuenciaFuma" value={frecuenciaFuma} onChange={manejarCambio} displayEmpty >
+                                    <MenuItem value="">Seleccione una frecuencia</MenuItem>
+                                    <MenuItem value="diariamente">Diariamente</MenuItem>
+                                    <MenuItem value="semanalmente">Semanalmente</MenuItem>
+                                    <MenuItem value="quincenalmente">Quincenalmente</MenuItem>
+                                    <MenuItem value="mensualmente">Mensualmente</MenuItem>
+                                </Select>
+                            </FormControl>
+                        )}
+
+                        <FormControl component="fieldset" fullWidth sx={{ mb: 2 }}>
+                            <Typography variant="body1" sx={{ fontWeight: "500" }}> ¿Consume bebidas alcohólicas? :</Typography>
+                            <RadioGroup name="boolean_toma" value={toma ? "true" : "false"} onChange={manejarCambio} row  >
+                                <FormControlLabel value="true" control={<Radio />} label="Sí" />
+                                <FormControlLabel value="false" control={<Radio />} label="No" />
+                            </RadioGroup>
+                        </FormControl>
+
+                        {toma && (
+                            <FormControl fullWidth sx={{ mb: 2 }}>
+                                <Typography variant="body1" sx={{ fontWeight: "500" }}>Frecuencia :</Typography>
+                                <Select name="var_frecuenciaToma" value={frecuenciaToma} onChange={manejarCambio} displayEmpty >
+                                    <MenuItem value="">Seleccione una frecuencia</MenuItem>
+                                    <MenuItem value="diariamente">Diariamente</MenuItem>
+                                    <MenuItem value="semanalmente">Semanalmente</MenuItem>
+                                    <MenuItem value="quincenalmente">Quincenalmente</MenuItem>
+                                    <MenuItem value="mensualmente">Mensualmente</MenuItem>
+                                </Select>
+                            </FormControl>
+                        )}
+
+                        <FormControl component="fieldset" fullWidth sx={{ mb: 2 }}>
+                            <Typography variant="body1" sx={{ fontWeight: "500" }}>¿Consume sustancias psicoactivas? :</Typography>
+                            <RadioGroup name="boolean_sustanciasPsicoactivas" value={sustanciaPsicoactiva ? "true" : "false"} onChange={manejarCambio} row >
+                                <FormControlLabel value="true" control={<Radio />} label="Sí" />
+                                <FormControlLabel value="false" control={<Radio />} label="No" />
+                            </RadioGroup>
+                        </FormControl>
+
+                        {sustanciaPsicoactiva && (
+                            <FormControl fullWidth sx={{ mb: 2 }}>
+                                <Typography variant="body1" sx={{ fontWeight: "500" }}>Frecuencia :</Typography>
+                                <Select name="var_frecuenciaSustanciasPsicoactivas" value={frecuenciaSustanciaPsicoactiva} onChange={manejarCambio} displayEmpty >
+                                    <MenuItem value="">Seleccione una frecuencia</MenuItem>
+                                    <MenuItem value="diariamente">Diariamente</MenuItem>
+                                    <MenuItem value="semanalmente">Semanalmente</MenuItem>
+                                    <MenuItem value="quincenalmente">Quincenalmente</MenuItem>
+                                    <MenuItem value="mensualmente">Mensualmente</MenuItem>
+                                </Select>
+                            </FormControl>
+                        )}
+
+                        <Button variant="contained" onClick={manejarSiguiente} color="primary" sx={{ mt: 2 }}>Siguiente</Button>
+                    </form>
                 </CardContent>
             </Card>
         </div>

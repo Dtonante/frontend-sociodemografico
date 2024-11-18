@@ -1,14 +1,42 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, Box, Typography, Divider, CardContent, Button, TextField, FormControl, RadioGroup, FormControlLabel, Radio, InputLabel, Select, MenuItem } from "@mui/material";
+import { Card, Box, Typography, Divider, CardContent, Button, TextField, FormControl, RadioGroup, FormHelperText, FormControlLabel, Radio, InputLabel, Select, MenuItem } from "@mui/material";
 import axios from "axios";
 
 const VistaDatosProfesional6 = () => {
     const [nivelEscolaridad, setNivelEscolaridad] = useState('');
-    const [actualmenteEstudia, setActualmenteEstudia] = useState(false);
-    const [nombreCarrera, setNombreCarrera] = useState('N/A');
+    const [actualmenteEstudia, setActualmenteEstudia] = useState();
+    const [nombreCarrera, setNombreCarrera] = useState('');
     const [certificadoPdf, setCertificadoPdf] = useState(null);
     const navigate = useNavigate();
+    const [errors, setErrors] = useState({});
+    const [touchedFields, setTouchedFields] = useState({});
+
+    // Validaciones basadas en los campos tocados
+    useEffect(() => {
+        const nuevosErrores = {};
+
+        if (touchedFields.nivelEscolaridad && !nivelEscolaridad) {
+            nuevosErrores.nivelEscolaridad = "El nombre completo es obligatorio";
+        }
+
+        if (touchedFields.actualmenteEstudia && (actualmenteEstudia === undefined )) {
+            nuevosErrores.actualmenteEstudia = "El tipo de documento es obligatorio";
+        }
+
+
+
+        setErrors(nuevosErrores);
+    }, [nivelEscolaridad, actualmenteEstudia, touchedFields]);
+
+    // Marcar un campo como "tocado" cuando pierde el enfoque
+    const handleBlur = (event) => {
+        const { name } = event.target;
+        setTouchedFields({
+            ...touchedFields,
+            [name]: true,
+        });
+    };
 
     // Manejo del cambio en el Select y RadioGroup
     const manejarCambio = (event) => {
@@ -20,14 +48,20 @@ const VistaDatosProfesional6 = () => {
         } else if (name === "boolean_actualmenteEstudia") {
             const estudia = value === "true";
             setActualmenteEstudia(estudia);
+            console.log("Actualmente estudia (boolean):", estudia);
             if (!estudia) {
-                setNombreCarrera("N/A"); // Si selecciona "No", el valor se pone en "N/A"
+                setNombreCarrera("N/A");
+                localStorage.setItem('nombreCarrera', "N/A"); // Si selecciona "No", el valor se pone en "N/A"
             }
+
+
             localStorage.setItem('actualmenteEstudia', estudia);
         } else if (name === "nombreCarrera") {
             setNombreCarrera(value);
             localStorage.setItem('nombreCarrera', value);
         }
+
+
     };
 
     const manejarCambioPdf = (event) => {
@@ -55,28 +89,6 @@ const VistaDatosProfesional6 = () => {
         }
     };
 
-    // const manejarSiguiente = async () => {
-    //     const formData = new FormData();
-    //     if (certificadoPdf) {
-    //         formData.append("certificado", certificadoPdf);  // Adjunta solo el PDF
-
-    //         try {
-    //             await axios.post("http://localhost:3001/certificados/subir/", formData, {
-    //                 headers: {
-    //                     "Content-Type": "multipart/form-data",
-    //                 },
-    //             });
-    //             console.log("Archivo PDF enviado correctamente");
-    //             navigate("/datosProfesional7");
-    //         } catch (error) {
-    //             console.error("Error al enviar el archivo:", error);
-    //             alert("Hubo un error al enviar el archivo. Inténtalo nuevamente.");
-    //         }
-    //     } else {
-    //         alert("Por favor, sube un archivo PDF antes de continuar.");
-    //     }
-    // };
-
     const manejarSiguiente = async () => {
         const formData = new FormData();
         if (certificadoPdf) {
@@ -99,6 +111,22 @@ const VistaDatosProfesional6 = () => {
                 // Guardamos la URL en el localStorage
                 localStorage.setItem('certificadoUrl', url);
 
+                const nuevosErrores = {};
+
+                if (!nivelEscolaridad) {
+                    nuevosErrores.nivelEscolaridad = "El nombre completo es obligatorio";
+                } actualmenteEstudia
+
+                if (actualmenteEstudia === undefined ) {
+                    nuevosErrores.actualmenteEstudia = "El nombre completo es obligatorio";
+                }
+
+
+                if (Object.keys(nuevosErrores).length > 0) {
+                    setErrors(nuevosErrores);
+                    return;
+                }
+
                 // Navegamos a la siguiente vista
                 navigate("/datosProfesional7");
             } catch (error) {
@@ -117,14 +145,14 @@ const VistaDatosProfesional6 = () => {
             <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "50px auto" }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500" }}> Nivel de Escolaridad </Typography>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>Formación académica</Typography>
                     </Box>
                 </Box>
                 <Divider />
                 <CardContent sx={{ padding: "30px" }}>
-                    <FormControl fullWidth sx={{ mb: 2 }}>
-                        <Typography variant="h6" >Nivel de Escolaridad: </Typography>
-                        <Select labelId="nivelEscolar-label" name="nivelEscolaridad" value={nivelEscolaridad} onChange={manejarCambio} label="Nivel de Escolaridad" >
+                    <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.nivelEscolaridad}>
+                        <Typography variant="h6" >Nivel de Escolaridad : </Typography>
+                        <Select onBlur={handleBlur} labelId="nivelEscolar-label" name="nivelEscolaridad" value={nivelEscolaridad} onChange={manejarCambio} label="Nivel de Escolaridad" >
                             <MenuItem value="bachicher">Bachiller </MenuItem>
                             <MenuItem value="tecnico">Técnico </MenuItem>
                             <MenuItem value="tecnologo">Tecnólogo </MenuItem>
@@ -132,17 +160,16 @@ const VistaDatosProfesional6 = () => {
                             <MenuItem value="posgrado">Posgrado </MenuItem>
                             <MenuItem value="doctorado">Doctorado </MenuItem>
                         </Select>
+                        {errors.nivelEscolaridad && (
+                            <FormHelperText
+                                sx={{ marginLeft: 0, }}
+                            >{errors.nivelEscolaridad}</FormHelperText>
+                        )}
                     </FormControl>
 
                     <FormControl fullWidth sx={{ mb: 2 }}>
-                        <Typography variant="h6">Subir Certificado:</Typography>
-                        <input
-                            id="certificado-pdf"
-                            name="certificadoPdf"
-                            type="file"
-                            accept="application/pdf"
-                            onChange={manejarCambioPdf}
-                        />
+                        <Typography variant="h6">Anexar certificado :</Typography>
+                        <input id="certificado-pdf" name="certificadoPdf" type="file" accept="application/pdf" onChange={manejarCambioPdf} />
                         {certificadoPdf && (
                             <Box sx={{ mt: 2 }}>
                                 <Typography variant="body2">
@@ -158,17 +185,20 @@ const VistaDatosProfesional6 = () => {
                         )}
                     </FormControl>
 
-                    <FormControl component="fieldset" fullWidth sx={{ mb: 2 }}>
-                        <Typography variant="h6" >¿Actualmente Estudia? </Typography>
-                        <RadioGroup name="boolean_actualmenteEstudia" value={actualmenteEstudia ? "true" : "false"} onChange={manejarCambio} row >
+                    <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} error={!!errors.actualmenteEstudia} >
+                        <Typography variant="h6" >¿Actualmente Estudia? :</Typography>
+                        <RadioGroup name="boolean_actualmenteEstudia" value={actualmenteEstudia} onChange={manejarCambio} row onBlur={handleBlur} >
                             <FormControlLabel value="true" control={<Radio />} label="Sí" />
                             <FormControlLabel value="false" control={<Radio />} label="No" />
                         </RadioGroup>
+                        {errors.actualmenteEstudia && (
+                            <Typography variant="caption" color="error"> {errors.actualmenteEstudia} </Typography>
+                        )}
                     </FormControl>
 
                     {actualmenteEstudia && (
                         <FormControl fullWidth sx={{ mb: 2 }}>
-                            <Typography variant="h6" >Nombre de la Carrera </Typography>
+                            <Typography variant="h6" >Nombre del programa : </Typography>
                             <TextField name="nombreCarrera" value={nombreCarrera} onChange={manejarCambio} variant="outlined" />
                         </FormControl>
                     )}

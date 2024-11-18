@@ -1,18 +1,19 @@
 
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, CardContent, Divider, Box, Typography, TextField, Button, MenuItem } from "@mui/material";
+import { Card, CardContent, Divider, Box, Typography, FormHelperText, FormControl, TextField, Button, ListItemText, Checkbox, Select, MenuItem } from "@mui/material";
 
 const VistaDatosProfesional2 = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         var_estadoCivil: "",
         boolean_viveSolo: "",
-        set_personasConLasQueVive: [],
+        set_personasConLasQueVive: '',
         boolean_viveConMascotas: "",
         var_personasDependeciaEconimica: "",
         var_totalIngresosPropiosYGrupoFamiliar: ""
     });
+    const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
     const [errors, setErrors] = useState({});
     const [touchedFields, setTouchedFields] = useState({});
 
@@ -20,7 +21,7 @@ const VistaDatosProfesional2 = () => {
     useEffect(() => {
         const nuevosErrores = {};
 
-        if (touchedFields.var_estadoCivil && !formData.var_estadoCivil.trim()) {
+        if (touchedFields.var_estadoCivil && !formData.var_estadoCivil) {
             nuevosErrores.var_estadoCivil = "El nombre completo es obligatorio";
         }
 
@@ -38,6 +39,10 @@ const VistaDatosProfesional2 = () => {
 
         if (touchedFields.var_totalIngresosPropiosYGrupoFamiliar && !formData.var_totalIngresosPropiosYGrupoFamiliar) {
             nuevosErrores.var_totalIngresosPropiosYGrupoFamiliar = "El tipo de documento es obligatorio";
+        }
+
+        if (formData.boolean_viveSolo === "false" && formData.set_personasConLasQueVive.length === 0) {
+            nuevosErrores.set_personasConLasQueVive = "Debe seleccionar al menos una persona con la que vive";
         }
 
         setErrors(nuevosErrores);
@@ -64,6 +69,15 @@ const VistaDatosProfesional2 = () => {
                     ...prevData,
                     [name]: value,
                     set_personasConLasQueVive: value === "true" ? "N/A" : []
+                };
+            }
+            // Manejo para el campo "set_personasConLasQueVive" (Select múltiple con checkboxes)
+            if (name === "set_personasConLasQueVive") {
+                // Almacena los valores seleccionados en un array
+                const selectedValues = typeof value === 'string' ? value.split(',') : value;
+                return {
+                    ...prevData,
+                    [name]: selectedValues
                 };
             }
             if (name === "var_estadoCivil") {
@@ -113,6 +127,10 @@ const VistaDatosProfesional2 = () => {
             nuevosErrores.var_totalIngresosPropiosYGrupoFamiliar = "El tipo de documento es obligatorio";
         }
 
+        if (formData.boolean_viveSolo === "false" && formData.set_personasConLasQueVive.length === 0) {
+            nuevosErrores.set_personasConLasQueVive = "Debe seleccionar al menos una persona con la que vive";
+        }
+
         if (Object.keys(nuevosErrores).length > 0) {
             setErrors(nuevosErrores);
             return;
@@ -127,7 +145,7 @@ const VistaDatosProfesional2 = () => {
             <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "50px auto" }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>Datos Adicionales del Profesional</Typography>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>Datos adicionales</Typography>
                     </Box>
                 </Box>
                 <Divider />
@@ -163,17 +181,34 @@ const VistaDatosProfesional2 = () => {
 
                         {formData.boolean_viveSolo === "false" && (
                             <>
-                                <Typography variant="h6">¿Vive con?:</Typography>
-                                <TextField select name="set_personasConLasQueVive" variant="outlined" value={formData.set_personasConLasQueVive} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} SelectProps={{ multiple: true }} >
-                                    <MenuItem value="tio">Tío</MenuItem>
-                                    <MenuItem value="hermanos">Hermanos</MenuItem>
-                                    <MenuItem value="madre">Madre</MenuItem>
-                                    <MenuItem value="padre">Padre</MenuItem>
-                                    <MenuItem value="abuelos">Abuelos</MenuItem>
-                                </TextField>
+                                <FormControl sx={{ mb: 2 }} fullWidth error={!!errors.set_personasConLasQueVive}>
+                                    <Typography variant="h6">¿Vive con? (Selecciona todas las personas con las que habita):</Typography>
+                                    <Select
+                                        name="set_personasConLasQueVive"
+                                        multiple
+                                        value={formData.set_personasConLasQueVive}
+                                        onChange={manejarCambioInput}
+                                        renderValue={(selected) => selected.join(' - ')} // Opciones seleccionadas concatenadas
+                                        fullWidth
+                                        onBlur={handleBlur}
+                                        variant="outlined"
+                                        MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }}
+                                    >
+                                        {["tio", "hermanos", "madre", "padre", "abuelos"].map((persona) => (
+                                            <MenuItem key={persona} value={persona}>
+                                                <Checkbox checked={formData.set_personasConLasQueVive.indexOf(persona) > -1} />
+                                                <ListItemText primary={persona} />
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                    {errors.set_personasConLasQueVive && (
+                                        <FormHelperText sx={{  marginLeft: 0, }}
+                                        >{errors.set_personasConLasQueVive}</FormHelperText>
+                                    )}
+                                </FormControl>
                             </>
                         )}
-                        <Typography variant="h6">¿Vive con Mascotas?:</Typography>
+                        <Typography variant="h6">¿Tiene mascotas? :</Typography>
                         <TextField select name="boolean_viveConMascotas" variant="outlined" value={formData.boolean_viveConMascotas} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur}
                             error={!!errors.boolean_viveConMascotas}
                             helperText={errors.boolean_viveConMascotas} FormHelperTextProps={{
@@ -185,7 +220,7 @@ const VistaDatosProfesional2 = () => {
                             <MenuItem value="false">No</MenuItem>
                         </TextField>
 
-                        <Typography variant="h6">Personas que dependen economicamente de ti pero no viven con usted:</Typography>
+                        <Typography variant="h6">Cantidad de personas con las que NO vive pero dependen económicamente de usted :</Typography>
                         <TextField select name="var_personasDependeciaEconimica" variant="outlined" value={formData.var_personasDependeciaEconimica} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur}
                             error={!!errors.var_personasDependeciaEconimica}
                             helperText={errors.var_personasDependeciaEconimica} FormHelperTextProps={{

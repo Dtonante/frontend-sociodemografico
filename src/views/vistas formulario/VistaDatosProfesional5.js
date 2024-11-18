@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Box, Typography, Divider, CardContent, Button, TextField, FormControl, MenuItem, InputLabel, Select } from "@mui/material";
+import { Card, Box, Typography, Divider, CardContent, Button, FormHelperText, TextField, FormControl, MenuItem, InputLabel, Select } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -17,6 +17,73 @@ const VistaDatosProfesional5 = () => {
     const [sede, setSede] = useState('');
     const [turnoTrabajo, setTurnoTrabajo] = useState('');
     const navigate = useNavigate();
+    const [errors, setErrors] = useState({});
+    const [touchedFields, setTouchedFields] = useState({});
+
+    // Validaciones basadas en los campos tocados
+    useEffect(() => {
+        const nuevosErrores = {};
+
+        if (touchedFields.afiliado && !afiliado) {
+            nuevosErrores.afiliado = "El departamento es obligatorio";
+        }
+
+        if (afiliado === "si" && touchedFields.tipoVinculacion && !tipoVinculacion) {
+            nuevosErrores.tipoVinculacion = "El departamento es obligatorio";
+        }
+
+        if (afiliado === "si" && touchedFields.tipoContrato && !tipoContrato) {
+            nuevosErrores.tipoContrato = "El departamento es obligatorio";
+        }
+
+        if (afiliado === "si" && touchedFields.salario && !salario) {
+            nuevosErrores.salario = "El departamento es obligatorio";
+        }
+
+        if (afiliado === "si" && touchedFields.fechaIngreso && !fechaIngreso) {
+            nuevosErrores.fechaIngreso = "El departamento es obligatorio";
+        }
+
+        if (afiliado === "si" && touchedFields.areaSeleccionada && !areaSeleccionada) {
+            nuevosErrores.areaSeleccionada = "El departamento es obligatorio";
+        }
+
+        if (afiliado === "si" && touchedFields.cargo && !cargo) {
+            nuevosErrores.cargo = "El departamento es obligatorio";
+        }
+
+        if (afiliado === "si" && touchedFields.jefeInmediato && !jefeInmediato) {
+            nuevosErrores.jefeInmediato = "El departamento es obligatorio";
+        }
+
+        if (afiliado === "si" && touchedFields.sede && !sede) {
+            nuevosErrores.sede = "El departamento es obligatorio";
+        }
+
+        if (afiliado === "si" && touchedFields.turnoTrabajo && !turnoTrabajo) {
+            nuevosErrores.turnoTrabajo = "El departamento es obligatorio";
+        }
+        // Validar que la fecha de ingreso no sea futura
+        if (afiliado === "si" && touchedFields.fechaIngreso) {
+            const fechaHoy = new Date().toISOString().split('T')[0]; // Obtener la fecha de hoy en formato YYYY-MM-DD
+            if (!fechaIngreso || fechaIngreso > fechaHoy) {
+                nuevosErrores.fechaIngreso = "La fecha de ingreso no puede ser futura";
+            }
+        }
+
+
+
+        setErrors(nuevosErrores)
+    }, [afiliado, tipoVinculacion, tipoContrato, salario, cargo, sede, fechaIngreso, areaSeleccionada, jefeInmediato, turnoTrabajo, touchedFields]);
+
+    // Marcar un campo como "tocado" cuando pierde el enfoque
+    const handleBlur = (event) => {
+        const { name } = event.target;
+        setTouchedFields({
+            ...touchedFields,
+            [name]: true,
+        });
+    };
 
     useEffect(() => {
         const fetchEstructuraOrganizacional = async () => {
@@ -52,6 +119,7 @@ const VistaDatosProfesional5 = () => {
 
     const manejarCambio = (event) => {
         const { name, value } = event.target;
+
 
         if (name === "afiliado") {
             setAfiliado(value);
@@ -127,6 +195,57 @@ const VistaDatosProfesional5 = () => {
     };
 
     const manejarSiguiente = () => {
+        const nuevosErrores = {};
+
+
+        if (!afiliado) {
+            nuevosErrores.afiliado = "El campo servicios con los que no cuentan es obligatorio";
+        }
+
+        if (afiliado === "si" && !tipoVinculacion) {
+            nuevosErrores.tipoVinculacion = "El campo servicios con los que no cuentan es obligatorio";
+        }
+
+        if (afiliado === "si" && !tipoContrato) {
+            nuevosErrores.tipoContrato = "El campo servicios con los que no cuentan es obligatorio";
+        }
+
+        if (afiliado === "si" && !salario) {
+            nuevosErrores.salario = "El campo servicios con los que no cuentan es obligatorio";
+        }
+
+        if (afiliado === "si" && !fechaIngreso) {
+            nuevosErrores.fechaIngreso = "El campo servicios con los que no cuentan es obligatorio";
+        }
+
+        if (afiliado === "si" && !areaSeleccionada) {
+            nuevosErrores.areaSeleccionada = "El campo servicios con los que no cuentan es obligatorio";
+        }
+
+        if (afiliado === "si" && !cargo) {
+            nuevosErrores.cargo = "El campo servicios con los que no cuentan es obligatorio";
+        }
+
+        if (afiliado === "si" && !jefeInmediato) {
+            nuevosErrores.jefeInmediato = "El campo servicios con los que no cuentan es obligatorio";
+        }
+
+        if (afiliado === "si" && !cargo) {
+            nuevosErrores.cargo = "El campo servicios con los que no cuentan es obligatorio";
+        }
+
+        if (afiliado === "si" && !sede) {
+            nuevosErrores.sede = "El campo servicios con los que no cuentan es obligatorio";
+        }
+
+        if (afiliado === "si" && !turnoTrabajo) {
+            nuevosErrores.turnoTrabajo = "El campo servicios con los que no cuentan es obligatorio";
+        }
+
+        if (Object.keys(nuevosErrores).length > 0) {
+            setErrors(nuevosErrores);
+            return;
+        }
 
         navigate("/datosProfesional6");
     };
@@ -136,30 +255,48 @@ const VistaDatosProfesional5 = () => {
             <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "50px auto" }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>¿Ya estás afiliado?</Typography>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>Información de vinculación</Typography>
                     </Box>
                 </Box>
                 <Divider />
                 <CardContent sx={{ padding: "30px" }}>
-                    <FormControl fullWidth sx={{ mb: 2 }}>
-                        <Typography variant="h6">¿Ya estás afiliado?:</Typography>
-                        <Select labelId="afiliado-label" name="afiliado" value={afiliado} onChange={manejarCambio}  >
-                            <MenuItem value="si">Sí</MenuItem>
-                            <MenuItem value="no">No</MenuItem>
+                    <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.afiliado}>
+                        <Typography variant="h6">¿En proceso de ingreso o vinculado? :</Typography>
+                        <Select labelId="afiliado-label" name="afiliado" value={afiliado} onChange={manejarCambio} onBlur={handleBlur} >
+                            <MenuItem value="si">Vinculado</MenuItem>
+                            <MenuItem value="no">Proceso de ingreso</MenuItem>
                         </Select>
+                        {errors.afiliado && (
+                            <FormHelperText
+                                sx={{
+                                    marginLeft: 0,
+                                }}
+                            >
+                                {errors.afiliado}
+                            </FormHelperText>
+                        )}
                     </FormControl>
 
                     {afiliado === "si" && (
                         <form>
-                            <FormControl fullWidth sx={{ mb: 2 }}>
+                            <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.tipoVinculacion}>
                                 <Typography variant="h6">Tipo de Vinculación:</Typography>
                                 <Select labelId="tipo-vinculacion-label" name="tipoVinculacion" value={tipoVinculacion} onChange={manejarCambio}  >
                                     <MenuItem value="vinculado">Vinculado</MenuItem>
                                     <MenuItem value="temporal">Temporal</MenuItem>
                                 </Select>
+                                {errors.tipoVinculacion && (
+                                    <FormHelperText
+                                        sx={{
+                                            marginLeft: 0,
+                                        }}
+                                    >
+                                        {errors.tipoVinculacion}
+                                    </FormHelperText>
+                                )}
                             </FormControl>
 
-                            <FormControl fullWidth sx={{ mb: 2 }}>
+                            <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.tipoContrato}>
                                 <Typography variant="h6">Tipo de Contrato:</Typography>
                                 <Select labelId="tipo-contrato-label" name="tipoContrato" value={tipoContrato} onChange={manejarCambio}  >
                                     <MenuItem value="indefinido">Contrato a término indefinido</MenuItem>
@@ -169,46 +306,92 @@ const VistaDatosProfesional5 = () => {
                                     <MenuItem value="docente_catedra">Docente de cátedra</MenuItem>
                                     <MenuItem value="obra_labor">Obra/Labor</MenuItem>
                                 </Select>
+                                {errors.tipoContrato && (
+                                    <FormHelperText
+                                        sx={{
+                                            marginLeft: 0,
+                                        }}
+                                    >
+                                        {errors.tipoContrato}
+                                    </FormHelperText>
+                                )}
                             </FormControl>
 
                             <Typography variant="h6">Salario:</Typography>
-                            <TextField variant="outlined" fullWidth name="var_salario" value={salario} onChange={manejarCambio} sx={{ mb: 2 }} />
+                            <TextField variant="outlined" fullWidth name="var_salario" value={salario} onChange={manejarCambio} sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.salario} helperText={errors.salario} FormHelperTextProps={{
+                                sx: {
+                                    marginLeft: 0,
+                                },
+                            }} />
 
                             <Typography variant="h6">Fecha de Ingreso:</Typography>
-                            <TextField name="date_fechaIngresoInstitucion" type="date" variant="outlined" value={fechaIngreso} onChange={manejarCambio} fullWidth sx={{ mb: 2 }} InputLabelProps={{ shrink: true }} />
+                            <TextField name="date_fechaIngresoInstitucion" type="date" variant="outlined" value={fechaIngreso} onChange={manejarCambio} fullWidth sx={{ mb: 2 }} InputLabelProps={{ shrink: true }} onBlur={handleBlur} error={!!errors.fechaIngreso} helperText={errors.fechaIngreso} FormHelperTextProps={{
+                                sx: {
+                                    marginLeft: 0,
+                                },
+                            }} inputProps={{
+                                max: new Date().toISOString().split('T')[0] // Deshabilita fechas futuras
+                            }} />
 
-                            <Typography variant="h6">Antigüedad en la Institución (días):</Typography>
+                            <Typography variant="h6">Antigüedad en la Institución (días) :</Typography>
                             <TextField name="var_antiguedadInstitucion" type="text" variant="outlined" value={antiguedadInstitucion} onChange={manejarCambio} fullWidth sx={{ mb: 2 }} disabled />
-                            <FormControl fullWidth sx={{ mb: 2 }}>
-                                <InputLabel id="area-label">Área</InputLabel>
+
+                            <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.areaSeleccionada}>
+                                <Typography variant="h6">Área laboral a la que pertenece :</Typography>
                                 <Select labelId="area-label" name="area" value={areaSeleccionada} onChange={manejarCambio} label="Área" >
                                     {estructuraOrganizacional.map((area) => (
                                         <MenuItem key={area.id_areaPk} value={area.id_areaPk}>{area.var_nombreArea}</MenuItem>
                                     ))}
                                 </Select>
+                                {errors.areaSeleccionada && (
+                                    <FormHelperText sx={{
+                                            marginLeft: 0
+                                        }}
+                                    >{errors.areaSeleccionada}</FormHelperText>
+                                )}
                             </FormControl>
 
-                            <Typography variant="h6">Cargo:</Typography>
-                            <TextField variant="outlined" fullWidth name="var_cargo" value={cargo} onChange={manejarCambio} sx={{ mb: 2 }} />
+                            <Typography variant="h6">Cargo :</Typography>
+                            <TextField variant="outlined" fullWidth name="var_cargo" value={cargo} onChange={manejarCambio} sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.cargo} helperText={errors.cargo} FormHelperTextProps={{
+                                sx: {
+                                    marginLeft: 0,
+                                },
+                            }} />
 
                             <Typography variant="h6">Jefe Inmediato:</Typography>
-                            <TextField variant="outlined" fullWidth name="var_jefeInmediato" value={jefeInmediato} onChange={manejarCambio} sx={{ mb: 2 }} />
+                            <TextField variant="outlined" fullWidth name="var_jefeInmediato" value={jefeInmediato} onChange={manejarCambio} sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.jefeInmediato} helperText={errors.jefeInmediato} FormHelperTextProps={{
+                                sx: {
+                                    marginLeft: 0,
+                                },
+                            }} />
 
-                            <FormControl fullWidth sx={{ mb: 2 }}>
+                            <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.sede}>
                                 <Typography variant="h6">Sede:</Typography>
-                                <Select labelId="sede-label" name="var_sede" value={sede} onChange={manejarCambio} label="Sede">
+                                <Select labelId="sede-label" name="var_sede" value={sede} onChange={manejarCambio} label="Sede" onBlur={handleBlur}>
                                     <MenuItem value="robledo">Robledo</MenuItem>
                                     <MenuItem value="premium_plaza">Premium Plaza</MenuItem>
                                     <MenuItem value="robledo_premium_plaza">Robledo / Premium Plaza</MenuItem>
                                 </Select>
+                                {errors.sede && (
+                                    <FormHelperText sx={{
+                                            marginLeft: 0,
+                                        }}
+                                    >{errors.sede}</FormHelperText>
+                                )}
                             </FormControl>
 
-                            <FormControl fullWidth sx={{ mb: 2 }}>
+                            <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.turnoTrabajo}>
                                 <Typography variant="h6">Turno de trabajo:</Typography>
                                 <Select labelId="turno-label" name="var_turnoTrabajo" value={turnoTrabajo} onChange={manejarCambio}>
                                     <MenuItem value="diurno">Diurno</MenuItem>
                                     <MenuItem value="jornada_Extendida">jornada extendida </MenuItem>
                                 </Select>
+                                {errors.turnoTrabajo && (
+                                    <FormHelperText sx={{
+                                            marginLeft: 0,
+                                        }}
+                                    >{errors.turnoTrabajo}</FormHelperText>
+                                )}
                             </FormControl>
 
                         </form>

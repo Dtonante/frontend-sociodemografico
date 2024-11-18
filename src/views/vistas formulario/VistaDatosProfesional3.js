@@ -10,7 +10,7 @@ const VistaDatosProfesional3 = () => {
     const [selectedAntecedentes, setSelectedAntecedentes] = useState([]);
     const [fondoPensionOptions, setFondoPensionOptions] = useState([]);
     const [selectedFondoPension, setSelectedFondoPension] = useState('');
-    const [cambioEpsOArl, setCambioEpsOArl] = useState(false);
+    const [cambioEpsOArl, setCambioEpsOArl] = useState();
     const [serviciosSaludAdicionalOptions, setServiciosSaludAdicionalOptions] = useState([]);
     const [selectedServiciosSaludAdicional, setSelectedServiciosSaludAdicional] = useState([]);
     const navigate = useNavigate();
@@ -29,12 +29,22 @@ const VistaDatosProfesional3 = () => {
             nuevosErrores.selectedFondoPension = "El nombre completo es obligatorio";
         }
 
-        if (touchedFields.selectedServiciosSaludAdicional && !selectedServiciosSaludAdicional) {
+        if (touchedFields.selectedServiciosSaludAdicional && (!selectedServiciosSaludAdicional || selectedServiciosSaludAdicional.length === 0)) {
             nuevosErrores.selectedServiciosSaludAdicional = "El nombre completo es obligatorio";
         }
 
+        if (touchedFields.cambioEpsOArl && !cambioEpsOArl) {
+            nuevosErrores.cambioEpsOArl = "El nombre completo es obligatorio";
+        }
+
+        if (touchedFields.selectedAntecedentes && (!selectedAntecedentes || selectedAntecedentes.length === 0)) {
+            nuevosErrores.selectedAntecedentes = "El nombre completo es obligatorio";
+        }
+
+        
+
         setErrors(nuevosErrores);
-    }, [touchedFields]);
+    }, [selectedEps, selectedFondoPension, selectedServiciosSaludAdicional, cambioEpsOArl, touchedFields]);
 
     // Marcar un campo como "tocado" cuando pierde el enfoque
     const handleBlur = (event) => {
@@ -136,8 +146,16 @@ const VistaDatosProfesional3 = () => {
             nuevosErrores.selectedFondoPension = "El nombre completo es obligatorio";
         }
 
-        if (!selectedServiciosSaludAdicional) {
+        if (!cambioEpsOArl) {
+            nuevosErrores.cambioEpsOArl = "El nombre completo es obligatorio";
+        }
+
+        if (!selectedServiciosSaludAdicional || selectedServiciosSaludAdicional.length === 0) {
             nuevosErrores.selectedServiciosSaludAdicional = "El nombre completo es obligatorio";
+        }
+
+        if (!selectedAntecedentes || selectedAntecedentes.length === 0) {
+            nuevosErrores.selectedAntecedentes = "El nombre completo es obligatorio";
         }
 
         if (Object.keys(nuevosErrores).length > 0) {
@@ -164,19 +182,24 @@ const VistaDatosProfesional3 = () => {
             <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "50px auto" }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>Datos Adicionales del Profesional</Typography>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>Seguridad social</Typography>
                     </Box>
                 </Box>
                 <Divider />
                 <CardContent sx={{ padding: "30px" }}>
                     <form >
-                        <Box sx={{ mb: 2 }}>
+                        <FormControl sx={{ mb: 2 }} error={!!errors.cambioEpsOArl}>
                             <Typography variant="h6">¿Ha cambiado de EPS o AFP?</Typography>
-                            <RadioGroup row value={cambioEpsOArl} onChange={(event) => manejarCambio(event, 'cambioEpsOArl')} >
+                            <RadioGroup row value={cambioEpsOArl} onChange={(event) => manejarCambio(event, 'cambioEpsOArl')} onBlur={handleBlur} >
                                 <FormControlLabel value={true} control={<Radio />} label="Sí" />
                                 <FormControlLabel value={false} control={<Radio />} label="No" />
                             </RadioGroup>
-                        </Box>
+                            {errors.cambioEpsOArl && (
+                                <Typography variant="caption" color="error">
+                                    {errors.cambioEpsOArl}
+                                </Typography>
+                            )}
+                        </FormControl>
                         <Typography variant="h6">Seleccione EPS: </Typography>
                         <TextField select value={selectedEps} name="selectedEps" onChange={(event) => manejarCambio(event, 'eps')} fullWidth variant="outlined" sx={{ mb: 2 }} onBlur={handleBlur}
                             error={!!errors.selectedEps}
@@ -200,15 +223,15 @@ const VistaDatosProfesional3 = () => {
                                 ))}
                             </Select>
                             {errors.selectedFondoPension && (
-                                <FormHelperText FormHelperTextProps={{
-                                    sx: {
+                                <FormHelperText
+                                    sx={{
                                         marginLeft: 0,
-                                    },
-                                }}>{errors.selectedFondoPension}</FormHelperText>
+                                    }}
+                                >{errors.selectedFondoPension}</FormHelperText>
                             )}
                         </FormControl>
 
-                        <Box sx={{ mb: 2 }} error={!!errors.selectedServiciosSaludAdicional}>
+                        <FormControl sx={{ mb: 2 }} fullWidth error={!!errors.selectedServiciosSaludAdicional}>
                             <Typography variant="h6">Seleccione los servicios de salud adicional:</Typography>
                             <Select
                                 name="selectedServiciosSaludAdicional"
@@ -234,18 +257,18 @@ const VistaDatosProfesional3 = () => {
                                 ))}
                             </Select>
                             {errors.selectedServiciosSaludAdicional && (
-                                <FormHelperText FormHelperTextProps={{
-                                    sx: {
+                                <FormHelperText 
+                                    sx={{
                                         marginLeft: 0,
-                                    },
-                                }}>{errors.selectedServiciosSaludAdicional}</FormHelperText>
+                                    }}
+                            >{errors.selectedServiciosSaludAdicional}</FormHelperText>
                             )}
-                        </Box>
+                        </FormControl>
 
-                        <Box sx={{ mb: 2 }}>
+                        <FormControl sx={{ mb: 2 }} fullWidth error={!!errors.selectedAntecedentes}>
                             <Typography variant="h6">Seleccione Antecedentes Médicos:</Typography>
 
-                            <Select multiple value={selectedAntecedentes} onChange={(event) => manejarCambio(event, 'antecedentes')} renderValue={(selected) => {
+                            <Select onBlur={handleBlur} multiple value={selectedAntecedentes} onChange={(event) => manejarCambio(event, 'antecedentes')} renderValue={(selected) => {
                                 const selectedNames = antecedentesOptions.filter(antecedente => selected.includes(antecedente.id_antecedenteMedicoPK)).map(antecedente => {
                                     // Extraer solo la parte del nombre antes del primer paréntesis, si existe
                                     const name = antecedente.var_nombreAntecedenteMedico;
@@ -265,7 +288,14 @@ const VistaDatosProfesional3 = () => {
                                     </MenuItem>
                                 ))}
                             </Select>
-                        </Box>
+                            {errors.selectedAntecedentes && (
+                                <FormHelperText 
+                                    sx={{
+                                        marginLeft: 0,
+                                    }}
+                            >{errors.selectedAntecedentes}</FormHelperText>
+                            )}
+                        </FormControl>
                         <Button variant="contained" onClick={manejarSiguiente} color="primary" type="submit" sx={{ mt: 2 }}>Siguiente</Button>
                     </form>
                 </CardContent>

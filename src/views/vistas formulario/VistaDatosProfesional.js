@@ -40,11 +40,11 @@ const VistaDatosProfesional = () => {
             nuevosErrores.var_tipoVivienda = "El tipo de documento es obligatorio";
         }
 
-        if (touchedFields.selectedServiciosQueNoCuentan && !selectedServiciosQueNoCuentan) {
+        if (touchedFields.selectedServiciosQueNoCuentan && (!selectedServiciosQueNoCuentan || selectedServiciosQueNoCuentan.length === 0)) {
             nuevosErrores.selectedServiciosQueNoCuentan = "El tipo de documento es obligatorio";
         }
 
-        if (touchedFields.selectedFactoresRiesgo && !selectedFactoresRiesgo) {
+        if (touchedFields.selectedFactoresRiesgo && (!selectedFactoresRiesgo || selectedFactoresRiesgo.length === 0)) {
             nuevosErrores.selectedFactoresRiesgo = "El tipo de documento es obligatorio";
         }
 
@@ -188,11 +188,11 @@ const VistaDatosProfesional = () => {
             nuevosErrores.var_tipoVivienda = "El tipo de vivienda es obligatorio";
         }
 
-        if (!selectedServiciosQueNoCuentan) {
+        if (!selectedServiciosQueNoCuentan || selectedServiciosQueNoCuentan.length === 0) {
             nuevosErrores.selectedServiciosQueNoCuentan = "El campo servicios con los que no cuentan es obligatorio";
         }
 
-        if (!selectedFactoresRiesgo) {
+        if (!selectedFactoresRiesgo || selectedFactoresRiesgo.length === 0) {
             nuevosErrores.selectedFactoresRiesgo = "El campo servicios con los que no cuentan es obligatorio";
         }
 
@@ -212,7 +212,7 @@ const VistaDatosProfesional = () => {
             <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "50px auto" }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500" }}> Formulario de Profesional </Typography>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500" }}> Datos personales </Typography>
                     </Box>
                 </Box>
                 <Divider />
@@ -348,10 +348,10 @@ const VistaDatosProfesional = () => {
                                 <MenuItem key={tipo} value={tipo}>{tipo}</MenuItem>
                             ))}
                         </TextField>
-                        
+
                         {/* servicios con los que no cuentan */}
                         <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.selectedServiciosQueNoCuentan} >
-                            <Typography variant="h6">Seleccione los servicios con los que no cuentan: </Typography>
+                            <Typography variant="h6">Seleccione los servicios con los que no cuenta la vivienda: </Typography>
                             <Select
                                 multiple
                                 onBlur={handleBlur}
@@ -385,17 +385,17 @@ const VistaDatosProfesional = () => {
                                 ))}
                             </Select>
                             {errors.selectedServiciosQueNoCuentan && (
-                                <FormHelperText FormHelperTextProps={{
-                                    sx: {
+                                <FormHelperText
+                                    sx={{
                                         marginLeft: 0,
-                                    },
-                                }}>{errors.selectedServiciosQueNoCuentan}</FormHelperText>
+                                    }}
+                                    >{errors.selectedServiciosQueNoCuentan}</FormHelperText>
                             )}
                         </FormControl>
 
 
-                        <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.selectedFondoPension}>
-                            <Typography variant="h6">Seleccione Factores de Riesgo: </Typography>
+                        <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.selectedFactoresRiesgo}>
+                            <Typography variant="h6">Seleccione factores de riesgo que tiene la vivienda: </Typography>
                             <Select
                                 multiple
                                 onBlur={handleBlur}
@@ -430,11 +430,11 @@ const VistaDatosProfesional = () => {
                                 ))}
                             </Select>
                             {errors.selectedFactoresRiesgo && (
-                                <FormHelperText FormHelperTextProps={{
-                                    sx: {
-                                        marginLeft: 0,
-                                    },
-                                }}>{errors.selectedFactoresRiesgo}</FormHelperText>
+                                <FormHelperText
+                                    sx={{ marginLeft: 0 }}
+                                >
+                                    {errors.selectedFactoresRiesgo}
+                                </FormHelperText>
                             )}
                         </FormControl>
 
