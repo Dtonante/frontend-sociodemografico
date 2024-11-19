@@ -83,7 +83,7 @@ const VistaAgradecimientos = () => {
                 //se traen los antecedentes medicos
                 const selectedAntecedentesMedicos = JSON.parse(localStorage.getItem('selectedAntecedentes'));
                 //se traen las actividadesd de tiempo libre
-                const selectedActividadesTiempoLibre = JSON.parse(localStorage.getItem('selectedActividadTiempoLibre'));
+                const selectedActividadesTiempoLibre = JSON.parse(localStorage.getItem('actividadTiempoLibre'));
                 //se traen las actividadesd de tiempo libre
                 const selectedServiciosQueNoCuentan = JSON.parse(localStorage.getItem('selectedServiciosQueNoCuentan'));
 

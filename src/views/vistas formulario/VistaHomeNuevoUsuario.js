@@ -14,140 +14,6 @@ const VistaHomeUsuarioNuevo = () => {
         navigate('/proteccionDatos');
     };
 
-    // return (
-    //     <div
-    //         style={{
-    //             backgroundColor: '#F2F2F2',
-    //             display: 'flex',
-    //             flexDirection: 'column',
-    //             alignItems: 'center',
-    //             justifyContent: 'space-between',
-    //             height: '100vh',
-    //             margin: 0,
-    //             padding: 0,
-    //         }}
-    //     >
-    //         {/* Imagen de fondo */}
-    //         <div style={{ width: '100%', height: '35%', position: 'relative' }}>
-    //             <img
-    //                 src="public/fondo_home.jpg" // Reemplaza con la ruta correcta de la imagen
-    //                 alt="Fondo"
-    //                 style={{
-    //                     width: '100%',
-    //                     height: '100%',
-    //                     objectFit: 'cover',
-    //                 }}
-    //             />
-    //         </div>
-
-    //         {/* Contenido principal */}
-    //         <div
-    //             style={{
-    //                 flex: 1,
-    //                 display: 'flex',
-    //                 flexDirection: 'column',
-    //                 alignItems: 'center',
-    //                 textAlign: 'center',
-    //                 padding: '0 20px',
-    //                 gap: '20px',
-    //             }}
-    //         >
-    //             {/* Título */}
-    //             <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#1b263b' }}>
-    //                 Diagnóstico de Capital Humano
-    //             </h2>
-
-    //             {/* Caja informativa */}
-    //             <div
-    //                 style={{
-    //                     backgroundColor: '#F2F2F2',
-    //                     border: '2px solid #202B52',
-    //                     borderRadius: '10px',
-    //                     padding: '15px',
-    //                     maxWidth: '59%',
-    //                     textAlign: 'justify',
-    //                     marginTop: '-10px'
-    //                 }}
-    //             >
-    //                 <p style={{ margin: 0, color: '#1b263b', fontSize: '14px' }}>
-    //                     <strong>Importante:</strong>Lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim lacus vitae lacus consectetur interdum. Quisque tellus arcu, dapibus sit amet quam elementum, semper molestie nulla. Lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim lacus vitae lacus consectetur interdum. Quisque tellus arcu, dapibus sit amet quam elementum, semper molestie nulla. Lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim lacus vitae lacus consectetur interdum. Quisque tellus arcu, dapibus sit amet quam elementum, semper molestie nulla.
-    //                 </p>
-    //             </div>
-    //         </div>
-
-    //         {/* Caja para iconos y botón */}
-    //         <div
-    //             style={{
-    //                 display: 'flex',
-    //                 justifyContent: 'space-around',
-    //                 alignItems: 'center',
-    //                 width: '100%',
-    //                 padding: '200px',
-    //                 marginTop: '-60px'
-    //             }}
-    //         >
-    //             {/* Iconos sociales */}
-    //             <div style={{ display: 'flex', gap: '15px' }}>
-    //                 <button
-    //                     style={{
-    //                         backgroundColor: '#00A5CE',
-    //                         color: '#fff',
-    //                         border: 'none',
-    //                         borderRadius: '50%',
-    //                         width: '40px',
-    //                         height: '40px',
-    //                         cursor: 'pointer',
-    //                     }}
-    //                 >
-    //                     E
-    //                 </button>
-    //                 <button
-    //                     style={{
-    //                         backgroundColor: '#00A5CE',
-    //                         color: '#fff',
-    //                         border: 'none',
-    //                         borderRadius: '50%',
-    //                         width: '40px',
-    //                         height: '40px',
-    //                         cursor: 'pointer',
-    //                     }}
-    //                 >
-    //                     I
-    //                 </button>
-    //                 <button
-    //                     style={{
-    //                         backgroundColor: '#00A5CE',
-    //                         color: '#fff',
-    //                         border: 'none',
-    //                         borderRadius: '50%',
-    //                         width: '40px',
-    //                         height: '40px',
-    //                         cursor: 'pointer',
-    //                     }}
-    //                 >
-    //                     F
-    //                 </button>
-    //             </div>
-
-    //             {/* Botón de acción */}
-    //             <button
-    //                 style={{
-    //                     padding: '10px 20px',
-    //                     fontSize: '16px',
-    //                     backgroundColor: '#1b263b',
-    //                     color: 'white',
-    //                     border: 'none',
-    //                     borderRadius: '5px',
-    //                     cursor: 'pointer',
-    //                 }}
-    //             >
-    //                 Siguiente
-    //             </button>
-    //         </div>
-    //     </div>
-    // );
-
-
     return (
         <div
             style={{
@@ -162,13 +28,13 @@ const VistaHomeUsuarioNuevo = () => {
             }}
         >
             {/* Imagen de fondo */}
-            <div style={{ width: '100%', height: '35%', position: 'relative' }}>
+            <div style={{ width: '100%', height: '35%', position: 'relative',textAlign: 'center', }}>
                 <img
                     src="public/fondo_home.jpg" // Reemplaza con la ruta correcta de la imagen
                     alt="Fondo"
                     style={{
-                        width: '100%',
-                        height: '100%',
+                        width: '60%',
+                        height: '85%',
                         objectFit: 'cover',
                     }}
                 />
@@ -184,12 +50,12 @@ const VistaHomeUsuarioNuevo = () => {
                     flexDirection: 'column',
                     gap: '15px',
                     maxWidth: '60%',
-                    marginTop: '-15px'
+                    marginTop: '-3%'
 
                 }}
 
             >
-                <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#1b263b' }}>
+                <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#1b263b', fontFamily: 'Roboto Condensed' }}>
                     Diagnóstico de Capital Humano
                 </h2>
                 {/* Caja informativa */}
@@ -202,8 +68,8 @@ const VistaHomeUsuarioNuevo = () => {
                         textAlign: 'justify',
                     }}
                 >
-                    <p style={{ margin: 0, color: '#1b263b', fontSize: '14px' }}>
-                        <strong>Importante:</strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim lacus vitae lacus consectetur interdum. Quisque tellus arcu, dapibus sit amet quam elementum, semper molestie nulla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim lacus vitae lacus consectetur interdum. Quisque tellus arcu, dapibus sit amet quam elementum, semper molestie nulla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim lacus vitae lacus consectetur interdum. Quisque tellus arcu, dapibus sit amet quam elementum, semper molestie nulla.
+                    <p style={{ margin: 0, color: '#1b263b', fontSize: '14px', fontFamily: 'Poppins' }}>
+                        <strong style={{fontFamily: 'Roboto Condensed'}}>Importante: </strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim lacus vitae lacus consectetur interdum. Quisque tellus arcu, dapibus sit amet quam elementum, semper molestie nulla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim lacus vitae lacus consectetur interdum. Quisque tellus arcu, dapibus sit amet quam elementum, semper molestie nulla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim lacus vitae lacus consectetur interdum. Quisque tellus arcu, dapibus sit amet quam elementum, semper molestie nulla.
                     </p>
                 </div>
 
@@ -288,9 +154,7 @@ const VistaHomeUsuarioNuevo = () => {
                                 cursor: 'pointer',
                             }}
                             onClick={manejarDatosUsuario}
-                        >
-                            Siguiente
-                        </button>
+                        > Formulario </button>
                     </div>
                 </div>
 

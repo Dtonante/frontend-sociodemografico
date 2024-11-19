@@ -279,6 +279,14 @@ const VistaDatosProfesional5 = () => {
 
                     {afiliado === "si" && (
                         <form>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed' }}>Correo Electrónico Institucional:</Typography>
+                            <TextField name="var_correoElectronicoInstitucional" type="email" variant="outlined" value={formData.var_correoElectronicoInstitucional} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_correoElectronicoInstitucional} helperText={errors.var_correoElectronicoInstitucional} FormHelperTextProps={{
+                                sx: {
+                                    marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+                                },
+                            }} />
+
+
                             <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.tipoVinculacion}>
                                 <Typography variant="h6">Tipo de Vinculación:</Typography>
                                 <Select labelId="tipo-vinculacion-label" name="tipoVinculacion" value={tipoVinculacion} onChange={manejarCambio}  >
@@ -345,8 +353,8 @@ const VistaDatosProfesional5 = () => {
                                 </Select>
                                 {errors.areaSeleccionada && (
                                     <FormHelperText sx={{
-                                            marginLeft: 0
-                                        }}
+                                        marginLeft: 0
+                                    }}
                                     >{errors.areaSeleccionada}</FormHelperText>
                                 )}
                             </FormControl>
@@ -374,8 +382,8 @@ const VistaDatosProfesional5 = () => {
                                 </Select>
                                 {errors.sede && (
                                     <FormHelperText sx={{
-                                            marginLeft: 0,
-                                        }}
+                                        marginLeft: 0,
+                                    }}
                                     >{errors.sede}</FormHelperText>
                                 )}
                             </FormControl>
@@ -388,8 +396,8 @@ const VistaDatosProfesional5 = () => {
                                 </Select>
                                 {errors.turnoTrabajo && (
                                     <FormHelperText sx={{
-                                            marginLeft: 0,
-                                        }}
+                                        marginLeft: 0,
+                                    }}
                                     >{errors.turnoTrabajo}</FormHelperText>
                                 )}
                             </FormControl>

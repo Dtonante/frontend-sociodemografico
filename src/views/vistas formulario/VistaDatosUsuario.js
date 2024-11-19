@@ -5,12 +5,13 @@ import { useNavigate } from "react-router-dom";
 
 const VistaDatosUsuario = () => {
   const [formData, setFormData] = React.useState({
+    id_rolFK: 1,
+    boolean_estado: true,
     var_nombreCompleto: "",
     int_tipoDocumentoFK: "",
     var_numeroDocumento: "",
     var_genero: "",
     var_correoElectronicoPersonal: "",
-    var_correoElectronicoInstitucional: "",
     var_rh: "",
     var_grupoEtnico: "",
     date_fechaNacimiento: "",
@@ -23,6 +24,7 @@ const VistaDatosUsuario = () => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [touchedFields, setTouchedFields] = useState({});
+  const porcentajeProgreso = 15;
 
   // Validaciones basadas en los campos tocados
   useEffect(() => {
@@ -207,6 +209,7 @@ const VistaDatosUsuario = () => {
       localStorage.setItem('var_celular', formData.var_celular);
       localStorage.setItem('var_telefonoFijo', formData.var_telefonoFijo);
 
+
       navigate("/datosProfesional");
     } catch (error) {
       console.error("Error al crear el usuario:", error);
@@ -215,47 +218,83 @@ const VistaDatosUsuario = () => {
 
 
   return (
-    <div >
-      <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "50px auto" }}>
+    <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', paddingBottom: '3%' }}>
+
+      <div style={{ textAlign: 'center', marginBottom: '1%', marginTop: '-1%' }}>
+        <img
+          src="public/logo_form.png"
+          alt="Descripción de la imagen"
+          style={{
+            width: '20%', 
+            height: 'auto', 
+          }}
+        />
+      </div>
+      <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: '#F2F2F2', }}>
         <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
           <Box flexGrow={1}>
-            <Typography sx={{ fontSize: "18px", fontWeight: "500" }}> Datos personales </Typography>
+            <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}> Datos personales </Typography>
           </Box>
         </Box>
-        <Divider />
+        <Divider style={{ marginLeft: '5%', marginRight: '5%' }} />
         <CardContent sx={{ padding: "30px" }}>
           <form onSubmit={manejarEnvio}>
-            <Typography variant="h6">Nombre Completo:</Typography>
-            <TextField name="var_nombreCompleto" variant="outlined" value={formData.var_nombreCompleto} onChange={handleInputChange} fullWidth sx={{ mb: 2,  }} onBlur={handleBlur}
+            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed' }}>Nombre Completo:</Typography>
+            <TextField name="var_nombreCompleto" variant="outlined" value={formData.var_nombreCompleto} onChange={handleInputChange} fullWidth sx={{ mb: 2, }} onBlur={handleBlur}
               error={!!errors.var_nombreCompleto}
               helperText={errors.var_nombreCompleto} FormHelperTextProps={{
                 sx: {
-                  marginLeft: 0, 
+                  marginLeft: 0,
+                },
+
+              }} InputProps={{
+                sx: {
+                  height: "40px",
+                  fontFamily: "Poppins",
+                  fontSize: "16px"
                 },
               }} />
-            <Typography variant="h6">Tipo de Documento:</Typography>
+            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed' }}>Tipo de Documento:</Typography>
             <TextField select name="int_tipoDocumentoFK" label="" variant="outlined" value={formData.int_tipoDocumentoFK} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.int_tipoDocumentoFK} helperText={errors.int_tipoDocumentoFK} FormHelperTextProps={{
-                sx: {
-                  marginLeft: 0, 
-                },
-              }} >
+              sx: {
+                marginLeft: 0,
+              },
+            }} InputProps={{
+              sx: {
+                height: "40px",
+                fontFamily: "Poppins",
+                fontSize: "16px"
+              },
+            }} >
               {tiposDocumento.map((option) => (
                 <MenuItem key={option.id_tipoDocumentoPK} value={option.id_tipoDocumentoPK}> {option.var_nombreDocumento} </MenuItem>
               ))}
             </TextField>
-            <Typography variant="h6">Número de Documento:</Typography>
+            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed' }}>Número de Documento:</Typography>
             <TextField name="var_numeroDocumento" variant="outlined" value={formData.var_numeroDocumento} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_numeroDocumento} helperText={errors.var_numeroDocumento} FormHelperTextProps={{
-                sx: {
-                  marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
-                },
-              }} />
-            <Typography variant="h6">Fecha de Nacimiento:</Typography>
+              sx: {
+                marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+              },
+            }} InputProps={{
+              sx: {
+                height: "40px",
+                fontFamily: "Poppins",
+                fontSize: "16px"
+              },
+            }} />
+            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed' }}>Fecha de Nacimiento:</Typography>
             <TextField name="date_fechaNacimiento" type="date" variant="outlined" value={formData.date_fechaNacimiento} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} InputLabelProps={{ shrink: true }} onBlur={handleBlur} error={!!errors.date_fechaNacimiento} helperText={errors.date_fechaNacimiento} FormHelperTextProps={{
-                sx: {
-                  marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
-                },
-              }} />
-            <Typography variant="h6">Género:</Typography>
+              sx: {
+                marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+              },
+            }} InputProps={{
+              sx: {
+                height: "40px",
+                fontFamily: "Poppins",
+                fontSize: "16px"
+              },
+            }} />
+            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed' }}>Género:</Typography>
             <FormControl component="fieldset" sx={{ mb: 2 }} error={!!errors.var_genero}>
               <RadioGroup
                 name="var_genero"
@@ -263,6 +302,13 @@ const VistaDatosUsuario = () => {
                 onChange={handleInputChange}
                 row
                 onBlur={handleBlur}
+                InputProps={{
+                  sx: {
+                    height: "40px",
+                    fontFamily: "Poppins",
+                    fontSize: "16px"
+                  },
+                }}
               >
                 <FormControlLabel value="Masculino" control={<Radio />} label="Masculino" />
                 <FormControlLabel value="Femenino" control={<Radio />} label="Femenino" />
@@ -274,12 +320,18 @@ const VistaDatosUsuario = () => {
                 </Typography>
               )}
             </FormControl>
-            <Typography variant="h6">Grupo Sanguíneo:</Typography>
+            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed' }}>Grupo Sanguíneo:</Typography>
             <TextField select name="var_rh" variant="outlined" value={formData.var_rh} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_rh} helperText={errors.var_rh} FormHelperTextProps={{
-                sx: {
-                  marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
-                },
-              }} >
+              sx: {
+                marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+              },
+            }} InputProps={{
+              sx: {
+                height: "40px",
+                fontFamily: "Poppins",
+                fontSize: "16px"
+              },
+            }} >
               <MenuItem value="A+">A+</MenuItem>
               <MenuItem value="A-">A-</MenuItem>
               <MenuItem value="B+">B+</MenuItem>
@@ -289,56 +341,124 @@ const VistaDatosUsuario = () => {
               <MenuItem value="AB+">AB+</MenuItem>
               <MenuItem value="AB-">AB-</MenuItem>
             </TextField>
-            <Typography variant="h6">Grupo Étnico:</Typography>
+            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed' }}>Grupo Étnico:</Typography>
             <TextField select name="var_grupoEtnico" value={formData.var_grupoEtnico} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_grupoEtnico} helperText={errors.var_grupoEtnico} FormHelperTextProps={{
-                sx: {
-                  marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
-                },
-              }} >
+              sx: {
+                marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+              },
+            }} InputProps={{
+              sx: {
+                height: "40px",
+                fontFamily: "Poppins",
+                fontSize: "16px"
+              },
+            }} >
               {gruposEtnicos.map(grupo => (
                 <MenuItem key={grupo} value={grupo}>
                   {grupo}
                 </MenuItem>
               ))}
             </TextField>
-            <Typography variant="h6">Correo Electrónico Personal:</Typography>
+            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed' }}>Correo Electrónico Personal:</Typography>
             <TextField name="var_correoElectronicoPersonal" type="email" variant="outlined" value={formData.var_correoElectronicoPersonal} onChange={handleInputChange} onBlur={handleBlur} fullWidth sx={{ mb: 2 }} error={!!errors.var_correoElectronicoPersonal} helperText={errors.var_correoElectronicoPersonal} FormHelperTextProps={{
-                sx: {
-                  marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
-                },
-              }} />
-            <Typography variant="h6">Correo Electrónico Institucional:</Typography>
-            <TextField name="var_correoElectronicoInstitucional" type="email" variant="outlined" value={formData.var_correoElectronicoInstitucional} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_correoElectronicoInstitucional} helperText={errors.var_correoElectronicoInstitucional} FormHelperTextProps={{
-                sx: {
-                  marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
-                },
-              }}/>
-            <Typography variant="h6">Celular:</Typography>
-            <TextField name="var_celular" variant="outlined" value={formData.var_celular} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_celular} helperText={errors.var_celular} FormHelperTextProps={{
-                sx: {
-                  marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
-                },
-              }} />
-            <Typography variant="h6">Telefono fijo:</Typography>
-            <TextField name="var_telefonoFijo" variant="outlined" value={formData.var_telefonoFijo} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_telefonoFijo} helperText={errors.var_telefonoFijo} FormHelperTextProps={{
-                sx: {
-                  marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
-                },
-              }} />
-            <Typography variant="h6">Contraseña:</Typography>
-            <TextField name="var_contrasena" type="password" variant="outlined" value={formData.var_contrasena} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_contrasena} helperText={errors.var_contrasena} FormHelperTextProps={{
-                sx: {
-                  marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
-                },
-              }} />
-            <Typography variant="h6">Confirmar Contraseña:</Typography>
-            <TextField name="confirmar_contrasena" type="password" variant="outlined" value={formData.confirmar_contrasena} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.confirmar_contrasena} helperText={errors.confirmar_contrasena} FormHelperTextProps={{
-                sx: {
-                  marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
-                },
-              }} />
+              sx: {
+                marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+              },
+            }} InputProps={{
+              sx: {
+                height: "40px",
+                fontFamily: "Poppins",
+                fontSize: "16px"
+              },
+            }} />
 
-            <Button color="primary" variant="contained" type="submit"> Enviar </Button>
+            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed' }}>Celular:</Typography>
+            <TextField name="var_celular" variant="outlined" value={formData.var_celular} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_celular} helperText={errors.var_celular} FormHelperTextProps={{
+              sx: {
+                marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+              },
+            }} InputProps={{
+              sx: {
+                height: "40px",
+                fontFamily: "Poppins",
+                fontSize: "16px"
+              },
+            }}/>
+            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed' }}>Telefono fijo:</Typography>
+            <TextField name="var_telefonoFijo" variant="outlined" value={formData.var_telefonoFijo} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_telefonoFijo} helperText={errors.var_telefonoFijo} FormHelperTextProps={{
+              sx: {
+                marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+              },
+            }} InputProps={{
+              sx: {
+                height: "40px",
+                fontFamily: "Poppins",
+                fontSize: "16px"
+              },
+            }}/>
+            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed' }}>Contraseña:</Typography>
+            <TextField name="var_contrasena" type="password" variant="outlined" value={formData.var_contrasena} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_contrasena} helperText={errors.var_contrasena} FormHelperTextProps={{
+              sx: {
+                marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+              },
+            }} InputProps={{
+              sx: {
+                height: "40px",
+                fontFamily: "Poppins",
+                fontSize: "16px"
+              },
+            }}/>
+            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed' }}>Confirmar Contraseña:</Typography>
+            <TextField name="confirmar_contrasena" type="password" variant="outlined" value={formData.confirmar_contrasena} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.confirmar_contrasena} helperText={errors.confirmar_contrasena} FormHelperTextProps={{
+              sx: {
+                marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+              },
+            }} InputProps={{
+              sx: {
+                height: "40px",
+                fontFamily: "Poppins",
+                fontSize: "16px"
+              },
+            }}/>
+
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                backgroundColor: '#F2F2F2',
+                padding: '10px 15px',
+                borderRadius: '20px',
+                width: '100%',
+              }}
+            >
+              <div
+                style={{
+                  height: '10px',
+                  width: '90%',
+                  backgroundColor: '#F2F2F2',
+                  borderRadius: '7px',
+                  overflow: 'hidden',
+                  border: '2px solid #202B52',
+                  marginRight: '10px',
+                }}
+              >
+                <div
+                  style={{
+                    width: `${porcentajeProgreso}%`,
+                    height: '100%',
+                    backgroundColor: '#202B52',
+                    borderRadius: '5px 0 0 5px',
+                  }}
+                ></div>
+              </div>
+              <span style={{ color: '#202B52', fontWeight: 'bold' }}>{porcentajeProgreso}%</span>
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <Button sx={{ backgroundColor: '#202B52' }} variant="contained" type="submit">
+                Enviar
+              </Button>
+            </div>
           </form>
         </CardContent>
       </Card>

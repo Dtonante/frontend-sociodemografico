@@ -21,6 +21,8 @@ const VistaDatosProfesional = () => {
     });
     const [errors, setErrors] = useState({});
     const [touchedFields, setTouchedFields] = useState({});
+    const porcentajeProgreso = 6;
+
     // Validaciones basadas en los campos tocados
     useEffect(() => {
         const nuevosErrores = {};
@@ -389,7 +391,7 @@ const VistaDatosProfesional = () => {
                                     sx={{
                                         marginLeft: 0,
                                     }}
-                                    >{errors.selectedServiciosQueNoCuentan}</FormHelperText>
+                                >{errors.selectedServiciosQueNoCuentan}</FormHelperText>
                             )}
                         </FormControl>
 
@@ -437,6 +439,39 @@ const VistaDatosProfesional = () => {
                                 </FormHelperText>
                             )}
                         </FormControl>
+
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                backgroundColor: '#F2F2F2',
+                                padding: '10px 15px',
+                                borderRadius: '20px',
+                                width: '100%',
+                            }}
+                        >
+                            <div
+                                style={{
+                                    height: '10px',
+                                    width: '90%',
+                                    backgroundColor: '#F2F2F2',
+                                    borderRadius: '7px',
+                                    overflow: 'hidden',
+                                    border: '2px solid #202B52',
+                                    marginRight: '10px',
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        width: `${porcentajeProgreso}%`,
+                                        height: '100%',
+                                        backgroundColor: '#202B52',
+                                        borderRadius: '5px 0 0 5px',
+                                    }}
+                                ></div>
+                            </div>
+                            <span style={{ color: '#202B52', fontWeight: 'bold' }}>{porcentajeProgreso}%</span>
+                        </div>
 
 
 

@@ -27,15 +27,15 @@ const VistaDatosProfesional7 = () => {
     useEffect(() => {
         const nuevosErrores = {};
 
-        if (touchedFields.pasoMayorTiempoLibre && !pasoMayorTiempoLibre) {
+        if (touchedFields.set_pasoMayorTiempoLibre && !pasoMayorTiempoLibre) {
             nuevosErrores.pasoMayorTiempoLibre = "El nombre completo es obligatorio";
         }
 
-        if (touchedFields.peso && !peso.thim()) {
+        if (touchedFields.var_peso && (!peso || peso.trim() === "")) {
             nuevosErrores.peso = "El nombre completo es obligatorio";
         }
 
-        if (touchedFields.altura && !altura.thim()) {
+        if (touchedFields.var_altura && (!peso || peso.trim() === "")) {
             nuevosErrores.altura = "El nombre completo es obligatorio";
         }
 
@@ -46,13 +46,13 @@ const VistaDatosProfesional7 = () => {
         setErrors(nuevosErrores);
     }, [pasoMayorTiempoLibre, peso, altura, selectedActividadTiempoLibre, touchedFields]);
 
-    // Marcar un campo como "tocado" cuando pierde el enfoque
     const handleBlur = (event) => {
         const { name } = event.target;
-        setTouchedFields({
-            ...touchedFields,
+        setTouchedFields((prev) => ({
+            ...prev,
             [name]: true,
-        });
+        }));
+        console.log("Touched fields:", touchedFields); // Debug
     };
 
     const generarOpciones = () => {
@@ -184,18 +184,19 @@ const VistaDatosProfesional7 = () => {
         } else if (name === "var_altura") {
             setAltura(value);
             localStorage.setItem('var_altura', value);
+            console.log('nana', peso)
         } else if (name === "set_pasoMayorTiempoLibre") {
             // Si el valor es un arreglo, se maneja de la siguiente manera
             setPasoMayorTiempoLibre(value);  // value será un arreglo
             localStorage.setItem('set_pasoMayorTiempoLibre', JSON.stringify(value));
         } else if (campo === 'actividadTiempoLibre') {
             setSelectedActividadTiempoLibre(value);
-            localStorage.setItem('selectedActividadTiempoLibre', JSON.stringify(value));
+            localStorage.setItem('actividadTiempoLibre', JSON.stringify(value));
         }
+        console.log('nana2', peso)
     };
 
     const manejarSiguiente = () => {
-        event.preventDefault();
 
         const nuevosErrores = {};
 
@@ -203,13 +204,13 @@ const VistaDatosProfesional7 = () => {
             nuevosErrores.pasoMayorTiempoLibre = "Debe confirmar la contraseña";
         }
 
-        if (!peso) {
+        if (!peso || peso.trim() === "") {
             nuevosErrores.peso = "Debe confirmar la contraseña";
         }
 
         if (!altura) {
             nuevosErrores.altura = "Debe confirmar la contraseña";
-        }selectedActividadTiempoLibre
+        }
 
         if (!selectedActividadTiempoLibre || selectedActividadTiempoLibre.length === 0) {
             nuevosErrores.selectedActividadTiempoLibre = "Debe confirmar la contraseña";
@@ -240,7 +241,7 @@ const VistaDatosProfesional7 = () => {
 
                         <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.selectedActividadTiempoLibre}>
                             <Typography variant="h6">Seleccione las actividades que realiza en su tiempo libre : </Typography>
-                            <Select multiple onBlur={handleBlur} value={selectedActividadTiempoLibre} onChange={(event) => manejarCambio(event, 'actividadTiempoLibre')} renderValue={(selected) => {
+                            <Select name='actividadTiempoLibre' multiple onBlur={handleBlur} value={selectedActividadTiempoLibre} onChange={(event) => manejarCambio(event, 'actividadTiempoLibre')} renderValue={(selected) => {
                                 // Obtener los nombres de los las actividades que realiza en su tiempo libre seleccionados
                                 const selectedNames = actividadTiempoLibreOptions
                                     .filter(actividad => selected.includes(actividad.id_tiempoLibrePK))
