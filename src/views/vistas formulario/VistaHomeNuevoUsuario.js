@@ -14,39 +14,297 @@ const VistaHomeUsuarioNuevo = () => {
         navigate('/proteccionDatos');
     };
 
+    // return (
+    //     <div
+    //         style={{
+    //             backgroundColor: '#F2F2F2',
+    //             display: 'flex',
+    //             flexDirection: 'column',
+    //             alignItems: 'center',
+    //             justifyContent: 'space-between',
+    //             height: '100vh',
+    //             margin: 0,
+    //             padding: 0,
+    //         }}
+    //     >
+    //         {/* Imagen de fondo */}
+    //         <div style={{ width: '100%', height: '35%', position: 'relative' }}>
+    //             <img
+    //                 src="public/fondo_home.jpg" // Reemplaza con la ruta correcta de la imagen
+    //                 alt="Fondo"
+    //                 style={{
+    //                     width: '100%',
+    //                     height: '100%',
+    //                     objectFit: 'cover',
+    //                 }}
+    //             />
+    //         </div>
+
+    //         {/* Contenido principal */}
+    //         <div
+    //             style={{
+    //                 flex: 1,
+    //                 display: 'flex',
+    //                 flexDirection: 'column',
+    //                 alignItems: 'center',
+    //                 textAlign: 'center',
+    //                 padding: '0 20px',
+    //                 gap: '20px',
+    //             }}
+    //         >
+    //             {/* Título */}
+    //             <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#1b263b' }}>
+    //                 Diagnóstico de Capital Humano
+    //             </h2>
+
+    //             {/* Caja informativa */}
+    //             <div
+    //                 style={{
+    //                     backgroundColor: '#F2F2F2',
+    //                     border: '2px solid #202B52',
+    //                     borderRadius: '10px',
+    //                     padding: '15px',
+    //                     maxWidth: '59%',
+    //                     textAlign: 'justify',
+    //                     marginTop: '-10px'
+    //                 }}
+    //             >
+    //                 <p style={{ margin: 0, color: '#1b263b', fontSize: '14px' }}>
+    //                     <strong>Importante:</strong>Lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim lacus vitae lacus consectetur interdum. Quisque tellus arcu, dapibus sit amet quam elementum, semper molestie nulla. Lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim lacus vitae lacus consectetur interdum. Quisque tellus arcu, dapibus sit amet quam elementum, semper molestie nulla. Lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim lacus vitae lacus consectetur interdum. Quisque tellus arcu, dapibus sit amet quam elementum, semper molestie nulla.
+    //                 </p>
+    //             </div>
+    //         </div>
+
+    //         {/* Caja para iconos y botón */}
+    //         <div
+    //             style={{
+    //                 display: 'flex',
+    //                 justifyContent: 'space-around',
+    //                 alignItems: 'center',
+    //                 width: '100%',
+    //                 padding: '200px',
+    //                 marginTop: '-60px'
+    //             }}
+    //         >
+    //             {/* Iconos sociales */}
+    //             <div style={{ display: 'flex', gap: '15px' }}>
+    //                 <button
+    //                     style={{
+    //                         backgroundColor: '#00A5CE',
+    //                         color: '#fff',
+    //                         border: 'none',
+    //                         borderRadius: '50%',
+    //                         width: '40px',
+    //                         height: '40px',
+    //                         cursor: 'pointer',
+    //                     }}
+    //                 >
+    //                     E
+    //                 </button>
+    //                 <button
+    //                     style={{
+    //                         backgroundColor: '#00A5CE',
+    //                         color: '#fff',
+    //                         border: 'none',
+    //                         borderRadius: '50%',
+    //                         width: '40px',
+    //                         height: '40px',
+    //                         cursor: 'pointer',
+    //                     }}
+    //                 >
+    //                     I
+    //                 </button>
+    //                 <button
+    //                     style={{
+    //                         backgroundColor: '#00A5CE',
+    //                         color: '#fff',
+    //                         border: 'none',
+    //                         borderRadius: '50%',
+    //                         width: '40px',
+    //                         height: '40px',
+    //                         cursor: 'pointer',
+    //                     }}
+    //                 >
+    //                     F
+    //                 </button>
+    //             </div>
+
+    //             {/* Botón de acción */}
+    //             <button
+    //                 style={{
+    //                     padding: '10px 20px',
+    //                     fontSize: '16px',
+    //                     backgroundColor: '#1b263b',
+    //                     color: 'white',
+    //                     border: 'none',
+    //                     borderRadius: '5px',
+    //                     cursor: 'pointer',
+    //                 }}
+    //             >
+    //                 Siguiente
+    //             </button>
+    //         </div>
+    //     </div>
+    // );
+
+
     return (
-        <div style={{ position: 'relative', height: '100vh', margin: 0, padding: 0}}>
-            {/* Imagen de fondo en la parte superior (encabezado) */}
-            <img
-                src="public/fondo_home.jpg" // Reemplaza con la ruta correcta de la imagen
-                alt="Fondo"
-                style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: '50%',
-                    transform: 'translateX(-50%)', // Centra la imagen horizontalmente
-                    width: '100%', // Asegura que la imagen ocupe todo el ancho
-                    height: '35%',
-                    objectFit: 'cover', // Mantiene las proporciones de la imagen
-                    zIndex: -1,
-                    margin: 0,
-                    padding: 0
-                }}
-            />
-
-            {/* Texto centrado (puedes moverlo o ajustarlo según lo que desees) */}
-            {/* <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 100px)', textAlign: 'center', color: 'black' }}>
-                <h1 style={{ fontSize: '36px', fontWeight: 'bold' }}>Bienvenido</h1>
-            </div> */}
-
-            {/* Botones en la parte inferior */}
-            <div style={{ position: 'absolute', bottom: '20px', left: '50%', transform: 'translateX(-50%)' }}>
-                <button onClick={manejarLogin} style={{ padding: '10px 20px', fontSize: '16px', backgroundColor: '#007BFF', color: 'white', border: 'none', cursor: 'pointer', marginRight: '15px' }}>Login</button>
-                <button onClick={manejarDatosUsuario} style={{ padding: '10px 20px', fontSize: '16px', backgroundColor: '#28a745', color: 'white', border: 'none', cursor: 'pointer' }}>Danos tus datos</button>
+        <div
+            style={{
+                backgroundColor: '#F2F2F2',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                height: '100vh',
+                margin: 0,
+                padding: 0,
+            }}
+        >
+            {/* Imagen de fondo */}
+            <div style={{ width: '100%', height: '35%', position: 'relative' }}>
+                <img
+                    src="public/fondo_home.jpg" // Reemplaza con la ruta correcta de la imagen
+                    alt="Fondo"
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                    }}
+                />
             </div>
-        </div>
 
+            {/* Contenedor compacto */}
+            <div
+                style={{
+                    backgroundColor: '#F2F2F2',
+                    padding: '20px',
+                    textAlign: 'center',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '15px',
+                    maxWidth: '60%',
+                    marginTop: '-15px'
+
+                }}
+
+            >
+                <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#1b263b' }}>
+                    Diagnóstico de Capital Humano
+                </h2>
+                {/* Caja informativa */}
+                <div
+                    style={{
+                        backgroundColor: '#F2F2F2',
+                        border: '2px solid #202B52',
+                        borderRadius: '10px',
+                        padding: '15px',
+                        textAlign: 'justify',
+                    }}
+                >
+                    <p style={{ margin: 0, color: '#1b263b', fontSize: '14px' }}>
+                        <strong>Importante:</strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim lacus vitae lacus consectetur interdum. Quisque tellus arcu, dapibus sit amet quam elementum, semper molestie nulla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim lacus vitae lacus consectetur interdum. Quisque tellus arcu, dapibus sit amet quam elementum, semper molestie nulla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim lacus vitae lacus consectetur interdum. Quisque tellus arcu, dapibus sit amet quam elementum, semper molestie nulla.
+                    </p>
+                </div>
+
+                {/* Caja para iconos y botón */}
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        width: '100%',
+                        marginTop: '7%',
+                    }}
+                >
+                    {/* Iconos sociales */}
+                    <div style={{ display: 'flex', gap: '12px' }}>
+                        <button
+                            style={{
+                                backgroundColor: '#00A5CE',
+                                color: '#fff',
+                                border: 'none',
+                                borderRadius: '50%',
+                                width: '40px',
+                                height: '40px',
+                                cursor: 'pointer',
+                            }}
+                        >
+                            E
+                        </button>
+                        <button
+                            style={{
+                                backgroundColor: '#00A5CE',
+                                color: '#fff',
+                                border: 'none',
+                                borderRadius: '50%',
+                                width: '40px',
+                                height: '40px',
+                                cursor: 'pointer',
+                            }}
+                        >
+                            I
+                        </button>
+                        <button
+                            style={{
+                                backgroundColor: '#00A5CE',
+                                color: '#fff',
+                                border: 'none',
+                                borderRadius: '50%',
+                                width: '40px',
+                                height: '40px',
+                                cursor: 'pointer',
+                            }}
+                        >
+                            F
+                        </button>
+                    </div>
+
+                    {/* Botones de acción juntos */}
+                    <div style={{ display: 'flex', gap: '12px' }}>
+                        <button
+                            style={{
+                                padding: '10px 20px',
+                                fontSize: '16px',
+                                backgroundColor: '#1b263b',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '5px',
+                                cursor: 'pointer',
+                                
+                            }}
+                            onClick={manejarLogin}
+                        >
+                            log in
+                        </button>
+                        <button
+                            style={{
+                                padding: '10px 20px',
+                                fontSize: '16px',
+                                backgroundColor: '#1b263b',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '5px',
+                                cursor: 'pointer',
+                            }}
+                            onClick={manejarDatosUsuario}
+                        >
+                            Siguiente
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            {/* Espaciador final (para ajustar la altura) */}
+            <div style={{ flex: 1 }} />
+        </div>
     );
+
+
+
+
+
 };
 
 export default VistaHomeUsuarioNuevo;
