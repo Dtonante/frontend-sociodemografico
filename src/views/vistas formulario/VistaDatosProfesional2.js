@@ -12,7 +12,8 @@ const VistaDatosProfesional2 = () => {
         boolean_viveConMascotas: "",
         var_personasDependeciaEconimica: "",
         var_totalIngresosPropiosYGrupoFamiliar: "",
-        var_numeroPersonasConLasQueVive: ""
+        var_numeroPersonasConLasQueVive: "",
+        set_tipoMascotas: []
     });
     const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
     const [errors, setErrors] = useState({});
@@ -249,13 +250,13 @@ const VistaDatosProfesional2 = () => {
                                         fullWidth
                                         onBlur={handleBlur}
                                         variant="outlined"
-                                        MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }} InputProps={{
-                                            sx: {
+                                        MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }}
+                                            sx={{
                                                 height: "40px",
                                                 fontFamily: "Poppins",
                                                 fontSize: "16px"
-                                            },
-                                        }}
+                                            }}
+                                       
                                     >
                                         {["Pareja", "Hijos", "Madre", "Padre", "Hermanos", "Abuelos", "Tios", "Amigos", "Otros"].map((persona) => (
                                             <MenuItem key={persona} value={persona}>
@@ -292,35 +293,35 @@ const VistaDatosProfesional2 = () => {
                         {formData.boolean_viveConMascotas === "true" && (
                             <>
 
-                                <FormControl sx={{ mb: 2 }} fullWidth error={!!errors.set_personasConLasQueVive}>
+                                <FormControl sx={{ mb: 2 }} fullWidth error={!!errors.set_tipoMascotas}>
                                     <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Indica qué tipos de mascotas tienes en casa :</Typography>
                                     <Select
-                                        name="set_personasConLasQueVive"
+                                        name="set_tipoMascotas"
                                         multiple
-                                        value={formData.set_personasConLasQueVive}
+                                        value={formData.set_tipoMascotas}
                                         onChange={manejarCambioInput}
                                         renderValue={(selected) => selected.join(' - ')} // Opciones seleccionadas concatenadas
                                         fullWidth
                                         onBlur={handleBlur}
                                         variant="outlined"
-                                        MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }} InputProps={{
-                                            sx: {
+                                        MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }}
+                                            sx={{
                                                 height: "40px",
                                                 fontFamily: "Poppins",
                                                 fontSize: "16px"
-                                            },
-                                        }}
+                                            }}
+                                        
                                     >
-                                        {["Pareja", "Hijos", "Madre", "Padre", "Hermanos", "Abuelos", "Tios", "Amigos", "Otros"].map((persona) => (
-                                            <MenuItem key={persona} value={persona}>
-                                                <Checkbox checked={formData.set_personasConLasQueVive.indexOf(persona) > -1} />
-                                                <ListItemText primary={persona} />
+                                        {["Perro", "Gato", "Conejo", "Hamster", "Tortuga", "Huron", "Cobaya", "Chinchilla", "Pajaros", "Cerdo miniatura", "Peces", "Otro tipo"].map((mascotas) => (
+                                            <MenuItem key={mascotas} value={mascotas}>
+                                                <Checkbox checked={formData.set_tipoMascotas.indexOf(mascotas) > -1} />
+                                                <ListItemText primary={mascotas} />
                                             </MenuItem>
                                         ))}
                                     </Select>
-                                    {errors.set_personasConLasQueVive && (
+                                    {errors.set_tipoMascotas && (
                                         <FormHelperText sx={{ marginLeft: 0, }}
-                                        >{errors.set_personasConLasQueVive}</FormHelperText>
+                                        >{errors.set_tipoMascotas}</FormHelperText>
                                     )}
                                 </FormControl>
                             </>
