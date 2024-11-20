@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import show_alert from '../../components/showAlert/alertFuntion';
 const VistaProteccionDatos = () => {
   const [aceptaDatos, setAceptaDatos] = useState(null);
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const VistaProteccionDatos = () => {
       localStorage.setItem('aceptaDatos', JSON.stringify(aceptaDatos));
       navigate('/datosUsuario');
     } else {
-      alert("Debes aceptar la manipulación de tus datos para continuar.");
+      show_alert('Debes aceptar la manipulación de tus datos para continuar.', 'info');
     }
   };
   const manejarAtras = () => {

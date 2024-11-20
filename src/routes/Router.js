@@ -96,7 +96,7 @@ const FormLayouts = lazy(() => import("../views/FormLayouts/FormLayouts.js"));
 // ];
 
 const ThemeRoutes = [
-  { path: "/", element: <VistaHomeUsuarioNuevo />,},
+  { path: "/", element: <VistaHomeUsuarioNuevo/>,},
   { path: "/login", element: <Login />,},
   { path: "/proteccionDatos", element: <VistaProteccionDatos />,},
   { path: "/datosUsuario",  element: <VistaDatosUsuario /> },
