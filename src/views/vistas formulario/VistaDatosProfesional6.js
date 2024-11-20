@@ -11,6 +11,7 @@ const VistaDatosProfesional6 = () => {
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [touchedFields, setTouchedFields] = useState({});
+    const porcentajeProgreso = 60;
 
     // Validaciones basadas en los campos tocados
     useEffect(() => {
@@ -20,7 +21,7 @@ const VistaDatosProfesional6 = () => {
             nuevosErrores.nivelEscolaridad = "El nombre completo es obligatorio";
         }
 
-        if (touchedFields.actualmenteEstudia && (actualmenteEstudia === undefined )) {
+        if (touchedFields.actualmenteEstudia && (actualmenteEstudia === undefined)) {
             nuevosErrores.actualmenteEstudia = "El tipo de documento es obligatorio";
         }
 
@@ -117,7 +118,7 @@ const VistaDatosProfesional6 = () => {
                     nuevosErrores.nivelEscolaridad = "El nombre completo es obligatorio";
                 } actualmenteEstudia
 
-                if (actualmenteEstudia === undefined ) {
+                if (actualmenteEstudia === undefined) {
                     nuevosErrores.actualmenteEstudia = "El nombre completo es obligatorio";
                 }
 
@@ -141,18 +142,35 @@ const VistaDatosProfesional6 = () => {
 
 
     return (
-        <div style={{ padding: "20px" }}>
-            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "50px auto" }}>
+        <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', boxSizing: 'border-box', height: '100vh', overflow: 'hidden' }}>
+
+            <div style={{ textAlign: 'center', marginBottom: '1%', marginTop: '-1%' }}>
+                <img
+                    src="public/logo_form.png"
+                    alt="Descripción de la imagen"
+                    style={{
+                        width: '20%',
+                        height: 'auto',
+                    }}
+                />
+            </div>
+            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: " auto", backgroundColor: '#F2F2F2', borderColor: '#202B52' }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>Formación académica</Typography>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}>Formación académica</Typography>
                     </Box>
                 </Box>
-                <Divider />
+                <Divider style={{ marginLeft: '5%', marginRight: '5%', borderColor: '#202B52' }} />
+
                 <CardContent sx={{ padding: "30px" }}>
                     <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.nivelEscolaridad}>
-                        <Typography variant="h6" >Nivel de Escolaridad : </Typography>
-                        <Select onBlur={handleBlur} labelId="nivelEscolar-label" name="nivelEscolaridad" value={nivelEscolaridad} onChange={manejarCambio} label="Nivel de Escolaridad" >
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Nivel de Escolaridad : </Typography>
+                        <Select onBlur={handleBlur} labelId="nivelEscolar-label" name="nivelEscolaridad" value={nivelEscolaridad} onChange={manejarCambio} 
+                            sx={{
+                                height: "40px",
+                                fontFamily: "Poppins",
+                                fontSize: "16px"
+                            }} >
                             <MenuItem value="bachicher">Bachiller </MenuItem>
                             <MenuItem value="tecnico">Técnico </MenuItem>
                             <MenuItem value="tecnologo">Tecnólogo </MenuItem>
@@ -168,26 +186,40 @@ const VistaDatosProfesional6 = () => {
                     </FormControl>
 
                     <FormControl fullWidth sx={{ mb: 2 }}>
-                        <Typography variant="h6">Anexar certificado :</Typography>
-                        <input id="certificado-pdf" name="certificadoPdf" type="file" accept="application/pdf" onChange={manejarCambioPdf} />
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Anexar certificado :</Typography>
+                        <input id="certificado-pdf" name="certificadoPdf" type="file" accept="application/pdf" onChange={manejarCambioPdf}
+                            style={{
+                                border: "1px solid #202B52", 
+                                borderRadius: "4px",  
+                                padding: "10px",  
+                                fontFamily: "Poppins",  
+                                fontSize: "14px",  
+                                color: "#202B52",  
+                                cursor: "pointer",  
+                              }} />
                         {certificadoPdf && (
                             <Box sx={{ mt: 2 }}>
                                 <Typography variant="body2">
-                                    <strong>Archivo seleccionado: </strong>
-                                    <span onClick={manejarVerPdf} style={{ color: "blue", textDecoration: "underline", cursor: "pointer" }}>
+                                    <strong style={{fontFamily: "Roboto Condensed", fontSize: "14px", color: "#202B52" }}>Archivo seleccionado: </strong>
+                                    <span onClick={manejarVerPdf} style={{ color: "#202B52", textDecoration: "underline", cursor: "pointer" }}>
                                         {certificadoPdf.name}
                                     </span>
                                 </Typography>
                                 <Typography variant="body2">
-                                    <strong>Tamaño: </strong>{(certificadoPdf.size / 1024).toFixed(2)} KB
+                                    <strong style={{fontFamily: "Roboto Condensed", fontSize: "14px", color: "#202B52" }}>Tamaño: </strong>{(certificadoPdf.size / 1024).toFixed(2)} KB
                                 </Typography>
                             </Box>
                         )}
                     </FormControl>
 
                     <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} error={!!errors.actualmenteEstudia} >
-                        <Typography variant="h6" >¿Actualmente Estudia? :</Typography>
-                        <RadioGroup name="boolean_actualmenteEstudia" value={actualmenteEstudia} onChange={manejarCambio} row onBlur={handleBlur} >
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Actualmente Estudia? :</Typography>
+                        <RadioGroup name="boolean_actualmenteEstudia" value={actualmenteEstudia} onChange={manejarCambio} row onBlur={handleBlur}
+                            sx={{
+                                height: "40px",
+                                fontFamily: "Poppins",
+                                fontSize: "16px"
+                            }}>
                             <FormControlLabel value="true" control={<Radio />} label="Sí" />
                             <FormControlLabel value="false" control={<Radio />} label="No" />
                         </RadioGroup>
@@ -198,12 +230,57 @@ const VistaDatosProfesional6 = () => {
 
                     {actualmenteEstudia && (
                         <FormControl fullWidth sx={{ mb: 2 }}>
-                            <Typography variant="h6" >Nombre del programa : </Typography>
-                            <TextField name="nombreCarrera" value={nombreCarrera} onChange={manejarCambio} variant="outlined" />
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Nombre del programa : </Typography>
+                            <TextField name="nombreCarrera" value={nombreCarrera} onChange={manejarCambio} variant="outlined"
+                                InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    },
+                                }} />
                         </FormControl>
                     )}
 
-                    <Button variant="contained" onClick={manejarSiguiente} color="primary" sx={{ mt: 2 }}>Siguiente</Button>
+                    <div
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            backgroundColor: '#F2F2F2',
+                            padding: '10px 15px',
+                            borderRadius: '20px',
+                            width: '100%',
+                        }}
+                    >
+                        <div
+                            style={{
+                                height: '10px',
+                                width: '90%',
+                                backgroundColor: '#F2F2F2',
+                                borderRadius: '7px',
+                                overflow: 'hidden',
+                                border: '2px solid #202B52',
+                                marginRight: '10px',
+                            }}
+                        >
+                            <div
+                                style={{
+                                    width: `${porcentajeProgreso}%`,
+                                    height: '100%',
+                                    backgroundColor: '#202B52',
+                                    borderRadius: '5px 0 0 5px',
+                                }}
+                            ></div>
+                        </div>
+                        <span style={{ color: '#202B52', fontWeight: 'bold' }}>{porcentajeProgreso}%</span>
+                    </div>
+
+                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                        <Button sx={{ backgroundColor: '#202B52' }} variant="contained" onClick={manejarSiguiente} type="submit">
+                            Siguiente
+                        </Button>
+                    </div>
+
                 </CardContent>
             </Card>
         </div>

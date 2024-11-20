@@ -21,7 +21,7 @@ const VistaDatosProfesional = () => {
     });
     const [errors, setErrors] = useState({});
     const [touchedFields, setTouchedFields] = useState({});
-    const porcentajeProgreso = 6;
+    const porcentajeProgreso = 23;
 
     // Validaciones basadas en los campos tocados
     useEffect(() => {
@@ -90,12 +90,12 @@ const VistaDatosProfesional = () => {
     const estratos = ["0", "1", "2", "3", "4", "5", "6"];
     //Definicion de campos para los tipos de vivienda
     const tiposVivienda = [
-        "Casa unifamiliar",
+        "Casa",
         "Apartamento",
         "Condominio",
         "Vivienda de interés social",
-        "Vivienda colaborativa",
-        "Vivienda sustentable"
+        "Vivienda familiar"
+        
     ];
 
     //Datos para los campos de la direccion
@@ -210,31 +210,54 @@ const VistaDatosProfesional = () => {
     };
 
     return (
-        <div>
-            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "50px auto" }}>
+        <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', paddingBottom: '3%' }}>
+            <div style={{ textAlign: 'center', marginBottom: '1%', marginTop: '-1%' }}>
+                <img
+                    src="public/logo_form.png"
+                    alt="Descripción de la imagen"
+                    style={{
+                        width: '20%',
+                        height: 'auto',
+                    }}
+                />
+            </div>
+            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: '#F2F2F2',  borderColor: '#202B52'  }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500" }}> Datos personales </Typography>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}> Datos personales </Typography>
                     </Box>
                 </Box>
-                <Divider />
+                <Divider style={{ marginLeft: '5%', marginRight: '5%',  borderColor: '#202B52'  }} />
                 <CardContent sx={{ padding: "30px" }}>
                     <form onSubmit={manejarSiguiente}>
-                        <Typography variant="h6">Departamento:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Departamento:</Typography>
                         <TextField select name="var_departamentoResidencia" variant="outlined" value={formData.var_departamentoResidencia} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur}
                             error={!!errors.var_departamentoResidencia}
                             helperText={errors.var_departamentoResidencia} FormHelperTextProps={{
                                 sx: {
                                     marginLeft: 0,
                                 },
-                            }}  >
+                            }}
+                            InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                },
+                            }}>
                             {departamentos.map(departamento => (<MenuItem key={departamento.nombre} value={departamento.nombre}> {departamento.nombre} </MenuItem>))}
                         </TextField>
-                        <Typography variant="h6">Ciudad:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Ciudad:</Typography>
                         <TextField select name="var_ciudadResidencia" variant="outlined" value={formData.var_ciudadResidencia} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_ciudadResidencia}
                             helperText={errors.var_ciudadResidencia} FormHelperTextProps={{
                                 sx: {
                                     marginLeft: 0,
+                                },
+                            }} InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
                                 },
                             }}  >
                             {ciudades.map(ciudad => (<MenuItem key={ciudad} value={ciudad}> {ciudad} </MenuItem>))}
@@ -243,117 +266,196 @@ const VistaDatosProfesional = () => {
 
                         <Grid container spacing={2} sx={{ mb: 2 }}>
                             <Grid item xs={3}>
-                                <Typography variant="h6">Tipo de Vía:</Typography>
-                                <TextField select name="tipoVia" value={direccion.tipoVia} onChange={manejarCambioDireccion} fullWidth>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Tipo de Vía:</Typography>
+                                <TextField select name="tipoVia" value={direccion.tipoVia} onChange={manejarCambioDireccion} fullWidth InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    },
+                                }}>
                                     {["Autopista", "Avenida", "Avenida Calle", "Avenida Carrera", "Bulevar", "Calle", "Carrera", "Circular", "Circunvalar", "Cuentas Corridas", "Diagonal", "Pasaje", "Paseo", "Peatonal", "Transversal", "Troncal", "Variante", "Via"].map(via => (
                                         <MenuItem key={via} value={via}>{via}</MenuItem>
                                     ))}
                                 </TextField>
                             </Grid>
                             <Grid item xs={3}>
-                                <Typography variant="h6">Número Principal:</Typography>
-                                <TextField select name="numeroPrincipal" value={direccion.numeroPrincipal} onChange={manejarCambioDireccion} fullWidth>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Número Principal:</Typography>
+                                <TextField select name="numeroPrincipal" value={direccion.numeroPrincipal} onChange={manejarCambioDireccion} fullWidth InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    },
+                                }}>
                                     {numeros.map(numero => (
                                         <MenuItem key={numero} value={numero}>{numero}</MenuItem>
                                     ))}
                                 </TextField>
                             </Grid>
                             <Grid item xs={2}>
-                                <Typography variant="h6">Letra:</Typography>
-                                <TextField select name="letraPrincipal" value={direccion.letraPrincipal} onChange={manejarCambioDireccion} fullWidth>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Letra:</Typography>
+                                <TextField select name="letraPrincipal" value={direccion.letraPrincipal} onChange={manejarCambioDireccion} fullWidth InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    },
+                                }}>
                                     {["", ...letras].map(letra => (
                                         <MenuItem key={letra} value={letra}>{letra}</MenuItem>
                                     ))}
                                 </TextField>
                             </Grid>
                             <Grid item xs={2}>
-                                <Typography variant="h6">Bis:</Typography>
-                                <TextField select name="bisGuion" value={direccion.bisGuion} onChange={manejarCambioDireccion} fullWidth>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Bis:</Typography>
+                                <TextField select name="bisGuion" value={direccion.bisGuion} onChange={manejarCambioDireccion} fullWidth InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    },
+                                }}>
                                     {["", "Bis", "-"].map(bis => (
                                         <MenuItem key={bis} value={bis}>{bis}</MenuItem>
                                     ))}
                                 </TextField>
                             </Grid>
                             <Grid item xs={2}>
-                                <Typography variant="h6">Letra Secundaria:</Typography>
-                                <TextField select name="letraSecundaria" value={direccion.letraSecundaria} onChange={manejarCambioDireccion} fullWidth>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Letra Secundaria:</Typography>
+                                <TextField select name="letraSecundaria" value={direccion.letraSecundaria} onChange={manejarCambioDireccion} fullWidth InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    },
+                                }}>
                                     {["", ...letras].map(letra => (
                                         <MenuItem key={letra} value={letra}>{letra}</MenuItem>
                                     ))}
                                 </TextField>
                             </Grid>
                             <Grid item xs={2}>
-                                <Typography variant="h6">Orientación:</Typography>
-                                <TextField select name="orientacion" value={direccion.orientacion} onChange={manejarCambioDireccion} fullWidth>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Orientación:</Typography>
+                                <TextField select name="orientacion" value={direccion.orientacion} onChange={manejarCambioDireccion} fullWidth InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    },
+                                }}>
                                     {["", "Norte", "Sur", "Este", "Oeste"].map(orient => (
                                         <MenuItem key={orient} value={orient}>{orient}</MenuItem>
                                     ))}
                                 </TextField>
                             </Grid>
                             <Grid item xs={3}>
-                                <Typography variant="h6">Número Secundario:</Typography>
-                                <TextField select name="numeroSecundario" value={direccion.numeroSecundario} onChange={manejarCambioDireccion} fullWidth>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Número Secundario:</Typography>
+                                <TextField select name="numeroSecundario" value={direccion.numeroSecundario} onChange={manejarCambioDireccion} fullWidth InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    },
+                                }}>
                                     {numeros.map(numero => (
                                         <MenuItem key={numero} value={numero}>{numero}</MenuItem>
                                     ))}
                                 </TextField>
                             </Grid>
                             <Grid item xs={2}>
-                                <Typography variant="h6">Letra Adicional:</Typography>
-                                <TextField select name="letraAdicional" value={direccion.letraAdicional} onChange={manejarCambioDireccion} fullWidth>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Letra Adicional:</Typography>
+                                <TextField select name="letraAdicional" value={direccion.letraAdicional} onChange={manejarCambioDireccion} fullWidth InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    },
+                                }}>
                                     {["", ...letras].map(letra => (
                                         <MenuItem key={letra} value={letra}>{letra}</MenuItem>
                                     ))}
                                 </TextField>
                             </Grid>
                             <Grid item xs={3}>
-                                <Typography variant="h6">Número Final:</Typography>
-                                <TextField select name="numeroFinal" value={direccion.numeroFinal} onChange={manejarCambioDireccion} fullWidth >
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Número Final:</Typography>
+                                <TextField select name="numeroFinal" value={direccion.numeroFinal} onChange={manejarCambioDireccion} fullWidth InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    },
+                                }} >
                                     {numeros.map(numero => (
                                         <MenuItem key={numero} value={numero}>{numero}</MenuItem>
                                     ))}
                                 </TextField>
                             </Grid>
                             <Grid item xs={2}>
-                                <Typography variant="h6">Orientación Final:</Typography>
-                                <TextField select name="orientacionFinal" value={direccion.orientacionFinal} onChange={manejarCambioDireccion} fullWidth>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Orientación Final:</Typography>
+                                <TextField select name="orientacionFinal" value={direccion.orientacionFinal} onChange={manejarCambioDireccion} fullWidth InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    },
+                                }}>
                                     {["", "Norte", "Sur", "Este", "Oeste"].map(orient => (
                                         <MenuItem key={orient} value={orient}>{orient}</MenuItem>
                                     ))}
                                 </TextField>
                             </Grid>
                             <Grid item xs={12}>
-                                <Typography variant="h6">Detalle de la Dirección (Ej. Edificio, Apartamento):</Typography>
-                                <TextField name="detalle" value={direccion.detalle} onChange={manejarCambioDireccion} fullWidth />
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Detalle de la Dirección (Ej. Edificio, Apartamento):</Typography>
+                                <TextField name="detalle" value={direccion.detalle} onChange={manejarCambioDireccion} fullWidth InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    },
+                                }} />
                             </Grid>
                         </Grid>
-                        <Typography variant="h6">Estrato de Vivienda:</Typography>
-                        <TextField select name="var_estratoVivienda" value={formData.var_estratoVivienda} onChange={manejarCambioInput} sx={{ mb: 2 }} fullWidth onBlur={handleBlur} error={!!errors.var_estratoVivienda}
-                            helperText={errors.var_estratoVivienda} FormHelperTextProps={{
-                                sx: {
-                                    marginLeft: 0,
-                                },
-                            }}  >
-                            {estratos.map(estrato => (
-                                <MenuItem key={estrato} value={estrato}>{estrato}</MenuItem>
-                            ))}
-                        </TextField>
+                        
 
-                        <Typography variant="h6">Tipo de Vivienda:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Tipo de Vivienda:</Typography>
                         <TextField select name="var_tipoVivienda" value={formData.var_tipoVivienda} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_tipoVivienda}
                             helperText={errors.var_tipoVivienda} FormHelperTextProps={{
                                 sx: {
                                     marginLeft: 0,
                                 },
-                            }}  >
+                            }} InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                },
+                            }} >
                             {tiposVivienda.map(tipo => (
                                 <MenuItem key={tipo} value={tipo}>{tipo}</MenuItem>
+                            ))}
+                        </TextField>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed' }}>Estrato de Vivienda:</Typography>
+                        <TextField select name="var_estratoVivienda" value={formData.var_estratoVivienda} onChange={manejarCambioInput} sx={{ mb: 2 }} fullWidth onBlur={handleBlur} error={!!errors.var_estratoVivienda}
+                            helperText={errors.var_estratoVivienda} FormHelperTextProps={{
+                                sx: {
+                                    marginLeft: 0,
+                                },
+                            }} InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                },
+                            }} >
+                            {estratos.map(estrato => (
+                                <MenuItem key={estrato} value={estrato}>{estrato}</MenuItem>
                             ))}
                         </TextField>
 
                         {/* servicios con los que no cuentan */}
                         <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.selectedServiciosQueNoCuentan} >
-                            <Typography variant="h6">Seleccione los servicios con los que no cuenta la vivienda: </Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Seleccione los servicios con los que NO cuenta la vivienda: </Typography>
                             <Select
                                 multiple
                                 onBlur={handleBlur}
@@ -378,7 +480,13 @@ const VistaDatosProfesional = () => {
                                 }}
                                 fullWidth
                                 variant="outlined"
-                                MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }} >
+                                MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }} InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    },
+                                }} >
                                 {serviciosQueNoCuentan.map((actividad) => (
                                     <MenuItem key={actividad.id_servicioQueNoCuentaPK} value={actividad.id_servicioQueNoCuentaPK}>
                                         <Checkbox checked={selectedServiciosQueNoCuentan.indexOf(actividad.id_servicioQueNoCuentaPK) > -1} />
@@ -397,7 +505,7 @@ const VistaDatosProfesional = () => {
 
 
                         <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.selectedFactoresRiesgo}>
-                            <Typography variant="h6">Seleccione factores de riesgo que tiene la vivienda: </Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Seleccione factores de riesgo que tiene la vivienda: </Typography>
                             <Select
                                 multiple
                                 onBlur={handleBlur}
@@ -423,6 +531,13 @@ const VistaDatosProfesional = () => {
                                 fullWidth
                                 variant="outlined"
                                 MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }}
+                                InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    },
+                                }}
                             >
                                 {factoresRiesgoOptions.map((factor) => (
                                     <MenuItem key={factor.id_factoresRiesgoPK} value={factor.id_factoresRiesgoPK}>
@@ -475,9 +590,12 @@ const VistaDatosProfesional = () => {
 
 
 
+                        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <Button sx={{ backgroundColor: '#202B52' }} variant="contained" onClick={manejarSiguiente} type="submit">
+                                Siguiente
+                            </Button>
+                        </div>
 
-
-                        <Button variant="contained" color="primary" onClick={manejarSiguiente} type="submit"> Siguiente </Button>
                     </form>
                 </CardContent>
             </Card>

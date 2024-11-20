@@ -16,6 +16,8 @@ const VistaDatosProfesional3 = () => {
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [touchedFields, setTouchedFields] = useState({});
+    const porcentajeProgreso = 38;
+
 
     // Validaciones basadas en los campos tocados
     useEffect(() => {
@@ -37,11 +39,11 @@ const VistaDatosProfesional3 = () => {
             nuevosErrores.cambioEpsOArl = "El nombre completo es obligatorio";
         }
 
-        if (touchedFields.selectedAntecedentes && (!selectedAntecedentes || selectedAntecedentes.length === 0)) {
+        if (touchedFields.antecedentes && (!selectedAntecedentes || selectedAntecedentes.length === 0)) {
             nuevosErrores.selectedAntecedentes = "El nombre completo es obligatorio";
         }
 
-        
+
 
         setErrors(nuevosErrores);
     }, [selectedEps, selectedFondoPension, selectedServiciosSaludAdicional, cambioEpsOArl, touchedFields]);
@@ -178,19 +180,35 @@ const VistaDatosProfesional3 = () => {
     };
 
     return (
-        <div style={{ padding: "20px" }}>
-            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "50px auto" }}>
+        <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', paddingBottom: '3%', height: '100vh' }}>
+            <div style={{ textAlign: 'center', marginBottom: '1%', marginTop: '-1%' }}>
+                <img
+                    src="public/logo_form.png"
+                    alt="Descripción de la imagen"
+                    style={{
+                        width: '20%',
+                        height: 'auto',
+                    }}
+                />
+            </div>
+            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: '#F2F2F2',  borderColor: '#202B52'  }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>Seguridad social</Typography>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}>Seguridad social</Typography>
                     </Box>
                 </Box>
-                <Divider />
+                <Divider style={{ marginLeft: '5%', marginRight: '5%',  borderColor: '#202B52'  }} />
                 <CardContent sx={{ padding: "30px" }}>
                     <form >
                         <FormControl sx={{ mb: 2 }} error={!!errors.cambioEpsOArl}>
-                            <Typography variant="h6">¿Ha cambiado de EPS o AFP?</Typography>
-                            <RadioGroup row value={cambioEpsOArl} onChange={(event) => manejarCambio(event, 'cambioEpsOArl')} onBlur={handleBlur} >
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>¿Ha cambiado de EPS o AFP?</Typography>
+                            <RadioGroup row value={cambioEpsOArl} onChange={(event) => manejarCambio(event, 'cambioEpsOArl')} onBlur={handleBlur} InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                },
+                            }}>
                                 <FormControlLabel value={true} control={<Radio />} label="Sí" />
                                 <FormControlLabel value={false} control={<Radio />} label="No" />
                             </RadioGroup>
@@ -200,12 +218,18 @@ const VistaDatosProfesional3 = () => {
                                 </Typography>
                             )}
                         </FormControl>
-                        <Typography variant="h6">Seleccione EPS: </Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Seleccione EPS: </Typography>
                         <TextField select value={selectedEps} name="selectedEps" onChange={(event) => manejarCambio(event, 'eps')} fullWidth variant="outlined" sx={{ mb: 2 }} onBlur={handleBlur}
                             error={!!errors.selectedEps}
                             helperText={errors.selectedEps} FormHelperTextProps={{
                                 sx: {
                                     marginLeft: 0,
+                                },
+                            }} InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
                                 },
                             }} >
                             {epsOptions.map((eps) => (
@@ -213,8 +237,14 @@ const VistaDatosProfesional3 = () => {
                             ))}
                         </TextField>
                         <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.selectedFondoPension}>
-                            <Typography variant="h6">Seleccione Fondo de Pensión: </Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Seleccione Fondo de Pensión: </Typography>
                             <Select name="selectedFondoPension" value={selectedFondoPension} onChange={(event) => manejarCambio(event, 'fondoPension')} onBlur={handleBlur}
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                }}
+
                             >
                                 {fondoPensionOptions.map((fondo) => (
                                     <MenuItem key={fondo.id_fondoPensionPK} value={fondo.id_fondoPensionPK}>
@@ -232,7 +262,7 @@ const VistaDatosProfesional3 = () => {
                         </FormControl>
 
                         <FormControl sx={{ mb: 2 }} fullWidth error={!!errors.selectedServiciosSaludAdicional}>
-                            <Typography variant="h6">Seleccione los servicios de salud adicional:</Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Seleccione los servicios de salud adicional:</Typography>
                             <Select
                                 name="selectedServiciosSaludAdicional"
                                 multiple
@@ -248,6 +278,12 @@ const VistaDatosProfesional3 = () => {
                                 fullWidth
                                 variant="outlined"
                                 MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }}
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                }}
+
                             >
                                 {serviciosSaludAdicionalOptions.map((servicio) => (
                                     <MenuItem key={servicio.id_servicioDeSaludAdicionalPK} value={servicio.id_servicioDeSaludAdicionalPK}>
@@ -257,18 +293,18 @@ const VistaDatosProfesional3 = () => {
                                 ))}
                             </Select>
                             {errors.selectedServiciosSaludAdicional && (
-                                <FormHelperText 
+                                <FormHelperText
                                     sx={{
                                         marginLeft: 0,
                                     }}
-                            >{errors.selectedServiciosSaludAdicional}</FormHelperText>
+                                >{errors.selectedServiciosSaludAdicional}</FormHelperText>
                             )}
                         </FormControl>
 
                         <FormControl sx={{ mb: 2 }} fullWidth error={!!errors.selectedAntecedentes}>
-                            <Typography variant="h6">Seleccione Antecedentes Médicos:</Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Seleccione Antecedentes Médicos:</Typography>
 
-                            <Select onBlur={handleBlur} multiple value={selectedAntecedentes} onChange={(event) => manejarCambio(event, 'antecedentes')} renderValue={(selected) => {
+                            <Select name="antecedentes" onBlur={handleBlur} multiple value={selectedAntecedentes} onChange={(event) => manejarCambio(event, 'antecedentes')} renderValue={(selected) => {
                                 const selectedNames = antecedentesOptions.filter(antecedente => selected.includes(antecedente.id_antecedenteMedicoPK)).map(antecedente => {
                                     // Extraer solo la parte del nombre antes del primer paréntesis, si existe
                                     const name = antecedente.var_nombreAntecedenteMedico;
@@ -280,7 +316,13 @@ const VistaDatosProfesional3 = () => {
                                 });
 
                                 return selectedNames.join(' - '); // Unir los nombres con un guion
-                            }} fullWidth variant="outlined" MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250, } }, }} >
+                            }} fullWidth variant="outlined" MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250, } }, }}
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                }}
+                            >
                                 {antecedentesOptions.map((antecedente) => (
                                     <MenuItem key={antecedente.id_antecedenteMedicoPK} value={antecedente.id_antecedenteMedicoPK}>
                                         <Checkbox checked={selectedAntecedentes.indexOf(antecedente.id_antecedenteMedicoPK) > -1} />
@@ -289,14 +331,52 @@ const VistaDatosProfesional3 = () => {
                                 ))}
                             </Select>
                             {errors.selectedAntecedentes && (
-                                <FormHelperText 
+                                <FormHelperText
                                     sx={{
                                         marginLeft: 0,
                                     }}
-                            >{errors.selectedAntecedentes}</FormHelperText>
+                                >{errors.selectedAntecedentes}</FormHelperText>
                             )}
                         </FormControl>
-                        <Button variant="contained" onClick={manejarSiguiente} color="primary" type="submit" sx={{ mt: 2 }}>Siguiente</Button>
+
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                backgroundColor: '#F2F2F2',
+                                padding: '10px 15px',
+                                borderRadius: '20px',
+                                width: '100%',
+                            }}
+                        >
+                            <div
+                                style={{
+                                    height: '10px',
+                                    width: '90%',
+                                    backgroundColor: '#F2F2F2',
+                                    borderRadius: '7px',
+                                    overflow: 'hidden',
+                                    border: '2px solid #202B52',
+                                    marginRight: '10px',
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        width: `${porcentajeProgreso}%`,
+                                        height: '100%',
+                                        backgroundColor: '#202B52',
+                                        borderRadius: '5px 0 0 5px',
+                                    }}
+                                ></div>
+                            </div>
+                            <span style={{ color: '#202B52', fontWeight: 'bold' }}>{porcentajeProgreso}%</span>
+                        </div>
+
+                        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <Button sx={{ backgroundColor: '#202B52' }} variant="contained" onClick={manejarSiguiente} type="submit">
+                                Siguiente
+                            </Button>
+                        </div>
                     </form>
                 </CardContent>
             </Card>

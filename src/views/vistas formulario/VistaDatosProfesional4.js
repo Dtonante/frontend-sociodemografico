@@ -11,6 +11,7 @@ const VistaDatosProfesional4 = () => {
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [touchedFields, setTouchedFields] = useState({});
+    const porcentajeProgreso = 45;
 
     // Validaciones basadas en los campos tocados
     useEffect(() => {
@@ -24,12 +25,12 @@ const VistaDatosProfesional4 = () => {
             nuevosErrores.tipoCuenta = "El departamento es obligatorio";
         }
 
-        if (touchedFields.selectedBanco && !selectedBanco) {
+        if (touchedFields.banco && !selectedBanco) {
             nuevosErrores.selectedBanco = "El departamento es obligatorio";
         }
 
         setErrors(nuevosErrores);
-    }, [selectedBanco, numeroCuenta, tipoCuenta,  touchedFields]);
+    }, [selectedBanco, numeroCuenta, tipoCuenta, touchedFields]);
 
     // Marcar un campo como "tocado" cuando pierde el enfoque
     const handleBlur = (event) => {
@@ -101,20 +102,37 @@ const VistaDatosProfesional4 = () => {
 
 
     return (
-        <div style={{ padding: "20px" }}>
-            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "50px auto" }}>
+        <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', paddingBottom: '3%' }}>
+            <div style={{ textAlign: 'center', marginBottom: '1%', marginTop: '-1%' }}>
+                <img
+                    src="public/logo_form.png"
+                    alt="Descripción de la imagen"
+                    style={{
+                        width: '20%',
+                        height: 'auto',
+                    }}
+                />
+            </div>
+            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: '#F2F2F2', borderColor: '#202B52' }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
-                    <Box flexGrow={1}> <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>Información bancaria</Typography> </Box>
+                    <Box flexGrow={1}> <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}>Información bancaria</Typography> </Box>
                 </Box>
-                <Divider />
+                <Divider style={{ marginLeft: '5%', marginRight: '5%', borderColor: '#202B52' }} />
                 <CardContent sx={{ padding: "30px" }}>
                     <form onSubmit={(event) => {
                         event.preventDefault();
                     }}>
 
                         <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.selectedBanco}>
-                            <Typography variant="h6">Seleccione Banco:</Typography>
-                            <Select name="banco" value={selectedBanco} onChange={manejarCambio} >
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Seleccione Banco:</Typography>
+
+                            <Select name="banco" value={selectedBanco} onChange={manejarCambio}
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                }}
+                            >
                                 {bancos.map((banco) => (
                                     <MenuItem key={banco.id_cuentaBancariaPK} value={banco.id_cuentaBancariaPK}> {banco.var_nombreCuentaBancaria} </MenuItem>
                                 ))}
@@ -131,8 +149,14 @@ const VistaDatosProfesional4 = () => {
                         </FormControl>
 
                         <FormControl component="fieldset" sx={{ mb: 2 }} error={!!errors.tipoCuenta}>
-                            <Typography variant="h6">Tipo de Cuenta</Typography>
-                            <RadioGroup name="tipoCuenta" value={tipoCuenta} onChange={manejarCambio} row onBlur={handleBlur}>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Tipo de Cuenta</Typography>
+                            <RadioGroup name="tipoCuenta" value={tipoCuenta} onChange={manejarCambio} row onBlur={handleBlur}
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                }}
+                            >
                                 <FormControlLabel value="ahorro" control={<Radio />} label="Ahorro" />
                                 <FormControlLabel value="corriente" control={<Radio />} label="Corriente" />
                             </RadioGroup>
@@ -143,15 +167,59 @@ const VistaDatosProfesional4 = () => {
                             )}
                         </FormControl>
 
-                        <Typography variant="h6">Número de Cuenta:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Número de Cuenta:</Typography>
                         <TextField variant="outlined" fullWidth sx={{ mb: 2 }} name="numeroCuenta" value={numeroCuenta} onChange={manejarCambio} onBlur={handleBlur} error={!!errors.numeroCuenta}
                             helperText={errors.numeroCuenta} FormHelperTextProps={{
                                 sx: {
                                     marginLeft: 0,
                                 },
+                            }} InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                },
                             }} />
 
-                        <Button variant="contained" onClick={manejarSiguiente} color="primary" sx={{ mt: 2 }} > Siguiente </Button>
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                backgroundColor: '#F2F2F2',
+                                padding: '10px 15px',
+                                borderRadius: '20px',
+                                width: '100%',
+                            }}
+                        >
+                            <div
+                                style={{
+                                    height: '10px',
+                                    width: '90%',
+                                    backgroundColor: '#F2F2F2',
+                                    borderRadius: '7px',
+                                    overflow: 'hidden',
+                                    border: '2px solid #202B52',
+                                    marginRight: '10px',
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        width: `${porcentajeProgreso}%`,
+                                        height: '100%',
+                                        backgroundColor: '#202B52',
+                                        borderRadius: '5px 0 0 5px',
+                                    }}
+                                ></div>
+                            </div>
+                            <span style={{ color: '#202B52', fontWeight: 'bold' }}>{porcentajeProgreso}%</span>
+                        </div>
+
+                        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <Button sx={{ backgroundColor: '#202B52' }} variant="contained" onClick={manejarSiguiente} type="submit">
+                                Siguiente
+                            </Button>
+                        </div>
+
                     </form>
                 </CardContent>
             </Card>

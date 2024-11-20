@@ -56,7 +56,7 @@ const VistaHomeUsuarioNuevo = () => {
 
             >
                 <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#1b263b', fontFamily: 'Roboto Condensed' }}>
-                    Diagnóstico de Capital Humano
+                    Perfil Sociodemográfico
                 </h2>
                 {/* Caja informativa */}
                 <div

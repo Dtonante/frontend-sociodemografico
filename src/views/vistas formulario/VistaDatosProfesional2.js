@@ -11,11 +11,14 @@ const VistaDatosProfesional2 = () => {
         set_personasConLasQueVive: '',
         boolean_viveConMascotas: "",
         var_personasDependeciaEconimica: "",
-        var_totalIngresosPropiosYGrupoFamiliar: ""
+        var_totalIngresosPropiosYGrupoFamiliar: "",
+        var_numeroPersonasConLasQueVive: ""
     });
     const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
     const [errors, setErrors] = useState({});
     const [touchedFields, setTouchedFields] = useState({});
+    const porcentajeProgreso = 30;
+
 
     // Validaciones basadas en los campos tocados
     useEffect(() => {
@@ -43,6 +46,10 @@ const VistaDatosProfesional2 = () => {
 
         if (formData.boolean_viveSolo === "false" && formData.set_personasConLasQueVive.length === 0) {
             nuevosErrores.set_personasConLasQueVive = "Debe seleccionar al menos una persona con la que vive";
+        }
+
+        if (formData.boolean_viveSolo === "false" && formData.var_numeroPersonasConLasQueVive.length === 0) {
+            nuevosErrores.var_numeroPersonasConLasQueVive = "Debe seleccionar al menos una persona con la que vive";
         }
 
         setErrors(nuevosErrores);
@@ -98,6 +105,8 @@ const VistaDatosProfesional2 = () => {
                 localStorage.setItem('boolean_viveConMascotas', value);
             } else if (name === "var_totalIngresosPropiosYGrupoFamiliar") {
                 localStorage.setItem('var_totalIngresosPropiosYGrupoFamiliar', value);
+            } else if (name === "var_numeroPersonasConLasQueVive") {
+                localStorage.setItem('var_numeroPersonasConLasQueVive', value)
             }
 
             return { ...prevData, [name]: value };
@@ -131,6 +140,10 @@ const VistaDatosProfesional2 = () => {
             nuevosErrores.set_personasConLasQueVive = "Debe seleccionar al menos una persona con la que vive";
         }
 
+        if (formData.boolean_viveSolo === "false" && formData.var_numeroPersonasConLasQueVive.length === 0) {
+            nuevosErrores.var_numeroPersonasConLasQueVive = "Debe seleccionar al menos una persona con la que vive";
+        }
+
         if (Object.keys(nuevosErrores).length > 0) {
             setErrors(nuevosErrores);
             return;
@@ -141,48 +154,92 @@ const VistaDatosProfesional2 = () => {
     };
 
     return (
-        <div style={{ padding: "20px" }}>
-            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "50px auto" }}>
+        <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', paddingBottom: '3%', height: '100vh' }}>
+            <div style={{ textAlign: 'center', marginBottom: '1%', marginTop: '-1%' }}>
+                <img
+                    src="public/logo_form.png"
+                    alt="Descripción de la imagen"
+                    style={{
+                        width: '20%',
+                        height: 'auto',
+                    }}
+                />
+            </div>
+            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: '#F2F2F2', borderColor: '#202B52' }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>Datos adicionales</Typography>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}>Datos adicionales</Typography>
                     </Box>
                 </Box>
-                <Divider />
+                <Divider style={{ marginLeft: '5%', marginRight: '5%', borderColor: '#202B52' }} />
                 <CardContent sx={{ padding: "30px" }}>
                     <form onSubmit={(event) => {
                         event.preventDefault();
                     }}>
-                        <Typography variant="h6">Estado Civil:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Estado Civil:</Typography>
                         <TextField select name="var_estadoCivil" variant="outlined" value={formData.var_estadoCivil} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur}
                             error={!!errors.var_estadoCivil}
                             helperText={errors.var_estadoCivil} FormHelperTextProps={{
                                 sx: {
                                     marginLeft: 0,
                                 },
-                            }} >
+                            }} InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                },
+                            }}  >
                             <MenuItem value="Soltero">Soltero</MenuItem>
                             <MenuItem value="Casado">Casado</MenuItem>
                             <MenuItem value="Divorciado">Divorciado</MenuItem>
                             <MenuItem value="Viudo">Viudo</MenuItem>
-                            <MenuItem value="Viudo">Unión libre</MenuItem>
+                            <MenuItem value="Union libre">Unión libre</MenuItem>
                         </TextField>
-                        <Typography variant="h6">¿Vive Solo?:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>¿Vive Solo?:</Typography>
                         <TextField select name="boolean_viveSolo" variant="outlined" value={formData.boolean_viveSolo} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur}
                             error={!!errors.boolean_viveSolo}
                             helperText={errors.boolean_viveSolo} FormHelperTextProps={{
                                 sx: {
                                     marginLeft: 0,
                                 },
-                            }} >
+                            }} InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                },
+                            }}  >
                             <MenuItem value="true">Sí</MenuItem>
                             <MenuItem value="false">No</MenuItem>
                         </TextField>
 
                         {formData.boolean_viveSolo === "false" && (
                             <>
+
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Con cuantas personas vive:</Typography>
+                                <TextField select name="var_numeroPersonasConLasQueVive" variant="outlined" value={formData.var_numeroPersonasConLasQueVive} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur}
+                                    error={!!errors.var_numeroPersonasConLasQueVive}
+                                    helperText={errors.var_numeroPersonasConLasQueVive} FormHelperTextProps={{
+                                        sx: {
+                                            marginLeft: 0,
+                                        },
+                                    }} InputProps={{
+                                        sx: {
+                                            height: "40px",
+                                            fontFamily: "Poppins",
+                                            fontSize: "16px"
+                                        },
+                                    }}  >
+                                    <MenuItem value="1">1</MenuItem>
+                                    <MenuItem value="2">2</MenuItem>
+                                    <MenuItem value="3">3</MenuItem>
+                                    <MenuItem value="4">4</MenuItem>
+                                    <MenuItem value="5 o mas">5 o mas</MenuItem>
+                                </TextField>
+
                                 <FormControl sx={{ mb: 2 }} fullWidth error={!!errors.set_personasConLasQueVive}>
-                                    <Typography variant="h6">¿Vive con? (Selecciona todas las personas con las que habita):</Typography>
+                                    <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>¿Vive con? (Selecciona todas las personas con las que habita):</Typography>
                                     <Select
                                         name="set_personasConLasQueVive"
                                         multiple
@@ -192,9 +249,15 @@ const VistaDatosProfesional2 = () => {
                                         fullWidth
                                         onBlur={handleBlur}
                                         variant="outlined"
-                                        MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }}
+                                        MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }} InputProps={{
+                                            sx: {
+                                                height: "40px",
+                                                fontFamily: "Poppins",
+                                                fontSize: "16px"
+                                            },
+                                        }}
                                     >
-                                        {["tio", "hermanos", "madre", "padre", "abuelos"].map((persona) => (
+                                        {["Pareja", "Hijos", "Madre", "Padre", "Hermanos", "Abuelos", "Tios", "Amigos", "Otros"].map((persona) => (
                                             <MenuItem key={persona} value={persona}>
                                                 <Checkbox checked={formData.set_personasConLasQueVive.indexOf(persona) > -1} />
                                                 <ListItemText primary={persona} />
@@ -202,32 +265,81 @@ const VistaDatosProfesional2 = () => {
                                         ))}
                                     </Select>
                                     {errors.set_personasConLasQueVive && (
-                                        <FormHelperText sx={{  marginLeft: 0, }}
+                                        <FormHelperText sx={{ marginLeft: 0, }}
                                         >{errors.set_personasConLasQueVive}</FormHelperText>
                                     )}
                                 </FormControl>
                             </>
                         )}
-                        <Typography variant="h6">¿Tiene mascotas? :</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>¿Tiene mascotas? :</Typography>
                         <TextField select name="boolean_viveConMascotas" variant="outlined" value={formData.boolean_viveConMascotas} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur}
                             error={!!errors.boolean_viveConMascotas}
                             helperText={errors.boolean_viveConMascotas} FormHelperTextProps={{
                                 sx: {
                                     marginLeft: 0,
                                 },
+                            }} InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                },
                             }} >
                             <MenuItem value="true">Sí</MenuItem>
                             <MenuItem value="false">No</MenuItem>
                         </TextField>
 
-                        <Typography variant="h6">Cantidad de personas con las que NO vive pero dependen económicamente de usted :</Typography>
+                        {formData.boolean_viveConMascotas === "true" && (
+                            <>
+
+                                <FormControl sx={{ mb: 2 }} fullWidth error={!!errors.set_personasConLasQueVive}>
+                                    <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Indica qué tipos de mascotas tienes en casa :</Typography>
+                                    <Select
+                                        name="set_personasConLasQueVive"
+                                        multiple
+                                        value={formData.set_personasConLasQueVive}
+                                        onChange={manejarCambioInput}
+                                        renderValue={(selected) => selected.join(' - ')} // Opciones seleccionadas concatenadas
+                                        fullWidth
+                                        onBlur={handleBlur}
+                                        variant="outlined"
+                                        MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }} InputProps={{
+                                            sx: {
+                                                height: "40px",
+                                                fontFamily: "Poppins",
+                                                fontSize: "16px"
+                                            },
+                                        }}
+                                    >
+                                        {["Pareja", "Hijos", "Madre", "Padre", "Hermanos", "Abuelos", "Tios", "Amigos", "Otros"].map((persona) => (
+                                            <MenuItem key={persona} value={persona}>
+                                                <Checkbox checked={formData.set_personasConLasQueVive.indexOf(persona) > -1} />
+                                                <ListItemText primary={persona} />
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                    {errors.set_personasConLasQueVive && (
+                                        <FormHelperText sx={{ marginLeft: 0, }}
+                                        >{errors.set_personasConLasQueVive}</FormHelperText>
+                                    )}
+                                </FormControl>
+                            </>
+                        )}
+
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Cantidad de personas con las que NO vive pero dependen económicamente de usted :</Typography>
                         <TextField select name="var_personasDependeciaEconimica" variant="outlined" value={formData.var_personasDependeciaEconimica} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur}
                             error={!!errors.var_personasDependeciaEconimica}
                             helperText={errors.var_personasDependeciaEconimica} FormHelperTextProps={{
                                 sx: {
                                     marginLeft: 0,
                                 },
-                            }} >
+                            }} InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                },
+                            }}  >
                             <MenuItem value="0">0</MenuItem>
                             <MenuItem value="1">1</MenuItem>
                             <MenuItem value="2">2</MenuItem>
@@ -237,22 +349,65 @@ const VistaDatosProfesional2 = () => {
                             <MenuItem value="N/A">No aplica</MenuItem>
                         </TextField>
 
-                        <Typography variant="h6">Total ingresos propios y grupo familiar:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Total ingresos propios y grupo familiar:</Typography>
                         <TextField select name="var_totalIngresosPropiosYGrupoFamiliar" variant="outlined" value={formData.var_totalIngresosPropiosYGrupoFamiliar} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur}
                             error={!!errors.var_totalIngresosPropiosYGrupoFamiliar}
                             helperText={errors.var_totalIngresosPropiosYGrupoFamiliar} FormHelperTextProps={{
                                 sx: {
                                     marginLeft: 0,
                                 },
+                            }} InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                },
                             }} >
                             <MenuItem value="Menos de 1'000.000 de pesos">Menos de 1'000.000 de pesos</MenuItem>
-                            <MenuItem value="Entre 1'000.000 de pesos y 2'ooo.ooo de pesos">Entre 1'000.000 de pesos y 2'000.000 de pesos</MenuItem>
+                            <MenuItem value="Entre 1'000.000 de pesos y 2'000.000 de pesos">Entre 1'000.000 de pesos y 2'000.000 de pesos</MenuItem>
                             <MenuItem value="Entre 2'000.000 de pesos y 4'000.000 de pesos">Entre 2'000.000 de pesos y 4'000.000 de pesos</MenuItem>
                             <MenuItem value="Entre 4'000.000 de pesos y 8'000.000 de pesos">Entre 4'000.000 de pesos y 8'000.000 de pesos</MenuItem>
                             <MenuItem value="Mas de 8'000.000 de pesos">Mas de 8'000.000 de pesos</MenuItem>
                         </TextField>
 
-                        <Button variant="contained" color="primary" onClick={manejarSiguiente} type="submit"> Siguiente </Button>
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                backgroundColor: '#F2F2F2',
+                                padding: '10px 15px',
+                                borderRadius: '20px',
+                                width: '100%',
+                            }}
+                        >
+                            <div
+                                style={{
+                                    height: '10px',
+                                    width: '90%',
+                                    backgroundColor: '#F2F2F2',
+                                    borderRadius: '7px',
+                                    overflow: 'hidden',
+                                    border: '2px solid #202B52',
+                                    marginRight: '10px',
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        width: `${porcentajeProgreso}%`,
+                                        height: '100%',
+                                        backgroundColor: '#202B52',
+                                        borderRadius: '5px 0 0 5px',
+                                    }}
+                                ></div>
+                            </div>
+                            <span style={{ color: '#202B52', fontWeight: 'bold' }}>{porcentajeProgreso}%</span>
+                        </div>
+
+                        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <Button sx={{ backgroundColor: '#202B52' }} onClick={manejarSiguiente} variant="contained" type="submit"> Siguiente </Button>
+                        </div>
+
+
                     </form>
                 </CardContent>
             </Card>

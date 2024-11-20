@@ -16,9 +16,11 @@ const VistaDatosProfesional5 = () => {
     const [jefeInmediato, setJefeInmediato] = useState('');
     const [sede, setSede] = useState('');
     const [turnoTrabajo, setTurnoTrabajo] = useState('');
+    const [var_correoElectronicoInstitucional, setVar_correoElectronicoInstitucional] = useState('')
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [touchedFields, setTouchedFields] = useState({});
+    const porcentajeProgreso = 52;
 
     // Validaciones basadas en los campos tocados
     useEffect(() => {
@@ -27,6 +29,12 @@ const VistaDatosProfesional5 = () => {
         if (touchedFields.afiliado && !afiliado) {
             nuevosErrores.afiliado = "El departamento es obligatorio";
         }
+
+        if (afiliado === "si" && touchedFields.var_correoElectronicoInstitucional && !var_correoElectronicoInstitucional) {
+            nuevosErrores.var_correoElectronicoInstitucional = "El departamento es obligatorio";
+        }
+
+
 
         if (afiliado === "si" && touchedFields.tipoVinculacion && !tipoVinculacion) {
             nuevosErrores.tipoVinculacion = "El departamento es obligatorio";
@@ -74,7 +82,7 @@ const VistaDatosProfesional5 = () => {
 
 
         setErrors(nuevosErrores)
-    }, [afiliado, tipoVinculacion, tipoContrato, salario, cargo, sede, fechaIngreso, areaSeleccionada, jefeInmediato, turnoTrabajo, touchedFields]);
+    }, [afiliado, tipoVinculacion, tipoContrato, salario, var_correoElectronicoInstitucional, cargo, sede, fechaIngreso, areaSeleccionada, jefeInmediato, turnoTrabajo, touchedFields]);
 
     // Marcar un campo como "tocado" cuando pierde el enfoque
     const handleBlur = (event) => {
@@ -114,6 +122,7 @@ const VistaDatosProfesional5 = () => {
             setJefeInmediato('');
             setSede('');
             setTurnoTrabajo('');
+            setVar_correoElectronicoInstitucional('')
         }
     }, [afiliado]);
 
@@ -140,6 +149,7 @@ const VistaDatosProfesional5 = () => {
                 setJefeInmediato("N/A");
                 setSede("N/A");
                 setTurnoTrabajo("N/A");
+                setVar_correoElectronicoInstitucional("N/A")
 
                 // Almacenar en localStorage
                 localStorage.setItem('var_tipoVinculacion', "N/A");
@@ -150,6 +160,7 @@ const VistaDatosProfesional5 = () => {
                 localStorage.setItem('var_jefeInmediato', "N/A");
                 localStorage.setItem('var_sede', "N/A");
                 localStorage.setItem('setTurnoTrabajo', "N/A");
+                localStorage.setItem('var_correoElectronicoInstitucional', "N/A");
             }
         } else if (name === "tipoVinculacion") {
             setTipoVinculacion(value);
@@ -191,6 +202,9 @@ const VistaDatosProfesional5 = () => {
         } else if (name === "var_turnoTrabajo") {
             setTurnoTrabajo(value);
             localStorage.setItem('var_turnoTrabajo', value);
+        } else if (name === "var_correoElectronicoInstitucional") {
+            setVar_correoElectronicoInstitucional(value);
+            localStorage.setItem('var_correoElectronicoInstitucional', value);
         }
     };
 
@@ -200,6 +214,10 @@ const VistaDatosProfesional5 = () => {
 
         if (!afiliado) {
             nuevosErrores.afiliado = "El campo servicios con los que no cuentan es obligatorio";
+        }
+
+        if (afiliado === "si" && !var_correoElectronicoInstitucional) {
+            nuevosErrores.var_correoElectronicoInstitucional = "El campo servicios con los que no cuentan es obligatorio";
         }
 
         if (afiliado === "si" && !tipoVinculacion) {
@@ -251,18 +269,33 @@ const VistaDatosProfesional5 = () => {
     };
 
     return (
-        <div style={{ padding: "20px" }}>
-            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "50px auto" }}>
+        <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', paddingBottom: '3%', minHeight: '100vh', overflow: 'auto' }}>
+            <div style={{ textAlign: 'center', marginBottom: '1%', marginTop: '-1%' }}>
+                <img
+                    src="public/logo_form.png"
+                    alt="Descripción de la imagen"
+                    style={{
+                        width: '20%',
+                        height: 'auto',
+                    }}
+                />
+            </div>
+            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: '#F2F2F2', borderColor: '#202B52' }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>Información de vinculación</Typography>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}>Información laboral</Typography>
                     </Box>
                 </Box>
-                <Divider />
+                <Divider style={{ marginLeft: '5%', marginRight: '5%', borderColor: '#202B52' }} />
                 <CardContent sx={{ padding: "30px" }}>
                     <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.afiliado}>
-                        <Typography variant="h6">¿En proceso de ingreso o vinculado? :</Typography>
-                        <Select labelId="afiliado-label" name="afiliado" value={afiliado} onChange={manejarCambio} onBlur={handleBlur} >
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>¿En proceso de ingreso o vinculado? :</Typography>
+                        <Select labelId="afiliado-label" name="afiliado" value={afiliado} onChange={manejarCambio} onBlur={handleBlur}
+                            sx={{
+                                height: "40px",
+                                fontFamily: "Poppins",
+                                fontSize: "16px"
+                            }}>
                             <MenuItem value="si">Vinculado</MenuItem>
                             <MenuItem value="no">Proceso de ingreso</MenuItem>
                         </Select>
@@ -279,17 +312,29 @@ const VistaDatosProfesional5 = () => {
 
                     {afiliado === "si" && (
                         <form>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed' }}>Correo Electrónico Institucional:</Typography>
-                            <TextField name="var_correoElectronicoInstitucional" type="email" variant="outlined" value={formData.var_correoElectronicoInstitucional} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_correoElectronicoInstitucional} helperText={errors.var_correoElectronicoInstitucional} FormHelperTextProps={{
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Correo Electrónico Institucional:</Typography>
+                            <TextField name="var_correoElectronicoInstitucional" type="email" variant="outlined" value={var_correoElectronicoInstitucional} onChange={manejarCambio} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_correoElectronicoInstitucional} helperText={errors.var_correoElectronicoInstitucional} FormHelperTextProps={{
                                 sx: {
                                     marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+                                },
+                            }} InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
                                 },
                             }} />
 
 
                             <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.tipoVinculacion}>
-                                <Typography variant="h6">Tipo de Vinculación:</Typography>
-                                <Select labelId="tipo-vinculacion-label" name="tipoVinculacion" value={tipoVinculacion} onChange={manejarCambio}  >
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Tipo de Vinculación:</Typography>
+                                <Select labelId="tipo-vinculacion-label" name="tipoVinculacion" value={tipoVinculacion} onChange={manejarCambio}
+                                    sx={{
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    }}
+                                >
                                     <MenuItem value="vinculado">Vinculado</MenuItem>
                                     <MenuItem value="temporal">Temporal</MenuItem>
                                 </Select>
@@ -305,8 +350,12 @@ const VistaDatosProfesional5 = () => {
                             </FormControl>
 
                             <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.tipoContrato}>
-                                <Typography variant="h6">Tipo de Contrato:</Typography>
-                                <Select labelId="tipo-contrato-label" name="tipoContrato" value={tipoContrato} onChange={manejarCambio}  >
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Tipo de Contrato:</Typography>
+                                <Select labelId="tipo-contrato-label" name="tipoContrato" value={tipoContrato} onChange={manejarCambio} sx={{
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                }}  >
                                     <MenuItem value="indefinido">Contrato a término indefinido</MenuItem>
                                     <MenuItem value="fijo">Contrato a término fijo</MenuItem>
                                     <MenuItem value="prestacion_servicios">Contrato por prestación de servicios</MenuItem>
@@ -325,28 +374,52 @@ const VistaDatosProfesional5 = () => {
                                 )}
                             </FormControl>
 
-                            <Typography variant="h6">Salario:</Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Salario:</Typography>
                             <TextField variant="outlined" fullWidth name="var_salario" value={salario} onChange={manejarCambio} sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.salario} helperText={errors.salario} FormHelperTextProps={{
                                 sx: {
                                     marginLeft: 0,
                                 },
+                            }} InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                },
                             }} />
 
-                            <Typography variant="h6">Fecha de Ingreso:</Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Fecha de Ingreso:</Typography>
                             <TextField name="date_fechaIngresoInstitucion" type="date" variant="outlined" value={fechaIngreso} onChange={manejarCambio} fullWidth sx={{ mb: 2 }} InputLabelProps={{ shrink: true }} onBlur={handleBlur} error={!!errors.fechaIngreso} helperText={errors.fechaIngreso} FormHelperTextProps={{
                                 sx: {
                                     marginLeft: 0,
                                 },
                             }} inputProps={{
-                                max: new Date().toISOString().split('T')[0] // Deshabilita fechas futuras
+                                max: new Date().toISOString().split('T')[0], // Deshabilita fechas futuras
+                            }} InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px",
+                                },
                             }} />
 
-                            <Typography variant="h6">Antigüedad en la Institución (días) :</Typography>
-                            <TextField name="var_antiguedadInstitucion" type="text" variant="outlined" value={antiguedadInstitucion} onChange={manejarCambio} fullWidth sx={{ mb: 2 }} disabled />
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Antigüedad en la Institución (días) :</Typography>
+                            <TextField name="var_antiguedadInstitucion" type="text" variant="outlined" value={antiguedadInstitucion} onChange={manejarCambio} fullWidth sx={{ mb: 2 }} disabled
+                                InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px",
+                                    },
+                                }} />
 
                             <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.areaSeleccionada}>
-                                <Typography variant="h6">Área laboral a la que pertenece :</Typography>
-                                <Select labelId="area-label" name="area" value={areaSeleccionada} onChange={manejarCambio} label="Área" >
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Área laboral a la que pertenece :</Typography>
+                                <Select labelId="area-label" name="area" value={areaSeleccionada} onChange={manejarCambio} label="Área"
+                                    sx={{
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    }} >
                                     {estructuraOrganizacional.map((area) => (
                                         <MenuItem key={area.id_areaPk} value={area.id_areaPk}>{area.var_nombreArea}</MenuItem>
                                     ))}
@@ -359,26 +432,44 @@ const VistaDatosProfesional5 = () => {
                                 )}
                             </FormControl>
 
-                            <Typography variant="h6">Cargo :</Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Cargo :</Typography>
                             <TextField variant="outlined" fullWidth name="var_cargo" value={cargo} onChange={manejarCambio} sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.cargo} helperText={errors.cargo} FormHelperTextProps={{
                                 sx: {
                                     marginLeft: 0,
                                 },
+                            }} InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                },
                             }} />
 
-                            <Typography variant="h6">Jefe Inmediato:</Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Jefe Inmediato:</Typography>
                             <TextField variant="outlined" fullWidth name="var_jefeInmediato" value={jefeInmediato} onChange={manejarCambio} sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.jefeInmediato} helperText={errors.jefeInmediato} FormHelperTextProps={{
                                 sx: {
                                     marginLeft: 0,
                                 },
+                            }} InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                },
                             }} />
 
                             <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.sede}>
-                                <Typography variant="h6">Sede:</Typography>
-                                <Select labelId="sede-label" name="var_sede" value={sede} onChange={manejarCambio} label="Sede" onBlur={handleBlur}>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Sede:</Typography>
+                                <Select labelId="sede-label" name="var_sede" value={sede} onChange={manejarCambio} label="Sede" onBlur={handleBlur}
+                                    sx={{
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    }}>
                                     <MenuItem value="robledo">Robledo</MenuItem>
                                     <MenuItem value="premium_plaza">Premium Plaza</MenuItem>
                                     <MenuItem value="robledo_premium_plaza">Robledo / Premium Plaza</MenuItem>
+                                    <MenuItem value="otro">Otro</MenuItem>
                                 </Select>
                                 {errors.sede && (
                                     <FormHelperText sx={{
@@ -389,8 +480,13 @@ const VistaDatosProfesional5 = () => {
                             </FormControl>
 
                             <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.turnoTrabajo}>
-                                <Typography variant="h6">Turno de trabajo:</Typography>
-                                <Select labelId="turno-label" name="var_turnoTrabajo" value={turnoTrabajo} onChange={manejarCambio}>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Turno de trabajo:</Typography>
+                                <Select labelId="turno-label" name="var_turnoTrabajo" value={turnoTrabajo} onChange={manejarCambio}
+                                    sx={{
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    }}>
                                     <MenuItem value="diurno">Diurno</MenuItem>
                                     <MenuItem value="jornada_Extendida">jornada extendida </MenuItem>
                                 </Select>
@@ -405,7 +501,44 @@ const VistaDatosProfesional5 = () => {
                         </form>
                     )}
 
-                    <Button variant="contained" onClick={manejarSiguiente} color="primary" sx={{ mt: 2 }}> Siguiente </Button>
+                    <div
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            backgroundColor: '#F2F2F2',
+                            padding: '10px 15px',
+                            borderRadius: '20px',
+                            width: '100%',
+                        }}
+                    >
+                        <div
+                            style={{
+                                height: '10px',
+                                width: '90%',
+                                backgroundColor: '#F2F2F2',
+                                borderRadius: '7px',
+                                overflow: 'hidden',
+                                border: '2px solid #202B52',
+                                marginRight: '10px',
+                            }}
+                        >
+                            <div
+                                style={{
+                                    width: `${porcentajeProgreso}%`,
+                                    height: '100%',
+                                    backgroundColor: '#202B52',
+                                    borderRadius: '2px 0 0 4px',
+                                }}
+                            ></div>
+                        </div>
+                        <span style={{ color: '#202B52', fontWeight: 'bold' }}>{porcentajeProgreso}%</span>
+                    </div>
+
+                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                        <Button sx={{ backgroundColor: '#202B52' }} onClick={manejarSiguiente} variant="contained" type="submit">
+                            Siguiente
+                        </Button>
+                    </div>
                 </CardContent>
             </Card>
         </div>

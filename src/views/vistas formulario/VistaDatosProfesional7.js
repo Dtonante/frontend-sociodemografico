@@ -22,6 +22,7 @@ const VistaDatosProfesional7 = () => {
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [touchedFields, setTouchedFields] = useState({});
+    const porcentajeProgreso = 70;
 
     // Validaciones basadas en los campos tocados
     useEffect(() => {
@@ -35,16 +36,32 @@ const VistaDatosProfesional7 = () => {
             nuevosErrores.peso = "El nombre completo es obligatorio";
         }
 
-        if (touchedFields.var_altura && (!peso || peso.trim() === "")) {
+        if (touchedFields.var_altura && (!altura || altura.trim() === "")) {
             nuevosErrores.altura = "El nombre completo es obligatorio";
         }
 
-        if (touchedFields.selectedActividadTiempoLibre && (!selectedActividadTiempoLibre || selectedActividadTiempoLibre.length === 0)) {
-            nuevosErrores.altura = "El nombre completo es obligatorio";
+        if (touchedFields.actividadTiempoLibre && (!selectedActividadTiempoLibre || selectedActividadTiempoLibre.length === 0)) {
+            nuevosErrores.selectedActividadTiempoLibre = "El nombre completo es obligatorio";
+        }
+
+        if (touchedFields.var_frecuenciaSustanciasPsicoactivas && !frecuenciaSustanciaPsicoactiva) {
+            nuevosErrores.frecuenciaSustanciaPsicoactiva = "El nombre completo es obligatorio";
+        }
+
+        if (touchedFields.var_frecuenciaToma && !frecuenciaToma) {
+            nuevosErrores.frecuenciaToma = "El nombre completo es obligatorio";
+        }
+
+        if (touchedFields.var_frecuenciaFuma && !frecuenciaFuma) {
+            nuevosErrores.frecuenciaFuma = "El nombre completo es obligatorio";
+        }
+
+        if (touchedFields.var_frecuenciaActividadFisica && !frecuenciaActividadFisica) {
+            nuevosErrores.frecuenciaActividadFisica = "El nombre completo es obligatorio";
         }
 
         setErrors(nuevosErrores);
-    }, [pasoMayorTiempoLibre, peso, altura, selectedActividadTiempoLibre, touchedFields]);
+    }, [pasoMayorTiempoLibre, frecuenciaFuma, frecuenciaToma, peso, altura, frecuenciaSustanciaPsicoactiva, selectedActividadTiempoLibre, frecuenciaActividadFisica, touchedFields]);
 
     const handleBlur = (event) => {
         const { name } = event.target;
@@ -52,7 +69,7 @@ const VistaDatosProfesional7 = () => {
             ...prev,
             [name]: true,
         }));
-        console.log("Touched fields:", touchedFields); // Debug
+
     };
 
     const generarOpciones = () => {
@@ -184,7 +201,6 @@ const VistaDatosProfesional7 = () => {
         } else if (name === "var_altura") {
             setAltura(value);
             localStorage.setItem('var_altura', value);
-            console.log('nana', peso)
         } else if (name === "set_pasoMayorTiempoLibre") {
             // Si el valor es un arreglo, se maneja de la siguiente manera
             setPasoMayorTiempoLibre(value);  // value será un arreglo
@@ -193,7 +209,7 @@ const VistaDatosProfesional7 = () => {
             setSelectedActividadTiempoLibre(value);
             localStorage.setItem('actividadTiempoLibre', JSON.stringify(value));
         }
-        console.log('nana2', peso)
+
     };
 
     const manejarSiguiente = () => {
@@ -216,23 +232,51 @@ const VistaDatosProfesional7 = () => {
             nuevosErrores.selectedActividadTiempoLibre = "Debe confirmar la contraseña";
         }
 
+        if (sustanciaPsicoactiva === true && !frecuenciaSustanciaPsicoactiva) {
+            nuevosErrores.frecuenciaSustanciaPsicoactiva = "Debe confirmar la contraseña";
+        }
+
+        if (toma === true && !frecuenciaToma) {
+            nuevosErrores.frecuenciaToma = "Debe confirmar la contraseña";
+        }
+
+        if (fuma === true && !frecuenciaFuma) {
+            nuevosErrores.frecuenciaFuma = "Debe confirmar la contraseña";
+        }
+
+        if (actividadFisica === true && !frecuenciaActividadFisica) {
+            nuevosErrores.frecuenciaActividadFisica = "Debe confirmar la contraseña";
+        }
+
         if (Object.keys(nuevosErrores).length > 0) {
             setErrors(nuevosErrores);
             return;
         }
 
+
+
         navigate("/datosProfesional8");
     };
 
     return (
-        <div style={{ padding: "20px" }}>
-            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "50px auto" }}>
+        <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', paddingBottom: '3%' }}>
+            <div style={{ textAlign: 'center', marginBottom: '1%', marginTop: '-1%' }}>
+                <img
+                    src="public/logo_form.png"
+                    alt="Descripción de la imagen"
+                    style={{
+                        width: '20%',
+                        height: 'auto',
+                    }}
+                />
+            </div>
+            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: '#F2F2F2', borderColor: '#202B52' }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500" }}>Salud física </Typography>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}>Salud física </Typography>
                     </Box>
                 </Box>
-                <Divider />
+                <Divider style={{ marginLeft: '5%', marginRight: '5%', borderColor: '#202B52' }} />
                 <CardContent sx={{ padding: "30px" }}>
                     <form onSubmit={(event) => {
                         event.preventDefault();
@@ -241,22 +285,28 @@ const VistaDatosProfesional7 = () => {
 
                         <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.selectedActividadTiempoLibre}>
                             <Typography variant="h6">Seleccione las actividades que realiza en su tiempo libre : </Typography>
-                            <Select name='actividadTiempoLibre' multiple onBlur={handleBlur} value={selectedActividadTiempoLibre} onChange={(event) => manejarCambio(event, 'actividadTiempoLibre')} renderValue={(selected) => {
-                                // Obtener los nombres de los las actividades que realiza en su tiempo libre seleccionados
-                                const selectedNames = actividadTiempoLibreOptions
-                                    .filter(actividad => selected.includes(actividad.id_tiempoLibrePK))
-                                    .map(actividad => {
-                                        const name = actividad.var_nombreOcuapacionTiempoLibre;
-                                        const index = name.indexOf('(');
-                                        // Si encuentra un paréntesis, extrae solo la parte antes del paréntesis
-                                        if (index !== -1) {
-                                            return name.substring(0, index).trim();
-                                        }
-                                        return name; // Si no hay paréntesis, devuelve el nombre completo
-                                    });
+                            <Select name='actividadTiempoLibre'
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                }}
+                                multiple onBlur={handleBlur} value={selectedActividadTiempoLibre} onChange={(event) => manejarCambio(event, 'actividadTiempoLibre')} renderValue={(selected) => {
+                                    // Obtener los nombres de los las actividades que realiza en su tiempo libre seleccionados
+                                    const selectedNames = actividadTiempoLibreOptions
+                                        .filter(actividad => selected.includes(actividad.id_tiempoLibrePK))
+                                        .map(actividad => {
+                                            const name = actividad.var_nombreOcuapacionTiempoLibre;
+                                            const index = name.indexOf('(');
+                                            // Si encuentra un paréntesis, extrae solo la parte antes del paréntesis
+                                            if (index !== -1) {
+                                                return name.substring(0, index).trim();
+                                            }
+                                            return name; // Si no hay paréntesis, devuelve el nombre completo
+                                        });
 
-                                return selectedNames.join(' - '); // Unir los nombres con un guion
-                            }} fullWidth variant="outlined" MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }}  >
+                                    return selectedNames.join(' - '); // Unir los nombres con un guion
+                                }} fullWidth variant="outlined" MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }}  >
                                 {actividadTiempoLibreOptions.map((actividad) => (
                                     <MenuItem key={actividad.id_tiempoLibrePK} value={actividad.id_tiempoLibrePK}>
                                         <Checkbox checked={selectedActividadTiempoLibre.indexOf(actividad.id_tiempoLibrePK) > -1} />
@@ -275,6 +325,11 @@ const VistaDatosProfesional7 = () => {
                                 ¿Con quién pasa la mayor parte de su tiempo libre?:
                             </Typography>
                             <Select
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                }}
                                 name="set_pasoMayorTiempoLibre"
                                 value={pasoMayorTiempoLibre}
                                 onChange={manejarCambio}
@@ -291,7 +346,21 @@ const VistaDatosProfesional7 = () => {
                                 </FormHelperText>
                             )}
                         </FormControl>
-
+                        <FormControl fullWidth sx={{ mb: 2 }}>
+                            <Typography variant="h6" > Altura (cm) </Typography>
+                            <TextField name="var_altura" value={altura} onChange={manejarCambio} placeholder="Ingrese su altura en cm" fullWidth onBlur={handleBlur} error={!!errors.altura} helperText={errors.altura} FormHelperTextProps={{
+                                sx: {
+                                    marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+                                },
+                            }}
+                                InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    },
+                                }} />
+                        </FormControl>
 
 
                         <FormControl fullWidth sx={{ mb: 2 }}>
@@ -300,104 +369,194 @@ const VistaDatosProfesional7 = () => {
                                 sx: {
                                     marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
                                 },
-                            }} />
+                            }}
+                                InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    },
+                                }} />
                         </FormControl>
 
-                        <FormControl fullWidth sx={{ mb: 2 }}>
-                            <Typography variant="h6" > Altura (cm) </Typography>
-                            <TextField name="var_altura" value={altura} onChange={manejarCambio} placeholder="Ingrese su altura en cm" fullWidth onBlur={handleBlur} error={!!errors.altura} helperText={errors.altura} FormHelperTextProps={{
-                                sx: {
-                                    marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
-                                },
-                            }} />
-                        </FormControl>
+
 
 
                         <FormControl component="fieldset" fullWidth sx={{ mb: 2 }}>
                             <Typography variant="h6" >¿Realiza actividad física? </Typography>
-                            <RadioGroup name="boolean_actividadFisica" value={actividadFisica ? "true" : "false"} onChange={manejarCambio} row >
+                            <RadioGroup name="boolean_actividadFisica" value={actividadFisica ? "true" : "false"} onChange={manejarCambio} row
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                }} >
                                 <FormControlLabel value="true" control={<Radio />} label="Sí" />
                                 <FormControlLabel value="false" control={<Radio />} label="No" />
                             </RadioGroup>
                         </FormControl>
 
                         {actividadFisica && (
-                            <FormControl fullWidth sx={{ mb: 2 }}>
+                            <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.frecuenciaActividadFisica}>
                                 <Typography variant="h6" >Frecuencia :</Typography>
-                                <Select name="var_frecuenciaActividadFisica" value={frecuenciaActividadFisica} onChange={manejarCambio} displayEmpty >
+                                <Select name="var_frecuenciaActividadFisica" value={frecuenciaActividadFisica} onChange={manejarCambio} displayEmpty onBlur={handleBlur}
+                                    sx={{
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    }}  >
                                     <MenuItem value="">Seleccione una frecuencia</MenuItem>
                                     <MenuItem value="diariamente">Diariamente</MenuItem>
-                                    <MenuItem value="semanalmente">Semanalmente</MenuItem>
-                                    <MenuItem value="quincenalmente">Quincenalmente</MenuItem>
-                                    <MenuItem value="mensualmente">Mensualmente</MenuItem>
+                                    <MenuItem value="Ocasionalmente">Ocasionalmente</MenuItem>
+                                    <MenuItem value="Socialmente">Socialmente</MenuItem>
                                 </Select>
+                                {errors.frecuenciaActividadFisica && (
+                                    <FormHelperText sx={{ marginLeft: 0, }}
+                                    >{errors.frecuenciaActividadFisica}</FormHelperText>
+                                )}
                             </FormControl>
                         )}
 
                         <FormControl component="fieldset" fullWidth sx={{ mb: 2 }}>
-                            <Typography variant="body1" sx={{ fontWeight: "500" }}> ¿Fuma? </Typography>
-                            <RadioGroup name="boolean_fuma" value={fuma ? "true" : "false"} onChange={manejarCambio} row >
+                            <Typography variant="body1" sx={{ fontWeight: "500" }}> ¿Fuma o vapea? </Typography>
+                            <RadioGroup name="boolean_fuma" value={fuma ? "true" : "false"} onChange={manejarCambio} row
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                }}  >
                                 <FormControlLabel value="true" control={<Radio />} label="Sí" />
                                 <FormControlLabel value="false" control={<Radio />} label="No" />
                             </RadioGroup>
                         </FormControl>
 
                         {fuma && (
-                            <FormControl fullWidth sx={{ mb: 2 }}>
+                            <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.frecuenciaFuma}>
                                 <Typography variant="body1" sx={{ fontWeight: "500" }}>Frecuencia :</Typography>
-                                <Select name="var_frecuenciaFuma" value={frecuenciaFuma} onChange={manejarCambio} displayEmpty >
+                                <Select name="var_frecuenciaFuma" value={frecuenciaFuma} onChange={manejarCambio} displayEmpty onBlur={handleBlur}
+                                    sx={{
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    }}  >
                                     <MenuItem value="">Seleccione una frecuencia</MenuItem>
                                     <MenuItem value="diariamente">Diariamente</MenuItem>
-                                    <MenuItem value="semanalmente">Semanalmente</MenuItem>
-                                    <MenuItem value="quincenalmente">Quincenalmente</MenuItem>
-                                    <MenuItem value="mensualmente">Mensualmente</MenuItem>
+                                    <MenuItem value="Ocasionalmente">Ocasionalmente</MenuItem>
+                                    <MenuItem value="Socialmente">Socialmente</MenuItem>
                                 </Select>
+                                {errors.frecuenciaFuma && (
+                                    <FormHelperText sx={{ marginLeft: 0, }}
+                                    >{errors.frecuenciaFuma}</FormHelperText>
+                                )}
                             </FormControl>
                         )}
 
                         <FormControl component="fieldset" fullWidth sx={{ mb: 2 }}>
                             <Typography variant="body1" sx={{ fontWeight: "500" }}> ¿Consume bebidas alcohólicas? :</Typography>
-                            <RadioGroup name="boolean_toma" value={toma ? "true" : "false"} onChange={manejarCambio} row  >
+                            <RadioGroup name="boolean_toma" value={toma ? "true" : "false"} onChange={manejarCambio} row
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                }}  >
                                 <FormControlLabel value="true" control={<Radio />} label="Sí" />
                                 <FormControlLabel value="false" control={<Radio />} label="No" />
                             </RadioGroup>
                         </FormControl>
 
                         {toma && (
-                            <FormControl fullWidth sx={{ mb: 2 }}>
+                            <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.frecuenciaToma}>
                                 <Typography variant="body1" sx={{ fontWeight: "500" }}>Frecuencia :</Typography>
-                                <Select name="var_frecuenciaToma" value={frecuenciaToma} onChange={manejarCambio} displayEmpty >
+                                <Select name="var_frecuenciaToma" value={frecuenciaToma} onChange={manejarCambio} displayEmpty onBlur={handleBlur}
+                                    sx={{
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    }} >
                                     <MenuItem value="">Seleccione una frecuencia</MenuItem>
                                     <MenuItem value="diariamente">Diariamente</MenuItem>
-                                    <MenuItem value="semanalmente">Semanalmente</MenuItem>
-                                    <MenuItem value="quincenalmente">Quincenalmente</MenuItem>
-                                    <MenuItem value="mensualmente">Mensualmente</MenuItem>
+                                    <MenuItem value="Ocasionalmente">Ocasionalmente</MenuItem>
+                                    <MenuItem value="Socialmente">Socialmente</MenuItem>
                                 </Select>
+                                {errors.frecuenciaToma && (
+                                    <FormHelperText sx={{ marginLeft: 0, }}
+                                    >{errors.frecuenciaToma}</FormHelperText>
+                                )}
                             </FormControl>
                         )}
 
                         <FormControl component="fieldset" fullWidth sx={{ mb: 2 }}>
                             <Typography variant="body1" sx={{ fontWeight: "500" }}>¿Consume sustancias psicoactivas? :</Typography>
-                            <RadioGroup name="boolean_sustanciasPsicoactivas" value={sustanciaPsicoactiva ? "true" : "false"} onChange={manejarCambio} row >
+                            <RadioGroup name="boolean_sustanciasPsicoactivas" value={sustanciaPsicoactiva ? "true" : "false"} onChange={manejarCambio} row
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                }} >
                                 <FormControlLabel value="true" control={<Radio />} label="Sí" />
                                 <FormControlLabel value="false" control={<Radio />} label="No" />
                             </RadioGroup>
                         </FormControl>
 
                         {sustanciaPsicoactiva && (
-                            <FormControl fullWidth sx={{ mb: 2 }}>
+                            <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.frecuenciaSustanciaPsicoactiva}>
                                 <Typography variant="body1" sx={{ fontWeight: "500" }}>Frecuencia :</Typography>
-                                <Select name="var_frecuenciaSustanciasPsicoactivas" value={frecuenciaSustanciaPsicoactiva} onChange={manejarCambio} displayEmpty >
+                                <Select name="var_frecuenciaSustanciasPsicoactivas" onBlur={handleBlur} value={frecuenciaSustanciaPsicoactiva} onChange={manejarCambio} displayEmpty
+                                    sx={{
+                                        height: "40px",
+                                        fontFamily: "Poppins",
+                                        fontSize: "16px"
+                                    }}  >
                                     <MenuItem value="">Seleccione una frecuencia</MenuItem>
                                     <MenuItem value="diariamente">Diariamente</MenuItem>
-                                    <MenuItem value="semanalmente">Semanalmente</MenuItem>
-                                    <MenuItem value="quincenalmente">Quincenalmente</MenuItem>
-                                    <MenuItem value="mensualmente">Mensualmente</MenuItem>
+                                    <MenuItem value="Ocasionalmente">Ocasionalmente</MenuItem>
+                                    <MenuItem value="Socialmente">Socialmente</MenuItem>
                                 </Select>
+                                {errors.frecuenciaSustanciaPsicoactiva && (
+                                    <FormHelperText sx={{ marginLeft: 0, }}
+                                    >{errors.frecuenciaSustanciaPsicoactiva}</FormHelperText>
+                                )}
                             </FormControl>
                         )}
 
-                        <Button variant="contained" onClick={manejarSiguiente} color="primary" sx={{ mt: 2 }}>Siguiente</Button>
+                        <div
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                backgroundColor: '#F2F2F2',
+                                padding: '10px 15px',
+                                borderRadius: '20px',
+                                width: '100%',
+                            }}
+                        >
+                            <div
+                                style={{
+                                    height: '10px',
+                                    width: '90%',
+                                    backgroundColor: '#F2F2F2',
+                                    borderRadius: '7px',
+                                    overflow: 'hidden',
+                                    border: '2px solid #202B52',
+                                    marginRight: '10px',
+                                }}
+                            >
+                                <div
+                                    style={{
+                                        width: `${porcentajeProgreso}%`,
+                                        height: '100%',
+                                        backgroundColor: '#202B52',
+                                        borderRadius: '5px 0 0 5px',
+                                    }}
+                                ></div>
+                            </div>
+                            <span style={{ color: '#202B52', fontWeight: 'bold' }}>{porcentajeProgreso}%</span>
+                        </div>
+
+                        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <Button sx={{ backgroundColor: '#202B52' }} onClick={manejarSiguiente} variant="contained" type="submit">
+                                Siguiente
+                            </Button>
+                        </div>
+
                     </form>
                 </CardContent>
             </Card>
