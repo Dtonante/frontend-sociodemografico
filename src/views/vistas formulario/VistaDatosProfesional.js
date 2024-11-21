@@ -16,7 +16,8 @@ const VistaDatosProfesional = () => {
         var_ciudadResidencia: "",
         var_direccionResidencia: "",
         var_estratoVivienda: "",
-        var_tipoVivienda: ""
+        var_tipoVivienda: "",
+        var_zonaVivienda: "",
 
     });
     const [errors, setErrors] = useState({});
@@ -86,6 +87,8 @@ const VistaDatosProfesional = () => {
     const [departamentos, setDepartamentos] = useState(departamentosCiudades.departamentos);
     const [ciudades, setCiudades] = useState([]);
 
+    //Definicion de las zonas de vivienda
+    const zonas = ["Urbana", "Rural"];
     //Definicion de campo para el estrato
     const estratos = ["0", "1", "2", "3", "4", "5", "6"];
     //Definicion de campos para los tipos de vivienda
@@ -135,13 +138,14 @@ const VistaDatosProfesional = () => {
         } else if (name === 'var_ciudadResidencia') {
             localStorage.setItem('ciudadResidencia', value);
         } else if (name === 'var_estratoVivienda') {
-            console.log("Guardando estrato en localStorage:", value);
             localStorage.setItem('estratoVivienda', value);
         } else if (name === 'var_tipoVivienda') {
             localStorage.setItem('tipoVivienda', value);
         } else if (campo === 'servicioQueNoCuentan') {
             setSelectedServiciosQueNoCuentan(value);
             localStorage.setItem('selectedServiciosQueNoCuentan', JSON.stringify(value));
+        } else if (name === "var_zonaVivienda") {
+            localStorage.setItem("var_zonaVivienda", value);
         }
     };
 
@@ -416,6 +420,24 @@ const VistaDatosProfesional = () => {
                                 }} />
                             </Grid>
                         </Grid>
+
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Zona de la vivienda :</Typography>
+                        <TextField select name="var_zonaVivienda" value={formData.var_zonaVivienda} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_zonaVivienda}
+                            helperText={errors.var_zonaVivienda} FormHelperTextProps={{
+                                sx: {
+                                    marginLeft: 0,
+                                },
+                            }} InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                },
+                            }} >
+                            {zonas.map(zona => (
+                                <MenuItem key={zona} value={zona}>{zona}</MenuItem>
+                            ))}
+                        </TextField>
                         
 
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Tipo de Vivienda:</Typography>
@@ -480,13 +502,12 @@ const VistaDatosProfesional = () => {
                                 }}
                                 fullWidth
                                 variant="outlined"
-                                MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }} InputProps={{
-                                    sx: {
+                                MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }} sx={{
                                         height: "40px",
                                         fontFamily: "Poppins",
                                         fontSize: "16px"
-                                    },
-                                }} >
+                                    }}
+                             >
                                 {serviciosQueNoCuentan.map((actividad) => (
                                     <MenuItem key={actividad.id_servicioQueNoCuentaPK} value={actividad.id_servicioQueNoCuentaPK}>
                                         <Checkbox checked={selectedServiciosQueNoCuentan.indexOf(actividad.id_servicioQueNoCuentaPK) > -1} />
@@ -531,13 +552,12 @@ const VistaDatosProfesional = () => {
                                 fullWidth
                                 variant="outlined"
                                 MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }}
-                                InputProps={{
-                                    sx: {
+                                sx={{
                                         height: "40px",
                                         fontFamily: "Poppins",
                                         fontSize: "16px"
-                                    },
-                                }}
+                                    }}
+                                
                             >
                                 {factoresRiesgoOptions.map((factor) => (
                                     <MenuItem key={factor.id_factoresRiesgoPK} value={factor.id_factoresRiesgoPK}>

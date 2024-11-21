@@ -106,8 +106,11 @@ const VistaDatosProfesional2 = () => {
 
             if (name === "var_personasDependeciaEconimica") {
                 localStorage.setItem('var_personasDependeciaEconimica', value);
-            } else if (name === "boolean_viveConMascotas") {
+            } else if (name === "boolean_viveConMascotas" === "true") {
                 localStorage.setItem('boolean_viveConMascotas', value);
+
+            } else if (name === "set_tipoMascotas" && prevData.boolean_viveConMascotas === "true") {
+                localStorage.setItem('set_tipoMascotas', JSON.stringify(value)); // Guarda como un string JSON
             } else if (name === "var_totalIngresosPropiosYGrupoFamiliar") {
                 localStorage.setItem('var_totalIngresosPropiosYGrupoFamiliar', value);
             } else if (name === "var_numeroPersonasConLasQueVive") {

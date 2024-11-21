@@ -32,8 +32,10 @@ const VistaAgradecimientos = () => {
             const var_tipoVivienda = localStorage.getItem('var_tipoVivienda');
             const var_estadoCivil = localStorage.getItem('var_estadoCivil');
             const boolean_viveSolo = localStorage.getItem('boolean_viveSolo') === 'true';
+            const var_numeroPersonasConLasQueVive = localStorage.getItem('var_numeroPersonasConLasQueVive')
             const set_personasConLasQueVive = JSON.stringify(JSON.parse(localStorage.getItem('set_personasConLasQueVive')));
             const boolean_viveConMascotas = localStorage.getItem('boolean_viveConMascotas') === 'true';
+            const set_tipoMascotas = localStorage.getItem('set_tipoMascotas')
             const var_personasDependeciaEconimica = localStorage.getItem('var_personasDependeciaEconimica');
             const var_totalIngresosPropiosYGrupoFamiliar = localStorage.getItem('var_totalIngresosPropiosYGrupoFamiliar');
             const var_grupoEtnico = localStorage.getItem('var_grupoEtnico');
@@ -44,7 +46,6 @@ const VistaAgradecimientos = () => {
             const id_cuentaBancariaFK = parseInt(localStorage.getItem('selectedBanco'), 10);
             const var_tipoCuenta = localStorage.getItem('tipoCuenta');
             const var_numeroCuenta = localStorage.getItem('numeroCuenta');
-            const var_tipoVinculacion = localStorage.getItem('var_tipoVinculacion');
             const var_tipoContrato = localStorage.getItem('var_tipoContrato');
             const var_salario = localStorage.getItem('var_salario');
             const date_fechaIngresoInstitucion = localStorage.getItem('date_fechaIngresoInstitucion');
@@ -55,7 +56,6 @@ const VistaAgradecimientos = () => {
             const var_sede = localStorage.getItem('var_sede');
             const var_celular = localStorage.getItem('var_celular');
             const var_telefonoFijo = localStorage.getItem('var_telefonoFijo');
-            const var_turnoTrabajo = localStorage.getItem('var_turnoTrabajo');
             const var_nivelEscolaridad = localStorage.getItem('nivelEscolaridad');
             const var_nombreCarrera = localStorage.getItem('nombreCarrera');
             const boolean_actualmenteEstudia = localStorage.getItem('actualmenteEstudia') === 'true';
@@ -72,6 +72,10 @@ const VistaAgradecimientos = () => {
             const var_peso = localStorage.getItem('var_peso');
             const var_altura = localStorage.getItem('var_altura');
             const var_urlDatosAdjuntos = localStorage.getItem('certificadoUrl');
+            const var_correoElectronicoInstitucional = localStorage.getItem('var_correoElectronicoInstitucional');
+            const boolean_usaLentes = localStorage.getItem('boolean_usaLentes')=== 'true';
+            const boolean_bebidasEnergizantes = localStorage.getItem('boolean_bebidasEnergizantes')=== 'true';
+            const var_zonaVivienda = localStorage.getItem('var_zonaVivienda')
             try {
                 const response = await axios.post(URI_PROFESIONAL, { id_usuarioFK: id_usuarioFK, boolean_aceptaTratamientoDatos: boolean_aceptaTratamientoDatos, date_fechaNacimiento: date_fechaNacimiento, var_departamentoResidencia: var_departamentoResidencia, var_ciudadResidencia: var_ciudadResidencia, var_direccionResidencia: var_direccionResidencia, var_estratoVivienda: var_estratoVivienda, var_tipoVivienda: var_tipoVivienda, var_estadoCivil: var_estadoCivil, boolean_viveSolo: boolean_viveSolo, set_personasConLasQueVive: set_personasConLasQueVive, boolean_viveConMascotas: boolean_viveConMascotas, var_personasDependeciaEconimica: var_personasDependeciaEconimica, var_totalIngresosPropiosYGrupoFamiliar: var_totalIngresosPropiosYGrupoFamiliar, var_grupoEtnico: var_grupoEtnico, var_rh: var_rh, id_epsFK: id_epsFK, id_fondoPensionFK: id_fondoPensionFK, boolean_cambioEpsOArl: boolean_cambioEpsOArl, id_cuentaBancariaFK: id_cuentaBancariaFK, var_tipoCuenta: var_tipoCuenta, var_numeroCuenta: var_numeroCuenta, var_tipoVinculacion: var_tipoVinculacion, var_tipoContrato: var_tipoContrato, var_salario: var_salario, date_fechaIngresoInstitucion: date_fechaIngresoInstitucion, var_antiguedadInstitucion: var_antiguedadInstitucion, id_areaFK: id_areaFK, var_cargo: var_cargo, var_jefeInmediato: var_jefeInmediato, var_sede: var_sede, var_celular: var_celular, var_telefonoFijo: var_telefonoFijo, var_turnoTrabajo: var_turnoTrabajo, var_nivelEscolaridad: var_nivelEscolaridad, var_nombreCarrera: var_nombreCarrera, boolean_actualmenteEstudia: boolean_actualmenteEstudia, boolean_actividadFisica: boolean_actividadFisica, var_frecuenciaActividadFisica: var_frecuenciaActividadFisica, boolean_fuma: boolean_fuma, var_frecuenciaFuma: var_frecuenciaFuma, boolean_toma: boolean_toma, var_frecuenciaToma: var_frecuenciaToma, boolean_sustanciasPsicoactivas: boolean_sustanciasPsicoactivas, var_frecuenciaSustanciasPsicoactivas: var_frecuenciaSustanciasPsicoactivas, set_mediosTransportePublico: set_mediosTransportePublico, set_pasoMayorTiempoLibre: set_pasoMayorTiempoLibre, var_peso: var_peso, var_altura: var_altura, var_urlDatosAdjuntos: var_urlDatosAdjuntos });
 
