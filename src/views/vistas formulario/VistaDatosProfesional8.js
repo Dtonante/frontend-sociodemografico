@@ -78,11 +78,11 @@ const VistaDatosProfesional8 = () => {
         const nuevosErrores = {};
 
         if (!selectedTransporte) {
-            nuevosErrores.selectedTransporte = "El nombre completo es obligatorio";
+            nuevosErrores.selectedTransporte = "Indicar si tienes medio de transporte es obligatorio.";
         }
 
         if (!mediosTransportePublico || mediosTransportePublico.length === 0) {
-            nuevosErrores.mediosTransportePublico = "El nombre completo es obligatorio";
+            nuevosErrores.mediosTransportePublico = "Indicar el medio de transporte para desplazarte a la universidad es obligatorio.";
         }
 
         if (Object.keys(nuevosErrores).length > 0) {

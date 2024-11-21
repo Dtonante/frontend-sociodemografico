@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../../css/VistaHomeNuevoUsuario.css'
 
 const VistaHomeUsuarioNuevo = () => {
     const navigate = useNavigate();
@@ -28,7 +29,7 @@ const VistaHomeUsuarioNuevo = () => {
             }}
         >
             {/* Imagen de fondo */}
-            <div style={{ width: '100%', height: '35%', position: 'relative',textAlign: 'center', }}>
+            <div style={{ width: '100%', height: '35%', position: 'relative', textAlign: 'center', }}>
                 <img
                     src="public/fondo_home.jpg" // Reemplaza con la ruta correcta de la imagen
                     alt="Fondo"
@@ -69,65 +70,42 @@ const VistaHomeUsuarioNuevo = () => {
                     }}
                 >
                     <p style={{ margin: 0, color: '#1b263b', fontSize: '14px', fontFamily: 'Poppins' }}>
-                        <strong style={{fontFamily: 'Roboto Condensed'}}>Importante: </strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim lacus vitae lacus consectetur interdum. Quisque tellus arcu, dapibus sit amet quam elementum, semper molestie nulla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim lacus vitae lacus consectetur interdum. Quisque tellus arcu, dapibus sit amet quam elementum, semper molestie nulla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim lacus vitae lacus consectetur interdum. Quisque tellus arcu, dapibus sit amet quam elementum, semper molestie nulla.
+                        <strong style={{ fontFamily: 'Roboto Condensed' }}>Importante: </strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim lacus vitae lacus consectetur interdum. Quisque tellus arcu, dapibus sit amet quam elementum, semper molestie nulla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim lacus vitae lacus consectetur interdum. Quisque tellus arcu, dapibus sit amet quam elementum, semper molestie nulla. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus dignissim lacus vitae lacus consectetur interdum. Quisque tellus arcu, dapibus sit amet quam elementum, semper molestie nulla.
                     </p>
                 </div>
 
                 {/* Caja para iconos y botón */}
-                <div
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        width: '100%',
-                        marginTop: '7%',
-                    }}
-                >
+                <div className="contenedor">
                     {/* Iconos sociales */}
-                    <div style={{ display: 'flex', gap: '12px' }}>
-                        <button
-                            style={{
-                                backgroundColor: '#00A5CE',
-                                color: '#fff',
-                                border: 'none',
-                                borderRadius: '50%',
-                                width: '40px',
-                                height: '40px',
-                                cursor: 'pointer',
-                            }}
-                        >
-                            E
-                        </button>
-                        <button
-                            style={{
-                                backgroundColor: '#00A5CE',
-                                color: '#fff',
-                                border: 'none',
-                                borderRadius: '50%',
-                                width: '40px',
-                                height: '40px',
-                                cursor: 'pointer',
-                            }}
-                        >
-                            I
-                        </button>
-                        <button
-                            style={{
-                                backgroundColor: '#00A5CE',
-                                color: '#fff',
-                                border: 'none',
-                                borderRadius: '50%',
-                                width: '40px',
-                                height: '40px',
-                                cursor: 'pointer',
-                            }}
-                        >
-                            F
-                        </button>
+                    <div className="iconos-sociales">
+                        {['Web', 'Instagram', 'Facebook', 'Twitter', 'Youtube', 'Spotify', 'Linkedin', 'Emisora'].map((nombre) => (
+                            <button
+                                key={nombre}
+                                style={{
+                                    backgroundColor: '#00A5CE',
+                                    border: 'none',
+                                    borderRadius: '50%',
+                                    width: '40px',
+                                    height: '40px',
+                                    cursor: 'pointer',
+                                    padding: 0,
+                                }}
+                            >
+                                <img
+                                    src={`/public/${nombre}.png`}
+                                    alt={nombre}
+                                    style={{
+                                        width: '100%',
+                                        height: '100%',
+                                        borderRadius: '50%',
+                                    }}
+                                />
+                            </button>
+                        ))}
                     </div>
 
-                    {/* Botones de acción juntos */}
-                    <div style={{ display: 'flex', gap: '12px' }}>
+                    {/* Botones de acción */}
+                    <div className="botones-accion">
                         <button
                             style={{
                                 padding: '10px 20px',
@@ -137,7 +115,6 @@ const VistaHomeUsuarioNuevo = () => {
                                 border: 'none',
                                 borderRadius: '5px',
                                 cursor: 'pointer',
-                                
                             }}
                             onClick={manejarLogin}
                         >
@@ -154,9 +131,12 @@ const VistaHomeUsuarioNuevo = () => {
                                 cursor: 'pointer',
                             }}
                             onClick={manejarDatosUsuario}
-                        > Formulario </button>
+                        >
+                            Formulario
+                        </button>
                     </div>
                 </div>
+
 
             </div>
 

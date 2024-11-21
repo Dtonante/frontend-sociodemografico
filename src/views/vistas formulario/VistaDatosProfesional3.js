@@ -24,7 +24,7 @@ const VistaDatosProfesional3 = () => {
         const nuevosErrores = {};
 
         if (touchedFields.selectedEps && !selectedEps) {
-            nuevosErrores.selectedEps = "El nombre completo es obligatorio";
+            nuevosErrores.selectedEps = "El nombre completo es";
         }
 
         if (touchedFields.selectedFondoPension && !selectedFondoPension) {
@@ -141,11 +141,11 @@ const VistaDatosProfesional3 = () => {
         const nuevosErrores = {};
 
         if (!selectedEps) {
-            nuevosErrores.selectedEps = "El nombre completo es obligatorio";
+            nuevosErrores.selectedEps = "Selecionar una eps es obligatorio.";
         }
 
         if (!selectedFondoPension) {
-            nuevosErrores.selectedFondoPension = "El nombre completo es obligatorio";
+            nuevosErrores.selectedFondoPension = "Selecionar un fondo de pensión es obligatorio.";
         }
 
         if (!cambioEpsOArl) {
@@ -153,11 +153,11 @@ const VistaDatosProfesional3 = () => {
         }
 
         if (!selectedServiciosSaludAdicional || selectedServiciosSaludAdicional.length === 0) {
-            nuevosErrores.selectedServiciosSaludAdicional = "El nombre completo es obligatorio";
+            nuevosErrores.selectedServiciosSaludAdicional = "Seleccionar los servicios de salud es obligatorio.";
         }
 
         if (!selectedAntecedentes || selectedAntecedentes.length === 0) {
-            nuevosErrores.selectedAntecedentes = "El nombre completo es obligatorio";
+            nuevosErrores.selectedAntecedentes = "Seleccionar los antecedentes médicos es obligatorio.";
         }
 
         if (Object.keys(nuevosErrores).length > 0) {

@@ -26,11 +26,11 @@ const VistaDatosProfesional2 = () => {
         const nuevosErrores = {};
 
         if (touchedFields.var_estadoCivil && !formData.var_estadoCivil) {
-            nuevosErrores.var_estadoCivil = "El nombre completo es obligatorio";
+            nuevosErrores.var_estadoCivil = "El estado civil es obligatorio";
         }
 
         if (touchedFields.boolean_viveSolo && !formData.boolean_viveSolo) {
-            nuevosErrores.boolean_viveSolo = "El tipo de documento es obligatorio";
+            nuevosErrores.boolean_viveSolo = "Es obligatorio especificar si vive solo o no.";
         }
 
         if (touchedFields.boolean_viveConMascotas && !formData.boolean_viveConMascotas) {
@@ -54,7 +54,7 @@ const VistaDatosProfesional2 = () => {
         }
 
         if (formData.boolean_viveConMascotas === "true" && formData.set_tipoMascotas.length === 0) {
-            nuevosErrores.set_tipoMascotas = "Debe seleccionar al menos una persona con la que vive";
+            nuevosErrores.set_tipoMascotas = "Debes seleccionar al menos un tipo de mascota.";
         }
 
         setErrors(nuevosErrores);
@@ -125,23 +125,23 @@ const VistaDatosProfesional2 = () => {
         const nuevosErrores = {};
 
         if (!formData.var_estadoCivil.trim()) {
-            nuevosErrores.var_estadoCivil = "El nombre completo es obligatorio";
+            nuevosErrores.var_estadoCivil = "El estado civil es obligatorio.";
         }
 
         if (!formData.boolean_viveSolo) {
-            nuevosErrores.boolean_viveSolo = "El tipo de documento es obligatorio";
+            nuevosErrores.boolean_viveSolo = "El campo vive solo es obligatorio .";
         }
 
         if (!formData.boolean_viveConMascotas) {
-            nuevosErrores.boolean_viveConMascotas = "El tipo de documento es obligatorio";
+            nuevosErrores.boolean_viveConMascotas = "Tiene mascotas es obligatorio.";
         }
 
         if (!formData.var_personasDependeciaEconimica) {
-            nuevosErrores.var_personasDependeciaEconimica = "El tipo de documento es obligatorio";
+            nuevosErrores.var_personasDependeciaEconimica = "El cantidad de personas es obligatorio.";
         }
 
         if (!formData.var_totalIngresosPropiosYGrupoFamiliar) {
-            nuevosErrores.var_totalIngresosPropiosYGrupoFamiliar = "El tipo de documento es obligatorio";
+            nuevosErrores.var_totalIngresosPropiosYGrupoFamiliar = "El total de ingresos propios y familiar es obligatorio.";
         }
 
         if (formData.boolean_viveSolo === "false" && formData.set_personasConLasQueVive.length === 0) {
@@ -153,7 +153,7 @@ const VistaDatosProfesional2 = () => {
         }
 
         if (formData.boolean_viveConMascotas === "true" && formData.set_tipoMascotas.length === 0) {
-            nuevosErrores.set_tipoMascotas = "Debe seleccionar al menos una persona con la que vive";
+            nuevosErrores.set_tipoMascotas = "Debes seleccionar al menos un tipo de mascota.";
         }
 
         if (Object.keys(nuevosErrores).length > 0) {

@@ -221,14 +221,7 @@ const VistaDatosUsuario = () => {
     <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', paddingBottom: '3%'}}>
 
       <div style={{ textAlign: 'center', marginBottom: '1%', marginTop: '-1%' }}>
-        <img
-          src="public/logo_form.png"
-          alt="Descripción de la imagen"
-          style={{
-            width: '20%',
-            height: 'auto',
-          }}
-        />
+        <img src="public/logo_form.png" alt="Descripción de la imagen" style={{ width: '20%', height: 'auto', }} />
       </div>
       <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: '#F2F2F2', borderColor: '#202B52' }}>
         <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
@@ -240,32 +233,9 @@ const VistaDatosUsuario = () => {
         <CardContent sx={{ padding: "30px" }}>
           <form onSubmit={manejarEnvio}>
             <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Nombre Completo:</Typography>
-            <TextField name="var_nombreCompleto" variant="outlined" value={formData.var_nombreCompleto} onChange={handleInputChange} fullWidth sx={{ mb: 2, }} onBlur={handleBlur}
-              error={!!errors.var_nombreCompleto}
-              helperText={errors.var_nombreCompleto} FormHelperTextProps={{
-                sx: {
-                  marginLeft: 0,
-                },
-
-              }} InputProps={{
-                sx: {
-                  height: "40px",
-                  fontFamily: "Poppins",
-                  fontSize: "16px"
-                },
-              }} />
+            <TextField name="var_nombreCompleto" variant="outlined" value={formData.var_nombreCompleto} onChange={handleInputChange} fullWidth sx={{ mb: 2, }} onBlur={handleBlur} error={!!errors.var_nombreCompleto} helperText={errors.var_nombreCompleto} FormHelperTextProps={{ sx: { marginLeft: 0, }, }} InputProps={{ sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" }, }} />
             <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Tipo de Documento:</Typography>
-            <TextField select name="int_tipoDocumentoFK" label="" variant="outlined" value={formData.int_tipoDocumentoFK} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.int_tipoDocumentoFK} helperText={errors.int_tipoDocumentoFK} FormHelperTextProps={{
-              sx: {
-                marginLeft: 0,
-              },
-            }} InputProps={{
-              sx: {
-                height: "40px",
-                fontFamily: "Poppins",
-                fontSize: "16px"
-              },
-            }} >
+            <TextField select name="int_tipoDocumentoFK" label="" variant="outlined" value={formData.int_tipoDocumentoFK} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.int_tipoDocumentoFK} helperText={errors.int_tipoDocumentoFK} FormHelperTextProps={{ sx: { marginLeft: 0, }, }} InputProps={{ sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" }, }} >
               {tiposDocumento.map((option) => (
                 <MenuItem key={option.id_tipoDocumentoPK} value={option.id_tipoDocumentoPK}> {option.var_nombreDocumento} </MenuItem>
               ))}
@@ -274,14 +244,7 @@ const VistaDatosUsuario = () => {
             <TextField name="var_numeroDocumento" variant="outlined" value={formData.var_numeroDocumento} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_numeroDocumento} helperText={errors.var_numeroDocumento} FormHelperTextProps={{
               sx: {
                 marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
-              },
-            }} InputProps={{
-              sx: {
-                height: "40px",
-                fontFamily: "Poppins",
-                fontSize: "16px"
-              },
-            }} />
+              }, }} InputProps={{ sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" }, }} />
             <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Fecha de Nacimiento:</Typography>
             <TextField name="date_fechaNacimiento" type="date" variant="outlined" value={formData.date_fechaNacimiento} onChange={handleInputChange} fullWidth sx={{ mb: 2 }} InputLabelProps={{ shrink: true }} onBlur={handleBlur} error={!!errors.date_fechaNacimiento} helperText={errors.date_fechaNacimiento} FormHelperTextProps={{
               sx: {

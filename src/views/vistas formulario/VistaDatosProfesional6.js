@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Box, Typography, Divider, CardContent, Button, TextField, FormControl, RadioGroup, FormHelperText, FormControlLabel, Radio, InputLabel, Select, MenuItem } from "@mui/material";
 import axios from "axios";
+import show_alert from "../../components/showAlert/alertFuntion";
 
 const VistaDatosProfesional6 = () => {
     const [nivelEscolaridad, setNivelEscolaridad] = useState('');
@@ -80,11 +81,11 @@ const VistaDatosProfesional6 = () => {
         const file = event.target.files[0];
         if (file) {
             if (file.type !== 'application/pdf') {
-                alert("Por favor, sube un archivo PDF");
+                show_alert("Por favor, sube un archivo PDF", 'info');
                 return;
             }
             if (file.size > 10 * 1024 * 1024) {  // 10 MB
-                alert("El archivo es demasiado grande");
+                show_alert("El archivo es demasiado grande", 'info');
                 return;
             }
             setCertificadoPdf(file);  // Guardamos el archivo en el estado
@@ -110,7 +111,7 @@ const VistaDatosProfesional6 = () => {
             if (certificadoPdf) {
                 formData.append("certificado", certificadoPdf);  // Adjunta el archivo PDF
             } else {
-                alert("Por favor, sube un archivo PDF antes de continuar.");
+                show_alert("Por favor, sube un archivo PDF antes de continuar." , 'info');
                 return; 
             }
         }
@@ -140,15 +141,15 @@ const VistaDatosProfesional6 = () => {
             const nuevosErrores = {};
     
             if (!nivelEscolaridad) {
-                nuevosErrores.nivelEscolaridad = "El nombre completo es obligatorio";
+                nuevosErrores.nivelEscolaridad = "El nivel de escolaridad es obligatorio.";
             }
     
             if (actualmenteEstudia === undefined) {
-                nuevosErrores.actualmenteEstudia = "El nombre completo es obligatorio";
+                nuevosErrores.actualmenteEstudia = "Este campo es obligatorio.";
             }
 
             if (graduacion === undefined) {
-                nuevosErrores.graduacion = "El nombre completo es obligatorio";
+                nuevosErrores.graduacion = "Este campo es obligatorio.";
             }
     
             if (Object.keys(nuevosErrores).length > 0) {
@@ -160,7 +161,7 @@ const VistaDatosProfesional6 = () => {
             navigate("/datosProfesional7");
         } catch (error) {
             console.error("Error al enviar el archivo:", error);
-            alert("Hubo un error al enviar el archivo. Inténtalo nuevamente.");
+            show_alert("Hubo un error al enviar el archivo. Inténtalo nuevamente.", 'error');
         }
     };
     

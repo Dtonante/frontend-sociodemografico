@@ -1,0 +1,44 @@
+/* Estilos generales */
+.contenedor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 7%;
+    flex-wrap: wrap; /* Permitir que los elementos se ajusten automáticamente */
+}
+
+.iconos-sociales {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap; /* Permite que los iconos se distribuyan en varias filas */
+}
+
+.botones-accion {
+    display: flex;
+    gap: 12px;
+}
+
+/* Estilos para pantallas pequeñas */
+@media (max-width: 1100px) {
+    .contenedor {
+        flex-direction: column; /* Cambia la dirección de los elementos a columna */
+        align-items: center; /* Centra los elementos en el eje principal */
+        margin-top: 20px; /* Ajusta el margen superior */
+    }
+
+    .iconos-sociales {
+        justify-content: center; /* Centra los iconos */
+        width: 100%; /* Ocupa el ancho completo */
+        margin-bottom: 20px; /* Espacio entre iconos y botones */
+    }
+
+    .iconos-sociales button {
+        margin-bottom: 10px; /* Espacio entre filas de iconos */
+    }
+
+    .botones-accion {
+        flex-direction: column; /* Coloca los botones en columna */
+        align-items: center; /* Centra los botones */
+    }
+}

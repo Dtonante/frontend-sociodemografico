@@ -44,11 +44,11 @@ const VistaDatosProfesional = () => {
         }
 
         if (touchedFields.selectedServiciosQueNoCuentan && (!selectedServiciosQueNoCuentan || selectedServiciosQueNoCuentan.length === 0)) {
-            nuevosErrores.selectedServiciosQueNoCuentan = "El tipo de documento es obligatorio";
+            nuevosErrores.selectedServiciosQueNoCuentan = "Los servicios con los que no cuenta son obligatorios";
         }
 
         if (touchedFields.selectedFactoresRiesgo && (!selectedFactoresRiesgo || selectedFactoresRiesgo.length === 0)) {
-            nuevosErrores.selectedFactoresRiesgo = "El tipo de documento es obligatorio";
+            nuevosErrores.selectedFactoresRiesgo = "Los factores de riesgos son obligatorios.";
         }
 
         setErrors(nuevosErrores);
@@ -179,27 +179,27 @@ const VistaDatosProfesional = () => {
         const nuevosErrores = {};
 
         if (!formData.var_departamentoResidencia) {
-            nuevosErrores.var_departamentoResidencia = "El departamento es obligatorio es obligatorio";
+            nuevosErrores.var_departamentoResidencia = "El departamento es obligatorio.";
         }
 
         if (!formData.var_ciudadResidencia) {
-            nuevosErrores.var_ciudadResidencia = "La ciudad de residencia es obligatorio";
+            nuevosErrores.var_ciudadResidencia = "La ciudad de residencia es obligatorio.";
         }
 
         if (!formData.var_estratoVivienda) {
-            nuevosErrores.var_estratoVivienda = "El estrato de residencia es obligatorio";
+            nuevosErrores.var_estratoVivienda = "El estrato de vivienda es obligatorio.";
         }
 
         if (!formData.var_tipoVivienda) {
-            nuevosErrores.var_tipoVivienda = "El tipo de vivienda es obligatorio";
+            nuevosErrores.var_tipoVivienda = "El tipo de vivienda es obligatorio.";
         }
 
         if (!selectedServiciosQueNoCuentan || selectedServiciosQueNoCuentan.length === 0) {
-            nuevosErrores.selectedServiciosQueNoCuentan = "El campo servicios con los que no cuentan es obligatorio";
+            nuevosErrores.selectedServiciosQueNoCuentan = "Los servicios con los que no cuentan son obligatorios.";
         }
 
         if (!selectedFactoresRiesgo || selectedFactoresRiesgo.length === 0) {
-            nuevosErrores.selectedFactoresRiesgo = "El campo servicios con los que no cuentan es obligatorio";
+            nuevosErrores.selectedFactoresRiesgo = "Los factores de riesgo son obligatorios.";
         }
 
         if (Object.keys(nuevosErrores).length > 0) {

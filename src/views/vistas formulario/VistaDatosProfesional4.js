@@ -76,15 +76,15 @@ const VistaDatosProfesional4 = () => {
 
 
         if (!numeroCuenta) {
-            nuevosErrores.numeroCuenta = "El campo servicios con los que no cuentan es obligatorio";
+            nuevosErrores.numeroCuenta = "El número de cuenta es obligatorio.";
         }
 
         if (!tipoCuenta) {
-            nuevosErrores.tipoCuenta = "El campo servicios con los que no cuentan es obligatorio";
+            nuevosErrores.tipoCuenta = "El tipo de cuenta es obligatorio.";
         }
 
         if (!selectedBanco) {
-            nuevosErrores.selectedBanco = "El campo servicios con los que no cuentan es obligatorio";
+            nuevosErrores.selectedBanco = "Seleccionar un banco es obligatorio.";
         }
 
 
