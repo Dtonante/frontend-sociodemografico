@@ -53,6 +53,10 @@ const VistaDatosProfesional2 = () => {
             nuevosErrores.var_numeroPersonasConLasQueVive = "Debe seleccionar al menos una persona con la que vive";
         }
 
+        if (formData.boolean_viveConMascotas === "true" && formData.set_tipoMascotas.length === 0) {
+            nuevosErrores.set_tipoMascotas = "Debe seleccionar al menos una persona con la que vive";
+        }
+
         setErrors(nuevosErrores);
     }, [formData, touchedFields]);
 
@@ -143,6 +147,10 @@ const VistaDatosProfesional2 = () => {
 
         if (formData.boolean_viveSolo === "false" && formData.var_numeroPersonasConLasQueVive.length === 0) {
             nuevosErrores.var_numeroPersonasConLasQueVive = "Debe seleccionar al menos una persona con la que vive";
+        }
+
+        if (formData.boolean_viveConMascotas === "true" && formData.set_tipoMascotas.length === 0) {
+            nuevosErrores.set_tipoMascotas = "Debe seleccionar al menos una persona con la que vive";
         }
 
         if (Object.keys(nuevosErrores).length > 0) {
@@ -251,12 +259,12 @@ const VistaDatosProfesional2 = () => {
                                         onBlur={handleBlur}
                                         variant="outlined"
                                         MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }}
-                                            sx={{
-                                                height: "40px",
-                                                fontFamily: "Poppins",
-                                                fontSize: "16px"
-                                            }}
-                                       
+                                        sx={{
+                                            height: "40px",
+                                            fontFamily: "Poppins",
+                                            fontSize: "16px"
+                                        }}
+
                                     >
                                         {["Pareja", "Hijos", "Madre", "Padre", "Hermanos", "Abuelos", "Tios", "Amigos", "Otros"].map((persona) => (
                                             <MenuItem key={persona} value={persona}>
@@ -305,12 +313,12 @@ const VistaDatosProfesional2 = () => {
                                         onBlur={handleBlur}
                                         variant="outlined"
                                         MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }}
-                                            sx={{
-                                                height: "40px",
-                                                fontFamily: "Poppins",
-                                                fontSize: "16px"
-                                            }}
-                                        
+                                        sx={{
+                                            height: "40px",
+                                            fontFamily: "Poppins",
+                                            fontSize: "16px"
+                                        }}
+
                                     >
                                         {["Perro", "Gato", "Conejo", "Hamster", "Tortuga", "Huron", "Cobaya", "Chinchilla", "Pajaros", "Cerdo miniatura", "Peces", "Otro tipo"].map((mascotas) => (
                                             <MenuItem key={mascotas} value={mascotas}>

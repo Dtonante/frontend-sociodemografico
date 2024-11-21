@@ -12,6 +12,7 @@ const VistaDatosProfesional6 = () => {
     const [errors, setErrors] = useState({});
     const [touchedFields, setTouchedFields] = useState({});
     const porcentajeProgreso = 60;
+    const [graduacion, setGraduacion] = useState();
 
     // Validaciones basadas en los campos tocados
     useEffect(() => {
@@ -23,6 +24,10 @@ const VistaDatosProfesional6 = () => {
 
         if (touchedFields.actualmenteEstudia && (actualmenteEstudia === undefined)) {
             nuevosErrores.actualmenteEstudia = "El tipo de documento es obligatorio";
+        }
+
+        if (touchedFields.graduacion && (graduacion === undefined)) {
+            nuevosErrores.graduacion = "El tipo de documento es obligatorio";
         }
 
 
@@ -60,6 +65,12 @@ const VistaDatosProfesional6 = () => {
         } else if (name === "nombreCarrera") {
             setNombreCarrera(value);
             localStorage.setItem('nombreCarrera', value);
+        } else if (name === "graduacion") {
+            const gradua=value=== "true"
+            setGraduacion(gradua)
+            if (!gradua){
+                setCertificadoPdf("N/A")
+            }
         }
 
 
@@ -92,52 +103,65 @@ const VistaDatosProfesional6 = () => {
 
     const manejarSiguiente = async () => {
         const formData = new FormData();
-        if (certificadoPdf) {
-            formData.append("certificado", certificadoPdf);  // Adjunta solo el PDF
-
-            try {
-                // Enviamos el formulario con el archivo PDF al backend
+    
+        // Verificar si la variable graduacion es true
+        if (graduacion) {
+            // Solo se adjunta el certificado si graduacion es true
+            if (certificadoPdf) {
+                formData.append("certificado", certificadoPdf);  // Adjunta el archivo PDF
+            } else {
+                alert("Por favor, sube un archivo PDF antes de continuar.");
+                return; 
+            }
+        }
+    
+        try {
+            // Enviar el formulario con el archivo PDF al backend si graduacion es true
+            if (graduacion && certificadoPdf) {
                 const response = await axios.post("http://localhost:3001/certificados/subir/", formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },
                 });
-
+    
                 // Si la respuesta es exitosa, obtenemos la URL del certificado y la guardamos en localStorage
                 const { id, url } = response.data;
                 console.log("Archivo PDF enviado correctamente");
                 console.log("ID del certificado:", id);
                 console.log("URL del certificado:", url);
-
-                // Guardamos la URL en el localStorage
+    
+                // Guardamos la URL en el localStorage si es necesario
                 localStorage.setItem('certificadoUrl', url);
-
-                const nuevosErrores = {};
-
-                if (!nivelEscolaridad) {
-                    nuevosErrores.nivelEscolaridad = "El nombre completo es obligatorio";
-                } actualmenteEstudia
-
-                if (actualmenteEstudia === undefined) {
-                    nuevosErrores.actualmenteEstudia = "El nombre completo es obligatorio";
-                }
-
-
-                if (Object.keys(nuevosErrores).length > 0) {
-                    setErrors(nuevosErrores);
-                    return;
-                }
-
-                // Navegamos a la siguiente vista
-                navigate("/datosProfesional7");
-            } catch (error) {
-                console.error("Error al enviar el archivo:", error);
-                alert("Hubo un error al enviar el archivo. Inténtalo nuevamente.");
             }
-        } else {
-            alert("Por favor, sube un archivo PDF antes de continuar.");
+    
+            // Validaciones de otros campos (por ejemplo, nivelEscolaridad, actualmenteEstudia)
+            const nuevosErrores = {};
+    
+            if (!nivelEscolaridad) {
+                nuevosErrores.nivelEscolaridad = "El nombre completo es obligatorio";
+            }
+    
+            if (actualmenteEstudia === undefined) {
+                nuevosErrores.actualmenteEstudia = "El nombre completo es obligatorio";
+            }
+
+            if (graduacion === undefined) {
+                nuevosErrores.graduacion = "El nombre completo es obligatorio";
+            }
+    
+            if (Object.keys(nuevosErrores).length > 0) {
+                setErrors(nuevosErrores);
+                return;
+            }
+    
+            // Navegar a la siguiente vista
+            navigate("/datosProfesional7");
+        } catch (error) {
+            console.error("Error al enviar el archivo:", error);
+            alert("Hubo un error al enviar el archivo. Inténtalo nuevamente.");
         }
     };
+    
 
 
 
@@ -165,7 +189,7 @@ const VistaDatosProfesional6 = () => {
                 <CardContent sx={{ padding: "30px" }}>
                     <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.nivelEscolaridad}>
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Nivel de Escolaridad : </Typography>
-                        <Select onBlur={handleBlur} labelId="nivelEscolar-label" name="nivelEscolaridad" value={nivelEscolaridad} onChange={manejarCambio} 
+                        <Select onBlur={handleBlur} labelId="nivelEscolar-label" name="nivelEscolaridad" value={nivelEscolaridad} onChange={manejarCambio}
                             sx={{
                                 height: "40px",
                                 fontFamily: "Poppins",
@@ -185,32 +209,53 @@ const VistaDatosProfesional6 = () => {
                         )}
                     </FormControl>
 
-                    <FormControl fullWidth sx={{ mb: 2 }}>
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Anexar certificado :</Typography>
-                        <input id="certificado-pdf" name="certificadoPdf" type="file" accept="application/pdf" onChange={manejarCambioPdf}
-                            style={{
-                                border: "1px solid #202B52", 
-                                borderRadius: "4px",  
-                                padding: "10px",  
-                                fontFamily: "Poppins",  
-                                fontSize: "14px",  
-                                color: "#202B52",  
-                                cursor: "pointer",  
-                              }} />
-                        {certificadoPdf && (
-                            <Box sx={{ mt: 2 }}>
-                                <Typography variant="body2">
-                                    <strong style={{fontFamily: "Roboto Condensed", fontSize: "14px", color: "#202B52" }}>Archivo seleccionado: </strong>
-                                    <span onClick={manejarVerPdf} style={{ color: "#202B52", textDecoration: "underline", cursor: "pointer" }}>
-                                        {certificadoPdf.name}
-                                    </span>
-                                </Typography>
-                                <Typography variant="body2">
-                                    <strong style={{fontFamily: "Roboto Condensed", fontSize: "14px", color: "#202B52" }}>Tamaño: </strong>{(certificadoPdf.size / 1024).toFixed(2)} KB
-                                </Typography>
-                            </Box>
+                    <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} error={!!errors.graduacion} >
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Te has graduado en los ultimos dos años? :</Typography>
+                        <RadioGroup name="graduacion" value={graduacion} onChange={manejarCambio} row onBlur={handleBlur}
+                            sx={{
+                                height: "40px",
+                                fontFamily: "Poppins",
+                                fontSize: "16px"
+                            }}>
+                            <FormControlLabel value="true" control={<Radio />} label="Sí" />
+                            <FormControlLabel value="false" control={<Radio />} label="No" />
+                        </RadioGroup>
+                        {errors.graduacion && (
+                            <Typography variant="caption" color="error"> {errors.graduacion} </Typography>
                         )}
                     </FormControl>
+
+                    {graduacion && (
+                        <FormControl fullWidth sx={{ mb: 2 }}>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Anexar certificado :</Typography>
+                            <input id="certificado-pdf" name="certificadoPdf" type="file" accept="application/pdf" onChange={manejarCambioPdf}
+                                style={{
+                                    border: "1px solid #202B52",
+                                    borderRadius: "4px",
+                                    padding: "10px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "14px",
+                                    color: "#202B52",
+                                    cursor: "pointer",
+                                }} />
+                            {certificadoPdf && (
+                                <Box sx={{ mt: 2 }}>
+                                    <Typography variant="body2">
+                                        <strong style={{ fontFamily: "Roboto Condensed", fontSize: "14px", color: "#202B52" }}>Archivo seleccionado: </strong>
+                                        <span onClick={manejarVerPdf} style={{ color: "#202B52", textDecoration: "underline", cursor: "pointer" }}>
+                                            {certificadoPdf.name}
+                                        </span>
+                                    </Typography>
+                                    <Typography variant="body2">
+                                        <strong style={{ fontFamily: "Roboto Condensed", fontSize: "14px", color: "#202B52" }}>Tamaño: </strong>{(certificadoPdf.size / 1024).toFixed(2)} KB
+                                    </Typography>
+                                </Box>
+                            )}
+                        </FormControl>
+
+                    )}
+
+
 
                     <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} error={!!errors.actualmenteEstudia} >
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Actualmente Estudia? :</Typography>

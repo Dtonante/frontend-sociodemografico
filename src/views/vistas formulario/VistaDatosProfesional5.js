@@ -5,7 +5,6 @@ import axios from "axios";
 
 const VistaDatosProfesional5 = () => {
     const [afiliado, setAfiliado] = useState('');
-    const [tipoVinculacion, setTipoVinculacion] = useState('');
     const [tipoContrato, setTipoContrato] = useState('');
     const [salario, setSalario] = useState('');
     const [fechaIngreso, setFechaIngreso] = useState('');
@@ -21,6 +20,11 @@ const VistaDatosProfesional5 = () => {
     const [errors, setErrors] = useState({});
     const [touchedFields, setTouchedFields] = useState({});
     const porcentajeProgreso = 52;
+     // Calcular la fecha máxima (5 días después de hoy)
+     const fechaHoy = new Date();
+     const fechaMaxima = new Date();
+     fechaMaxima.setDate(fechaHoy.getDate() + 5); // 5 días después de hoy
+     const fechaMaximaISO = fechaMaxima.toISOString().split('T')[0];
 
     // Validaciones basadas en los campos tocados
     useEffect(() => {
@@ -32,12 +36,6 @@ const VistaDatosProfesional5 = () => {
 
         if (afiliado === "si" && touchedFields.var_correoElectronicoInstitucional && !var_correoElectronicoInstitucional) {
             nuevosErrores.var_correoElectronicoInstitucional = "El departamento es obligatorio";
-        }
-
-
-
-        if (afiliado === "si" && touchedFields.tipoVinculacion && !tipoVinculacion) {
-            nuevosErrores.tipoVinculacion = "El departamento es obligatorio";
         }
 
         if (afiliado === "si" && touchedFields.tipoContrato && !tipoContrato) {
@@ -82,7 +80,7 @@ const VistaDatosProfesional5 = () => {
 
 
         setErrors(nuevosErrores)
-    }, [afiliado, tipoVinculacion, tipoContrato, salario, var_correoElectronicoInstitucional, cargo, sede, fechaIngreso, areaSeleccionada, jefeInmediato, turnoTrabajo, touchedFields]);
+    }, [afiliado, tipoContrato, salario, var_correoElectronicoInstitucional, cargo, sede, fechaIngreso, areaSeleccionada, jefeInmediato, turnoTrabajo, touchedFields]);
 
     // Marcar un campo como "tocado" cuando pierde el enfoque
     const handleBlur = (event) => {
@@ -112,7 +110,6 @@ const VistaDatosProfesional5 = () => {
     useEffect(() => {
         if (afiliado === "no") {
             // Si el usuario selecciona "no", se resetean los valores
-            setTipoVinculacion('');
             setTipoContrato('');
             setSalario('');
             setFechaIngreso('');
@@ -142,7 +139,6 @@ const VistaDatosProfesional5 = () => {
                     localStorage.setItem('area', areaId.toString()); // Guardar como string pero asegurándonos que es un número
                 }
                 setFechaIngreso("2024-11-03T00:00:00.000Z");
-                setTipoVinculacion("N/A");
                 setTipoContrato("N/A");
                 setSalario("N/A");
                 setAntiguedadInstitucion("N/A");
@@ -152,7 +148,6 @@ const VistaDatosProfesional5 = () => {
                 setVar_correoElectronicoInstitucional("N/A")
 
                 // Almacenar en localStorage
-                localStorage.setItem('var_tipoVinculacion', "N/A");
                 localStorage.setItem('date_fechaIngresoInstitucion', "2024-11-03T00:00:00.000Z");
                 localStorage.setItem('var_tipoContrato', "N/A");
                 localStorage.setItem('var_salario', "N/A");
@@ -162,9 +157,6 @@ const VistaDatosProfesional5 = () => {
                 localStorage.setItem('setTurnoTrabajo', "N/A");
                 localStorage.setItem('var_correoElectronicoInstitucional', "N/A");
             }
-        } else if (name === "tipoVinculacion") {
-            setTipoVinculacion(value);
-            localStorage.setItem('var_tipoVinculacion', value);
         } else if (name === "tipoContrato") {
             setTipoContrato(value);
             localStorage.setItem('var_tipoContrato', value);
@@ -218,10 +210,6 @@ const VistaDatosProfesional5 = () => {
 
         if (afiliado === "si" && !var_correoElectronicoInstitucional) {
             nuevosErrores.var_correoElectronicoInstitucional = "El campo servicios con los que no cuentan es obligatorio";
-        }
-
-        if (afiliado === "si" && !tipoVinculacion) {
-            nuevosErrores.tipoVinculacion = "El campo servicios con los que no cuentan es obligatorio";
         }
 
         if (afiliado === "si" && !tipoContrato) {
@@ -325,30 +313,6 @@ const VistaDatosProfesional5 = () => {
                                 },
                             }} />
 
-
-                            <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.tipoVinculacion}>
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Tipo de Vinculación:</Typography>
-                                <Select labelId="tipo-vinculacion-label" name="tipoVinculacion" value={tipoVinculacion} onChange={manejarCambio}
-                                    sx={{
-                                        height: "40px",
-                                        fontFamily: "Poppins",
-                                        fontSize: "16px"
-                                    }}
-                                >
-                                    <MenuItem value="vinculado">Vinculado</MenuItem>
-                                    <MenuItem value="temporal">Temporal</MenuItem>
-                                </Select>
-                                {errors.tipoVinculacion && (
-                                    <FormHelperText
-                                        sx={{
-                                            marginLeft: 0,
-                                        }}
-                                    >
-                                        {errors.tipoVinculacion}
-                                    </FormHelperText>
-                                )}
-                            </FormControl>
-
                             <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.tipoContrato}>
                                 <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Tipo de Contrato:</Typography>
                                 <Select labelId="tipo-contrato-label" name="tipoContrato" value={tipoContrato} onChange={manejarCambio} sx={{
@@ -393,7 +357,7 @@ const VistaDatosProfesional5 = () => {
                                     marginLeft: 0,
                                 },
                             }} inputProps={{
-                                max: new Date().toISOString().split('T')[0], // Deshabilita fechas futuras
+                                max: fechaMaximaISO, // Deshabilita fechas futuras
                             }} InputProps={{
                                 sx: {
                                     height: "40px",

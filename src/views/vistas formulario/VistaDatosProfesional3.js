@@ -202,13 +202,13 @@ const VistaDatosProfesional3 = () => {
                     <form >
                         <FormControl sx={{ mb: 2 }} error={!!errors.cambioEpsOArl}>
                             <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>¿Ha cambiado de EPS o AFP?</Typography>
-                            <RadioGroup row value={cambioEpsOArl} onChange={(event) => manejarCambio(event, 'cambioEpsOArl')} onBlur={handleBlur} InputProps={{
-                                sx: {
+                            <RadioGroup row value={cambioEpsOArl} onChange={(event) => manejarCambio(event, 'cambioEpsOArl')} onBlur={handleBlur} 
+                                sx={{
                                     height: "40px",
                                     fontFamily: "Poppins",
                                     fontSize: "16px"
-                                },
-                            }}>
+                                }}
+                            >
                                 <FormControlLabel value={true} control={<Radio />} label="Sí" />
                                 <FormControlLabel value={false} control={<Radio />} label="No" />
                             </RadioGroup>
