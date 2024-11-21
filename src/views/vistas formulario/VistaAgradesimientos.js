@@ -73,9 +73,67 @@ const VistaAgradecimientos = () => {
             const var_altura = localStorage.getItem('var_altura');
             const var_urlDatosAdjuntos = localStorage.getItem('certificadoUrl');
             const var_correoElectronicoInstitucional = localStorage.getItem('var_correoElectronicoInstitucional');
-            const boolean_usaLentes = localStorage.getItem('boolean_usaLentes')=== 'true';
-            const boolean_bebidasEnergizantes = localStorage.getItem('boolean_bebidasEnergizantes')=== 'true';
+            const boolean_usaLentes = localStorage.getItem('boolean_usaLentes') === 'true';
+            const boolean_bebidasEnergizantes = localStorage.getItem('boolean_bebidasEnergizantes') === 'true';
             const var_zonaVivienda = localStorage.getItem('var_zonaVivienda')
+
+            // Consola para ver todos los valores
+            console.log({
+                id_usuarioFK,
+                boolean_aceptaTratamientoDatos,
+                date_fechaNacimiento,
+                var_departamentoResidencia,
+                var_ciudadResidencia,
+                var_direccionResidencia,
+                var_estratoVivienda,
+                var_tipoVivienda,
+                var_estadoCivil,
+                boolean_viveSolo,
+                var_numeroPersonasConLasQueVive,
+                set_personasConLasQueVive,
+                boolean_viveConMascotas,
+                set_tipoMascotas,
+                var_personasDependeciaEconimica,
+                var_totalIngresosPropiosYGrupoFamiliar,
+                var_grupoEtnico,
+                var_rh,
+                id_epsFK,
+                id_fondoPensionFK,
+                boolean_cambioEpsOArl,
+                id_cuentaBancariaFK,
+                var_tipoCuenta,
+                var_numeroCuenta,
+                var_tipoContrato,
+                var_salario,
+                date_fechaIngresoInstitucion,
+                var_antiguedadInstitucion,
+                id_areaFK,
+                var_cargo,
+                var_jefeInmediato,
+                var_sede,
+                var_celular,
+                var_telefonoFijo,
+                var_nivelEscolaridad,
+                var_nombreCarrera,
+                boolean_actualmenteEstudia,
+                boolean_actividadFisica,
+                var_frecuenciaActividadFisica,
+                boolean_fuma,
+                var_frecuenciaFuma,
+                boolean_toma,
+                var_frecuenciaToma,
+                boolean_sustanciasPsicoactivas,
+                var_frecuenciaSustanciasPsicoactivas,
+                set_mediosTransportePublico,
+                set_pasoMayorTiempoLibre,
+                var_peso,
+                var_altura,
+                var_urlDatosAdjuntos,
+                var_correoElectronicoInstitucional,
+                boolean_usaLentes,
+                boolean_bebidasEnergizantes,
+                var_zonaVivienda
+            });
             try {
                 const response = await axios.post(URI_PROFESIONAL, { id_usuarioFK: id_usuarioFK, boolean_aceptaTratamientoDatos: boolean_aceptaTratamientoDatos, date_fechaNacimiento: date_fechaNacimiento, var_departamentoResidencia: var_departamentoResidencia, var_ciudadResidencia: var_ciudadResidencia, var_direccionResidencia: var_direccionResidencia, var_estratoVivienda: var_estratoVivienda, var_tipoVivienda: var_tipoVivienda, var_estadoCivil: var_estadoCivil, boolean_viveSolo: boolean_viveSolo, set_personasConLasQueVive: set_personasConLasQueVive, boolean_viveConMascotas: boolean_viveConMascotas, var_personasDependeciaEconimica: var_personasDependeciaEconimica, var_totalIngresosPropiosYGrupoFamiliar: var_totalIngresosPropiosYGrupoFamiliar, var_grupoEtnico: var_grupoEtnico, var_rh: var_rh, id_epsFK: id_epsFK, id_fondoPensionFK: id_fondoPensionFK, boolean_cambioEpsOArl: boolean_cambioEpsOArl, id_cuentaBancariaFK: id_cuentaBancariaFK, var_tipoCuenta: var_tipoCuenta, var_numeroCuenta: var_numeroCuenta, var_tipoVinculacion: var_tipoVinculacion, var_tipoContrato: var_tipoContrato, var_salario: var_salario, date_fechaIngresoInstitucion: date_fechaIngresoInstitucion, var_antiguedadInstitucion: var_antiguedadInstitucion, id_areaFK: id_areaFK, var_cargo: var_cargo, var_jefeInmediato: var_jefeInmediato, var_sede: var_sede, var_celular: var_celular, var_telefonoFijo: var_telefonoFijo, var_turnoTrabajo: var_turnoTrabajo, var_nivelEscolaridad: var_nivelEscolaridad, var_nombreCarrera: var_nombreCarrera, boolean_actualmenteEstudia: boolean_actualmenteEstudia, boolean_actividadFisica: boolean_actividadFisica, var_frecuenciaActividadFisica: var_frecuenciaActividadFisica, boolean_fuma: boolean_fuma, var_frecuenciaFuma: var_frecuenciaFuma, boolean_toma: boolean_toma, var_frecuenciaToma: var_frecuenciaToma, boolean_sustanciasPsicoactivas: boolean_sustanciasPsicoactivas, var_frecuenciaSustanciasPsicoactivas: var_frecuenciaSustanciasPsicoactivas, set_mediosTransportePublico: set_mediosTransportePublico, set_pasoMayorTiempoLibre: set_pasoMayorTiempoLibre, var_peso: var_peso, var_altura: var_altura, var_urlDatosAdjuntos: var_urlDatosAdjuntos });
 

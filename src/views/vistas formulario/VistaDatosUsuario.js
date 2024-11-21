@@ -302,13 +302,12 @@ const VistaDatosUsuario = () => {
                 onChange={handleInputChange}
                 row
                 onBlur={handleBlur}
-                InputProps={{
-                  sx: {
+               sx={{
                     height: "40px",
                     fontFamily: "Poppins",
                     fontSize: "16px"
-                  },
-                }}
+                  }}
+                
               >
                 <FormControlLabel value="Masculino" control={<Radio />} label="Masculino" />
                 <FormControlLabel value="Femenino" control={<Radio />} label="Femenino" />
