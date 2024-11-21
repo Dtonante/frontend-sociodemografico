@@ -50,30 +50,34 @@ function onfocus(focus) {
 // Estilos personalizados
 const style = document.createElement('style');
 style.innerHTML = `
-    /* Fuente Roboto Condensed */
-    @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+    /* Fuente Poppins */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
     .swal2-custom-popup {
-        background-color: #1E1F25 !important;
-        color: white !important;
-        font-family: 'Roboto Condensed', sans-serif !important; /* Aplica la fuente */
+        background-color: #f1f1f1 !important; /* Blanco de oficina */
+        color: #333 !important; /* Color de texto oscuro para contraste */
+        font-family: 'Poppins', sans-serif !important; /* Aplica la fuente Poppins */
+        border-radius: 15px !important; /* Bordes curveados */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important; /* Sombra suave */
     }
     .swal2-title,
     .swal2-content {
-        color: white !important;
-        font-family: 'Roboto Condensed', sans-serif !important; /* Aplica la fuente */
+        color: #333 !important; /* Color de texto oscuro */
+        font-family: 'Poppins', sans-serif !important;
     }
     .swal2-confirm {
         background-color: #00aa4d !important;
         color: white !important;
         border: none !important;
-        font-family: 'Roboto Condensed', sans-serif !important; /* Aplica la fuente */
+        font-family: 'Poppins', sans-serif !important;
+        border-radius: 8px !important; /* Bordes curveados */
     }
     .swal2-cancel {
         background-color: #ef4444 !important;
         color: white !important;
         border: none !important;
-        font-family: 'Roboto Condensed', sans-serif !important; /* Aplica la fuente */
+        font-family: 'Poppins', sans-serif !important;
+        border-radius: 8px !important; /* Bordes curveados */
     }
     .swal2-confirm:focus,
     .swal2-cancel:focus {
