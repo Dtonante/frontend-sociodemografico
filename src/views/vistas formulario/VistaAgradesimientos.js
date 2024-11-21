@@ -10,6 +10,17 @@ const VistaAgradecimientos = () => {
     const navigate = useNavigate();
 
 
+    // Función para navegar a la vista de login
+    const manejarLogin = () => {
+        navigate('/login');
+    };
+
+    // Función para navegar a la vista de datos de usuario
+    const manejarDatosUsuario = () => {
+        navigate('/');
+    };
+
+
     useEffect(() => {
 
         const guardarDatos = async () => {
@@ -28,8 +39,8 @@ const VistaAgradecimientos = () => {
             const var_departamentoResidencia = localStorage.getItem('departamentoResidencia');
             const var_ciudadResidencia = localStorage.getItem('ciudadResidencia');
             const var_direccionResidencia = localStorage.getItem('direccionCompleta');
-            const var_estratoVivienda = localStorage.getItem('var_estratoVivienda');
-            const var_tipoVivienda = localStorage.getItem('var_tipoVivienda');
+            const var_estratoVivienda = localStorage.getItem('estratoVivienda');
+            const var_tipoVivienda = localStorage.getItem('tipoVivienda');
             const var_estadoCivil = localStorage.getItem('var_estadoCivil');
             const boolean_viveSolo = localStorage.getItem('boolean_viveSolo') === 'true';
             const var_numeroPersonasConLasQueVive = localStorage.getItem('var_numeroPersonasConLasQueVive')
@@ -77,65 +88,65 @@ const VistaAgradecimientos = () => {
             const boolean_bebidasEnergizantes = localStorage.getItem('boolean_bebidasEnergizantes') === 'true';
             const var_zonaVivienda = localStorage.getItem('var_zonaVivienda')
 
-            // Consola para ver todos los valores
-            console.log({
-                id_usuarioFK,
-                boolean_aceptaTratamientoDatos,
-                date_fechaNacimiento,
-                var_departamentoResidencia,
-                var_ciudadResidencia,
-                var_direccionResidencia,
-                var_estratoVivienda,
-                var_tipoVivienda,
-                var_estadoCivil,
-                boolean_viveSolo,
-                var_numeroPersonasConLasQueVive,
-                set_personasConLasQueVive,
-                boolean_viveConMascotas,
-                set_tipoMascotas,
-                var_personasDependeciaEconimica,
-                var_totalIngresosPropiosYGrupoFamiliar,
-                var_grupoEtnico,
-                var_rh,
-                id_epsFK,
-                id_fondoPensionFK,
-                boolean_cambioEpsOArl,
-                id_cuentaBancariaFK,
-                var_tipoCuenta,
-                var_numeroCuenta,
-                var_tipoContrato,
-                var_salario,
-                date_fechaIngresoInstitucion,
-                var_antiguedadInstitucion,
-                id_areaFK,
-                var_cargo,
-                var_jefeInmediato,
-                var_sede,
-                var_celular,
-                var_telefonoFijo,
-                var_nivelEscolaridad,
-                var_nombreCarrera,
-                boolean_actualmenteEstudia,
-                boolean_actividadFisica,
-                var_frecuenciaActividadFisica,
-                boolean_fuma,
-                var_frecuenciaFuma,
-                boolean_toma,
-                var_frecuenciaToma,
-                boolean_sustanciasPsicoactivas,
-                var_frecuenciaSustanciasPsicoactivas,
-                set_mediosTransportePublico,
-                set_pasoMayorTiempoLibre,
-                var_peso,
-                var_altura,
-                var_urlDatosAdjuntos,
-                var_correoElectronicoInstitucional,
-                boolean_usaLentes,
-                boolean_bebidasEnergizantes,
-                var_zonaVivienda
-            });
+            // // Consola para ver todos los valores
+            // console.log({
+            //     id_usuarioFK,
+            //     boolean_aceptaTratamientoDatos,
+            //     date_fechaNacimiento,
+            //     var_departamentoResidencia,
+            //     var_ciudadResidencia,
+            //     var_direccionResidencia,
+            //     var_estratoVivienda,
+            //     var_tipoVivienda,
+            //     var_estadoCivil,
+            //     boolean_viveSolo,
+            //     var_numeroPersonasConLasQueVive,
+            //     set_personasConLasQueVive,
+            //     boolean_viveConMascotas,
+            //     set_tipoMascotas,
+            //     var_personasDependeciaEconimica,
+            //     var_totalIngresosPropiosYGrupoFamiliar,
+            //     var_grupoEtnico,
+            //     var_rh,
+            //     id_epsFK,
+            //     id_fondoPensionFK,
+            //     boolean_cambioEpsOArl,
+            //     id_cuentaBancariaFK,
+            //     var_tipoCuenta,
+            //     var_numeroCuenta,
+            //     var_tipoContrato,
+            //     var_salario,
+            //     date_fechaIngresoInstitucion,
+            //     var_antiguedadInstitucion,
+            //     id_areaFK,
+            //     var_cargo,
+            //     var_jefeInmediato,
+            //     var_sede,
+            //     var_celular,
+            //     var_telefonoFijo,
+            //     var_nivelEscolaridad,
+            //     var_nombreCarrera,
+            //     boolean_actualmenteEstudia,
+            //     boolean_actividadFisica,
+            //     var_frecuenciaActividadFisica,
+            //     boolean_fuma,
+            //     var_frecuenciaFuma,
+            //     boolean_toma,
+            //     var_frecuenciaToma,
+            //     boolean_sustanciasPsicoactivas,
+            //     var_frecuenciaSustanciasPsicoactivas,
+            //     set_mediosTransportePublico,
+            //     set_pasoMayorTiempoLibre,
+            //     var_peso,
+            //     var_altura,
+            //     var_urlDatosAdjuntos,
+            //     var_correoElectronicoInstitucional,
+            //     boolean_usaLentes,
+            //     boolean_bebidasEnergizantes,
+            //     var_zonaVivienda
+            // });
             try {
-                const response = await axios.post(URI_PROFESIONAL, { id_usuarioFK: id_usuarioFK, boolean_aceptaTratamientoDatos: boolean_aceptaTratamientoDatos, date_fechaNacimiento: date_fechaNacimiento, var_departamentoResidencia: var_departamentoResidencia, var_ciudadResidencia: var_ciudadResidencia, var_direccionResidencia: var_direccionResidencia, var_estratoVivienda: var_estratoVivienda, var_tipoVivienda: var_tipoVivienda, var_estadoCivil: var_estadoCivil, boolean_viveSolo: boolean_viveSolo, set_personasConLasQueVive: set_personasConLasQueVive, boolean_viveConMascotas: boolean_viveConMascotas, var_personasDependeciaEconimica: var_personasDependeciaEconimica, var_totalIngresosPropiosYGrupoFamiliar: var_totalIngresosPropiosYGrupoFamiliar, var_grupoEtnico: var_grupoEtnico, var_rh: var_rh, id_epsFK: id_epsFK, id_fondoPensionFK: id_fondoPensionFK, boolean_cambioEpsOArl: boolean_cambioEpsOArl, id_cuentaBancariaFK: id_cuentaBancariaFK, var_tipoCuenta: var_tipoCuenta, var_numeroCuenta: var_numeroCuenta, var_tipoVinculacion: var_tipoVinculacion, var_tipoContrato: var_tipoContrato, var_salario: var_salario, date_fechaIngresoInstitucion: date_fechaIngresoInstitucion, var_antiguedadInstitucion: var_antiguedadInstitucion, id_areaFK: id_areaFK, var_cargo: var_cargo, var_jefeInmediato: var_jefeInmediato, var_sede: var_sede, var_celular: var_celular, var_telefonoFijo: var_telefonoFijo, var_turnoTrabajo: var_turnoTrabajo, var_nivelEscolaridad: var_nivelEscolaridad, var_nombreCarrera: var_nombreCarrera, boolean_actualmenteEstudia: boolean_actualmenteEstudia, boolean_actividadFisica: boolean_actividadFisica, var_frecuenciaActividadFisica: var_frecuenciaActividadFisica, boolean_fuma: boolean_fuma, var_frecuenciaFuma: var_frecuenciaFuma, boolean_toma: boolean_toma, var_frecuenciaToma: var_frecuenciaToma, boolean_sustanciasPsicoactivas: boolean_sustanciasPsicoactivas, var_frecuenciaSustanciasPsicoactivas: var_frecuenciaSustanciasPsicoactivas, set_mediosTransportePublico: set_mediosTransportePublico, set_pasoMayorTiempoLibre: set_pasoMayorTiempoLibre, var_peso: var_peso, var_altura: var_altura, var_urlDatosAdjuntos: var_urlDatosAdjuntos });
+                const response = await axios.post(URI_PROFESIONAL, { id_usuarioFK: id_usuarioFK, boolean_aceptaTratamientoDatos: boolean_aceptaTratamientoDatos, date_fechaNacimiento: date_fechaNacimiento, var_departamentoResidencia: var_departamentoResidencia, var_ciudadResidencia: var_ciudadResidencia, var_direccionResidencia: var_direccionResidencia, var_estratoVivienda: var_estratoVivienda, var_tipoVivienda: var_tipoVivienda, var_estadoCivil: var_estadoCivil, boolean_viveSolo: boolean_viveSolo, var_numeroPersonasConLasQueVive: var_numeroPersonasConLasQueVive, set_personasConLasQueVive: set_personasConLasQueVive, boolean_viveConMascotas: boolean_viveConMascotas, set_tipoMascotas: set_tipoMascotas, var_personasDependeciaEconimica: var_personasDependeciaEconimica, var_totalIngresosPropiosYGrupoFamiliar: var_totalIngresosPropiosYGrupoFamiliar, var_grupoEtnico: var_grupoEtnico, var_rh: var_rh, id_epsFK: id_epsFK, id_fondoPensionFK: id_fondoPensionFK, boolean_cambioEpsOArl: boolean_cambioEpsOArl, id_cuentaBancariaFK: id_cuentaBancariaFK, var_tipoCuenta: var_tipoCuenta, var_numeroCuenta: var_numeroCuenta, var_tipoContrato: var_tipoContrato, var_salario: var_salario, date_fechaIngresoInstitucion: date_fechaIngresoInstitucion, var_antiguedadInstitucion: var_antiguedadInstitucion, id_areaFK: id_areaFK, var_cargo: var_cargo, var_jefeInmediato: var_jefeInmediato, var_sede: var_sede, var_celular: var_celular, var_telefonoFijo: var_telefonoFijo, var_nivelEscolaridad: var_nivelEscolaridad, var_nombreCarrera: var_nombreCarrera, boolean_actualmenteEstudia: boolean_actualmenteEstudia, boolean_actividadFisica: boolean_actividadFisica, var_frecuenciaActividadFisica: var_frecuenciaActividadFisica, boolean_fuma: boolean_fuma, var_frecuenciaFuma: var_frecuenciaFuma, boolean_toma: boolean_toma, var_frecuenciaToma: var_frecuenciaToma, boolean_sustanciasPsicoactivas: boolean_sustanciasPsicoactivas, var_frecuenciaSustanciasPsicoactivas: var_frecuenciaSustanciasPsicoactivas, set_mediosTransportePublico: set_mediosTransportePublico, set_pasoMayorTiempoLibre: set_pasoMayorTiempoLibre, var_peso: var_peso, var_altura: var_altura, var_urlDatosAdjuntos: var_urlDatosAdjuntos, var_correoElectronicoInstitucional: var_correoElectronicoInstitucional, boolean_usaLentes: boolean_usaLentes,  boolean_bebidasEnergizantes: boolean_bebidasEnergizantes, var_zonaVivienda: var_zonaVivienda  });
 
 
                 //se traen los factores de riesgo para crear en la tabla relacional
@@ -220,26 +231,163 @@ const VistaAgradecimientos = () => {
 
 
     return (
-        <div style={{ padding: "20px" }}>
-            <Card variant="outlined" sx={{ width: "100%", maxWidth: 800, margin: "50px auto" }}>
-                <CardContent sx={{ textAlign: "center", padding: "30px" }}>
-                    <Typography variant="h4" sx={{ fontWeight: "600", mb: 2 }}>
-                        ¡Gracias por diligenciar el formulario!
-                    </Typography>
-                    <Typography variant="body1" sx={{ mb: 3 }}>
-                        Tu información ha sido registrada con éxito. Agradecemos tu tiempo y esfuerzo.
-                    </Typography>
-                    <Typography variant="body2" sx={{ mb: 4 }}>
-                        Si tienes alguna otra información que agregar, no dudes en regresar a cualquier sección.
-                    </Typography>
 
-                    {/* Botón para regresar a la página principal o continuar */}
-                    <Button variant="contained" color="primary">
-                        Regresar a la página principal
-                    </Button>
-                </CardContent>
-            </Card>
+
+        <div
+        style={{
+            backgroundColor: '#F2F2F2',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            height: '100vh',
+            margin: 0,
+            padding: 0,
+        }}
+    >
+        {/* Imagen de fondo */}
+        <div style={{ width: '100%', height: '35%', position: 'relative',textAlign: 'center', }}>
+            <img
+                src="public/fondo_home.jpg" // Reemplaza con la ruta correcta de la imagen
+                alt="Fondo"
+                style={{
+                    width: '60%',
+                    height: '85%',
+                    objectFit: 'cover',
+                }}
+            />
         </div>
+
+        {/* Contenedor compacto */}
+        <div
+            style={{
+                backgroundColor: '#F2F2F2',
+                padding: '20px',
+                textAlign: 'center',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '15px',
+                maxWidth: '60%',
+                marginTop: '-3%'
+
+            }}
+
+        >
+            <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#1b263b', fontFamily: 'Roboto Condensed' }}>
+                Gracias por brindardos tu informacion
+            </h2>
+            {/* Caja informativa */}
+            <div
+                style={{
+                    backgroundColor: '#F2F2F2',
+                    border: '2px solid #202B52',
+                    borderRadius: '10px',
+                    padding: '15px',
+                    textAlign: 'justify',
+                }}
+            >
+                <p style={{ margin: 0, color: '#1b263b', fontSize: '14px', fontFamily: 'Poppins' }}>
+                    <strong style={{fontFamily: 'Roboto Condensed'}}>Importante: </strong>Tu información ha sido registrada con éxito. Agradecemos tu tiempo y esfuerzo.
+                </p>
+            </div>
+
+            {/* Caja para iconos y botón */}
+            <div
+                style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    width: '100%',
+                    marginTop: '7%',
+                }}
+            >
+                {/* Iconos sociales */}
+                <div style={{ display: 'flex', gap: '12px' }}>
+                    <button
+                        style={{
+                            backgroundColor: '#00A5CE',
+                            color: '#fff',
+                            border: 'none',
+                            borderRadius: '50%',
+                            width: '40px',
+                            height: '40px',
+                            cursor: 'pointer',
+                        }}
+                    >
+                        E
+                    </button>
+                    <button
+                        style={{
+                            backgroundColor: '#00A5CE',
+                            color: '#fff',
+                            border: 'none',
+                            borderRadius: '50%',
+                            width: '40px',
+                            height: '40px',
+                            cursor: 'pointer',
+                        }}
+                    >
+                        I
+                    </button>
+                    <button
+                        style={{
+                            backgroundColor: '#00A5CE',
+                            color: '#fff',
+                            border: 'none',
+                            borderRadius: '50%',
+                            width: '40px',
+                            height: '40px',
+                            cursor: 'pointer',
+                        }}
+                    >
+                        F
+                    </button>
+                </div>
+
+                {/* Botones de acción juntos */}
+                <div style={{ display: 'flex', gap: '12px' }}>
+                    <button
+                        style={{
+                            padding: '10px 20px',
+                            fontSize: '16px',
+                            backgroundColor: '#1b263b',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '5px',
+                            cursor: 'pointer',
+                            
+                        }}
+                        onClick={manejarLogin}
+                    >
+                        log in
+                    </button>
+                    <button
+                        style={{
+                            padding: '10px 20px',
+                            fontSize: '16px',
+                            backgroundColor: '#1b263b',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '5px',
+                            cursor: 'pointer',
+                        }}
+                        onClick={manejarDatosUsuario}
+                    > Inicio </button>
+                </div>
+            </div>
+
+        </div>
+
+        {/* Espaciador final (para ajustar la altura) */}
+        <div style={{ flex: 1 }} />
+    </div>
+
+
+
+
+
+
+
     );
 };
 

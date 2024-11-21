@@ -133,6 +133,8 @@ const VistaDatosProfesional6 = () => {
                 // Guardamos la URL en el localStorage si es necesario
                 localStorage.setItem('certificadoUrl', url);
             }
+
+            localStorage.setItem('certificadoUrl', "N/A");
     
             // Validaciones de otros campos (por ejemplo, nivelEscolaridad, actualmenteEstudia)
             const nuevosErrores = {};

@@ -102,7 +102,7 @@ const VistaDatosProfesional4 = () => {
 
 
     return (
-        <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', paddingBottom: '3%' }}>
+        <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', paddingBottom: '3%', height: '100vh', overflow:'auto' }}>
             <div style={{ textAlign: 'center', marginBottom: '1%', marginTop: '-1%' }}>
                 <img
                     src="public/logo_form.png"

@@ -14,7 +14,6 @@ const VistaDatosProfesional5 = () => {
     const [cargo, setCargo] = useState('');
     const [jefeInmediato, setJefeInmediato] = useState('');
     const [sede, setSede] = useState('');
-    const [turnoTrabajo, setTurnoTrabajo] = useState('');
     const [var_correoElectronicoInstitucional, setVar_correoElectronicoInstitucional] = useState('')
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
@@ -66,9 +65,7 @@ const VistaDatosProfesional5 = () => {
             nuevosErrores.sede = "El departamento es obligatorio";
         }
 
-        if (afiliado === "si" && touchedFields.turnoTrabajo && !turnoTrabajo) {
-            nuevosErrores.turnoTrabajo = "El departamento es obligatorio";
-        }
+       
         // Validar que la fecha de ingreso no sea futura
         if (afiliado === "si" && touchedFields.fechaIngreso) {
             const fechaHoy = new Date().toISOString().split('T')[0]; // Obtener la fecha de hoy en formato YYYY-MM-DD
@@ -80,7 +77,7 @@ const VistaDatosProfesional5 = () => {
 
 
         setErrors(nuevosErrores)
-    }, [afiliado, tipoContrato, salario, var_correoElectronicoInstitucional, cargo, sede, fechaIngreso, areaSeleccionada, jefeInmediato, turnoTrabajo, touchedFields]);
+    }, [afiliado, tipoContrato, salario, var_correoElectronicoInstitucional, cargo, sede, fechaIngreso, areaSeleccionada, jefeInmediato, touchedFields]);
 
     // Marcar un campo como "tocado" cuando pierde el enfoque
     const handleBlur = (event) => {
@@ -118,7 +115,6 @@ const VistaDatosProfesional5 = () => {
             setCargo('');
             setJefeInmediato('');
             setSede('');
-            setTurnoTrabajo('');
             setVar_correoElectronicoInstitucional('')
         }
     }, [afiliado]);
@@ -144,7 +140,6 @@ const VistaDatosProfesional5 = () => {
                 setAntiguedadInstitucion("N/A");
                 setJefeInmediato("N/A");
                 setSede("N/A");
-                setTurnoTrabajo("N/A");
                 setVar_correoElectronicoInstitucional("N/A")
 
                 // Almacenar en localStorage
@@ -154,7 +149,6 @@ const VistaDatosProfesional5 = () => {
                 localStorage.setItem('var_antiguedadInstitucion', "N/A");
                 localStorage.setItem('var_jefeInmediato', "N/A");
                 localStorage.setItem('var_sede', "N/A");
-                localStorage.setItem('setTurnoTrabajo', "N/A");
                 localStorage.setItem('var_correoElectronicoInstitucional', "N/A");
             }
         } else if (name === "tipoContrato") {
@@ -191,9 +185,6 @@ const VistaDatosProfesional5 = () => {
         } else if (name === "var_sede") {
             setSede(value);
             localStorage.setItem('var_sede', value);
-        } else if (name === "var_turnoTrabajo") {
-            setTurnoTrabajo(value);
-            localStorage.setItem('var_turnoTrabajo', value);
         } else if (name === "var_correoElectronicoInstitucional") {
             setVar_correoElectronicoInstitucional(value);
             localStorage.setItem('var_correoElectronicoInstitucional', value);
@@ -244,9 +235,6 @@ const VistaDatosProfesional5 = () => {
             nuevosErrores.sede = "El campo servicios con los que no cuentan es obligatorio";
         }
 
-        if (afiliado === "si" && !turnoTrabajo) {
-            nuevosErrores.turnoTrabajo = "El campo servicios con los que no cuentan es obligatorio";
-        }
 
         if (Object.keys(nuevosErrores).length > 0) {
             setErrors(nuevosErrores);
@@ -443,24 +431,7 @@ const VistaDatosProfesional5 = () => {
                                 )}
                             </FormControl>
 
-                            <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.turnoTrabajo}>
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Turno de trabajo:</Typography>
-                                <Select labelId="turno-label" name="var_turnoTrabajo" value={turnoTrabajo} onChange={manejarCambio}
-                                    sx={{
-                                        height: "40px",
-                                        fontFamily: "Poppins",
-                                        fontSize: "16px"
-                                    }}>
-                                    <MenuItem value="diurno">Diurno</MenuItem>
-                                    <MenuItem value="jornada_Extendida">jornada extendida </MenuItem>
-                                </Select>
-                                {errors.turnoTrabajo && (
-                                    <FormHelperText sx={{
-                                        marginLeft: 0,
-                                    }}
-                                    >{errors.turnoTrabajo}</FormHelperText>
-                                )}
-                            </FormControl>
+                            
 
                         </form>
                     )}

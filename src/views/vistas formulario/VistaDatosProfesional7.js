@@ -11,11 +11,11 @@ const VistaDatosProfesional7 = () => {
     const [actividadFisica, setActividadFisica] = useState(null);
     const [frecuenciaActividadFisica, setFrecuenciaActividadFisica] = useState("");
     const [fuma, setFuma] = useState(null);
-    const [frecuenciaFuma, setFrecuenciaFuma] = useState("");
+    const [frecuenciaFuma, setFrecuenciaFuma] = useState("N/A");
     const [toma, setToma] = useState(null);
-    const [frecuenciaToma, setFrecuenciaToma] = useState("");
+    const [frecuenciaToma, setFrecuenciaToma] = useState("N/A");
     const [sustanciaPsicoactiva, setSustanciaPsicoactiva] = useState(null);
-    const [frecuenciaSustanciaPsicoactiva, setFrecuenciaSustanciaPsicoactiva] = useState("");
+    const [frecuenciaSustanciaPsicoactiva, setFrecuenciaSustanciaPsicoactiva] = useState("N/A");
     const [peso, setPeso] = useState("");
     const [altura, setAltura] = useState("");
     const [boolean_usaLentes, setBoolean_usaLentes] = useState()
