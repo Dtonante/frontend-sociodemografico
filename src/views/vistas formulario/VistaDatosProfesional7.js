@@ -217,35 +217,35 @@ const VistaDatosProfesional7 = () => {
         const nuevosErrores = {};
 
         if (!pasoMayorTiempoLibre) {
-            nuevosErrores.pasoMayorTiempoLibre = "Debe confirmar la contraseña";
+            nuevosErrores.pasoMayorTiempoLibre = "Este campo es obligatorio.";
         }
 
         if (!peso || peso.trim() === "") {
-            nuevosErrores.peso = "Debe confirmar la contraseña";
+            nuevosErrores.peso = "Indicar su peso(KG) es obligatorio.";
         }
 
         if (!altura) {
-            nuevosErrores.altura = "Debe confirmar la contraseña";
+            nuevosErrores.altura = "Indicar su altura es obligatorio.";
         }
 
         if (!selectedActividadTiempoLibre || selectedActividadTiempoLibre.length === 0) {
-            nuevosErrores.selectedActividadTiempoLibre = "Debe confirmar la contraseña";
+            nuevosErrores.selectedActividadTiempoLibre = "Las actividades de tiempo libre es obligatorio.";
         }
 
         if (sustanciaPsicoactiva === true && !frecuenciaSustanciaPsicoactiva) {
-            nuevosErrores.frecuenciaSustanciaPsicoactiva = "Debe confirmar la contraseña";
+            nuevosErrores.frecuenciaSustanciaPsicoactiva = "Indicar la frecuencia de consumo es obligatorio.";
         }
 
         if (toma === true && !frecuenciaToma) {
-            nuevosErrores.frecuenciaToma = "Debe confirmar la contraseña";
+            nuevosErrores.frecuenciaToma = "Indicar la frecuencia de consumo es obligatorio.";
         }
 
         if (fuma === true && !frecuenciaFuma) {
-            nuevosErrores.frecuenciaFuma = "Debe confirmar la contraseña";
+            nuevosErrores.frecuenciaFuma = "Indicar la frecuencia de consumo es obligatorio.";
         }
 
         if (actividadFisica === true && !frecuenciaActividadFisica) {
-            nuevosErrores.frecuenciaActividadFisica = "Debe confirmar la contraseña";
+            nuevosErrores.frecuenciaActividadFisica = "Indicar la frecuencia es obligatorio.";
         }
 
         if (Object.keys(nuevosErrores).length > 0) {

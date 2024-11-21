@@ -138,15 +138,15 @@ const VistaDatosProfesional6 = () => {
             const nuevosErrores = {};
     
             if (!nivelEscolaridad) {
-                nuevosErrores.nivelEscolaridad = "El nombre completo es obligatorio";
+                nuevosErrores.nivelEscolaridad = "El nivel de escolaridad es obligatorio.";
             }
     
             if (actualmenteEstudia === undefined) {
-                nuevosErrores.actualmenteEstudia = "El nombre completo es obligatorio";
+                nuevosErrores.actualmenteEstudia = "Este campo es obligatorio.";
             }
 
             if (graduacion === undefined) {
-                nuevosErrores.graduacion = "El nombre completo es obligatorio";
+                nuevosErrores.graduacion = "Este campo es obligatorio.";
             }
     
             if (Object.keys(nuevosErrores).length > 0) {

@@ -27,8 +27,10 @@ const Login = () => {
       setError("Correo o contraseña incorrectos.");
     }
   };
+  
 
   return (
+    
     <Grid container justifyContent="center" alignItems="center" style={{ minHeight: "100vh" }}>
       <Grid item xs={12} sm={8} md={4}>
         <Card variant="outlined">

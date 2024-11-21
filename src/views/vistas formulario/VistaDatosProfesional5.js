@@ -205,47 +205,43 @@ const VistaDatosProfesional5 = () => {
 
 
         if (!afiliado) {
-            nuevosErrores.afiliado = "El campo servicios con los que no cuentan es obligatorio";
+            nuevosErrores.afiliado = "Indicar el tipo de proceso es obligatorio.";
         }
 
         if (afiliado === "si" && !var_correoElectronicoInstitucional) {
-            nuevosErrores.var_correoElectronicoInstitucional = "El campo servicios con los que no cuentan es obligatorio";
+            nuevosErrores.var_correoElectronicoInstitucional = "El correo electronico institucional es obligatorio.";
         }
 
         if (afiliado === "si" && !tipoContrato) {
-            nuevosErrores.tipoContrato = "El campo servicios con los que no cuentan es obligatorio";
+            nuevosErrores.tipoContrato = "El tipo de contrato es obligatorio.";
         }
 
         if (afiliado === "si" && !salario) {
-            nuevosErrores.salario = "El campo servicios con los que no cuentan es obligatorio";
+            nuevosErrores.salario = "El salario es obligatorio.";
         }
 
         if (afiliado === "si" && !fechaIngreso) {
-            nuevosErrores.fechaIngreso = "El campo servicios con los que no cuentan es obligatorio";
+            nuevosErrores.fechaIngreso = "La fecha de ingreso es obligatorio.";
         }
 
         if (afiliado === "si" && !areaSeleccionada) {
-            nuevosErrores.areaSeleccionada = "El campo servicios con los que no cuentan es obligatorio";
+            nuevosErrores.areaSeleccionada = "El área laboral es obligatorio.";
         }
 
         if (afiliado === "si" && !cargo) {
-            nuevosErrores.cargo = "El campo servicios con los que no cuentan es obligatorio";
+            nuevosErrores.cargo = "El cargo es obligatorio.";
         }
 
         if (afiliado === "si" && !jefeInmediato) {
-            nuevosErrores.jefeInmediato = "El campo servicios con los que no cuentan es obligatorio";
-        }
-
-        if (afiliado === "si" && !cargo) {
-            nuevosErrores.cargo = "El campo servicios con los que no cuentan es obligatorio";
+            nuevosErrores.jefeInmediato = "El jefe inmediato es obligatorio.";
         }
 
         if (afiliado === "si" && !sede) {
-            nuevosErrores.sede = "El campo servicios con los que no cuentan es obligatorio";
+            nuevosErrores.sede = "Indicar la sede es obligatorio.";
         }
 
         if (afiliado === "si" && !turnoTrabajo) {
-            nuevosErrores.turnoTrabajo = "El campo servicios con los que no cuentan es obligatorio";
+            nuevosErrores.turnoTrabajo = "El turno de trabajo es obligatorio.";
         }
 
         if (Object.keys(nuevosErrores).length > 0) {
