@@ -5,163 +5,97 @@ import { Card, CardContent, Divider, Box, Typography, FormHelperText, FormContro
 
 const VistaDatosProfesional2 = () => {
     const navigate = useNavigate();
-    const [formData, setFormData] = useState({
-        var_estadoCivil: "",
-        boolean_viveSolo: "",
-        set_personasConLasQueVive: '',
-        boolean_viveConMascotas: "",
-        var_personasDependeciaEconimica: "",
-        var_totalIngresosPropiosYGrupoFamiliar: "",
-        var_numeroPersonasConLasQueVive: "",
-        set_tipoMascotas: []
-    });
-    const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+
+    const [var_estadoCivil, setVar_estadoCivil] = useState('')
+    const [boolean_viveSolo, setBoolean_viveSolo] = useState(null)
+    const [var_personasDependeciaEconimica, setVar_personasDependeciaEconimica] = useState('')
+    const [var_totalIngresosPropiosYGrupoFamiliar, setVar_totalIngresosPropiosYGrupoFamiliar] = useState('')
+    const [var_numeroPersonasConLasQueVive, setVar_numeroPersonasConLasQueVive] = useState('')
+    const [set_tipoMascotas, setSet_tipoMascotas] = useState([])
+    const [boolean_viveConMascotas, setBoolean_viveConMascotas] = useState(null)
+    const [set_personasConLasQueVive, setSet_personasConLasQueVive] = useState(["N/A"])
     const [errors, setErrors] = useState({});
     const [touchedFields, setTouchedFields] = useState({});
     const porcentajeProgreso = 30;
 
 
-    // Validaciones basadas en los campos tocados
-    useEffect(() => {
-        const nuevosErrores = {};
-
-        if (touchedFields.var_estadoCivil && !formData.var_estadoCivil) {
-            nuevosErrores.var_estadoCivil = "El estado civil es obligatorio";
-        }
-
-        if (touchedFields.boolean_viveSolo && !formData.boolean_viveSolo) {
-            nuevosErrores.boolean_viveSolo = "Es obligatorio especificar si vive solo o no.";
-        }
-
-        if (touchedFields.boolean_viveConMascotas && !formData.boolean_viveConMascotas) {
-            nuevosErrores.boolean_viveConMascotas = "El tipo de documento es obligatorio";
-        }
-
-        if (touchedFields.var_personasDependeciaEconimica && !formData.var_personasDependeciaEconimica) {
-            nuevosErrores.var_personasDependeciaEconimica = "El tipo de documento es obligatorio";
-        }
-
-        if (touchedFields.var_totalIngresosPropiosYGrupoFamiliar && !formData.var_totalIngresosPropiosYGrupoFamiliar) {
-            nuevosErrores.var_totalIngresosPropiosYGrupoFamiliar = "El tipo de documento es obligatorio";
-        }
-
-        if (formData.boolean_viveSolo === "false" && formData.set_personasConLasQueVive.length === 0) {
-            nuevosErrores.set_personasConLasQueVive = "Debe seleccionar al menos una persona con la que vive";
-        }
-
-        if (formData.boolean_viveSolo === "false" && formData.var_numeroPersonasConLasQueVive.length === 0) {
-            nuevosErrores.var_numeroPersonasConLasQueVive = "Debe seleccionar al menos una persona con la que vive";
-        }
-
-        if (formData.boolean_viveConMascotas === "true" && formData.set_tipoMascotas.length === 0) {
-            nuevosErrores.set_tipoMascotas = "Debes seleccionar al menos un tipo de mascota.";
-        }
-
-        setErrors(nuevosErrores);
-    }, [formData, touchedFields]);
-
-    // Marcar un campo como "tocado" cuando pierde el enfoque
-    const handleBlur = (event) => {
-        const { name } = event.target;
-        setTouchedFields({
-            ...touchedFields,
-            [name]: true,
-        });
-    };
-
-    // Manejar el cambio de los campos
-    const manejarCambioInput = (event) => {
+    const manejoCambiosInputs = (event) => {
         const { name, value } = event.target;
 
-        setFormData((prevData) => {
-            // Condición para "¿Vive Solo?"
-            if (name === "boolean_viveSolo") {
-                localStorage.setItem('boolean_viveSolo', value);
-                return {
-                    ...prevData,
-                    [name]: value,
-                    set_personasConLasQueVive: value === "true" ? "N/A" : []
-                };
-            }
-            // Manejo para el campo "set_personasConLasQueVive" (Select múltiple con checkboxes)
-            if (name === "set_personasConLasQueVive") {
-                // Almacena los valores seleccionados en un array
-                const selectedValues = typeof value === 'string' ? value.split(',') : value;
-                return {
-                    ...prevData,
-                    [name]: selectedValues
-                };
-            }
-            if (name === "var_estadoCivil") {
-                localStorage.setItem('var_estadoCivil', value);
-            }
+        
 
-            // Para el campo "set_personasConLasQueVive"
-            if (name === "set_personasConLasQueVive" && prevData.boolean_viveSolo === "false") {
-                return {
-                    ...prevData,
-                    [name]: value
-                };
+        // Actualizar el estado de acuerdo con el cambio en el input
+        if (name === "boolean_viveSolo") {
+            const newValue = value === "true";
+            setBoolean_viveSolo(newValue);
+            // Guardar en localStorage
+            localStorage.setItem(name, newValue);
+            // Si vive solo, establecer "N/A" en las variables correspondientes
+            if (newValue) {
+                setVar_numeroPersonasConLasQueVive("N/A");
+                setSet_personasConLasQueVive(["N/A"]);
+                localStorage.setItem("var_numeroPersonasConLasQueVive", "N/A");
+                localStorage.setItem("set_personasConLasQueVive", JSON.stringify(["N/A"]));
             }
-
-            if (name === "var_personasDependeciaEconimica") {
-                localStorage.setItem('var_personasDependeciaEconimica', value);
-            } else if (name === "boolean_viveConMascotas" === "true") {
-                localStorage.setItem('boolean_viveConMascotas', value);
-
-            } else if (name === "set_tipoMascotas" && prevData.boolean_viveConMascotas === "true") {
-                localStorage.setItem('set_tipoMascotas', JSON.stringify(value)); // Guarda como un string JSON
-            } else if (name === "var_totalIngresosPropiosYGrupoFamiliar") {
-                localStorage.setItem('var_totalIngresosPropiosYGrupoFamiliar', value);
-            } else if (name === "var_numeroPersonasConLasQueVive") {
-                localStorage.setItem('var_numeroPersonasConLasQueVive', value)
+        } else if (name === "boolean_viveConMascotas") {
+            const newValue = value === "true";
+            setBoolean_viveConMascotas(newValue);
+            // Guardar en localStorage
+            localStorage.setItem(name, newValue);
+            // Si vive con mascotas, establecer un array vacío o "N/A" en el estado de tipoMascotas
+            if (newValue) {
+                setSet_tipoMascotas([]);
+                localStorage.setItem("set_tipoMascotas", JSON.stringify([]));
+            } else {
+                setSet_tipoMascotas("N/A");
+                localStorage.setItem("set_tipoMascotas", "N/A");
             }
-
-            return { ...prevData, [name]: value };
-        });
+        } else if (name === "set_tipoMascotas") {
+            const selected = typeof value === "string" ? value.split(",") : value;
+            setSet_tipoMascotas(selected);
+            // Guardar en localStorage
+            localStorage.setItem(name, JSON.stringify(selected));
+        } else {
+            // Para el resto de los campos, actualiza el valor normalmente
+            switch (name) {
+                case "var_estadoCivil":
+                    setVar_estadoCivil(value);
+                    localStorage.setItem(name, value);
+                    break;
+                case "var_personasDependeciaEconimica":
+                    setVar_personasDependeciaEconimica(value);
+                    localStorage.setItem(name, value);
+                    break;
+                case "var_totalIngresosPropiosYGrupoFamiliar":
+                    setVar_totalIngresosPropiosYGrupoFamiliar(value);
+                    localStorage.setItem(name, value);
+                    break;
+                case "var_numeroPersonasConLasQueVive":
+                    setVar_numeroPersonasConLasQueVive(value);
+                    localStorage.setItem(name, value);
+                    break;
+                case "set_personasConLasQueVive":
+                    setSet_personasConLasQueVive(value);
+                    localStorage.setItem(name, value);
+                    break;
+                case "set_tipoMascotas":
+                    setSet_tipoMascotas(value);
+                    localStorage.setItem(name, value);
+                    break;
+                default:
+                    break;
+            }
+        }
     };
 
+
+
+
+
     const manejarSiguiente = () => {
-        const nuevosErrores = {};
 
-        if (!formData.var_estadoCivil.trim()) {
-            nuevosErrores.var_estadoCivil = "El estado civil es obligatorio.";
-        }
 
-        if (!formData.boolean_viveSolo) {
-            nuevosErrores.boolean_viveSolo = "El campo vive solo es obligatorio .";
-        }
 
-        if (!formData.boolean_viveConMascotas) {
-            nuevosErrores.boolean_viveConMascotas = "Tiene mascotas es obligatorio.";
-        }
-
-        if (!formData.var_personasDependeciaEconimica) {
-            nuevosErrores.var_personasDependeciaEconimica = "El cantidad de personas es obligatorio.";
-        }
-
-        if (!formData.var_totalIngresosPropiosYGrupoFamiliar) {
-            nuevosErrores.var_totalIngresosPropiosYGrupoFamiliar = "El total de ingresos propios y familiar es obligatorio.";
-        }
-
-        if (formData.boolean_viveSolo === "false" && formData.set_personasConLasQueVive.length === 0) {
-            nuevosErrores.set_personasConLasQueVive = "Debe seleccionar al menos una persona con la que vive";
-        }
-
-        if (formData.boolean_viveSolo === "false" && formData.var_numeroPersonasConLasQueVive.length === 0) {
-            nuevosErrores.var_numeroPersonasConLasQueVive = "Debe seleccionar al menos una persona con la que vive";
-        }
-
-        if (formData.boolean_viveConMascotas === "true" && formData.set_tipoMascotas.length === 0) {
-            nuevosErrores.set_tipoMascotas = "Debes seleccionar al menos un tipo de mascota.";
-        }
-
-        if (Object.keys(nuevosErrores).length > 0) {
-            setErrors(nuevosErrores);
-            return;
-        }
-
-        localStorage.setItem('formDataProfesional', JSON.stringify(formData));
         navigate('/datosProfesional3');
     };
 
@@ -189,7 +123,7 @@ const VistaDatosProfesional2 = () => {
                         event.preventDefault();
                     }}>
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Estado Civil:</Typography>
-                        <TextField select name="var_estadoCivil" variant="outlined" value={formData.var_estadoCivil} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur}
+                        <TextField select name="var_estadoCivil" variant="outlined" value={var_estadoCivil} onChange={manejoCambiosInputs} fullWidth sx={{ mb: 2 }}
                             error={!!errors.var_estadoCivil}
                             helperText={errors.var_estadoCivil} FormHelperTextProps={{
                                 sx: {
@@ -209,7 +143,7 @@ const VistaDatosProfesional2 = () => {
                             <MenuItem value="Union libre">Unión libre</MenuItem>
                         </TextField>
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>¿Vive Solo?:</Typography>
-                        <TextField select name="boolean_viveSolo" variant="outlined" value={formData.boolean_viveSolo} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur}
+                        <TextField select name="boolean_viveSolo" variant="outlined" value={boolean_viveSolo} onChange={manejoCambiosInputs} fullWidth sx={{ mb: 2 }}
                             error={!!errors.boolean_viveSolo}
                             helperText={errors.boolean_viveSolo} FormHelperTextProps={{
                                 sx: {
@@ -226,23 +160,13 @@ const VistaDatosProfesional2 = () => {
                             <MenuItem value="false">No</MenuItem>
                         </TextField>
 
-                        {formData.boolean_viveSolo === "false" && (
+                        {boolean_viveSolo === false && (
                             <>
 
                                 <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Con cuantas personas vive:</Typography>
-                                <TextField select name="var_numeroPersonasConLasQueVive" variant="outlined" value={formData.var_numeroPersonasConLasQueVive} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur}
-                                    error={!!errors.var_numeroPersonasConLasQueVive}
-                                    helperText={errors.var_numeroPersonasConLasQueVive} FormHelperTextProps={{
-                                        sx: {
-                                            marginLeft: 0,
-                                        },
-                                    }} InputProps={{
-                                        sx: {
-                                            height: "40px",
-                                            fontFamily: "Poppins",
-                                            fontSize: "16px"
-                                        },
-                                    }}  >
+                                <TextField select name="var_numeroPersonasConLasQueVive" variant="outlined" value={var_numeroPersonasConLasQueVive} onChange={manejoCambiosInputs} fullWidth sx={{ mb: 2 }}
+
+                                >
                                     <MenuItem value="1">1</MenuItem>
                                     <MenuItem value="2">2</MenuItem>
                                     <MenuItem value="3">3</MenuItem>
@@ -250,108 +174,71 @@ const VistaDatosProfesional2 = () => {
                                     <MenuItem value="5 o mas">5 o mas</MenuItem>
                                 </TextField>
 
-                                <FormControl sx={{ mb: 2 }} fullWidth error={!!errors.set_personasConLasQueVive}>
+                                <FormControl sx={{ mb: 2 }} >
                                     <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>¿Vive con? (Selecciona todas las personas con las que habita):</Typography>
                                     <Select
                                         name="set_personasConLasQueVive"
                                         multiple
-                                        value={formData.set_personasConLasQueVive}
-                                        onChange={manejarCambioInput}
-                                        renderValue={(selected) => selected.join(' - ')} // Opciones seleccionadas concatenadas
+                                        value={set_personasConLasQueVive}
+                                        onChange={manejoCambiosInputs}
+                                        renderValue={(selected) => Array.isArray(selected) ? selected.join(' - ') : ''}
                                         fullWidth
-                                        onBlur={handleBlur}
+
                                         variant="outlined"
-                                        MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }}
-                                        sx={{
-                                            height: "40px",
-                                            fontFamily: "Poppins",
-                                            fontSize: "16px"
-                                        }}
+
 
                                     >
                                         {["Pareja", "Hijos", "Madre", "Padre", "Hermanos", "Abuelos", "Tios", "Amigos", "Otros"].map((persona) => (
                                             <MenuItem key={persona} value={persona}>
-                                                <Checkbox checked={formData.set_personasConLasQueVive.indexOf(persona) > -1} />
+                                                <Checkbox checked={set_personasConLasQueVive.indexOf(persona) > -1} />
                                                 <ListItemText primary={persona} />
                                             </MenuItem>
                                         ))}
                                     </Select>
-                                    {errors.set_personasConLasQueVive && (
-                                        <FormHelperText sx={{ marginLeft: 0, }}
-                                        >{errors.set_personasConLasQueVive}</FormHelperText>
-                                    )}
+
                                 </FormControl>
                             </>
                         )}
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>¿Tiene mascotas? :</Typography>
-                        <TextField select name="boolean_viveConMascotas" variant="outlined" value={formData.boolean_viveConMascotas} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur}
-                            error={!!errors.boolean_viveConMascotas}
-                            helperText={errors.boolean_viveConMascotas} FormHelperTextProps={{
-                                sx: {
-                                    marginLeft: 0,
-                                },
-                            }} InputProps={{
-                                sx: {
-                                    height: "40px",
-                                    fontFamily: "Poppins",
-                                    fontSize: "16px"
-                                },
-                            }} >
+                        <TextField select name="boolean_viveConMascotas" variant="outlined" value={boolean_viveConMascotas} onChange={manejoCambiosInputs} fullWidth sx={{ mb: 2 }}
+                        >
                             <MenuItem value="true">Sí</MenuItem>
                             <MenuItem value="false">No</MenuItem>
                         </TextField>
 
-                        {formData.boolean_viveConMascotas === "true" && (
+                        {boolean_viveConMascotas === true && (
                             <>
 
-                                <FormControl sx={{ mb: 2 }} fullWidth error={!!errors.set_tipoMascotas}>
+                                <FormControl sx={{ mb: 2 }} >
                                     <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Indica qué tipos de mascotas tienes en casa :</Typography>
                                     <Select
                                         name="set_tipoMascotas"
                                         multiple
-                                        value={formData.set_tipoMascotas}
-                                        onChange={manejarCambioInput}
-                                        renderValue={(selected) => selected.join(' - ')} // Opciones seleccionadas concatenadas
+                                        value={set_tipoMascotas}
+                                        onChange={manejoCambiosInputs}
+                                        renderValue={(selected) => Array.isArray(selected) ? selected.join(' - ') : ''}
+
                                         fullWidth
-                                        onBlur={handleBlur}
+
                                         variant="outlined"
-                                        MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }}
-                                        sx={{
-                                            height: "40px",
-                                            fontFamily: "Poppins",
-                                            fontSize: "16px"
-                                        }}
+
 
                                     >
                                         {["Perro", "Gato", "Conejo", "Hamster", "Tortuga", "Huron", "Cobaya", "Chinchilla", "Pajaros", "Cerdo miniatura", "Peces", "Otro tipo"].map((mascotas) => (
                                             <MenuItem key={mascotas} value={mascotas}>
-                                                <Checkbox checked={formData.set_tipoMascotas.indexOf(mascotas) > -1} />
+                                                <Checkbox checked={set_tipoMascotas.indexOf(mascotas) > -1} />
                                                 <ListItemText primary={mascotas} />
                                             </MenuItem>
                                         ))}
                                     </Select>
-                                    {errors.set_tipoMascotas && (
-                                        <FormHelperText sx={{ marginLeft: 0, }}
-                                        >{errors.set_tipoMascotas}</FormHelperText>
-                                    )}
+
                                 </FormControl>
                             </>
                         )}
 
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Cantidad de personas con las que NO vive pero dependen económicamente de usted :</Typography>
-                        <TextField select name="var_personasDependeciaEconimica" variant="outlined" value={formData.var_personasDependeciaEconimica} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur}
-                            error={!!errors.var_personasDependeciaEconimica}
-                            helperText={errors.var_personasDependeciaEconimica} FormHelperTextProps={{
-                                sx: {
-                                    marginLeft: 0,
-                                },
-                            }} InputProps={{
-                                sx: {
-                                    height: "40px",
-                                    fontFamily: "Poppins",
-                                    fontSize: "16px"
-                                },
-                            }}  >
+                        <TextField select name="var_personasDependeciaEconimica" variant="outlined" value={var_personasDependeciaEconimica} onChange={manejoCambiosInputs} fullWidth sx={{ mb: 2 }}
+                        >
                             <MenuItem value="0">0</MenuItem>
                             <MenuItem value="1">1</MenuItem>
                             <MenuItem value="2">2</MenuItem>
@@ -362,19 +249,8 @@ const VistaDatosProfesional2 = () => {
                         </TextField>
 
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Total ingresos propios y grupo familiar:</Typography>
-                        <TextField select name="var_totalIngresosPropiosYGrupoFamiliar" variant="outlined" value={formData.var_totalIngresosPropiosYGrupoFamiliar} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur}
-                            error={!!errors.var_totalIngresosPropiosYGrupoFamiliar}
-                            helperText={errors.var_totalIngresosPropiosYGrupoFamiliar} FormHelperTextProps={{
-                                sx: {
-                                    marginLeft: 0,
-                                },
-                            }} InputProps={{
-                                sx: {
-                                    height: "40px",
-                                    fontFamily: "Poppins",
-                                    fontSize: "16px"
-                                },
-                            }} >
+                        <TextField select name="var_totalIngresosPropiosYGrupoFamiliar" variant="outlined" value={var_totalIngresosPropiosYGrupoFamiliar} onChange={manejoCambiosInputs} fullWidth sx={{ mb: 2 }}
+                        >
                             <MenuItem value="Menos de 1'000.000 de pesos">Menos de 1'000.000 de pesos</MenuItem>
                             <MenuItem value="Entre 1'000.000 de pesos y 2'000.000 de pesos">Entre 1'000.000 de pesos y 2'000.000 de pesos</MenuItem>
                             <MenuItem value="Entre 2'000.000 de pesos y 4'000.000 de pesos">Entre 2'000.000 de pesos y 4'000.000 de pesos</MenuItem>

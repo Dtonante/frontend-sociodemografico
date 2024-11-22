@@ -27,18 +27,18 @@
         margin-top: 20px; /* Ajusta el margen superior */
     }
 
-    .iconos-sociales {
-        justify-content: center; /* Centra los iconos */
-        width: 100%; /* Ocupa el ancho completo */
-        margin-bottom: 20px; /* Espacio entre iconos y botones */
-    }
-
-    .iconos-sociales button {
-        margin-bottom: 10px; /* Espacio entre filas de iconos */
-    }
-
+    /* Coloca los botones primero */
     .botones-accion {
+        order: 1; /* Los botones van primero */
         flex-direction: column; /* Coloca los botones en columna */
         align-items: center; /* Centra los botones */
+        margin-bottom: 20px; /* Espacio entre botones e iconos */
+    }
+
+    /* Coloca los iconos después */
+    .iconos-sociales {
+        order: 2; /* Los iconos van después */
+        justify-content: center; /* Centra los iconos */
+        width: 100%; /* Ocupa el ancho completo */
     }
 }

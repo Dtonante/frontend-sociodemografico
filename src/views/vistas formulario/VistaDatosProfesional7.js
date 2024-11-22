@@ -8,13 +8,13 @@ const VistaDatosProfesional7 = () => {
 
     const [actividadTiempoLibreOptions, setActividadTiempoLibre] = useState([]);
     const [selectedActividadTiempoLibre, setSelectedActividadTiempoLibre] = useState([]);
-    const [actividadFisica, setActividadFisica] = useState(null);
+    const [actividadFisica, setActividadFisica] = useState();
     const [frecuenciaActividadFisica, setFrecuenciaActividadFisica] = useState("");
-    const [fuma, setFuma] = useState(null);
+    const [fuma, setFuma] = useState();
     const [frecuenciaFuma, setFrecuenciaFuma] = useState("N/A");
-    const [toma, setToma] = useState(null);
+    const [toma, setToma] = useState();
     const [frecuenciaToma, setFrecuenciaToma] = useState("N/A");
-    const [sustanciaPsicoactiva, setSustanciaPsicoactiva] = useState(null);
+    const [sustanciaPsicoactiva, setSustanciaPsicoactiva] = useState();
     const [frecuenciaSustanciaPsicoactiva, setFrecuenciaSustanciaPsicoactiva] = useState("N/A");
     const [peso, setPeso] = useState("");
     const [altura, setAltura] = useState("");
@@ -173,34 +173,43 @@ const VistaDatosProfesional7 = () => {
     }, []);
 
 
+   
+    
+
+
 
 
 
 
     const manejarCambio = (event, campo) => {
         const { name, value } = event.target;
-
+    
+        // Guardar en el estado y localStorage valores booleanos con comparación
         if (name === "boolean_actividadFisica") {
-            setActividadFisica(value === "true");
-            localStorage.setItem('boolean_actividadFisica', value);
+            const booleanValue = value === "true";
+            setActividadFisica(booleanValue);
+            localStorage.setItem('boolean_actividadFisica', booleanValue.toString());
         } else if (name === "var_frecuenciaActividadFisica") {
             setFrecuenciaActividadFisica(value);
             localStorage.setItem('var_frecuenciaActividadFisica', value);
         } else if (name === "boolean_fuma") {
-            setFuma(value === "true");
-            localStorage.setItem('boolean_fuma', value);
+            const booleanValue = value === "true";
+            setFuma(booleanValue);
+            localStorage.setItem('boolean_fuma', booleanValue.toString());
         } else if (name === "var_frecuenciaFuma") {
             setFrecuenciaFuma(value);
             localStorage.setItem('var_frecuenciaFuma', value);
         } else if (name === "boolean_toma") {
-            setToma(value === "true");
-            localStorage.setItem('boolean_toma', value);
+            const booleanValue = value === "true";
+            setToma(booleanValue);
+            localStorage.setItem('boolean_toma', booleanValue.toString());
         } else if (name === "var_frecuenciaToma") {
             setFrecuenciaToma(value);
             localStorage.setItem('var_frecuenciaToma', value);
         } else if (name === "boolean_sustanciasPsicoactivas") {
-            setSustanciaPsicoactiva(value === "true");
-            localStorage.setItem('boolean_sustanciasPsicoactivas', value);
+            const booleanValue = value === "true";
+            setSustanciaPsicoactiva(booleanValue);
+            localStorage.setItem('boolean_sustanciasPsicoactivas', booleanValue.toString());
         } else if (name === "var_frecuenciaSustanciasPsicoactivas") {
             setFrecuenciaSustanciaPsicoactiva(value);
             localStorage.setItem('var_frecuenciaSustanciasPsicoactivas', value);
@@ -211,22 +220,22 @@ const VistaDatosProfesional7 = () => {
             setAltura(value);
             localStorage.setItem('var_altura', value);
         } else if (name === "set_pasoMayorTiempoLibre") {
-            // Si el valor es un arreglo, se maneja de la siguiente manera
             setPasoMayorTiempoLibre(value); 
             localStorage.setItem('set_pasoMayorTiempoLibre', JSON.stringify(value));
         } else if (campo === 'actividadTiempoLibre') {
             setSelectedActividadTiempoLibre(value);
             localStorage.setItem('actividadTiempoLibre', JSON.stringify(value));
         } else if (name === "boolean_usaLentes") {
-            setBoolean_usaLentes(value)
-            localStorage.getItem('boolean_usaLentes', value)
-        }else if (name === "boolean_bebidasEnergizantes") {
-            setBoolean_bebidasEnergizantes(value)
-            localStorage.getItem('boolean_bebidasEnergizantes', value)
+            const booleanValue = value === "true";
+            setBoolean_usaLentes(booleanValue);
+            localStorage.setItem('boolean_usaLentes', booleanValue.toString());
+        } else if (name === "boolean_bebidasEnergizantes") {
+            const booleanValue = value === "true";
+            setBoolean_bebidasEnergizantes(booleanValue);
+            localStorage.setItem('boolean_bebidasEnergizantes', booleanValue.toString());
         }
-        
     };
-
+    
     const manejarSiguiente = () => {
 
         const nuevosErrores = {};
@@ -263,12 +272,7 @@ const VistaDatosProfesional7 = () => {
             nuevosErrores.frecuenciaActividadFisica = "Indicar la frecuencia es obligatorio.";
         }
 
-        if (boolean_usaLentes === undefined) {
-            nuevosErrores.boolean_usaLentes = "Debe confirmar la contraseña";
-        }
-        if (boolean_bebidasEnergizantes === undefined) {
-            nuevosErrores.boolean_bebidasEnergizantes = "Debe confirmar la contraseña";
-        }
+       
 
         if (Object.keys(nuevosErrores).length > 0) {
             setErrors(nuevosErrores);
@@ -372,7 +376,7 @@ const VistaDatosProfesional7 = () => {
 
                         <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} error={!!errors.boolean_usaLentes}>
                             <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} > ¿Usa Lentes? :</Typography>
-                            <RadioGroup name="boolean_usaLentes" value={boolean_usaLentes } onChange={manejarCambio} row onBlur={handleBlur}
+                            <RadioGroup name="boolean_usaLentes" value={boolean_usaLentes } onChange={manejarCambio} row 
                                 sx={{
                                     height: "40px",
                                     fontFamily: "Poppins",
@@ -423,7 +427,7 @@ const VistaDatosProfesional7 = () => {
 
                         <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} error={!!errors.boolean_bebidasEnergizantes}>
                             <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Consume bebidas energizantes? :</Typography>
-                            <RadioGroup name="boolean_bebidasEnergizantes" value={boolean_bebidasEnergizantes} onChange={manejarCambio} row onBlur={handleBlur}
+                            <RadioGroup name="boolean_bebidasEnergizantes" value={boolean_bebidasEnergizantes} onChange={manejarCambio} row 
                                 sx={{
                                     height: "40px",
                                     fontFamily: "Poppins",
@@ -444,14 +448,14 @@ const VistaDatosProfesional7 = () => {
 
                         <FormControl component="fieldset" fullWidth sx={{ mb: 2 }}>
                             <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Realiza actividad física? </Typography>
-                            <RadioGroup name="boolean_actividadFisica" value={actividadFisica ? "true" : "false"} onChange={manejarCambio} row
+                            <RadioGroup name="boolean_actividadFisica" value={actividadFisica } onChange={manejarCambio} row
                                 sx={{
                                     height: "40px",
                                     fontFamily: "Poppins",
                                     fontSize: "16px"
                                 }} >
-                                <FormControlLabel value="true" control={<Radio />} label="Sí" />
-                                <FormControlLabel value="false" control={<Radio />} label="No" />
+                                <FormControlLabel value={true} control={<Radio />} label="Sí" />
+                                <FormControlLabel value={false} control={<Radio />} label="No" />
                             </RadioGroup>
                         </FormControl>
 
@@ -478,14 +482,14 @@ const VistaDatosProfesional7 = () => {
 
                         <FormControl component="fieldset" fullWidth sx={{ mb: 2 }}>
                             <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} > ¿Fuma o vapea? </Typography>
-                            <RadioGroup name="boolean_fuma" value={fuma ? "true" : "false"} onChange={manejarCambio} row
+                            <RadioGroup name="boolean_fuma" value={fuma} onChange={manejarCambio} row
                                 sx={{
                                     height: "40px",
                                     fontFamily: "Poppins",
                                     fontSize: "16px"
                                 }}  >
-                                <FormControlLabel value="true" control={<Radio />} label="Sí" />
-                                <FormControlLabel value="false" control={<Radio />} label="No" />
+                                <FormControlLabel value={true} control={<Radio />} label="Sí" />
+                                <FormControlLabel value={false} control={<Radio />} label="No" />
                             </RadioGroup>
                         </FormControl>
 
@@ -512,14 +516,14 @@ const VistaDatosProfesional7 = () => {
 
                         <FormControl component="fieldset" fullWidth sx={{ mb: 2 }}>
                             <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} > ¿Consume bebidas alcohólicas? :</Typography>
-                            <RadioGroup name="boolean_toma" value={toma ? "true" : "false"} onChange={manejarCambio} row
+                            <RadioGroup name="boolean_toma" value={toma } onChange={manejarCambio} row
                                 sx={{
                                     height: "40px",
                                     fontFamily: "Poppins",
                                     fontSize: "16px"
                                 }}  >
-                                <FormControlLabel value="true" control={<Radio />} label="Sí" />
-                                <FormControlLabel value="false" control={<Radio />} label="No" />
+                                <FormControlLabel value={true} control={<Radio />} label="Sí" />
+                                <FormControlLabel value={false} control={<Radio />} label="No" />
                             </RadioGroup>
                         </FormControl>
 
@@ -546,7 +550,7 @@ const VistaDatosProfesional7 = () => {
 
                         <FormControl component="fieldset" fullWidth sx={{ mb: 2 }}>
                             <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Consume sustancias psicoactivas? :</Typography>
-                            <RadioGroup name="boolean_sustanciasPsicoactivas" value={sustanciaPsicoactiva ? "true" : "false"} onChange={manejarCambio} row
+                            <RadioGroup name="boolean_sustanciasPsicoactivas" value={sustanciaPsicoactiva } onChange={manejarCambio} row
                                 sx={{
                                     height: "40px",
                                     fontFamily: "Poppins",
