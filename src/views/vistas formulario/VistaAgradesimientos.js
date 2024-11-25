@@ -51,12 +51,12 @@ const VistaAgradecimientos = () => {
             const boolean_viveSolo = localStorage.getItem('boolean_viveSolo') === 'true';
             const var_numeroPersonasConLasQueVive = localStorage.getItem('var_numeroPersonasConLasQueVive')
             // const set_personasConLasQueVive = JSON.stringify('set_personasConLasQueVive');
-            let set_personasConLasQueVive = JSON.stringify('set_personasConLasQueVive');
+            const set_personasConLasQueVive = JSON.stringify('set_personasConLasQueVive');
 
             // Verifica si el valor es igual a "set_personasConLasQueVive"
-            if (set_personasConLasQueVive === '\"set_personasConLasQueVive\"') {
-                set_personasConLasQueVive = 'N/A';
-            }
+            // if (set_personasConLasQueVive === '\"set_personasConLasQueVive\"') {
+            //     set_personasConLasQueVive = 'N/A';
+            // }
             const boolean_viveConMascotas = localStorage.getItem('boolean_viveConMascotas') === 'true';
             const set_tipoMascotas = localStorage.getItem('set_tipoMascotas')
             const var_personasDependeciaEconimica = localStorage.getItem('var_personasDependeciaEconimica');

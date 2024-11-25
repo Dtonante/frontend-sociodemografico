@@ -8,6 +8,7 @@ export function showAlert(options, onConfirm, onCancel) {
         title: options.title,
         icon: options.icon,
         text: options.text,
+        width: options.width || '600px', // Ancho ajustable por opción
         showCancelButton: options.showCancelButton,
         confirmButtonText: options.confirmButtonText,
         cancelButtonText: options.cancelButtonText,
@@ -23,7 +24,7 @@ export function showAlert(options, onConfirm, onCancel) {
     });
 }
 
-export function show_alert(message, icon, focus = '') {
+export function show_alert(message, icon, focus = '', width = '400px') {
     if (!message) return;
     onfocus(focus);
     const toast = MySwal.mixin({
@@ -31,6 +32,7 @@ export function show_alert(message, icon, focus = '') {
         position: 'top-end',
         showConfirmButton: false,
         timer: 3500,
+        width: width, // Ancho ajustable para el toast
         customClass: {
             popup: 'swal2-custom-popup'
         }

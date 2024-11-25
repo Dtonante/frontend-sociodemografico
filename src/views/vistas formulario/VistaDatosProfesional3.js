@@ -291,9 +291,10 @@ const VistaDatosProfesional3 = () => {
                   if (value === "true") {
                     // Si la opción seleccionada es "Sí" (true)
                     show_alert(
-                      "Si tu respuesta es sí, envía el soporte a los siguientes correos: nomina@esumer.edu.co - aux.nomina@esumer.edu.co", 
+                      "Si tu respuesta es sí, envía el soporte a los siguientes correos:\n\nnomina@esumer.edu.co\naux.nomina@esumer.edu.co",
                       'info'
                     );
+                    
                   
                     // Llamar a setTimeout para cerrar la alerta después de 5 segundos (5000 ms)
                     setTimeout(() => {
