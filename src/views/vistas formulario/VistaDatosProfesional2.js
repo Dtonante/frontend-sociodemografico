@@ -74,18 +74,41 @@ const VistaDatosProfesional2 = () => {
 
 
         // Actualizar el estado de acuerdo con el cambio en el input
+        // if (name === "boolean_viveSolo") {
+        //     const newValue = value === "true";
+        //     setBoolean_viveSolo(newValue);
+        //     // Guardar en localStorage
+        //     localStorage.setItem(name, newValue);
+        //     // Si vive solo, establecer "N/A" en las variables correspondientes
+        //     if (newValue) {
+        //         setVar_numeroPersonasConLasQueVive("N/A");
+        //         setSet_personasConLasQueVive(["N/A"]);
+        //         localStorage.setItem("var_numeroPersonasConLasQueVive", "N/A");
+        //         localStorage.setItem("set_personasConLasQueVive", JSON.stringify(["N/A"]));
+        //         localStorage.setItem("boolean_viveSolo", newValue)
+        //     }
+        // } 
+        
         if (name === "boolean_viveSolo") {
             const newValue = value === "true";
             setBoolean_viveSolo(newValue);
-            // Guardar en localStorage
             localStorage.setItem(name, newValue);
-            // Si vive solo, establecer "N/A" en las variables correspondientes
+
             if (newValue) {
+                // Vive solo
                 setVar_numeroPersonasConLasQueVive("N/A");
                 setSet_personasConLasQueVive(["N/A"]);
                 localStorage.setItem("var_numeroPersonasConLasQueVive", "N/A");
-                localStorage.setItem("set_personasConLasQueVive", JSON.stringify(["N/A"]));
-                localStorage.setItem("boolean_viveSolo", newValue)
+                localStorage.setItem(
+                    "set_personasConLasQueVive",
+                    JSON.stringify(["N/A"])
+                );
+            } else {
+                // Deja los campos en blanco o valores predeterminados
+                setVar_numeroPersonasConLasQueVive("");
+                setSet_personasConLasQueVive([]);
+                localStorage.removeItem("var_numeroPersonasConLasQueVive");
+                localStorage.removeItem("set_personasConLasQueVive");
             }
         } else if (name === "boolean_viveConMascotas") {
             const newValue = value === "true";
@@ -288,8 +311,12 @@ const VistaDatosProfesional2 = () => {
                                         onBlur={handleBlur}
                                         renderValue={(selected) => Array.isArray(selected) ? selected.join(' - ') : ''}
                                         fullWidth
-
                                         variant="outlined"
+                                        sx={{
+                                            height: "40px",
+                                            fontFamily: "Poppins",
+                                            fontSize: "16px"
+                                        }}
 
 
                                     >
@@ -464,3 +491,10 @@ const VistaDatosProfesional2 = () => {
 };
 
 export default VistaDatosProfesional2;
+
+
+
+
+
+
+
