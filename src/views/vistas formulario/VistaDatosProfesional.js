@@ -29,11 +29,11 @@ const VistaDatosProfesional = () => {
         const nuevosErrores = {};
 
         if (touchedFields.var_departamentoResidencia && !formData.var_departamentoResidencia) {
-            nuevosErrores.var_departamentoResidencia = "El departamento es obligatorio";
+            nuevosErrores.var_departamentoResidencia = "El departamento de residencia es obligatorio";
         }
 
         if (touchedFields.var_ciudadResidencia && !formData.var_ciudadResidencia) {
-            nuevosErrores.var_ciudadResidencia = "El tipo de documento es obligatorio";
+            nuevosErrores.var_ciudadResidencia = "La ciudad de residencia es obligatorio";
         }
 
         if (touchedFields.var_estratoVivienda && !formData.var_estratoVivienda) {
@@ -49,6 +49,10 @@ const VistaDatosProfesional = () => {
 
         if (touchedFields.selectedFactoresRiesgo && (!selectedFactoresRiesgo || selectedFactoresRiesgo.length === 0)) {
             nuevosErrores.selectedFactoresRiesgo = "Los factores de riesgos son obligatorios.";
+        }
+
+        if (touchedFields.var_zonaVivienda && !formData.var_zonaVivienda) {
+            nuevosErrores.var_zonaVivienda = "La zona de vivienda es obligatorio";
         }
 
         setErrors(nuevosErrores);
@@ -205,6 +209,10 @@ const VistaDatosProfesional = () => {
 
         if (!selectedFactoresRiesgo || selectedFactoresRiesgo.length === 0) {
             nuevosErrores.selectedFactoresRiesgo = "Los factores de riesgo son obligatorios.";
+        }
+
+        if (!formData.var_zonaVivienda) {
+            nuevosErrores.var_zonaVivienda = "La zona de vivienda es obligatorio.";
         }
 
         if (Object.keys(nuevosErrores).length > 0) {
