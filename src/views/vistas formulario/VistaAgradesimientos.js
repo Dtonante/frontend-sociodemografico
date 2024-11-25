@@ -26,12 +26,13 @@ const VistaAgradecimientos = () => {
 
         const guardarDatos = async () => {
 
-            const URI_PROFESIONAL = 'http://localhost:3001/profesional/'
-            const URI_PROFESIONAL_FACTORES_RIESGO = 'http://localhost:3001/profesionalFactoresRiesgo/'
-            const URI_PROFESIONAL_SERVICIOS_SALUD_ADICIONAL = 'http://localhost:3001/profesionalServicioSaludAdicional/'
-            const URI_PROFESIONAL_ANTECEDENTES_MEDICOS = 'http://localhost:3001/profesionalAntecedenteMedico/'
-            const URI_PROFESIONAL_TIEMPO_LIBRE = 'http://localhost:3001/profesionalTiempoLibre/'
-            const URI_PROFESIONAL_SERVICIO_QUE_NO_CUENTAN = 'http://localhost:3001/profesionalServiciosQueNoCuentan/'
+            const URI_PROFESIONAL = 'https://evaluacion.esumer.edu.co/profesional/'
+            const URI_PROFESIONAL_FACTORES_RIESGO = 'https://evaluacion.esumer.edu.co/profesionalFactoresRiesgo/'
+            const URI_PROFESIONAL_SERVICIOS_SALUD_ADICIONAL = 'https://evaluacion.esumer.edu.co/profesionalServicioSaludAdicional/'
+            const URI_PROFESIONAL_ANTECEDENTES_MEDICOS = 'https://evaluacion.esumer.edu.co/profesionalAntecedenteMedico/'
+            const URI_PROFESIONAL_TIEMPO_LIBRE = 'https://evaluacion.esumer.edu.co/profesionalTiempoLibre/'
+            const URI_PROFESIONAL_SERVICIO_QUE_NO_CUENTAN = 'https://evaluacion.esumer.edu.co/profesionalServiciosQueNoCuentan/'
+            const URI_PROFESIONAL_TRANSPORTE_PROPIO = 'https://evaluacion.esumer.edu.co/profesionalTransportePropio/'
 
             // Obtener todos los datos del localStorage
             const id_usuarioFK = parseInt(localStorage.getItem('usuarioId'), 10);
@@ -39,7 +40,11 @@ const VistaAgradecimientos = () => {
             const date_fechaNacimiento = localStorage.getItem('date_fechaNacimiento');
             const var_departamentoResidencia = localStorage.getItem('departamentoResidencia');
             const var_ciudadResidencia = localStorage.getItem('ciudadResidencia');
-            const var_direccionResidencia = localStorage.getItem('direccionCompleta');
+
+            const detalleDireccion = localStorage.getItem('detalleDireccion')
+            let direccionSinDetalle = localStorage.getItem('direccionCompleta');
+            const var_direccionResidencia = `${direccionSinDetalle} ${detalleDireccion}`.trim();
+
             const var_estratoVivienda = localStorage.getItem('estratoVivienda');
             const var_tipoVivienda = localStorage.getItem('tipoVivienda');
             const var_estadoCivil = localStorage.getItem('var_estadoCivil');
@@ -79,26 +84,26 @@ const VistaAgradecimientos = () => {
             const boolean_actualmenteEstudia = localStorage.getItem('actualmenteEstudia') === 'true';
             const boolean_actividadFisica = localStorage.getItem('boolean_actividadFisica') === 'true';
             let var_frecuenciaActividadFisica = localStorage.getItem('var_frecuenciaActividadFisica');
-            if (boolean_actividadFisica == false ){
-                var_frecuenciaActividadFisica = 'N/A' ;
-            } 
+            if (boolean_actividadFisica == false) {
+                var_frecuenciaActividadFisica = 'N/A';
+            }
             const boolean_fuma = localStorage.getItem('boolean_fuma') === 'true';
             // const var_frecuenciaFuma = localStorage.getItem('var_frecuenciaFuma');
             let var_frecuenciaFuma = localStorage.getItem('var_frecuenciaFuma');
 
-            if (boolean_fuma == false ){
-                var_frecuenciaFuma = 'N/A' ;
-            } 
+            if (boolean_fuma == false) {
+                var_frecuenciaFuma = 'N/A';
+            }
             const boolean_toma = localStorage.getItem('boolean_toma') === 'true';
             let var_frecuenciaToma = localStorage.getItem('var_frecuenciaToma');
-            if (boolean_toma == false ){
-                var_frecuenciaToma = 'N/A' ;
-            } 
+            if (boolean_toma == false) {
+                var_frecuenciaToma = 'N/A';
+            }
             const boolean_sustanciasPsicoactivas = localStorage.getItem('boolean_sustanciasPsicoactivas') === 'true';
             let var_frecuenciaSustanciasPsicoactivas = localStorage.getItem('var_frecuenciaSustanciasPsicoactivas');
-            if (boolean_sustanciasPsicoactivas == false ){
-                var_frecuenciaSustanciasPsicoactivas = 'N/A' ;
-            } 
+            if (boolean_sustanciasPsicoactivas == false) {
+                var_frecuenciaSustanciasPsicoactivas = 'N/A';
+            }
             const set_mediosTransportePublico = localStorage.getItem('set_mediosTransportePublico');
             const set_pasoMayorTiempoLibre = JSON.stringify(JSON.parse(localStorage.getItem('set_pasoMayorTiempoLibre')));
             const var_peso = localStorage.getItem('var_peso');
@@ -109,8 +114,8 @@ const VistaAgradecimientos = () => {
             const boolean_bebidasEnergizantes = localStorage.getItem('boolean_bebidasEnergizantes') === 'true';
             const var_zonaVivienda = localStorage.getItem('var_zonaVivienda')
 
-      
-        
+
+
             try {
                 const response = await axios.post(URI_PROFESIONAL, { id_usuarioFK: id_usuarioFK, boolean_aceptaTratamientoDatos: boolean_aceptaTratamientoDatos, date_fechaNacimiento: date_fechaNacimiento, var_departamentoResidencia: var_departamentoResidencia, var_ciudadResidencia: var_ciudadResidencia, var_direccionResidencia: var_direccionResidencia, var_estratoVivienda: var_estratoVivienda, var_tipoVivienda: var_tipoVivienda, var_estadoCivil: var_estadoCivil, boolean_viveSolo: boolean_viveSolo, var_numeroPersonasConLasQueVive: var_numeroPersonasConLasQueVive, set_personasConLasQueVive: set_personasConLasQueVive, boolean_viveConMascotas: boolean_viveConMascotas, set_tipoMascotas: set_tipoMascotas, var_personasDependeciaEconimica: var_personasDependeciaEconimica, var_totalIngresosPropiosYGrupoFamiliar: var_totalIngresosPropiosYGrupoFamiliar, var_grupoEtnico: var_grupoEtnico, var_rh: var_rh, id_epsFK: id_epsFK, id_fondoPensionFK: id_fondoPensionFK, boolean_cambioEpsOArl: boolean_cambioEpsOArl, id_cuentaBancariaFK: id_cuentaBancariaFK, var_tipoCuenta: var_tipoCuenta, var_numeroCuenta: var_numeroCuenta, var_tipoContrato: var_tipoContrato, var_salario: var_salario, date_fechaIngresoInstitucion: date_fechaIngresoInstitucion, var_antiguedadInstitucion: var_antiguedadInstitucion, id_areaFK: id_areaFK, var_cargo: var_cargo, var_jefeInmediato: var_jefeInmediato, var_sede: var_sede, var_celular: var_celular, var_telefonoFijo: var_telefonoFijo, var_nivelEscolaridad: var_nivelEscolaridad, var_nombreCarrera: var_nombreCarrera, boolean_actualmenteEstudia: boolean_actualmenteEstudia, boolean_actividadFisica: boolean_actividadFisica, var_frecuenciaActividadFisica: var_frecuenciaActividadFisica, boolean_fuma: boolean_fuma, var_frecuenciaFuma: var_frecuenciaFuma, boolean_toma: boolean_toma, var_frecuenciaToma: var_frecuenciaToma, boolean_sustanciasPsicoactivas: boolean_sustanciasPsicoactivas, var_frecuenciaSustanciasPsicoactivas: var_frecuenciaSustanciasPsicoactivas, set_mediosTransportePublico: set_mediosTransportePublico, set_pasoMayorTiempoLibre: set_pasoMayorTiempoLibre, var_peso: var_peso, var_altura: var_altura, var_urlDatosAdjuntos: var_urlDatosAdjuntos, var_correoElectronicoInstitucional: var_correoElectronicoInstitucional, boolean_usaLentes: boolean_usaLentes, boolean_bebidasEnergizantes: boolean_bebidasEnergizantes, var_zonaVivienda: var_zonaVivienda });
 
@@ -123,8 +128,18 @@ const VistaAgradecimientos = () => {
                 const selectedAntecedentesMedicos = JSON.parse(localStorage.getItem('selectedAntecedentes'));
                 //se traen las actividadesd de tiempo libre
                 const selectedActividadesTiempoLibre = JSON.parse(localStorage.getItem('actividadTiempoLibre'));
-                //se traen las actividadesd de tiempo libre
+                //se traen las actividadesd de tiempo libre  
                 const selectedServiciosQueNoCuentan = JSON.parse(localStorage.getItem('selectedServiciosQueNoCuentan'));
+                //se traen las actividadesd de tiempo libre  profesionalTransportePropio
+
+
+                const selectedTransporte = JSON.parse(localStorage.getItem("selectedTransporte")) || [];
+                console.log(selectedTransporte);
+
+
+
+                const placa = localStorage.getItem('placa')
+
 
                 // se atrapa el id del profesional que se crea para las tablas relacionales
                 const { id_profesionalPK } = response.data;
@@ -172,13 +187,34 @@ const VistaAgradecimientos = () => {
                     console.log(`Relación creada: Profesional ID ${id_profesionalPK}, Servicio Que No Cuentan ID ${id_servicioQueNoCuentaFK}`);
                 }
 
+                // Comprobar si selectedTransporte es un array antes de iterar
+                if (Array.isArray(selectedTransporte)) {
+                    // Si es un array, proceder con el ciclo
+                    for (const id_transportePropioFK of selectedTransporte) {
+                        await axios.post(URI_PROFESIONAL_TRANSPORTE_PROPIO, {
+                            id_profesionalFK: id_profesionalPK,
+                            id_transportePropioFK: id_transportePropioFK,
+                            var_numeroPlaca: placa,
+                        });
+                        console.log(`Relación creada: Profesional ID ${id_profesionalPK}, TRANSPORTE PROPIO ID ${id_transportePropioFK} y placa de ${placa}`);
+                    }
+                } else {
+                    console.error("selectedTransporte no es un array válido o está vacío");
+                }
+
 
             } catch (error) {
                 if (error.response && error.response.status === 400) {
 
                     const selectedAntecedentesMedicos = JSON.parse(localStorage.getItem('selectedAntecedentes'));
+                    // const selectedTransporte = JSON.parse(localStorage.getItem('selectedTransporte'));
+                    // const placa = localStorage.getItem('placa')
+                    // console.log('jeje', placa)
 
-                    console.log('Factores de riesgo seleccionados vista agradecimientos:', selectedAntecedentesMedicos);
+
+                    // console.log('Factores de riesgo seleccionados vista agradecimientos:', selectedAntecedentesMedicos);
+                    // console.log('puto', selectedTransporte)
+
                     // Si el error es por duplicado, muestra un mensaje amigable
                     console.log('Ya se ha creado un profesional con este usuario. No es necesario volver a crear.');
                 } else {

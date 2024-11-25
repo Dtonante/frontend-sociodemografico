@@ -58,7 +58,7 @@ const VistaDatosProfesional = () => {
     useEffect(() => {
         const fetchServiciosQueNoCuentan = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/serviciosQueNoCuentan/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/serviciosQueNoCuentan/');
                 setServiciosQueNoCuentan(response.data);
             } catch (error) {
                 console.error('Error al obtener los servicios que no cuentan:', error);
@@ -73,7 +73,7 @@ const VistaDatosProfesional = () => {
     useEffect(() => {
         const fetchFactoresRiesgo = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/factoresRiesgo/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/factoresRiesgo/');
                 setFactoresRiesgoOptions(response.data);
             } catch (error) {
                 console.error('Error al obtener los factores de riesgo:', error);
@@ -98,7 +98,7 @@ const VistaDatosProfesional = () => {
         "Condominio",
         "Vivienda de interés social",
         "Vivienda familiar"
-        
+
     ];
 
     //Datos para los campos de la direccion
@@ -164,8 +164,13 @@ const VistaDatosProfesional = () => {
         const { name, value } = event.target;
         setDireccion({ ...direccion, [name]: value });
 
+        // Si el campo actualizado es "detalle", guardarlo en localStorage
+        if (name === "detalle") {
+            localStorage.setItem("detalleDireccion", value);
+        }
+
         // Construir la dirección completa
-        const direccionCompleta = `${direccion.tipoVia} ${direccion.numeroPrincipal} ${direccion.letraPrincipal} ${direccion.bisGuion} ${direccion.letraSecundaria} ${direccion.orientacion} No. ${direccion.numeroSecundario} ${direccion.letraAdicional} - ${direccion.numeroFinal} ${direccion.orientacionFinal}${direccion.detalle}`;
+        const direccionCompleta = `${direccion.tipoVia} ${direccion.numeroPrincipal} ${direccion.letraPrincipal} ${direccion.bisGuion} ${direccion.letraSecundaria} ${direccion.orientacion} No. ${direccion.numeroSecundario} ${direccion.letraAdicional} - ${direccion.numeroFinal} ${direccion.orientacionFinal}`;
         setFormData({ ...formData, var_direccionResidencia: direccionCompleta });
 
         localStorage.setItem('direccionCompleta', direccionCompleta);
@@ -225,13 +230,13 @@ const VistaDatosProfesional = () => {
                     }}
                 />
             </div>
-            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: '#F2F2F2',  borderColor: '#202B52'  }}>
+            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: '#F2F2F2', borderColor: '#202B52' }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
                         <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}> Datos personales </Typography>
                     </Box>
                 </Box>
-                <Divider style={{ marginLeft: '5%', marginRight: '5%',  borderColor: '#202B52'  }} />
+                <Divider style={{ marginLeft: '5%', marginRight: '5%', borderColor: '#202B52' }} />
                 <CardContent sx={{ padding: "30px" }}>
                     <form onSubmit={manejarSiguiente}>
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Departamento:</Typography>
@@ -438,7 +443,7 @@ const VistaDatosProfesional = () => {
                                 <MenuItem key={zona} value={zona}>{zona}</MenuItem>
                             ))}
                         </TextField>
-                        
+
 
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Tipo de Vivienda:</Typography>
                         <TextField select name="var_tipoVivienda" value={formData.var_tipoVivienda} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_tipoVivienda}
@@ -503,11 +508,11 @@ const VistaDatosProfesional = () => {
                                 fullWidth
                                 variant="outlined"
                                 MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }} sx={{
-                                        height: "40px",
-                                        fontFamily: "Poppins",
-                                        fontSize: "16px"
-                                    }}
-                             >
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                }}
+                            >
                                 {serviciosQueNoCuentan.map((actividad) => (
                                     <MenuItem key={actividad.id_servicioQueNoCuentaPK} value={actividad.id_servicioQueNoCuentaPK}>
                                         <Checkbox checked={selectedServiciosQueNoCuentan.indexOf(actividad.id_servicioQueNoCuentaPK) > -1} />
@@ -553,11 +558,11 @@ const VistaDatosProfesional = () => {
                                 variant="outlined"
                                 MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }}
                                 sx={{
-                                        height: "40px",
-                                        fontFamily: "Poppins",
-                                        fontSize: "16px"
-                                    }}
-                                
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px"
+                                }}
+
                             >
                                 {factoresRiesgoOptions.map((factor) => (
                                     <MenuItem key={factor.id_factoresRiesgoPK} value={factor.id_factoresRiesgoPK}>

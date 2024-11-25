@@ -57,18 +57,16 @@ const VistaDatosProfesional4 = () => {
     });
   };
 
-  // useEffect para obtener los bancos desde el servidor
-  useEffect(() => {
-    const fetchBancos = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3001/cuentasBancarias"
-        );
-        setBancos(response.data);
-      } catch (error) {
-        console.error("Error al obtener los bancos:", error);
-      }
-    };
+    // useEffect para obtener los bancos desde el servidor
+    useEffect(() => {
+        const fetchBancos = async () => {
+            try {
+                const response = await axios.get("https://evaluacion.esumer.edu.co/cuentasBancarias");
+                setBancos(response.data);
+            } catch (error) {
+                console.error("Error al obtener los bancos:", error);
+            }
+        };
 
     fetchBancos();
   }, []);

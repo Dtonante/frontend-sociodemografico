@@ -89,66 +89,59 @@ const VistaDatosProfesional3 = () => {
     });
   };
 
-  // Hacer la solicitud para obtener los servicios de salud adicional
-  useEffect(() => {
-    const fetchServiciosSaludAdicional = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3001/servicioSaludAdicional/"
-        );
-        setServiciosSaludAdicionalOptions(response.data);
-      } catch (error) {
-        console.error(
-          "Error al obtener los servicios de salud adicional:",
-          error
-        );
-      }
-    };
-    fetchServiciosSaludAdicional();
-  }, []);
+    // Hacer la solicitud para obtener los servicios de salud adicional
+    useEffect(() => {
+        const fetchServiciosSaludAdicional = async () => {
+            try {
+                const response = await axios.get('https://evaluacion.esumer.edu.co/servicioSaludAdicional/');
+                setServiciosSaludAdicionalOptions(response.data);
+            } catch (error) {
+                console.error('Error al obtener los servicios de salud adicional:', error);
+            }
+        };
+        fetchServiciosSaludAdicional();
+    }, []);
 
-  // Hacer la solicitud para obtener las EPS al cargar el componente
-  useEffect(() => {
-    const fetchEps = async () => {
-      try {
-        const response = await axios.get("http://localhost:3001/eps/");
-        setEpsOptions(response.data);
-      } catch (error) {
-        console.error("Error al obtener las EPS:", error);
-      }
-    };
+    // Hacer la solicitud para obtener las EPS al cargar el componente
+    useEffect(() => {
+        const fetchEps = async () => {
+            try {
+                const response = await axios.get('https://evaluacion.esumer.edu.co/eps/');
+                setEpsOptions(response.data);
+            } catch (error) {
+                console.error('Error al obtener las EPS:', error);
+            }
+        };
 
     fetchEps();
   }, []);
 
-  // Hacer la solicitud para obtener los antecedentes médicos
-  useEffect(() => {
-    const fetchAntecedentes = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3001/antecedentesMedicos/"
-        );
-        setAntecedentesOptions(response.data);
-      } catch (error) {
-        console.error("Error al obtener los antecedentes médicos:", error);
-      }
-    };
+    // Hacer la solicitud para obtener los antecedentes médicos
+    useEffect(() => {
+        const fetchAntecedentes = async () => {
+            try {
+                const response = await axios.get('https://evaluacion.esumer.edu.co/antecedentesMedicos/');
+                setAntecedentesOptions(response.data);
+            } catch (error) {
+                console.error('Error al obtener los antecedentes médicos:', error);
+            }
+        };
 
     fetchAntecedentes();
   }, []);
 
-  // Hacer la solicitud para obtener los fondos de pensión
-  useEffect(() => {
-    const fetchFondosPension = async () => {
-      try {
-        const response = await axios.get("http://localhost:3001/fondoPension/");
-        setFondoPensionOptions(response.data); // Guardamos las opciones en el estado
-      } catch (error) {
-        console.error("Error al obtener los fondos de pensión:", error);
-      }
-    };
-    fetchFondosPension();
-  }, []);
+    // Hacer la solicitud para obtener los fondos de pensión
+    useEffect(() => {
+        const fetchFondosPension = async () => {
+            try {
+                const response = await axios.get('https://evaluacion.esumer.edu.co/fondoPension/');
+                setFondoPensionOptions(response.data); // Guardamos las opciones en el estado
+            } catch (error) {
+                console.error('Error al obtener los fondos de pensión:', error);
+            }
+        };
+        fetchFondosPension();
+    }, []);
 
   // Guardar los datos en el localStorage al cambiar alguna selección
   const manejarCambio = (event, campo) => {

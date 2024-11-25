@@ -127,17 +127,15 @@ const VistaDatosProfesional5 = () => {
     });
   };
 
-  useEffect(() => {
-    const fetchEstructuraOrganizacional = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3001/estructuraOrganizacional"
-        );
-        setEstructuraOrganizacional(response.data);
-      } catch (error) {
-        console.error("Error al obtener las áreas:", error);
-      }
-    };
+    useEffect(() => {
+        const fetchEstructuraOrganizacional = async () => {
+            try {
+                const response = await axios.get('https://evaluacion.esumer.edu.co/estructuraOrganizacional');
+                setEstructuraOrganizacional(response.data);
+            } catch (error) {
+                console.error('Error al obtener las áreas:', error);
+            }
+        };
 
     if (afiliado === "si") {
       fetchEstructuraOrganizacional();
@@ -165,45 +163,42 @@ const VistaDatosProfesional5 = () => {
     if (name === "afiliado") {
       setAfiliado(value);
 
-      if (value === "no") {
-        // Establecer todos los campos como "N/A" si la respuesta es "no"
-        const areaNA = estructuraOrganizacional.find(
-          (area) => area.var_nombreArea === "N/A"
-        );
-        if (areaNA) {
-          const areaId = Number(areaNA.id_areaPk); // Convertir el id a un número
-          setAreaSeleccionada(areaId);
-          localStorage.setItem("area", areaId.toString()); // Guardar como string pero asegurándonos que es un número
-        }
-        setFechaIngreso("2024-11-03T00:00:00.000Z");
-        setTipoContrato("N/A");
-        setSalario("N/A");
-        setAntiguedadInstitucion("N/A");
-        setJefeInmediato("N/A");
-        setSede("N/A");
-        setVar_correoElectronicoInstitucional("N/A");
+            if (value === "no") {
+                // Establecer todos los campos como "N/A" si la respuesta es "no"
+                const areaNA = estructuraOrganizacional.find(area => area.var_nombreArea === "N/A");
+                if (areaNA) {
+                    const areaId = Number(areaNA.id_areaPk); // Convertir el id a un número
+                    setAreaSeleccionada(areaId);
+                    localStorage.setItem('area', areaId.toString()); // Guardar como string pero asegurándonos que es un número
+                }
+                setFechaIngreso("2024-11-03T00:00:00.000Z");
+                setTipoContrato("N/A");
+                setSalario("N/A");
+                setAntiguedadInstitucion("N/A");
+                setJefeInmediato("N/A");
+                setSede("N/A");
+                setVar_correoElectronicoInstitucional("N/A");
+                setCargo("N/A")
 
-        // Almacenar en localStorage
-        localStorage.setItem(
-          "date_fechaIngresoInstitucion",
-          "2024-11-03T00:00:00.000Z"
-        );
-        localStorage.setItem("var_tipoContrato", "N/A");
-        localStorage.setItem("var_salario", "N/A");
-        localStorage.setItem("var_antiguedadInstitucion", "N/A");
-        localStorage.setItem("var_jefeInmediato", "N/A");
-        localStorage.setItem("var_sede", "N/A");
-        localStorage.setItem("var_correoElectronicoInstitucional", "N/A");
-      }
-    } else if (name === "tipoContrato") {
-      setTipoContrato(value);
-      localStorage.setItem("var_tipoContrato", value);
-    } else if (name === "var_salario") {
-      setSalario(value);
-      localStorage.setItem("var_salario", value);
-    } else if (name === "date_fechaIngresoInstitucion") {
-      setFechaIngreso(value);
-      localStorage.setItem("date_fechaIngresoInstitucion", value);
+                // Almacenar en localStorage
+                localStorage.setItem('date_fechaIngresoInstitucion', "2024-11-03T00:00:00.000Z");
+                localStorage.setItem('var_tipoContrato', "N/A");
+                localStorage.setItem('var_salario', "N/A");
+                localStorage.setItem('var_antiguedadInstitucion', "N/A");
+                localStorage.setItem('var_jefeInmediato', "N/A");
+                localStorage.setItem('var_sede', "N/A");
+                localStorage.setItem('var_correoElectronicoInstitucional', "N/A");
+                localStorage.setItem('var_cargo', "N/A")
+            }
+        } else if (name === "tipoContrato") {
+            setTipoContrato(value);
+            localStorage.setItem('var_tipoContrato', value);
+        } else if (name === "var_salario") {
+            setSalario(value);
+            localStorage.setItem('var_salario', value);
+        } else if (name === "date_fechaIngresoInstitucion") {
+            setFechaIngreso(value);
+            localStorage.setItem('date_fechaIngresoInstitucion', value);
 
       const fechaIngresoDate = new Date(value);
       const fechaActual = new Date();
