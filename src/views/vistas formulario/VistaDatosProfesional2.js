@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, Divider, Box, Typography, FormHelperText, FormControl, TextField, Button, ListItemText, Checkbox, Select, MenuItem } from "@mui/material";
+import { set } from "lodash";
 
 const VistaDatosProfesional2 = () => {
     const navigate = useNavigate();
@@ -36,6 +37,7 @@ const VistaDatosProfesional2 = () => {
                 setSet_personasConLasQueVive(["N/A"]);
                 localStorage.setItem("var_numeroPersonasConLasQueVive", "N/A");
                 localStorage.setItem("set_personasConLasQueVive", JSON.stringify(["N/A"]));
+                localStorage.setItem("boolean_viveSolo", newValue )
             }
         } else if (name === "boolean_viveConMascotas") {
             const newValue = value === "true";
