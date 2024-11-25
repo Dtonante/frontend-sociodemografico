@@ -272,8 +272,6 @@ const VistaDatosProfesional7 = () => {
             nuevosErrores.frecuenciaActividadFisica = "Indicar la frecuencia es obligatorio.";
         }
 
-       
-
         if (Object.keys(nuevosErrores).length > 0) {
             setErrors(nuevosErrores);
             return;

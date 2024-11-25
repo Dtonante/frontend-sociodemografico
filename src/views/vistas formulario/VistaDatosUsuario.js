@@ -17,8 +17,11 @@ import {
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { DateTime } from "luxon"; // Para manejar y validar fechas
+import show_alert from "../../components/showAlert/alertFuntion";
 
 const VistaDatosUsuario = () => {
+  const minDate = DateTime.now().minus({ years: 18 }).toISODate(); // Fecha mínima: 18 años atrás
   const [formData, setFormData] = React.useState({
     id_rolFK: 2,
     boolean_estado: true,
@@ -29,7 +32,7 @@ const VistaDatosUsuario = () => {
     var_correoElectronicoPersonal: "",
     var_rh: "",
     var_grupoEtnico: "",
-    date_fechaNacimiento: "",
+    date_fechaNacimiento: minDate,
     var_celular: "",
     var_telefonoFijo: "",
     var_contrasena: "",
@@ -37,13 +40,25 @@ const VistaDatosUsuario = () => {
   });
   const [tiposDocumento, setTiposDocumento] = useState([]);
   const navigate = useNavigate();
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({
+    date_fechaNacimiento: "",
+  });
   const [touchedFields, setTouchedFields] = useState({});
   const porcentajeProgreso = 15;
+  const [tipoDocumentoValidation, setTipoDocumentoValidation] = useState(null);
+
 
   // Validaciones basadas en los campos tocados
   useEffect(() => {
     const nuevosErrores = {};
+
+    // Establecemos el valor mínimo de la fecha si es necesario
+    if (!formData.date_fechaNacimiento) {
+      setFormData((prevState) => ({
+        ...prevState,
+        date_fechaNacimiento: minDate, // Solo si no hay valor de fecha
+      }));
+    }
 
     // Validación nombre completo
     if (
@@ -112,15 +127,18 @@ const VistaDatosUsuario = () => {
     }
 
     // Validación fecha de nacimiento
-    if (touchedFields.date_fechaNacimiento && !formData.date_fechaNacimiento) {
-      nuevosErrores.date_fechaNacimiento =
-        "La fecha de nacimiento es obligatoria";
-    } else if (
-      formData.date_fechaNacimiento &&
-      !/^\d{4}-\d{2}-\d{2}$/.test(formData.date_fechaNacimiento)
-    ) {
-      nuevosErrores.date_fechaNacimiento =
-        "La fecha de nacimiento debe tener el formato AAAA-MM-DD";
+    // Validación de la fecha solo cuando el campo ha sido tocado
+    if (touchedFields.date_fechaNacimiento) {
+      if (!formData.date_fechaNacimiento) {
+        nuevosErrores.date_fechaNacimiento =
+          "La fecha de nacimiento es obligatoria";
+      } else if (
+        formData.date_fechaNacimiento &&
+        !/^\d{4}-\d{2}-\d{2}$/.test(formData.date_fechaNacimiento)
+      ) {
+        nuevosErrores.date_fechaNacimiento =
+          "La fecha de nacimiento debe tener el formato AAAA-MM-DD";
+      }
     }
 
     // Validación celular (campo tipo String)
@@ -171,22 +189,58 @@ const VistaDatosUsuario = () => {
       nuevosErrores.confirmar_contrasena = "Las contraseñas no coinciden";
     }
 
+    // Actualizar los errores
     setErrors(nuevosErrores);
-  }, [formData, touchedFields]);
+  }, [formData, touchedFields]); // Ejecutar el useEffect cada vez que se cambia formData o touchedFields
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
-    // Solo modificamos el valor de var_nombreCompleto a mayúsculas
+    // Cuando cambiamos el campo de fecha de nacimiento
+    if (name === "date_fechaNacimiento") {
+      const selectedDate = DateTime.fromISO(value); // Convierte el valor a formato Luxon
+
+      // Si la fecha no es válida, mostramos un error
+      if (!selectedDate.isValid) {
+        setErrors({
+          ...errors,
+          date_fechaNacimiento: "La fecha seleccionada no es válida.",
+        });
+        return; // Detenemos la ejecución si la fecha no es válida
+      }
+
+      // Validamos que la fecha sea mayor a 18 años
+      const minDate = DateTime.now().minus({ years: 18 });
+      if (selectedDate > minDate) {
+        setErrors({
+          ...errors,
+          date_fechaNacimiento:
+            "La fecha de nacimiento debe ser al menos 18 años antes de hoy.",
+        });
+      } else {
+        setErrors({
+          ...errors,
+          date_fechaNacimiento: "", // Limpiamos el error si la fecha es válida
+        });
+      }
+
+      // Actualizamos el valor de la fecha en el estado
+      setFormData({
+        ...formData,
+        date_fechaNacimiento: value, // Actualizamos el valor de la fecha
+      });
+    }
+
+    // Si no es la fecha, manejamos el cambio de otros campos
     if (name === "var_nombreCompleto") {
       setFormData({
         ...formData,
-        [name]: value.toUpperCase(), // Convertimos el valor a mayúsculas solo en este campo
+        [name]: value.toUpperCase(), // Convertimos el valor a mayúsculas
       });
     } else {
       setFormData({
         ...formData,
-        [name]: value, // Para otros campos, no modificamos el valor
+        [name]: value, // Actualizamos otros campos normalmente
       });
     }
   };
@@ -341,6 +395,22 @@ const VistaDatosUsuario = () => {
     }
   };
 
+  const handleDateChange = (event) => {
+    const { value } = event.target;
+    // Validación para evitar fechas futuras
+    if (value > minDate) {
+      // Si la fecha seleccionada es posterior a la fecha mínima (18 años atrás), restablece al valor válido
+      show_alert("Debes tener minimo 18 años para el registro.", 'info');
+      return;
+    }
+
+    // Si la fecha es válida, actualizamos el estado
+    setFormData({
+      ...formData,
+      date_fechaNacimiento: value, // Actualiza el valor de la fecha
+    });
+  };
+
   return (
     <div
       style={{
@@ -486,8 +556,10 @@ const VistaDatosUsuario = () => {
               type="date"
               variant="outlined"
               value={formData.date_fechaNacimiento}
-              onChange={handleInputChange}
               fullWidth
+              min={minDate} // Se establece el valor mínimo (18 años atrás)
+              max={minDate} // No permitir fechas futuras
+              onChange={handleDateChange}
               sx={{ mb: 2 }}
               InputLabelProps={{ shrink: true }}
               onBlur={handleBlur}
@@ -506,6 +578,10 @@ const VistaDatosUsuario = () => {
                 },
               }}
             />
+            {errors.date_fechaNacimiento && (
+              <div style={{ color: "red" }}>{errors.date_fechaNacimiento}</div>
+            )}
+
             <Typography
               variant="h6"
               sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
