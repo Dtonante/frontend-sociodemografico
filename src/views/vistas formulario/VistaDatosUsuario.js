@@ -17,8 +17,11 @@ import {
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { DateTime } from "luxon"; // Para manejar y validar fechas
+import show_alert from "../../components/showAlert/alertFuntion";
 
 const VistaDatosUsuario = () => {
+  const minDate = DateTime.now().minus({ years: 18 }).toISODate(); // Fecha mínima: 18 años atrás
   const [formData, setFormData] = React.useState({
     id_rolFK: 2,
     boolean_estado: true,
@@ -29,7 +32,7 @@ const VistaDatosUsuario = () => {
     var_correoElectronicoPersonal: "",
     var_rh: "",
     var_grupoEtnico: "",
-    date_fechaNacimiento: "",
+    date_fechaNacimiento: minDate,
     var_celular: "",
     var_telefonoFijo: "",
     var_contrasena: "",
@@ -37,13 +40,23 @@ const VistaDatosUsuario = () => {
   });
   const [tiposDocumento, setTiposDocumento] = useState([]);
   const navigate = useNavigate();
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({
+    date_fechaNacimiento: "",
+  });
   const [touchedFields, setTouchedFields] = useState({});
   const porcentajeProgreso = 15;
 
   // Validaciones basadas en los campos tocados
   useEffect(() => {
     const nuevosErrores = {};
+
+    // Establecemos el valor mínimo de la fecha si es necesario
+    if (!formData.date_fechaNacimiento) {
+      setFormData((prevState) => ({
+        ...prevState,
+        date_fechaNacimiento: minDate, // Solo si no hay valor de fecha
+      }));
+    }
 
     // Validación nombre completo
     if (
@@ -66,18 +79,44 @@ const VistaDatosUsuario = () => {
 
     // Validación número de documento
     if (touchedFields.var_numeroDocumento) {
-      if (!formData.var_numeroDocumento.trim()) {
+      const tipoDocumento = tiposDocumento.find(
+        (option) => option.id_tipoDocumentoPK === formData.int_tipoDocumentoFK
+      )?.var_nombreDocumento;
+
+      if (!tipoDocumento) {
+        nuevosErrores.var_numeroDocumento =
+          "Debe seleccionar un tipo de documento antes de ingresar el número";
+      } else if (!formData.var_numeroDocumento.trim()) {
         nuevosErrores.var_numeroDocumento =
           "El número de documento es obligatorio";
-      } else if (!/^\d+$/.test(formData.var_numeroDocumento)) {
-        nuevosErrores.var_numeroDocumento =
-          "El número de documento solo puede contener números";
       } else if (formData.var_numeroDocumento.length < 5) {
         nuevosErrores.var_numeroDocumento =
           "El número de documento debe tener al menos 5 caracteres";
       } else if (formData.var_numeroDocumento.length > 50) {
         nuevosErrores.var_numeroDocumento =
           "El número de documento no puede exceder los 50 caracteres";
+      } else {
+        const validationRules = {
+          "Cédula de Ciudadanía (CC)": /^[0-9]*$/, // Solo números
+          "Tarjeta de Identidad (TI)": /^[0-9]*$/, // Solo números
+          "Cédula de Extranjería (CE)": /^[A-Z0-9]*$/, // Letras mayúsculas y números
+          "Registro Civil de Nacimiento (RCN)": /^[A-Z0-9]*$/, // Letras mayúsculas y números
+          Pasaporte: /^[A-Z0-9]*$/, // Letras mayúsculas y números
+          "Permiso Especial de Permanencia (PEP)": /^[A-Z0-9]*$/, // Letras mayúsculas y números
+          "Permiso por Protección Temporal (PPT)": /^[A-Z0-9]*$/, // Letras mayúsculas y números
+          "Documento Nacional de Identificación de otro país (DNI)":
+            /^[A-Z0-9]*$/, // Letras mayúsculas y números
+          "Licencia de Conducción": /^[A-Z0-9]*$/, // Letras mayúsculas y números
+          "Carné Diplomatico": /^[A-Z0-9]*$/, // Letras mayúsculas y números
+          "Permiso Especial de Trabajo (PET)": /^[A-Z0-9]*$/, // Letras mayúsculas y números
+          "Carné de Migración o Carné de Extranjería Temporal": /^[A-Z0-9]*$/, // Letras mayúsculas y números
+        };
+
+        const regex = validationRules[tipoDocumento];
+        if (regex && !regex.test(formData.var_numeroDocumento)) {
+          nuevosErrores.var_numeroDocumento =
+            "El número de documento no tiene un formato válido para el tipo de documento seleccionado";
+        }
       }
     }
 
@@ -112,15 +151,18 @@ const VistaDatosUsuario = () => {
     }
 
     // Validación fecha de nacimiento
-    if (touchedFields.date_fechaNacimiento && !formData.date_fechaNacimiento) {
-      nuevosErrores.date_fechaNacimiento =
-        "La fecha de nacimiento es obligatoria";
-    } else if (
-      formData.date_fechaNacimiento &&
-      !/^\d{4}-\d{2}-\d{2}$/.test(formData.date_fechaNacimiento)
-    ) {
-      nuevosErrores.date_fechaNacimiento =
-        "La fecha de nacimiento debe tener el formato AAAA-MM-DD";
+    // Validación de la fecha solo cuando el campo ha sido tocado
+    if (touchedFields.date_fechaNacimiento) {
+      if (!formData.date_fechaNacimiento) {
+        nuevosErrores.date_fechaNacimiento =
+          "La fecha de nacimiento es obligatoria";
+      } else if (
+        formData.date_fechaNacimiento &&
+        !/^\d{4}-\d{2}-\d{2}$/.test(formData.date_fechaNacimiento)
+      ) {
+        nuevosErrores.date_fechaNacimiento =
+          "La fecha de nacimiento debe tener el formato AAAA-MM-DD";
+      }
     }
 
     // Validación celular (campo tipo String)
@@ -171,54 +213,161 @@ const VistaDatosUsuario = () => {
       nuevosErrores.confirmar_contrasena = "Las contraseñas no coinciden";
     }
 
+    // Actualizar los errores
     setErrors(nuevosErrores);
-  }, [formData, touchedFields]);
+  }, [formData, touchedFields]); // Ejecutar el useEffect cada vez que se cambia formData o touchedFields
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
-    // Solo modificamos el valor de var_nombreCompleto a mayúsculas
+    // Cuando cambiamos el campo de fecha de nacimiento
+    if (name === "date_fechaNacimiento") {
+      const selectedDate = DateTime.fromISO(value); // Convierte el valor a formato Luxon
+
+      // Si la fecha no es válida, mostramos un error
+      if (!selectedDate.isValid) {
+        setErrors({
+          ...errors,
+          date_fechaNacimiento: "La fecha seleccionada no es válida.",
+        });
+        return; // Detenemos la ejecución si la fecha no es válida
+      }
+
+      // Validamos que la fecha sea mayor a 18 años
+      const minDate = DateTime.now().minus({ years: 18 });
+      if (selectedDate > minDate) {
+        setErrors({
+          ...errors,
+          date_fechaNacimiento:
+            "La fecha de nacimiento debe ser al menos 18 años antes de hoy.",
+        });
+      } else {
+        setErrors({
+          ...errors,
+          date_fechaNacimiento: "", // Limpiamos el error si la fecha es válida
+        });
+      }
+
+      // Actualizamos el valor de la fecha en el estado
+      setFormData({
+        ...formData,
+        date_fechaNacimiento: value, // Actualizamos el valor de la fecha
+      });
+    }
+
+    // Si no es la fecha, manejamos el cambio de otros campos
     if (name === "var_nombreCompleto") {
       setFormData({
         ...formData,
-        [name]: value.toUpperCase(), // Convertimos el valor a mayúsculas solo en este campo
+        [name]: value.toUpperCase(), // Convertimos el valor a mayúsculas
       });
     } else {
       setFormData({
         ...formData,
-        [name]: value, // Para otros campos, no modificamos el valor
+        [name]: value, // Actualizamos otros campos normalmente
       });
     }
   };
 
   const handleKeyPress = (event, fieldName) => {
+    const tipoDocumento = tiposDocumento.find(
+      (option) => option.id_tipoDocumentoPK === formData.int_tipoDocumentoFK
+    )?.var_nombreDocumento;
+
     let regex;
 
-    // Condicional según el name del campo
-    if (
-      fieldName === "var_numeroDocumento" ||
-      fieldName === "var_telefonoFijo" ||
-      fieldName === "var_celular"
-    ) {
-      // Solo permitimos números
-      regex = /^[0-9]*$/;
-    } else if (fieldName === "var_nombreCompleto") {
-      // Solo permitimos letras (incluyendo acentos y ñ) y espacios
-      regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/;
+    // Bloquear entrada si no se ha seleccionado un tipo de documento
+    if (!tipoDocumento) {
+      event.preventDefault(); // Bloquea cualquier entrada
+      return;
     }
 
+    if (fieldName === "var_numeroDocumento") {
+      const validationRules = {
+        "Cédula de Ciudadanía (CC)": /^[0-9]*$/, // Solo números
+        "Tarjeta de Identidad (TI)": /^[0-9]*$/, // Solo números
+        "Cédula de Extranjería (CE)": /^[A-Za-z0-9]*$/, // Letras (mayúsculas/minúsculas) y números
+        "Registro Civil de Nacimiento (RCN)": /^[A-Za-z0-9]*$/, // Letras (mayúsculas/minúsculas) y números
+        Pasaporte: /^[A-Za-z0-9]*$/, // Letras (mayúsculas/minúsculas) y números
+        "Permiso Especial de Permanencia (PEP)": /^[A-Za-z0-9]*$/, // Letras (mayúsculas/minúsculas) y números
+        "Permiso por Protección Temporal (PPT)": /^[A-Za-z0-9]*$/, // Letras (mayúsculas/minúsculas) y números
+        "Documento Nacional de Identificación de otro país (DNI)":
+          /^[A-Za-z0-9]*$/, // Letras (mayúsculas/minúsculas) y números
+        "Licencia de Conducción": /^[A-Za-z0-9]*$/, // Letras (mayúsculas/minúsculas) y números
+        "Carné Diplomatico": /^[A-Za-z0-9]*$/, // Letras (mayúsculas/minúsculas) y números
+        "Permiso Especial de Trabajo (PET)": /^[A-Za-z0-9]*$/, // Letras (mayúsculas/minúsculas) y números
+        "Carné de Migración o Carné de Extranjería Temporal": /^[A-Za-z0-9]*$/, // Letras (mayúsculas/minúsculas) y números
+      };
+
+      regex = validationRules[tipoDocumento];
+    }
+
+    // Bloquea caracteres inválidos
     if (regex && !regex.test(event.key)) {
-      event.preventDefault(); // Evita la entrada de caracteres no válidos
+      event.preventDefault();
+    } else if (
+      fieldName === "var_numeroDocumento" &&
+      /^[a-z]$/.test(event.key)
+    ) {
+      // Si es una letra minúscula válida, la transformamos a mayúscula
+      event.preventDefault(); // Evitamos que se escriba directamente en minúscula
+      const uppercaseKey = event.key.toUpperCase(); // Convertimos a mayúscula
+      const input = event.target;
+      const cursorPosition = input.selectionStart;
+
+      // Insertamos la letra mayúscula en la posición actual del cursor
+      const newValue =
+        input.value.slice(0, cursorPosition) +
+        uppercaseKey +
+        input.value.slice(cursorPosition);
+      input.value = newValue;
+
+      // Actualizamos la posición del cursor
+      input.setSelectionRange(cursorPosition + 1, cursorPosition + 1);
+
+      // Disparamos manualmente el evento de cambio para sincronizar el estado
+      input.dispatchEvent(new Event("input", { bubbles: true }));
     }
   };
 
   // Marcar un campo como "tocado" cuando pierde el enfoque
   const handleBlur = (event) => {
-    const { name } = event.target;
-    setTouchedFields({
-      ...touchedFields,
+    const { name, value } = event.target;
+
+    // Marca el campo como "tocado"
+    setTouchedFields((prevTouchedFields) => ({
+      ...prevTouchedFields,
       [name]: true,
-    });
+    }));
+
+    // Validaciones específicas para var_numeroDocumento
+    if (name === "var_numeroDocumento") {
+      const tipoDocumento = tiposDocumento.find(
+        (option) => option.id_tipoDocumentoPK === formData.int_tipoDocumentoFK
+      )?.var_nombreDocumento;
+
+      const validationRules = {
+        "Cédula de Ciudadanía (CC)": /^[0-9]{6,10}$/,
+        "Tarjeta de Identidad (TI)": /^[0-9]{6,10}$/,
+        "Cédula de Extranjería (CE)": /^[A-Za-z0-9]{5,15}$/,
+        "Registro Civil de Nacimiento (RCN)": /^[A-Za-z0-9]{5,15}$/,
+        Pasaporte: /^[A-Za-z0-9]{6,20}$/,
+        // Agrega más reglas según sea necesario...
+      };
+
+      const regex = validationRules[tipoDocumento];
+      if (regex && !regex.test(value)) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [name]: `El formato del ${tipoDocumento} es inválido.`,
+        }));
+      } else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [name]: "",
+        }));
+      }
+    }
   };
 
   // Función para obtener los tipos de documentos desde el servidor
@@ -226,7 +375,7 @@ const VistaDatosUsuario = () => {
     const fetchTiposDocumento = async () => {
       try {
         const response = await axios.get(
-          "https://evaluacion.esumer.edu.co/tipodocumentos/"
+          "http://localhost:3001/tipodocumentos/"
         );
         setTiposDocumento(response.data);
       } catch (error) {
@@ -316,7 +465,7 @@ const VistaDatosUsuario = () => {
 
     try {
       const response = await axios.post(
-        "https://evaluacion.esumer.edu.co/usuarios/",
+        "http://localhost:3001/usuarios/",
         formData
       );
       console.log("Usuario creado:", response.data);
@@ -339,6 +488,22 @@ const VistaDatosUsuario = () => {
     } catch (error) {
       console.error("Error al crear el usuario:", error);
     }
+  };
+
+  const handleDateChange = (event) => {
+    const { value } = event.target;
+    // Validación para evitar fechas futuras
+    if (value > minDate) {
+      // Si la fecha seleccionada es posterior a la fecha mínima (18 años atrás), restablece al valor válido
+      show_alert("Debes tener minimo 18 años para el registro.", "info");
+      return;
+    }
+
+    // Si la fecha es válida, actualizamos el estado
+    setFormData({
+      ...formData,
+      date_fechaNacimiento: value, // Actualiza el valor de la fecha
+    });
   };
 
   return (
@@ -486,8 +651,10 @@ const VistaDatosUsuario = () => {
               type="date"
               variant="outlined"
               value={formData.date_fechaNacimiento}
-              onChange={handleInputChange}
               fullWidth
+              min={minDate} // Se establece el valor mínimo (18 años atrás)
+              max={minDate} // No permitir fechas futuras
+              onChange={handleDateChange}
               sx={{ mb: 2 }}
               InputLabelProps={{ shrink: true }}
               onBlur={handleBlur}
@@ -506,6 +673,10 @@ const VistaDatosUsuario = () => {
                 },
               }}
             />
+            {errors.date_fechaNacimiento && (
+              <div style={{ color: "red" }}>{errors.date_fechaNacimiento}</div>
+            )}
+
             <Typography
               variant="h6"
               sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}

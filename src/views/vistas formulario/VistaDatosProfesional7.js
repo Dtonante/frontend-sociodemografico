@@ -288,8 +288,6 @@ const VistaDatosProfesional7 = () => {
             nuevosErrores.fuma = "El género es obligatorio";
         }
 
-
-
         if (Object.keys(nuevosErrores).length > 0) {
             setErrors(nuevosErrores);
             return;

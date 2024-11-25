@@ -15,10 +15,13 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "5.11.16",
     "@mui/lab": "5.0.0-alpha.133",
-    "@mui/material": "5.13.4",
+    "@mui/material": "^5.13.4",
     "@tabler/icons-react": "^2.35.0",
     "axios": "^1.7.7",
+    "date-fns": "^4.1.0",
+    "dayjs": "^1.11.13",
     "lodash": "^4.17.21",
+    "luxon": "^3.5.0",
     "pdfjs-dist": "^4.8.69",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
@@ -26,6 +29,7 @@
     "react-helmet": "^6.1.0",
     "react-router-dom": "^6.27.0",
     "sweetalert2-react-content": "^5.0.7",
+    "tempo": "^0.2.7",
     "vite-plugin-svgr": "^4.0.0"
   },
   "devDependencies": {
