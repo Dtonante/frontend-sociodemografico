@@ -270,65 +270,65 @@ const VistaDatosUsuario = () => {
   };
 
   const handleKeyPress = (event, fieldName) => {
-    const tipoDocumento = tiposDocumento.find(
-      (option) => option.id_tipoDocumentoPK === formData.int_tipoDocumentoFK
-    )?.var_nombreDocumento;
-
     let regex;
-
-    // Bloquear entrada si no se ha seleccionado un tipo de documento
-    if (!tipoDocumento) {
-      event.preventDefault(); // Bloquea cualquier entrada
-      return;
+  
+    // Validación para campos como teléfono y número de documento (solo números)
+    if (
+      fieldName === "var_telefonoFijo" ||
+      fieldName === "var_celular" ||
+      fieldName === "var_numeroDocumento"
+    ) {
+      // Solo permitimos números
+      regex = /^[0-9]*$/;
+    } else if (fieldName === "var_nombreCompleto") {
+      // Solo permitimos letras (incluyendo acentos y ñ) y espacios
+      regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/;
     }
-
+  
+    // Verificamos si se ha definido una expresión regular para el campo
+    if (regex && !regex.test(event.key)) {
+      event.preventDefault(); // Evita la entrada de caracteres no válidos
+      return; // Salimos de la función si el carácter no es válido
+    }
+  
+    // Validación para el número de documento
     if (fieldName === "var_numeroDocumento") {
+      const tipoDocumento = tiposDocumento.find(
+        (option) => option.id_tipoDocumentoPK === formData.int_tipoDocumentoFK
+      )?.var_nombreDocumento;
+  
+      // Bloquear entrada si no se ha seleccionado un tipo de documento
+      if (!tipoDocumento) {
+        event.preventDefault(); // Bloquea cualquier entrada si no se ha seleccionado un tipo
+        return;
+      }
+  
+      // Reglas de validación según el tipo de documento
       const validationRules = {
         "Cédula de Ciudadanía (CC)": /^[0-9]*$/, // Solo números
         "Tarjeta de Identidad (TI)": /^[0-9]*$/, // Solo números
-        "Cédula de Extranjería (CE)": /^[A-Za-z0-9]*$/, // Letras (mayúsculas/minúsculas) y números
-        "Registro Civil de Nacimiento (RCN)": /^[A-Za-z0-9]*$/, // Letras (mayúsculas/minúsculas) y números
-        Pasaporte: /^[A-Za-z0-9]*$/, // Letras (mayúsculas/minúsculas) y números
-        "Permiso Especial de Permanencia (PEP)": /^[A-Za-z0-9]*$/, // Letras (mayúsculas/minúsculas) y números
-        "Permiso por Protección Temporal (PPT)": /^[A-Za-z0-9]*$/, // Letras (mayúsculas/minúsculas) y números
-        "Documento Nacional de Identificación de otro país (DNI)":
-          /^[A-Za-z0-9]*$/, // Letras (mayúsculas/minúsculas) y números
-        "Licencia de Conducción": /^[A-Za-z0-9]*$/, // Letras (mayúsculas/minúsculas) y números
-        "Carné Diplomatico": /^[A-Za-z0-9]*$/, // Letras (mayúsculas/minúsculas) y números
-        "Permiso Especial de Trabajo (PET)": /^[A-Za-z0-9]*$/, // Letras (mayúsculas/minúsculas) y números
-        "Carné de Migración o Carné de Extranjería Temporal": /^[A-Za-z0-9]*$/, // Letras (mayúsculas/minúsculas) y números
+        "Cédula de Extranjería (CE)": /^[A-Za-z0-9]*$/, // Letras y números
+        "Registro Civil de Nacimiento (RCN)": /^[A-Za-z0-9]*$/, // Letras y números
+        Pasaporte: /^[A-Za-z0-9]*$/, // Letras y números
+        "Permiso Especial de Permanencia (PEP)": /^[A-Za-z0-9]*$/, // Letras y números
+        "Permiso por Protección Temporal (PPT)": /^[A-Za-z0-9]*$/, // Letras y números
+        "Documento Nacional de Identificación de otro país (DNI)": /^[A-Za-z0-9]*$/, // Letras y números
+        "Licencia de Conducción": /^[A-Za-z0-9]*$/, // Letras y números
+        "Carné Diplomatico": /^[A-Za-z0-9]*$/, // Letras y números
+        "Permiso Especial de Trabajo (PET)": /^[A-Za-z0-9]*$/, // Letras y números
+        "Carné de Migración o Carné de Extranjería Temporal": /^[A-Za-z0-9]*$/, // Letras y números
       };
-
+  
+      // Verificamos si la validación para el tipo de documento está definida
       regex = validationRules[tipoDocumento];
-    }
-
-    // Bloquea caracteres inválidos
-    if (regex && !regex.test(event.key)) {
-      event.preventDefault();
-    } else if (
-      fieldName === "var_numeroDocumento" &&
-      /^[a-z]$/.test(event.key)
-    ) {
-      // Si es una letra minúscula válida, la transformamos a mayúscula
-      event.preventDefault(); // Evitamos que se escriba directamente en minúscula
-      const uppercaseKey = event.key.toUpperCase(); // Convertimos a mayúscula
-      const input = event.target;
-      const cursorPosition = input.selectionStart;
-
-      // Insertamos la letra mayúscula en la posición actual del cursor
-      const newValue =
-        input.value.slice(0, cursorPosition) +
-        uppercaseKey +
-        input.value.slice(cursorPosition);
-      input.value = newValue;
-
-      // Actualizamos la posición del cursor
-      input.setSelectionRange(cursorPosition + 1, cursorPosition + 1);
-
-      // Disparamos manualmente el evento de cambio para sincronizar el estado
-      input.dispatchEvent(new Event("input", { bubbles: true }));
+  
+      // Validación del número de documento
+      if (regex && !regex.test(event.key)) {
+        event.preventDefault(); // Bloquea la entrada si no cumple con la expresión regular
+      }
     }
   };
+  
 
   // Marcar un campo como "tocado" cuando pierde el enfoque
   const handleBlur = (event) => {
