@@ -46,16 +46,12 @@ const VistaAgradecimientos = () => {
             const boolean_viveSolo = localStorage.getItem('boolean_viveSolo') === 'true';
             const var_numeroPersonasConLasQueVive = localStorage.getItem('var_numeroPersonasConLasQueVive')
             // const set_personasConLasQueVive = JSON.stringify('set_personasConLasQueVive');
-
             let set_personasConLasQueVive = JSON.stringify('set_personasConLasQueVive');
 
             // Verifica si el valor es igual a "set_personasConLasQueVive"
             if (set_personasConLasQueVive === '\"set_personasConLasQueVive\"') {
                 set_personasConLasQueVive = 'N/A';
             }
-
-            console.log(set_personasConLasQueVive); // Imprime "N/A" si es el valor original, o el valor que ya tenga.
-
             const boolean_viveConMascotas = localStorage.getItem('boolean_viveConMascotas') === 'true';
             const set_tipoMascotas = localStorage.getItem('set_tipoMascotas')
             const var_personasDependeciaEconimica = localStorage.getItem('var_personasDependeciaEconimica');
@@ -82,13 +78,27 @@ const VistaAgradecimientos = () => {
             const var_nombreCarrera = localStorage.getItem('nombreCarrera');
             const boolean_actualmenteEstudia = localStorage.getItem('actualmenteEstudia') === 'true';
             const boolean_actividadFisica = localStorage.getItem('boolean_actividadFisica') === 'true';
-            const var_frecuenciaActividadFisica = localStorage.getItem('var_frecuenciaActividadFisica');
+            let var_frecuenciaActividadFisica = localStorage.getItem('var_frecuenciaActividadFisica');
+            if (boolean_actividadFisica == false ){
+                var_frecuenciaActividadFisica = 'N/A' ;
+            } 
             const boolean_fuma = localStorage.getItem('boolean_fuma') === 'true';
-            const var_frecuenciaFuma = localStorage.getItem('var_frecuenciaFuma');
+            // const var_frecuenciaFuma = localStorage.getItem('var_frecuenciaFuma');
+            let var_frecuenciaFuma = localStorage.getItem('var_frecuenciaFuma');
+
+            if (boolean_fuma == false ){
+                var_frecuenciaFuma = 'N/A' ;
+            } 
             const boolean_toma = localStorage.getItem('boolean_toma') === 'true';
-            const var_frecuenciaToma = localStorage.getItem('var_frecuenciaToma');
+            let var_frecuenciaToma = localStorage.getItem('var_frecuenciaToma');
+            if (boolean_toma == false ){
+                var_frecuenciaToma = 'N/A' ;
+            } 
             const boolean_sustanciasPsicoactivas = localStorage.getItem('boolean_sustanciasPsicoactivas') === 'true';
-            const var_frecuenciaSustanciasPsicoactivas = localStorage.getItem('var_frecuenciaSustanciasPsicoactivas');
+            let var_frecuenciaSustanciasPsicoactivas = localStorage.getItem('var_frecuenciaSustanciasPsicoactivas');
+            if (boolean_sustanciasPsicoactivas == false ){
+                var_frecuenciaSustanciasPsicoactivas = 'N/A' ;
+            } 
             const set_mediosTransportePublico = localStorage.getItem('set_mediosTransportePublico');
             const set_pasoMayorTiempoLibre = JSON.stringify(JSON.parse(localStorage.getItem('set_pasoMayorTiempoLibre')));
             const var_peso = localStorage.getItem('var_peso');
