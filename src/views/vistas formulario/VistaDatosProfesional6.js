@@ -119,7 +119,7 @@ const VistaDatosProfesional6 = () => {
         try {
             // Enviar el formulario con el archivo PDF al backend si graduacion es true
             if (graduacion && certificadoPdf) {
-                const response = await axios.post("http://localhost:3001/certificados/subir/", formData, {
+                const response = await axios.post("https://evaluacion.esumer.edu.co/certificados/subir/", formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },

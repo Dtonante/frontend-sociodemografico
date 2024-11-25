@@ -91,7 +91,7 @@ const VistaDatosProfesional5 = () => {
     useEffect(() => {
         const fetchEstructuraOrganizacional = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/estructuraOrganizacional');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/estructuraOrganizacional');
                 setEstructuraOrganizacional(response.data);
             } catch (error) {
                 console.error('Error al obtener las áreas:', error);
@@ -140,7 +140,8 @@ const VistaDatosProfesional5 = () => {
                 setAntiguedadInstitucion("N/A");
                 setJefeInmediato("N/A");
                 setSede("N/A");
-                setVar_correoElectronicoInstitucional("N/A")
+                setVar_correoElectronicoInstitucional("N/A");
+                setCargo("N/A")
 
                 // Almacenar en localStorage
                 localStorage.setItem('date_fechaIngresoInstitucion', "2024-11-03T00:00:00.000Z");
@@ -150,6 +151,7 @@ const VistaDatosProfesional5 = () => {
                 localStorage.setItem('var_jefeInmediato', "N/A");
                 localStorage.setItem('var_sede', "N/A");
                 localStorage.setItem('var_correoElectronicoInstitucional', "N/A");
+                localStorage.setItem('var_cargo', "N/A")
             }
         } else if (name === "tipoContrato") {
             setTipoContrato(value);

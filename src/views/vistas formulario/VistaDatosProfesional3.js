@@ -62,7 +62,7 @@ const VistaDatosProfesional3 = () => {
     useEffect(() => {
         const fetchServiciosSaludAdicional = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/servicioSaludAdicional/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/servicioSaludAdicional/');
                 setServiciosSaludAdicionalOptions(response.data);
             } catch (error) {
                 console.error('Error al obtener los servicios de salud adicional:', error);
@@ -75,7 +75,7 @@ const VistaDatosProfesional3 = () => {
     useEffect(() => {
         const fetchEps = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/eps/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/eps/');
                 setEpsOptions(response.data);
             } catch (error) {
                 console.error('Error al obtener las EPS:', error);
@@ -89,7 +89,7 @@ const VistaDatosProfesional3 = () => {
     useEffect(() => {
         const fetchAntecedentes = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/antecedentesMedicos/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/antecedentesMedicos/');
                 setAntecedentesOptions(response.data);
             } catch (error) {
                 console.error('Error al obtener los antecedentes médicos:', error);
@@ -104,7 +104,7 @@ const VistaDatosProfesional3 = () => {
     useEffect(() => {
         const fetchFondosPension = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/fondoPension/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/fondoPension/');
                 setFondoPensionOptions(response.data); // Guardamos las opciones en el estado
             } catch (error) {
                 console.error('Error al obtener los fondos de pensión:', error);
