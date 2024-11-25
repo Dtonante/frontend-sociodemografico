@@ -45,7 +45,6 @@ const VistaDatosUsuario = () => {
   });
   const [touchedFields, setTouchedFields] = useState({});
   const porcentajeProgreso = 15;
-  const [tipoDocumentoValidation, setTipoDocumentoValidation] = useState(null);
 
 
   // Validaciones basadas en los campos tocados
