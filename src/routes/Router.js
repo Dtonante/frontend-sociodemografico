@@ -45,6 +45,7 @@ const VistaHomeUsuarioNuevo = lazy(()=> import("../views/vistas formulario/Vista
 const Login = lazy(()=> import("../views/vistas login/login.js"))
 
 
+
 //ruta de eps
 const CompShowEps = lazy(() => import("../views/eps/ShowEps.js"));
 //fin ruta eps
@@ -109,6 +110,7 @@ const ThemeRoutes = [
   { path: "/datosProfesional7",  element: <VistaDatosProfesional7 /> },
   { path: "/datosProfesional8",  element: <VistaDatosProfesional8 /> },
   { path: "/agradecimientos",  element: <VistaAgradecimientos /> },
+
   {
     path: "/app",
     element: <FullLayout />,

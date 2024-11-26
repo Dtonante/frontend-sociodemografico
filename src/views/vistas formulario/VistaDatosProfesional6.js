@@ -109,7 +109,7 @@ const VistaDatosProfesional6 = () => {
         if (graduacion) {
             // Solo se adjunta el certificado si graduacion es true
             if (certificadoPdf) {
-                formData.append("certificado", certificadoPdf);  // Adjunta el archivo PDF
+                formData.append("file", certificadoPdf);  // Adjunta el archivo PDF
             } 
             // else {
             //     show_alert("Por favor, sube un archivo PDF antes de continuar." , 'info');
@@ -120,19 +120,19 @@ const VistaDatosProfesional6 = () => {
         try {
             // Enviar el formulario con el archivo PDF al backend si graduacion es true
             if (graduacion && certificadoPdf) {
-                const response = await axios.post("http://localhost:3001/certificados/subir/", formData, {
+                const response = await axios.post("/uploadsfiles/", formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },
                 });
     
                 // Si la respuesta es exitosa, obtenemos la URL del certificado y la guardamos en localStorage
-                const {  fileUrl } = response.data;
+                const {  file_patch } = response.data;
                 console.log("Archivo PDF enviado correctamente");
-                console.log("var_certificado del certificado:", fileUrl);
+                console.log("var_certificado del certificado:", file_patch);
     
                 // Guardamos la URL en el localStorage si es necesario
-                localStorage.setItem('certificadoUrl', fileUrl);
+                localStorage.setItem('certificadoUrl', file_patch);
             }else {
                 localStorage.setItem('certificadoUrl', "N/A");
             }
