@@ -67,25 +67,6 @@ const VistaDatosProfesional2 = () => {
         });
     };
 
-    
-        // Actualizar el estado de acuerdo con el cambio en el input
-        // if (name === "boolean_viveSolo") {
-        //     const newValue = value === "true";
-        //     setBoolean_viveSolo(newValue);
-        //     // Guardar en localStorage
-        //     localStorage.setItem(name, newValue);
-        //     // Si vive solo, establecer "N/A" en las variables correspondientes
-        //     if (newValue) {
-        //         setVar_numeroPersonasConLasQueVive("N/A");
-        //         setSet_personasConLasQueVive(["N/A"]);
-        //         localStorage.setItem("var_numeroPersonasConLasQueVive", "N/A");
-        //         localStorage.setItem("set_personasConLasQueVive", JSON.stringify(["N/A"]));
-        //         localStorage.setItem("boolean_viveSolo", newValue)
-        //     }
-        // } 
-        
-
-
     const manejoCambiosInputs = (event) => {
         const { name, value } = event.target;
 
