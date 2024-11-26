@@ -6,15 +6,14 @@ import { useNavigate } from 'react-router-dom';
 const VistaDatosProfesional8 = () => {
     // Estado para almacenar los medios de transporte público seleccionados
     const [mediosTransportePublico, setMediosTransportePublico] = useState([]);
-    const [selectedTransporte, setSelectedTransporte] = useState([]);  // Transporte propio seleccionado
-    const [placa, setPlaca] = useState('');  // Placa del vehículo
+    const [selectedTransporte, setSelectedTransporte] = useState([]);  
+    const [placa, setPlaca] = useState('');  
     const [transportes, setTransportes] = useState([]);
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [touchedFields, setTouchedFields] = useState({});
     const [habilitarPlaca, setHabilitarPlaca] = useState(false);
-
-    const [habilitarPlacaExtra, setHabilitarPlacaExtra] = useState(false); // Para el segundo campo de placa
+    const [habilitarPlacaExtra, setHabilitarPlacaExtra] = useState(false); 
     const [placaExtra, setPlacaExtra] = useState("N/A");
     const porcentajeProgreso = 95;
 
@@ -48,9 +47,9 @@ const VistaDatosProfesional8 = () => {
         const fetchTransportes = async () => {
             try {
                 const response = await axios.get('https://evaluacion.esumer.edu.co/transportePropio/');
-                setTransportes(response.data);  // Actualiza el estado con los transportes obtenidos
+                setTransportes(response.data);  
             } catch (error) {
-                console.error('Error al obtener los transportes:', error);  // Manejo de errores
+                console.error('Error al obtener los transportes:', error); 
             }
         };
 
@@ -74,7 +73,7 @@ const VistaDatosProfesional8 = () => {
             setHabilitarPlaca(true);
         } else {
             setHabilitarPlaca(false);
-            setPlaca("N/A"); // Si no es uno de los valores permitidos, asignar "N/A"
+            setPlaca("N/A"); 
         }
 
         // Si se seleccionan más de uno de los valores válidos, habilitar el campo de placa extra
@@ -82,7 +81,7 @@ const VistaDatosProfesional8 = () => {
             setHabilitarPlacaExtra(true);
         } else {
             setHabilitarPlacaExtra(false);
-            setPlacaExtra(""); // Limpiar la placa extra si solo hay uno o ninguno seleccionado
+            setPlacaExtra("");
         }
 
         // Actualizar el estado con los valores seleccionados (valor ya es un array)
@@ -134,7 +133,8 @@ const VistaDatosProfesional8 = () => {
 
 
 
-    const manejarSiguiente = () => {
+    const manejarSiguiente = (event) => {
+        event.preventDefault();
 
         const nuevosErrores = {};
 
@@ -318,7 +318,7 @@ const VistaDatosProfesional8 = () => {
 
 
                     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Button sx={{ backgroundColor: '#202B52' }} onClick={(manejarSiguiente)} variant="contained" type="submit">
+                        <Button sx={{ backgroundColor: '#202B52' }} onClick={manejarSiguiente} variant="contained" type="button">
                             Siguiente
                         </Button>
                     </div>

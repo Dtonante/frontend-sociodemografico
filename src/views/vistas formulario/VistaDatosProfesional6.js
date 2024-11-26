@@ -110,29 +110,30 @@ const VistaDatosProfesional6 = () => {
             // Solo se adjunta el certificado si graduacion es true
             if (certificadoPdf) {
                 formData.append("certificado", certificadoPdf);  // Adjunta el archivo PDF
-            } else {
-                show_alert("Por favor, sube un archivo PDF antes de continuar." , 'info');
-                return; 
-            }
+            } 
+            // else {
+            //     show_alert("Por favor, sube un archivo PDF antes de continuar." , 'info');
+            //     return; 
+            // }
         }
     
         try {
             // Enviar el formulario con el archivo PDF al backend si graduacion es true
             if (graduacion && certificadoPdf) {
-                const response = await axios.post("https://evaluacion.esumer.edu.co/certificados/subir/", formData, {
+                const response = await axios.post("http://localhost:3001/certificados/subir/", formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },
                 });
     
                 // Si la respuesta es exitosa, obtenemos la URL del certificado y la guardamos en localStorage
-                const { id, url } = response.data;
+                const { id_certificadoPK, var_certificado } = response.data;
                 console.log("Archivo PDF enviado correctamente");
-                console.log("ID del certificado:", id);
-                console.log("URL del certificado:", url);
+                console.log("ID del certificado:", id_certificadoPK);
+                console.log("var_certificado del certificado:", var_certificado);
     
                 // Guardamos la URL en el localStorage si es necesario
-                localStorage.setItem('certificadoUrl', url);
+                localStorage.setItem('certificadoUrl', var_certificado);
             }
 
             localStorage.setItem('certificadoUrl', "N/A");

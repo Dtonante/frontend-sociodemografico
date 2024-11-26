@@ -31,7 +31,7 @@ const VistaHomeUsuarioNuevo = () => {
             {/* Imagen de fondo */}
             <div style={{ width: '100%', height: '35%', position: 'relative', textAlign: 'center', }}>
                 <img
-                    src="public/fondo_home.jpg" // Reemplaza con la ruta correcta de la imagen
+                    src="public/fondo_home.jpg" 
                     alt="Fondo"
                     style={{
                         width: '60%',

@@ -67,12 +67,7 @@ const VistaDatosProfesional2 = () => {
         });
     };
 
-
-    const manejoCambiosInputs = (event) => {
-        const { name, value } = event.target;
-
-
-
+    
         // Actualizar el estado de acuerdo con el cambio en el input
         // if (name === "boolean_viveSolo") {
         //     const newValue = value === "true";
@@ -89,6 +84,13 @@ const VistaDatosProfesional2 = () => {
         //     }
         // } 
         
+
+
+    const manejoCambiosInputs = (event) => {
+        const { name, value } = event.target;
+
+
+
         if (name === "boolean_viveSolo") {
             const newValue = value === "true";
             setBoolean_viveSolo(newValue);

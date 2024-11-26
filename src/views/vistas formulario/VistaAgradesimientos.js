@@ -51,7 +51,7 @@ const VistaAgradecimientos = () => {
             const boolean_viveSolo = localStorage.getItem('boolean_viveSolo') === 'true';
             const var_numeroPersonasConLasQueVive = localStorage.getItem('var_numeroPersonasConLasQueVive')
             // const set_personasConLasQueVive = JSON.stringify('set_personasConLasQueVive');
-            const set_personasConLasQueVive = JSON.stringify('set_personasConLasQueVive');
+            const set_personasConLasQueVive = localStorage.getItem('set_personasConLasQueVive') || ""; 
 
             // Verifica si el valor es igual a "set_personasConLasQueVive"
             // if (set_personasConLasQueVive === '\"set_personasConLasQueVive\"') {
@@ -130,14 +130,8 @@ const VistaAgradecimientos = () => {
                 const selectedActividadesTiempoLibre = JSON.parse(localStorage.getItem('actividadTiempoLibre'));
                 //se traen las actividadesd de tiempo libre  
                 const selectedServiciosQueNoCuentan = JSON.parse(localStorage.getItem('selectedServiciosQueNoCuentan'));
-                //se traen las actividadesd de tiempo libre  profesionalTransportePropio
-
-
+                //se traen los transportes
                 const selectedTransporte = JSON.parse(localStorage.getItem("selectedTransporte")) || [];
-                console.log(selectedTransporte);
-
-
-
                 const placa = localStorage.getItem('placa')
 
 
