@@ -210,7 +210,8 @@ const VistaDatosProfesional2 = () => {
                     }}
                 />
             </div>
-            <Card variant="outlined" className="card-outlined">    <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
+            <Card variant="outlined" className="card-outlined">
+                    <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
                         <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}>Datos adicionales</Typography>
                     </Box>
