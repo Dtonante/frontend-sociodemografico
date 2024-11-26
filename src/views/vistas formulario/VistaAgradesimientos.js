@@ -282,7 +282,16 @@ const VistaAgradecimientos = () => {
                 <div className="contenedor">
                     {/* Iconos sociales */}
                     <div className="iconos-sociales">
-                        {['Web', 'Instagram', 'Facebook', 'Twitter', 'Youtube', 'Spotify', 'Linkedin', 'Emisora'].map((nombre) => (
+                        {[
+                            { nombre: 'Web', url: 'https://esumer.edu.co/' },
+                            { nombre: 'Instagram', url: 'https://www.instagram.com/esumermedellin/?hl=es' },
+                            { nombre: 'Facebook', url: 'https://m.facebook.com/institucionuniversitariaesumer/' },
+                            { nombre: 'Twitter', url: 'https://x.com/esumermedellin?lang=es' },
+                            { nombre: 'Youtube', url: 'https://www.youtube.com/channel/UC_R-zFnqGM9Ng7KNcyjj8EA' },
+                            { nombre: 'Spotify', url: 'https://open.spotify.com/show/6yPk98znQttoPA6Jr8RiWo' },
+                            { nombre: 'Linkedin', url: 'https://co.linkedin.com/company/instituci-n-universitaria-esumer' },
+                            { nombre: 'Emisora', url: 'https://welove.radio/radio/esumerlive/' },
+                        ].map(({ nombre, url }) => (
                             <button
                                 key={nombre}
                                 style={{
@@ -294,6 +303,7 @@ const VistaAgradecimientos = () => {
                                     cursor: 'pointer',
                                     padding: 0,
                                 }}
+                                onClick={() => window.open(url, '_blank', 'noopener')}
                             >
                                 <img
                                     src={`/public/${nombre}.png`}
