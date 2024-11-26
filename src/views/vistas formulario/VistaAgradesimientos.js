@@ -51,7 +51,7 @@ const VistaAgradecimientos = () => {
             const boolean_viveSolo = localStorage.getItem('boolean_viveSolo') === 'true';
             const var_numeroPersonasConLasQueVive = localStorage.getItem('var_numeroPersonasConLasQueVive')
             // const set_personasConLasQueVive = JSON.stringify('set_personasConLasQueVive');
-            const set_personasConLasQueVive = localStorage.getItem('set_personasConLasQueVive') || ""; 
+            const set_personasConLasQueVive = localStorage.getItem('set_personasConLasQueVive') || "";
 
             // Verifica si el valor es igual a "set_personasConLasQueVive"
             // if (set_personasConLasQueVive === '\"set_personasConLasQueVive\"') {
@@ -131,8 +131,21 @@ const VistaAgradecimientos = () => {
                 //se traen las actividadesd de tiempo libre  
                 const selectedServiciosQueNoCuentan = JSON.parse(localStorage.getItem('selectedServiciosQueNoCuentan'));
                 //se traen los transportes
+
                 const selectedTransporte = JSON.parse(localStorage.getItem("selectedTransporte")) || [];
-                const placa = localStorage.getItem('placa')
+                let placa;
+                // Verificar si el array contiene alguno de los valores 5, 6 o 7
+                if ([5, 6, 7].some((num) => selectedTransporte.includes(num))) {
+                    placa = "N/A";
+                } else {
+                    placa = localStorage.getItem('placa'); 
+                }
+
+                console.log(placa); 
+
+
+
+                
 
 
                 // se atrapa el id del profesional que se crea para las tablas relacionales

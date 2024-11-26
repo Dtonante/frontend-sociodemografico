@@ -127,16 +127,17 @@ const VistaDatosProfesional6 = () => {
                 });
     
                 // Si la respuesta es exitosa, obtenemos la URL del certificado y la guardamos en localStorage
-                const { id_certificadoPK, var_certificado } = response.data;
+                const {  fileUrl } = response.data;
                 console.log("Archivo PDF enviado correctamente");
-                console.log("ID del certificado:", id_certificadoPK);
-                console.log("var_certificado del certificado:", var_certificado);
+                console.log("var_certificado del certificado:", fileUrl);
     
                 // Guardamos la URL en el localStorage si es necesario
-                localStorage.setItem('certificadoUrl', var_certificado);
+                localStorage.setItem('certificadoUrl', fileUrl);
+            }else {
+                localStorage.setItem('certificadoUrl', "N/A");
             }
 
-            localStorage.setItem('certificadoUrl', "N/A");
+            
     
             // Validaciones de otros campos (por ejemplo, nivelEscolaridad, actualmenteEstudia)
             const nuevosErrores = {};
