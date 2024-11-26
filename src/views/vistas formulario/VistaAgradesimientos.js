@@ -40,23 +40,15 @@ const VistaAgradecimientos = () => {
             const date_fechaNacimiento = localStorage.getItem('date_fechaNacimiento');
             const var_departamentoResidencia = localStorage.getItem('departamentoResidencia');
             const var_ciudadResidencia = localStorage.getItem('ciudadResidencia');
-
             const detalleDireccion = localStorage.getItem('detalleDireccion')
             let direccionSinDetalle = localStorage.getItem('direccionCompleta');
             const var_direccionResidencia = `${direccionSinDetalle} ${detalleDireccion}`.trim();
-
             const var_estratoVivienda = localStorage.getItem('estratoVivienda');
             const var_tipoVivienda = localStorage.getItem('tipoVivienda');
             const var_estadoCivil = localStorage.getItem('var_estadoCivil');
             const boolean_viveSolo = localStorage.getItem('boolean_viveSolo') === 'true';
             const var_numeroPersonasConLasQueVive = localStorage.getItem('var_numeroPersonasConLasQueVive')
-            // const set_personasConLasQueVive = JSON.stringify('set_personasConLasQueVive');
             const set_personasConLasQueVive = localStorage.getItem('set_personasConLasQueVive') || "";
-
-            // Verifica si el valor es igual a "set_personasConLasQueVive"
-            // if (set_personasConLasQueVive === '\"set_personasConLasQueVive\"') {
-            //     set_personasConLasQueVive = 'N/A';
-            // }
             const boolean_viveConMascotas = localStorage.getItem('boolean_viveConMascotas') === 'true';
             const set_tipoMascotas = localStorage.getItem('set_tipoMascotas')
             const var_personasDependeciaEconimica = localStorage.getItem('var_personasDependeciaEconimica');
@@ -115,6 +107,65 @@ const VistaAgradecimientos = () => {
             const var_zonaVivienda = localStorage.getItem('var_zonaVivienda')
 
 
+            console.log('id_usuarioFK:', id_usuarioFK);
+            console.log('boolean_aceptaTratamientoDatos:', boolean_aceptaTratamientoDatos);
+            console.log('date_fechaNacimiento:', date_fechaNacimiento);
+            console.log('var_departamentoResidencia:', var_departamentoResidencia);
+            console.log('var_ciudadResidencia:', var_ciudadResidencia);
+            console.log('detalleDireccion:', detalleDireccion);
+            console.log('direccionSinDetalle:', direccionSinDetalle);
+            console.log('var_direccionResidencia:', var_direccionResidencia);
+            console.log('var_estratoVivienda:', var_estratoVivienda);
+            console.log('var_tipoVivienda:', var_tipoVivienda);
+            console.log('var_estadoCivil:', var_estadoCivil);
+            console.log('boolean_viveSolo:', boolean_viveSolo);
+            console.log('var_numeroPersonasConLasQueVive:', var_numeroPersonasConLasQueVive);
+            console.log('set_personasConLasQueVive:', set_personasConLasQueVive);
+            console.log('boolean_viveConMascotas:', boolean_viveConMascotas);
+            console.log('set_tipoMascotas:', set_tipoMascotas);
+            console.log('var_personasDependeciaEconimica:', var_personasDependeciaEconimica);
+            console.log('var_totalIngresosPropiosYGrupoFamiliar:', var_totalIngresosPropiosYGrupoFamiliar);
+            console.log('var_grupoEtnico:', var_grupoEtnico);
+            console.log('var_rh:', var_rh);
+            console.log('id_epsFK:', id_epsFK);
+            console.log('id_fondoPensionFK:', id_fondoPensionFK);
+            console.log('boolean_cambioEpsOArl:', boolean_cambioEpsOArl);
+            console.log('id_cuentaBancariaFK:', id_cuentaBancariaFK);
+            console.log('var_tipoCuenta:', var_tipoCuenta);
+            console.log('var_numeroCuenta:', var_numeroCuenta);
+            console.log('var_tipoContrato:', var_tipoContrato);
+            console.log('var_salario:', var_salario);
+            console.log('date_fechaIngresoInstitucion:', date_fechaIngresoInstitucion);
+            console.log('var_antiguedadInstitucion:', var_antiguedadInstitucion);
+            console.log('id_areaFK:', id_areaFK);
+            console.log('var_cargo:', var_cargo);
+            console.log('var_jefeInmediato:', var_jefeInmediato);
+            console.log('var_sede:', var_sede);
+            console.log('var_celular:', var_celular);
+            console.log('var_telefonoFijo:', var_telefonoFijo);
+            console.log('var_nivelEscolaridad:', var_nivelEscolaridad);
+            console.log('var_nombreCarrera:', var_nombreCarrera);
+            console.log('boolean_actualmenteEstudia:', boolean_actualmenteEstudia);
+            console.log('boolean_actividadFisica:', boolean_actividadFisica);
+            console.log('var_frecuenciaActividadFisica:', var_frecuenciaActividadFisica);
+            console.log('boolean_fuma:', boolean_fuma);
+            console.log('var_frecuenciaFuma:', var_frecuenciaFuma);
+            console.log('boolean_toma:', boolean_toma);
+            console.log('var_frecuenciaToma:', var_frecuenciaToma);
+            console.log('boolean_sustanciasPsicoactivas:', boolean_sustanciasPsicoactivas);
+            console.log('var_frecuenciaSustanciasPsicoactivas:', var_frecuenciaSustanciasPsicoactivas);
+            console.log('set_mediosTransportePublico:', set_mediosTransportePublico);
+            console.log('set_pasoMayorTiempoLibre:', set_pasoMayorTiempoLibre);
+            console.log('var_peso:', var_peso);
+            console.log('var_altura:', var_altura);
+            console.log('var_urlDatosAdjuntos:', var_urlDatosAdjuntos);
+            console.log('var_correoElectronicoInstitucional:', var_correoElectronicoInstitucional);
+            console.log('boolean_usaLentes:', boolean_usaLentes);
+            console.log('boolean_bebidasEnergizantes:', boolean_bebidasEnergizantes);
+            console.log('var_zonaVivienda:', var_zonaVivienda);
+
+
+
 
             try {
                 const response = await axios.post(URI_PROFESIONAL, { id_usuarioFK: id_usuarioFK, boolean_aceptaTratamientoDatos: boolean_aceptaTratamientoDatos, date_fechaNacimiento: date_fechaNacimiento, var_departamentoResidencia: var_departamentoResidencia, var_ciudadResidencia: var_ciudadResidencia, var_direccionResidencia: var_direccionResidencia, var_estratoVivienda: var_estratoVivienda, var_tipoVivienda: var_tipoVivienda, var_estadoCivil: var_estadoCivil, boolean_viveSolo: boolean_viveSolo, var_numeroPersonasConLasQueVive: var_numeroPersonasConLasQueVive, set_personasConLasQueVive: set_personasConLasQueVive, boolean_viveConMascotas: boolean_viveConMascotas, set_tipoMascotas: set_tipoMascotas, var_personasDependeciaEconimica: var_personasDependeciaEconimica, var_totalIngresosPropiosYGrupoFamiliar: var_totalIngresosPropiosYGrupoFamiliar, var_grupoEtnico: var_grupoEtnico, var_rh: var_rh, id_epsFK: id_epsFK, id_fondoPensionFK: id_fondoPensionFK, boolean_cambioEpsOArl: boolean_cambioEpsOArl, id_cuentaBancariaFK: id_cuentaBancariaFK, var_tipoCuenta: var_tipoCuenta, var_numeroCuenta: var_numeroCuenta, var_tipoContrato: var_tipoContrato, var_salario: var_salario, date_fechaIngresoInstitucion: date_fechaIngresoInstitucion, var_antiguedadInstitucion: var_antiguedadInstitucion, id_areaFK: id_areaFK, var_cargo: var_cargo, var_jefeInmediato: var_jefeInmediato, var_sede: var_sede, var_celular: var_celular, var_telefonoFijo: var_telefonoFijo, var_nivelEscolaridad: var_nivelEscolaridad, var_nombreCarrera: var_nombreCarrera, boolean_actualmenteEstudia: boolean_actualmenteEstudia, boolean_actividadFisica: boolean_actividadFisica, var_frecuenciaActividadFisica: var_frecuenciaActividadFisica, boolean_fuma: boolean_fuma, var_frecuenciaFuma: var_frecuenciaFuma, boolean_toma: boolean_toma, var_frecuenciaToma: var_frecuenciaToma, boolean_sustanciasPsicoactivas: boolean_sustanciasPsicoactivas, var_frecuenciaSustanciasPsicoactivas: var_frecuenciaSustanciasPsicoactivas, set_mediosTransportePublico: set_mediosTransportePublico, set_pasoMayorTiempoLibre: set_pasoMayorTiempoLibre, var_peso: var_peso, var_altura: var_altura, var_urlDatosAdjuntos: var_urlDatosAdjuntos, var_correoElectronicoInstitucional: var_correoElectronicoInstitucional, boolean_usaLentes: boolean_usaLentes, boolean_bebidasEnergizantes: boolean_bebidasEnergizantes, var_zonaVivienda: var_zonaVivienda });
@@ -138,14 +189,14 @@ const VistaAgradecimientos = () => {
                 if ([5, 6, 7].some((num) => selectedTransporte.includes(num))) {
                     placa = "N/A";
                 } else {
-                    placa = localStorage.getItem('placa'); 
+                    placa = localStorage.getItem('placa');
                 }
 
-                console.log(placa); 
+                console.log(placa);
 
 
 
-                
+
 
 
                 // se atrapa el id del profesional que se crea para las tablas relacionales

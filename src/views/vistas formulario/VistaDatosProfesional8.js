@@ -74,6 +74,8 @@ const VistaDatosProfesional8 = () => {
         } else {
             setHabilitarPlaca(false);
             setPlaca("N/A"); 
+            // Guardar el array actualizado en localStorage
+            localStorage.setItem("selectedTransporte", JSON.stringify(value));
         }
 
         // Si se seleccionan más de uno de los valores válidos, habilitar el campo de placa extra
@@ -82,6 +84,7 @@ const VistaDatosProfesional8 = () => {
         } else {
             setHabilitarPlacaExtra(false);
             setPlacaExtra("");
+            localStorage.setItem("selectedTransporte", JSON.stringify(value));
         }
 
         // Actualizar el estado con los valores seleccionados (valor ya es un array)
