@@ -851,7 +851,7 @@ const VistaDatosUsuario = () => {
               helperText={errors.var_celular}
               FormHelperTextProps={{ sx: { marginLeft: 0 } }}
               InputProps={{
-                sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" },
+                sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" }, inputProps: { maxLength: 12, }
               }}
             />
             <Typography
@@ -873,7 +873,7 @@ const VistaDatosUsuario = () => {
               helperText={errors.var_telefonoFijo}
               FormHelperTextProps={{ sx: { marginLeft: 0 } }}
               InputProps={{
-                sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" },
+                sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" }, inputProps: { maxLength: 7, }
               }}
             />
             <Typography
