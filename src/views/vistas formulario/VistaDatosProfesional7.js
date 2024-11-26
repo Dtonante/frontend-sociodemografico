@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, Box, Typography, Divider, Checkbox, FormHelperText, ListItemText, CardContent, Button, FormControl, RadioGroup, Radio, FormControlLabel, Select, MenuItem, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import "../../css/CardStyles.css";
 
 const VistaDatosProfesional7 = () => {
     const [pasoMayorTiempoLibre, setPasoMayorTiempoLibre] = useState('');
@@ -310,8 +311,8 @@ const VistaDatosProfesional7 = () => {
                     }}
                 />
             </div>
-            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: '#F2F2F2', borderColor: '#202B52' }}>
-                <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
+            <Card variant="outlined" className="card-outlined">
+                   <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
                         <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}>Salud física </Typography>
                     </Box>

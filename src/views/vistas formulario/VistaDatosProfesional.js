@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import departamentosCiudades from './departamentosCiudades.json';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "../../css/CardStyles.css";
 
 
 const VistaDatosProfesional = () => {
@@ -238,7 +239,7 @@ const VistaDatosProfesional = () => {
                     }}
                 />
             </div>
-            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: '#F2F2F2', borderColor: '#202B52' }}>
+            <Card variant="outlined" className="card-outlined">
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
                         <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}> Datos personales </Typography>

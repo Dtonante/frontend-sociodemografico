@@ -21,6 +21,7 @@ import {
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import show_alert from "../../components/showAlert/alertFuntion";
+import "../../css/CardStyles.css";
 
 const VistaDatosProfesional3 = () => {
   const [epsOptions, setEpsOptions] = useState([]);
@@ -238,17 +239,7 @@ const VistaDatosProfesional3 = () => {
           }}
         />
       </div>
-      <Card
-        variant="outlined"
-        sx={{
-          p: 0,
-          width: "100%",
-          maxWidth: 800,
-          margin: "auto",
-          backgroundColor: "#F2F2F2",
-          borderColor: "#202B52",
-        }}
-      >
+      <Card variant="outlined" className="card-outlined">
         <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
           <Box flexGrow={1}>
             <Typography
