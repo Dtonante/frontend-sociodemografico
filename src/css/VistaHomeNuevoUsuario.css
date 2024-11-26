@@ -8,6 +8,17 @@
     flex-wrap: wrap; /* Permitir que los elementos se ajusten automáticamente */
 }
 
+.contenedor-items-buttoms {
+    background-color: #F2F2F2;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 60%;
+    margin-top: -3%;
+}
+
 .iconos-sociales {
     display: flex;
     gap: 12px;
@@ -19,26 +30,102 @@
     gap: 12px;
 }
 
+.imagen-fondo {
+    width: 60%;
+    height: 85%;
+    object-fit: cover;
+}
+
 /* Estilos para pantallas pequeñas */
 @media (max-width: 1100px) {
     .contenedor {
-        flex-direction: column; /* Cambia la dirección de los elementos a columna */
-        align-items: center; /* Centra los elementos en el eje principal */
-        margin-top: 20px; /* Ajusta el margen superior */
+        flex-direction: column;
+        align-items: center; 
+        margin-top: 20px; 
     }
 
     /* Coloca los botones primero */
     .botones-accion {
-        order: 1; /* Los botones van primero */
-        flex-direction: column; /* Coloca los botones en columna */
-        align-items: center; /* Centra los botones */
-        margin-bottom: 20px; /* Espacio entre botones e iconos */
+        order: 1; 
+        flex-direction: column; 
+        align-items: center; 
+        margin-bottom: 20px; 
     }
 
     /* Coloca los iconos después */
     .iconos-sociales {
-        order: 2; /* Los iconos van después */
-        justify-content: center; /* Centra los iconos */
-        width: 100%; /* Ocupa el ancho completo */
+        order: 2; 
+        justify-content: center; 
+        width: 100%; 
+    }
+
+    /* Imagen de fondo en pantallas pequeñas */
+    .imagen-fondo {
+        width: 100%; 
+        height: auto; 
+    }
+
+    .contenedor-items-buttoms {
+        margin-top: 6%;
     }
 }
+@media (max-width: 1000px)  {
+
+    .contenedor-items-buttoms {
+        margin-top: 0;
+    }
+
+
+}
+@media (max-width: 900px)  {
+
+    .contenedor-items-buttoms {
+        margin-top: 1%;
+    }
+
+
+}
+@media (max-width: 820px)  {
+
+    .contenedor-items-buttoms {
+        margin-top: -4%;
+    }
+
+
+}
+@media (max-width: 750px)  {
+
+    .contenedor-items-buttoms {
+        margin-top: -10%;
+    }
+
+
+}
+
+
+@media (max-width: 650px)  {
+
+    .contenedor-items-buttoms {
+        margin-top: -17%;
+    }
+
+
+}
+
+@media (max-width: 550px)  {
+
+    .contenedor-items-buttoms {
+        margin-top: -30%;
+    }
+
+
+}
+@media (max-width: 400px)  {
+
+    .contenedor-items-buttoms {
+        margin-top: -50%;
+    }
+
+
+}
+

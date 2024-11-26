@@ -29,31 +29,20 @@ const VistaHomeUsuarioNuevo = () => {
             }}
         >
             {/* Imagen de fondo */}
-            <div style={{ width: '100%', height: '35%', position: 'relative', textAlign: 'center', }}>
+            <div  style={{ width: '100%', height: '35%', position: 'relative', textAlign: 'center', }}>
+            
                 <img
+                    className="imagen-fondo"
                     src="public/fondo_home.jpg" 
                     alt="Fondo"
-                    style={{
-                        width: '60%',
-                        height: '85%',
-                        objectFit: 'cover',
-                    }}
+                    
                 />
             </div>
 
             {/* Contenedor compacto */}
             <div
-                style={{
-                    backgroundColor: '#F2F2F2',
-                    padding: '20px',
-                    textAlign: 'center',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '15px',
-                    maxWidth: '60%',
-                    marginTop: '-3%'
-
-                }}
+                className='contenedor-items-buttoms'
+                
 
             >
                 <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#1b263b', fontFamily: 'Roboto Condensed' }}>
