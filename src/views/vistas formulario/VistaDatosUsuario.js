@@ -46,7 +46,6 @@ const VistaDatosUsuario = () => {
   const [touchedFields, setTouchedFields] = useState({});
   const porcentajeProgreso = 15;
 
-
   // Validaciones basadas en los campos tocados
   useEffect(() => {
     const nuevosErrores = {};
@@ -83,15 +82,6 @@ const VistaDatosUsuario = () => {
       if (!formData.var_numeroDocumento.trim()) {
         nuevosErrores.var_numeroDocumento =
           "El número de documento es obligatorio";
-      } else if (!/^\d+$/.test(formData.var_numeroDocumento)) {
-        nuevosErrores.var_numeroDocumento =
-          "El número de documento solo puede contener números";
-      } else if (formData.var_numeroDocumento.length < 5) {
-        nuevosErrores.var_numeroDocumento =
-          "El número de documento debe tener al menos 5 caracteres";
-      } else if (formData.var_numeroDocumento.length > 50) {
-        nuevosErrores.var_numeroDocumento =
-          "El número de documento no puede exceder los 50 caracteres";
       }
     }
 
@@ -231,7 +221,7 @@ const VistaDatosUsuario = () => {
     }
 
     // Si no es la fecha, manejamos el cambio de otros campos
-    if (name === "var_nombreCompleto") {
+    if (name === "var_nombreCompleto" || name === "var_numeroDocumento") {
       setFormData({
         ...formData,
         [name]: value.toUpperCase(), // Convertimos el valor a mayúsculas
@@ -248,11 +238,7 @@ const VistaDatosUsuario = () => {
     let regex;
 
     // Condicional según el name del campo
-    if (
-      fieldName === "var_numeroDocumento" ||
-      fieldName === "var_telefonoFijo" ||
-      fieldName === "var_celular"
-    ) {
+    if (fieldName === "var_telefonoFijo" || fieldName === "var_celular") {
       // Solo permitimos números
       regex = /^[0-9]*$/;
     } else if (fieldName === "var_nombreCompleto") {
@@ -265,13 +251,116 @@ const VistaDatosUsuario = () => {
     }
   };
 
+  const handleKeyPresss = (event, fieldName) => {
+    // Definir expresiones regulares para cada tipo de campo
+    const validationRules = {
+      // Para campos que solo permiten números
+      var_telefonoFijo: /^[0-9]*$/,
+      var_celular: /^[0-9]*$/,
+      var_numeroDocumento: /^[0-9]*$/,
+      // Para campos que solo permiten letras (incluyendo acentos y ñ) y espacios
+      var_nombreCompleto: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/,
+      // Reglas específicas para el tipo de documento
+      documento: {
+        "Cédula de Ciudadanía (CC)": /^[0-9]*$/,
+        "Tarjeta de Identidad (TI)": /^[0-9]*$/,
+        "Cédula de Extranjería (CE)": /^[A-Za-z0-9]*$/,
+        "Registro Civil de Nacimiento (RCN)": /^[A-Za-z0-9]*$/,
+        Pasaporte: /^[A-Za-z0-9]*$/,
+        "Permiso Especial de Permanencia (PEP)": /^[A-Za-z0-9]*$/,
+        "Permiso por Protección Temporal (PPT)": /^[A-Za-z0-9]*$/,
+        "Documento Nacional de Identificación de otro país (DNI)":
+          /^[A-Za-z0-9]*$/,
+        "Licencia de Conducción": /^[A-Za-z0-9]*$/,
+        "Carné Diplomatico": /^[A-Za-z0-9]*$/,
+        "Permiso Especial de Trabajo (PET)": /^[A-Za-z0-9]*$/,
+        "Carné de Migración o Carné de Extranjería Temporal": /^[A-Za-z0-9]*$/,
+      },
+    };
+
+    // Validación de campos generales
+    if (validationRules[fieldName]) {
+      // Si el campo tiene una expresión regular definida, validamos la tecla presionada
+      if (typeof validationRules[fieldName] === "object") {
+        // Si es un objeto, significa que estamos validando el número de documento, así que buscamos el tipo de documento
+        const tipoDocumento = tiposDocumento.find(
+          (option) => option.id_tipoDocumentoPK === formData.int_tipoDocumentoFK
+        )?.var_nombreDocumento;
+
+        // Si no se ha seleccionado un tipo de documento, bloqueamos la entrada
+        if (!tipoDocumento) {
+          event.preventDefault();
+          return;
+        }
+
+        // Obtenemos la expresión regular según el tipo de documento
+        const tipoRegex = validationRules.documento[tipoDocumento];
+        if (tipoRegex && !tipoRegex.test(event.key)) {
+          event.preventDefault(); // Bloqueamos la entrada si no cumple con la expresión regular
+        }
+      } else if (!validationRules[fieldName].test(event.key)) {
+        // Validación normal de otros campos
+        event.preventDefault();
+      }
+    }
+  };
+
   // Marcar un campo como "tocado" cuando pierde el enfoque
   const handleBlur = (event) => {
-    const { name } = event.target;
-    setTouchedFields({
-      ...touchedFields,
+    const { name, value } = event.target;
+
+    // Marca el campo como "tocado"
+    setTouchedFields((prevTouchedFields) => ({
+      ...prevTouchedFields,
       [name]: true,
-    });
+    }));
+
+    // Validación específica para 'var_numeroDocumento'
+    if (name === "var_numeroDocumento") {
+      // Obtener el tipo de documento seleccionado
+      const tipoDocumento = tiposDocumento.find(
+        (option) => option.id_tipoDocumentoPK === formData.int_tipoDocumentoFK
+      )?.var_nombreDocumento;
+
+      if (!tipoDocumento) {
+        // Si no se encuentra el tipo de documento, no hacer nada
+        return;
+      }
+
+      // Reglas de validación para cada tipo de documento
+      const validationRules = {
+        "Cédula de Ciudadanía (CC)": /^[0-9]{6,10}$/, // Solo números de 6 a 10 dígitos
+        "Tarjeta de Identidad (TI)": /^[0-9]{6,10}$/, // Solo números de 6 a 10 dígitos
+        "Cédula de Extranjería (CE)": /^[A-Za-z0-9]{5,15}$/, // Letras y números de 5 a 15 caracteres
+        "Registro Civil de Nacimiento (RCN)": /^[A-Za-z0-9]{5,15}$/, // Letras y números de 5 a 15 caracteres
+        Pasaporte: /^[A-Za-z0-9]{6,20}$/, // Letras y números de 6 a 20 caracteres
+        "Permiso Especial de Permanencia (PEP)": /^[A-Za-z0-9]{5,15}$/, // Letras y números de 5 a 15 caracteres
+        "Permiso por Protección Temporal (PPT)": /^[A-Za-z0-9]{5,15}$/, // Letras y números de 5 a 15 caracteres
+        "Documento Nacional de Identificación de otro país (DNI)":
+          /^[A-Za-z0-9]{5,15}$/, // Letras y números de 5 a 15 caracteres
+        "Licencia de Conducción": /^[A-Za-z0-9]{5,15}$/, // Letras y números de 5 a 15 caracteres
+        "Carné Diplomatico": /^[A-Za-z0-9]{5,15}$/, // Letras y números de 5 a 15 caracteres
+        "Carné de Migración o Carné de Extranjería Temporal":
+          /^[A-Za-z0-9]{5,15}$/, // Letras y números de 5 a 15 caracteres
+        "Permiso Especial de Trabajo (PET)": /^[A-Za-z0-9]{5,15}$/, // Letras y números de 5 a 15 caracteres
+      };
+
+      // Obtener la expresión regular correspondiente al tipo de documento
+      const regex = validationRules[tipoDocumento];
+
+      // Validar el valor del número de documento con la expresión regular
+      if (regex && !regex.test(value)) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [name]: `El formato del ${tipoDocumento} es inválido.`,
+        }));
+      } else {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [name]: "", // Limpiar el error si el valor es válido
+        }));
+      }
+    }
   };
 
   // Función para obtener los tipos de documentos desde el servidor
@@ -399,7 +488,7 @@ const VistaDatosUsuario = () => {
     // Validación para evitar fechas futuras
     if (value > minDate) {
       // Si la fecha seleccionada es posterior a la fecha mínima (18 años atrás), restablece al valor válido
-      show_alert("Debes tener minimo 18 años para el registro.", 'info');
+      show_alert("Debes tener minimo 18 años para el registro.", "info");
       return;
     }
 
@@ -532,8 +621,8 @@ const VistaDatosUsuario = () => {
               value={formData.var_numeroDocumento}
               onChange={handleInputChange}
               onKeyPress={(event) =>
-                handleKeyPress(event, "var_numeroDocumento")
-              } // Condicional basado en el nombre del campo
+                handleKeyPresss(event, "var_numeroDocumento")
+              } // Correcto
               fullWidth
               sx={{ mb: 2 }}
               onBlur={handleBlur}
@@ -544,6 +633,7 @@ const VistaDatosUsuario = () => {
                 sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" },
               }}
             />
+
             <Typography
               variant="h6"
               sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
@@ -735,7 +825,6 @@ const VistaDatosUsuario = () => {
                 },
               }}
             />
-
             <Typography
               variant="h6"
               sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
