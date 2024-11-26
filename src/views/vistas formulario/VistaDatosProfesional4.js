@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {
-  TextField,
-  MenuItem,
-  FormControl, FormHelperText, InputLabel,  Select, Card, Box, Typography, Button,  Divider,  CardContent, FormControlLabel, RadioGroup, Radio,
-} from "@mui/material";
+import { TextField, MenuItem, FormControl, FormHelperText, InputLabel,  Select, Card, Box, Typography, Button,  Divider,  CardContent, FormControlLabel, RadioGroup, Radio, } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const VistaDatosProfesional4 = () => {
@@ -24,15 +20,12 @@ const VistaDatosProfesional4 = () => {
     if (touchedFields.numeroCuenta && !numeroCuenta) {
       nuevosErrores.numeroCuenta = "El departamento es obligatorio";
     }
-
     if (touchedFields.tipoCuenta && !tipoCuenta) {
       nuevosErrores.tipoCuenta = "El departamento es obligatorio";
     }
-
     if (touchedFields.banco && !selectedBanco) {
       nuevosErrores.selectedBanco = "El departamento es obligatorio";
     }
-
     setErrors(nuevosErrores);
   }, [selectedBanco, numeroCuenta, tipoCuenta, touchedFields]);
 
@@ -117,18 +110,8 @@ const VistaDatosProfesional4 = () => {
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: "#F2F2F2",
-        paddingTop: "3%",
-        paddingBottom: "3%",
-        height: "100vh",
-        overflow: "auto",
-      }}
-    >
-      <div
-        style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }}
-      >
+    <div style={{  backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%",  height: "100vh", overflow: "auto", }}  >
+      <div style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }} >
         <img
           src="public/logo_form.png"
           alt="Descripción de la imagen"
@@ -262,38 +245,8 @@ const VistaDatosProfesional4 = () => {
               )}
             </FormControl>
 
-            <Typography
-              variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
-            >
-              Número de Cuenta:
-            </Typography>
-            <TextField
-              variant="outlined"
-              fullWidth
-              sx={{ mb: 2 }}
-              name="numeroCuenta"
-              onKeyPress={(event) =>
-                handleKeyPress(event, "numeroCuenta")
-              } 
-              value={numeroCuenta}
-              onChange={manejarCambio}
-              onBlur={handleBlur}
-              error={!!errors.numeroCuenta}
-              helperText={errors.numeroCuenta}
-              FormHelperTextProps={{
-                sx: {
-                  marginLeft: 0,
-                },
-              }}
-              InputProps={{
-                sx: {
-                  height: "40px",
-                  fontFamily: "Poppins",
-                  fontSize: "16px",
-                },
-              }}
-            />
+            <Typography variant="h6" sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }} > Número de Cuenta: </Typography>
+            <TextField variant="outlined" fullWidth sx={{ mb: 2 }} name="numeroCuenta"  onKeyPress={(event) => handleKeyPress(event, "numeroCuenta") }  value={numeroCuenta} onChange={manejarCambio} onBlur={handleBlur}  error={!!errors.numeroCuenta} helperText={errors.numeroCuenta} FormHelperTextProps={{ sx: { marginLeft: 0, }, }} InputProps={{ sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px", }, inputProps: { maxLength: 18, }, }}    />
 
             <div
               style={{
