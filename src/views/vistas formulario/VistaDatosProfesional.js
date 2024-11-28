@@ -490,7 +490,7 @@ const VistaDatosProfesional = () => {
 
                         {/* servicios con los que no cuentan */}
                         <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.selectedServiciosQueNoCuentan} >
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Seleccione los servicios con los que NO cuenta la vivienda (se pueden seleccionar varias opciones): </Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Seleccione los servicios con los que <strong>NO</strong> cuenta la vivienda (se pueden seleccionar varias opciones): </Typography>
                             <Select
                                 multiple
                                 onBlur={handleBlur}

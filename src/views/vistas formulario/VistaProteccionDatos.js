@@ -94,9 +94,9 @@ const VistaProteccionDatos = () => {
             
             <strong style={{ fontFamily: 'Roboto Condensed', textAlign: 'center',  display: 'block', fontSize: '20px'}}>Autorización tratamiento de datos general:</strong>  
             <br/>
-            Indícanos si en tu calidad de trabajador de Institución nos autorizas para
-            conocerte mejor y a comunicarnos contigo a través de los canales de contacto
-            que nos has suministrado directamente
+            Indícanos si en tu calidad de trabajador de la Institución nos autorizas para
+            conocerte mejor y comunicarnos contigo a través de los canales de contacto
+            que nos has suministrado directamente.
           </p>
         </div>
 

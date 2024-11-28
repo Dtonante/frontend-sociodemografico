@@ -115,17 +115,47 @@
 @media (max-width: 550px)  {
 
     .contenedor-items-buttoms {
-        margin-top: -30%;
+        margin-top: -28%;
     }
 
 
 }
+@media (max-width: 544px)  {
+
+    .contenedor-items-buttoms {
+        margin-top: -25%;
+    }
+
+
+}
+
+@media (max-width: 440px)  {
+
+    .contenedor-items-buttoms {
+        margin-top: -25%;
+    }
+
+
+}
+
 @media (max-width: 400px)  {
 
     .contenedor-items-buttoms {
-        margin-top: -50%;
+        margin-top: 2%;
     }
 
 
 }
+
+@media (max-width: 575px)  {
+
+    .genero {
+        margin-bottom: 32px;
+    }
+
+
+}
+
+
+
 

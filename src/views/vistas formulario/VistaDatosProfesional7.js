@@ -77,7 +77,7 @@ const VistaDatosProfesional7 = () => {
 
     const generarOpciones = () => {
         const opciones = [
-            { value: "Hijos", label: "Hijos" },
+            { value: "Familia primaria", label: "Familia primaria" },
             { value: "madre", label: "Madre" },
             { value: "padre", label: "Padre" },
             { value: "hermanos", label: "Hermanos" },
@@ -212,14 +212,19 @@ const VistaDatosProfesional7 = () => {
             setFrecuenciaSustanciaPsicoactiva(value);
             localStorage.setItem('var_frecuenciaSustanciasPsicoactivas', value);
         } else if (name === "var_peso") {
-            setPeso(value);
-            localStorage.setItem('var_peso', value);
+            if (/^\d*$/.test(value)) {
+                setPeso(value);
+                localStorage.setItem('var_peso', value); 
+            }
         } else if (name === "var_altura") {
-            setAltura(value);
-            localStorage.setItem('var_altura', value);
+            if (/^\d*$/.test(value)) {
+                setAltura(value); // Actualizamos el estado
+                localStorage.setItem('var_altura', value); // Guardamos en localStorage
+            }
         } else if (name === "set_pasoMayorTiempoLibre") {
             setPasoMayorTiempoLibre(value);
             localStorage.setItem('set_pasoMayorTiempoLibre', JSON.stringify(value));
+
         } else if (campo === 'actividadTiempoLibre') {
             setSelectedActividadTiempoLibre(value);
             localStorage.setItem('actividadTiempoLibre', JSON.stringify(value));
@@ -232,6 +237,9 @@ const VistaDatosProfesional7 = () => {
             setBoolean_bebidasEnergizantes(booleanValue);
             localStorage.setItem('boolean_bebidasEnergizantes', booleanValue.toString());
         }
+
+
+
     };
 
     const manejarSiguiente = () => {
@@ -366,7 +374,7 @@ const VistaDatosProfesional7 = () => {
                         </FormControl>
                         <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.pasoMayorTiempoLibre}>
                             <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>
-                                ¿Con quién pasa la mayor parte de su tiempo libre? (se pueden seleccionar varias opciones):
+                                ¿Con quién pasa la mayor parte de su tiempo libre?:
                             </Typography>
                             <Select
                                 sx={{
@@ -494,7 +502,7 @@ const VistaDatosProfesional7 = () => {
                                     <MenuItem value="">Seleccione una frecuencia</MenuItem>
                                     <MenuItem value="diariamente">Diariamente</MenuItem>
                                     <MenuItem value="Ocasionalmente">Ocasionalmente</MenuItem>
-                                    <MenuItem value="Socialmente">Socialmente</MenuItem>
+                                    <MenuItem value="Mensualmente">Mensualmente</MenuItem>
                                 </Select>
                                 {errors.frecuenciaActividadFisica && (
                                     <FormHelperText sx={{ marginLeft: 0, }}

@@ -71,7 +71,7 @@ const VistaAgradecimientos = () => {
             const var_jefeInmediato = localStorage.getItem('var_jefeInmediato');
             const var_sede = localStorage.getItem('var_sede');
             const var_celular = localStorage.getItem('var_celular');
-            const var_telefonoFijo = localStorage.getItem('var_telefonoFijo');
+            const var_telefonoEmergencia = localStorage.getItem('var_telefonoEmergencia');
             const var_nivelEscolaridad = localStorage.getItem('nivelEscolaridad');
             const var_nombreCarrera = localStorage.getItem('nombreCarrera');
             const boolean_actualmenteEstudia = localStorage.getItem('actualmenteEstudia') === 'true';
@@ -108,7 +108,7 @@ const VistaAgradecimientos = () => {
             const var_zonaVivienda = localStorage.getItem('var_zonaVivienda')
 
             try {
-                const response = await axios.post(URI_PROFESIONAL, { id_usuarioFK: id_usuarioFK, boolean_aceptaTratamientoDatos: boolean_aceptaTratamientoDatos, date_fechaNacimiento: date_fechaNacimiento, var_departamentoResidencia: var_departamentoResidencia, var_ciudadResidencia: var_ciudadResidencia, var_direccionResidencia: var_direccionResidencia, var_estratoVivienda: var_estratoVivienda, var_tipoVivienda: var_tipoVivienda, var_estadoCivil: var_estadoCivil, boolean_viveSolo: boolean_viveSolo, var_numeroPersonasConLasQueVive: var_numeroPersonasConLasQueVive, set_personasConLasQueVive: set_personasConLasQueVive, boolean_viveConMascotas: boolean_viveConMascotas, set_tipoMascotas: set_tipoMascotas, var_personasDependeciaEconimica: var_personasDependeciaEconimica, var_totalIngresosPropiosYGrupoFamiliar: var_totalIngresosPropiosYGrupoFamiliar, var_grupoEtnico: var_grupoEtnico, var_rh: var_rh, id_epsFK: id_epsFK, id_fondoPensionFK: id_fondoPensionFK, boolean_cambioEpsOArl: boolean_cambioEpsOArl, id_cuentaBancariaFK: id_cuentaBancariaFK, var_tipoCuenta: var_tipoCuenta, var_numeroCuenta: var_numeroCuenta, var_tipoContrato: var_tipoContrato, var_salario: var_salario, date_fechaIngresoInstitucion: date_fechaIngresoInstitucion, var_antiguedadInstitucion: var_antiguedadInstitucion, id_areaFK: id_areaFK, var_cargo: var_cargo, var_jefeInmediato: var_jefeInmediato, var_sede: var_sede, var_celular: var_celular, var_telefonoFijo: var_telefonoFijo, var_nivelEscolaridad: var_nivelEscolaridad, var_nombreCarrera: var_nombreCarrera, boolean_actualmenteEstudia: boolean_actualmenteEstudia, boolean_actividadFisica: boolean_actividadFisica, var_frecuenciaActividadFisica: var_frecuenciaActividadFisica, boolean_fuma: boolean_fuma, var_frecuenciaFuma: var_frecuenciaFuma, boolean_toma: boolean_toma, var_frecuenciaToma: var_frecuenciaToma, boolean_sustanciasPsicoactivas: boolean_sustanciasPsicoactivas, var_frecuenciaSustanciasPsicoactivas: var_frecuenciaSustanciasPsicoactivas, set_mediosTransportePublico: set_mediosTransportePublico, set_pasoMayorTiempoLibre: set_pasoMayorTiempoLibre, var_peso: var_peso, var_altura: var_altura, var_urlDatosAdjuntos: var_urlDatosAdjuntos, var_correoElectronicoInstitucional: var_correoElectronicoInstitucional, boolean_usaLentes: boolean_usaLentes, boolean_bebidasEnergizantes: boolean_bebidasEnergizantes, var_zonaVivienda: var_zonaVivienda });
+                const response = await axios.post(URI_PROFESIONAL, { id_usuarioFK: id_usuarioFK, boolean_aceptaTratamientoDatos: boolean_aceptaTratamientoDatos, date_fechaNacimiento: date_fechaNacimiento, var_departamentoResidencia: var_departamentoResidencia, var_ciudadResidencia: var_ciudadResidencia, var_direccionResidencia: var_direccionResidencia, var_estratoVivienda: var_estratoVivienda, var_tipoVivienda: var_tipoVivienda, var_estadoCivil: var_estadoCivil, boolean_viveSolo: boolean_viveSolo, var_numeroPersonasConLasQueVive: var_numeroPersonasConLasQueVive, set_personasConLasQueVive: set_personasConLasQueVive, boolean_viveConMascotas: boolean_viveConMascotas, set_tipoMascotas: set_tipoMascotas, var_personasDependeciaEconimica: var_personasDependeciaEconimica, var_totalIngresosPropiosYGrupoFamiliar: var_totalIngresosPropiosYGrupoFamiliar, var_grupoEtnico: var_grupoEtnico, var_rh: var_rh, id_epsFK: id_epsFK, id_fondoPensionFK: id_fondoPensionFK, boolean_cambioEpsOArl: boolean_cambioEpsOArl, id_cuentaBancariaFK: id_cuentaBancariaFK, var_tipoCuenta: var_tipoCuenta, var_numeroCuenta: var_numeroCuenta, var_tipoContrato: var_tipoContrato, var_salario: var_salario, date_fechaIngresoInstitucion: date_fechaIngresoInstitucion, var_antiguedadInstitucion: var_antiguedadInstitucion, id_areaFK: id_areaFK, var_cargo: var_cargo, var_jefeInmediato: var_jefeInmediato, var_sede: var_sede, var_celular: var_celular, var_telefonoEmergencia: var_telefonoEmergencia, var_nivelEscolaridad: var_nivelEscolaridad, var_nombreCarrera: var_nombreCarrera, boolean_actualmenteEstudia: boolean_actualmenteEstudia, boolean_actividadFisica: boolean_actividadFisica, var_frecuenciaActividadFisica: var_frecuenciaActividadFisica, boolean_fuma: boolean_fuma, var_frecuenciaFuma: var_frecuenciaFuma, boolean_toma: boolean_toma, var_frecuenciaToma: var_frecuenciaToma, boolean_sustanciasPsicoactivas: boolean_sustanciasPsicoactivas, var_frecuenciaSustanciasPsicoactivas: var_frecuenciaSustanciasPsicoactivas, set_mediosTransportePublico: set_mediosTransportePublico, set_pasoMayorTiempoLibre: set_pasoMayorTiempoLibre, var_peso: var_peso, var_altura: var_altura, var_urlDatosAdjuntos: var_urlDatosAdjuntos, var_correoElectronicoInstitucional: var_correoElectronicoInstitucional, boolean_usaLentes: boolean_usaLentes, boolean_bebidasEnergizantes: boolean_bebidasEnergizantes, var_zonaVivienda: var_zonaVivienda });
 
 
                 //se traen los factores de riesgo para crear en la tabla relacional
@@ -264,7 +264,7 @@ const VistaAgradecimientos = () => {
 
             >
                 <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#1b263b', fontFamily: 'Roboto Condensed' }}>
-                    Gracias por brindardos tu informacion
+                    ¡Gracias por brindardos tu información!
                 </h2>
                 {/* Caja informativa */}
                 <div
@@ -277,7 +277,7 @@ const VistaAgradecimientos = () => {
                     }}
                 >
                     <p style={{ margin: 0, color: '#1b263b', fontSize: '14px', fontFamily: 'Poppins' }}>
-                        <strong style={{ fontFamily: 'Roboto Condensed' }}>Importante: </strong>Tu información ha sido registrada con éxito. Agradecemos tu tiempo y esfuerzo.
+                        <strong style={{ fontFamily: 'Roboto Condensed' }}>Importante: </strong>Tu información ha sido registrada con éxito, agradecemos tu tiempo.
                     </p>
                 </div>
 
@@ -323,7 +323,7 @@ const VistaAgradecimientos = () => {
                     </div>
 
                     {/* Botones de acción */}
-                    <div className="botones-accion">                      
+                    {/* <div className="botones-accion">                      
                         <button
                             style={{
                                 padding: '10px 20px',
@@ -336,9 +336,9 @@ const VistaAgradecimientos = () => {
                             }}
                             onClick={manejarDatosUsuario}
                         >
-                            Home
+                            Inicio
                         </button>
-                    </div>
+                    </div> */}
                 </div>
 
             </div>

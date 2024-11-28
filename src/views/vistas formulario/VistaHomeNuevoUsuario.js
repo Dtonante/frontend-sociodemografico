@@ -59,11 +59,11 @@ const VistaHomeUsuarioNuevo = () => {
                     }}
                 >
                     <p style={{ margin: 0, color: '#1b263b', fontSize: '14px', fontFamily: 'Poppins' }}>
-                        <strong style={{ fontFamily: 'Roboto Condensed' }}>Importante: </strong>El perfil sociodemográfico es un instrumento creado para reconocer cuáles son
+                        <strong style={{ fontFamily: 'Roboto Condensed', fontSize: "16px" }}>Importante: </strong>El perfil sociodemográfico es un instrumento creado para reconocer cuáles son
                         las características de la población trabajadora que se tienen en La Institución
                         Universitaria ESUMER.<br/> <br/>
 
-                        Si has finalizado alguno de los siguientes niveles académicos: bachillerato, técnico, tecnológico, pregrado, posgrado, maestría o doctorado, asegúrate de contar con la certificación correspondiente en formato PDF.
+                        Si has finalizado alguno de los siguientes niveles académicos: bachillerato, técnico, tecnológico, pregrado, posgrado, maestría o doctorado, asegúrate de contar con la certificación correspondiente en formato PDF para ser <strong>adjuntado en el formulario.</strong>
                     </p>
                 </div>
 

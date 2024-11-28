@@ -168,41 +168,41 @@ const VistaDatosProfesional8 = () => {
 
 
     // Función de validación común para placas
-const validarPlaca = (placa) => {
-    let nuevaPlaca = placa.toUpperCase();
+    const validarPlaca = (placa) => {
+        let nuevaPlaca = placa.toUpperCase();
 
-    // Permite solo letras, números y el guion, eliminando caracteres no válidos
-    nuevaPlaca = nuevaPlaca.replace(/[^A-Z0-9-]/g, "");
+        // Permite solo letras, números y el guion, eliminando caracteres no válidos
+        nuevaPlaca = nuevaPlaca.replace(/[^A-Z0-9-]/g, "");
 
-    // Asegura que los tres primeros caracteres sean letras
-    if (nuevaPlaca.length <= 3) {
-        nuevaPlaca = nuevaPlaca.replace(/[^A-Z]/g, ""); // Solo letras al inicio
-    }
-
-    // Inserta automáticamente el guion después de las 3 letras
-    if (nuevaPlaca.length === 4 && nuevaPlaca[3] !== "-") {
-        nuevaPlaca = nuevaPlaca.slice(0, 3) + "-" + nuevaPlaca.slice(3);
-    }
-
-    // Asegura que los caracteres después del guion cumplan las reglas
-    if (nuevaPlaca.length > 4 && nuevaPlaca[3] === "-") {
-        const partePosterior = nuevaPlaca.slice(4);
-
-        // Validación progresiva para que:
-        // - Primer carácter después del guion sea un número
-        // - Segundo carácter después del guion sea un número
-        // - Tercer carácter después del guion pueda ser un número o una letra
-        if (partePosterior.length === 1 && !/^\d$/.test(partePosterior)) {
-            nuevaPlaca = nuevaPlaca.slice(0, 4); // Elimina el carácter no numérico
-        } else if (partePosterior.length === 2 && !/^\d{2}$/.test(partePosterior)) {
-            nuevaPlaca = nuevaPlaca.slice(0, 5); // Elimina caracteres adicionales
-        } else if (partePosterior.length === 3 && !/^\d{2}[A-Z0-9]$/.test(partePosterior)) {
-            nuevaPlaca = nuevaPlaca.slice(0, 6); // Solo permite dos números seguidos de una letra o número
+        // Asegura que los tres primeros caracteres sean letras
+        if (nuevaPlaca.length <= 3) {
+            nuevaPlaca = nuevaPlaca.replace(/[^A-Z]/g, ""); // Solo letras al inicio
         }
-    }
 
-    return nuevaPlaca;
-};
+        // Inserta automáticamente el guion después de las 3 letras
+        if (nuevaPlaca.length === 4 && nuevaPlaca[3] !== "-") {
+            nuevaPlaca = nuevaPlaca.slice(0, 3) + "-" + nuevaPlaca.slice(3);
+        }
+
+        // Asegura que los caracteres después del guion cumplan las reglas
+        if (nuevaPlaca.length > 4 && nuevaPlaca[3] === "-") {
+            const partePosterior = nuevaPlaca.slice(4);
+
+            // Validación progresiva para que:
+            // - Primer carácter después del guion sea un número
+            // - Segundo carácter después del guion sea un número
+            // - Tercer carácter después del guion pueda ser un número o una letra
+            if (partePosterior.length === 1 && !/^\d$/.test(partePosterior)) {
+                nuevaPlaca = nuevaPlaca.slice(0, 4); // Elimina el carácter no numérico
+            } else if (partePosterior.length === 2 && !/^\d{2}$/.test(partePosterior)) {
+                nuevaPlaca = nuevaPlaca.slice(0, 5); // Elimina caracteres adicionales
+            } else if (partePosterior.length === 3 && !/^\d{2}[A-Z0-9]$/.test(partePosterior)) {
+                nuevaPlaca = nuevaPlaca.slice(0, 6); // Solo permite dos números seguidos de una letra o número
+            }
+        }
+
+        return nuevaPlaca;
+    };
 
 
     // Manejar el cambio de la placa principal
@@ -354,7 +354,7 @@ const validarPlaca = (placa) => {
                     </FormControl>
 
 
-                    <FormControl fullWidth sx={{ mb: 2 }}>
+                    {/* <FormControl fullWidth sx={{ mb: 2 }}>
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿En cuál medio de transporte te desplazas a la universidad? (se pueden seleccionar varias opciones):</Typography>
                         <TextField select name="set_mediosTransportePublico" value={mediosTransportePublico} onChange={manejarCambio} fullWidth variant="outlined" SelectProps={{ multiple: true }} onBlur={handleBlur}
                             error={!!errors.mediosTransportePublico}
@@ -378,6 +378,71 @@ const validarPlaca = (placa) => {
                             <MenuItem value="mototaxi">Plataformas</MenuItem>
                         </TextField>
 
+                    </FormControl> */}
+
+                    <FormControl fullWidth sx={{ mb: 2 }}>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>
+                            ¿En cuál medio de transporte te desplazas a la universidad? (se pueden seleccionar varias opciones):
+                        </Typography>
+                        <Select
+                            multiple
+                            value={mediosTransportePublico}
+                            onChange={manejarCambio}
+                            name="set_mediosTransportePublico"
+                            fullWidth
+                            variant="outlined"
+                            SelectProps={{ multiple: true }}
+                            onBlur={handleBlur}
+                            error={!!errors.mediosTransportePublico}
+                            renderValue={(selected) => {
+                                // Aquí se pueden unir los valores seleccionados para mostrarlos de forma legible
+                                return selected.join(' - ');
+                            }}
+                            MenuProps={{
+                                PaperProps: { style: { maxHeight: 224, width: 250 } },
+                            }}
+                    
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Poppins",
+                                    fontSize: "16px",
+                                }}
+                            
+                        >
+                            <MenuItem value="transporte propio">
+                                <Checkbox checked={mediosTransportePublico.indexOf("transporte propio") > -1} />
+                                <ListItemText primary="Transporte propio" />
+                            </MenuItem>
+                            <MenuItem value="bus">
+                                <Checkbox checked={mediosTransportePublico.indexOf("bus") > -1} />
+                                <ListItemText primary="Bus" />
+                            </MenuItem>
+                            <MenuItem value="metro">
+                                <Checkbox checked={mediosTransportePublico.indexOf("metro") > -1} />
+                                <ListItemText primary="Metro" />
+                            </MenuItem>
+                            <MenuItem value="bici">
+                                <Checkbox checked={mediosTransportePublico.indexOf("bici") > -1} />
+                                <ListItemText primary="Bicicleta" />
+                            </MenuItem>
+                            <MenuItem value="caminando">
+                                <Checkbox checked={mediosTransportePublico.indexOf("caminando") > -1} />
+                                <ListItemText primary="Caminando" />
+                            </MenuItem>
+                            <MenuItem value="taxi">
+                                <Checkbox checked={mediosTransportePublico.indexOf("taxi") > -1} />
+                                <ListItemText primary="Taxi" />
+                            </MenuItem>
+                            <MenuItem value="mototaxi">
+                                <Checkbox checked={mediosTransportePublico.indexOf("mototaxi") > -1} />
+                                <ListItemText primary="Plataformas" />
+                            </MenuItem>
+                        </Select>
+                        {errors.mediosTransportePublico && (
+                            <FormHelperText sx={{ marginLeft: 0 }}>
+                                {errors.mediosTransportePublico}
+                            </FormHelperText>
+                        )}
                     </FormControl>
 
 

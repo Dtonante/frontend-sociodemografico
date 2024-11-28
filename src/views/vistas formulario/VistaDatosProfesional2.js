@@ -199,7 +199,7 @@ const VistaDatosProfesional2 = () => {
     };
 
     return (
-        <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', paddingBottom: '3%', height: '100%' }}>
+        <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', paddingBottom: '3%', height: '100vh' }}>
             <div style={{ textAlign: 'center', marginBottom: '1%', marginTop: '-1%' }}>
                 <img
                     src="public/logo_form.png"
@@ -384,7 +384,7 @@ const VistaDatosProfesional2 = () => {
                             </>
                         )}
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Cantidad de personas con las que NO vive pero dependen económicamente de usted:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Cantidad de personas con las que <strong>NO</strong> vive pero dependen económicamente de usted:</Typography>
                         <TextField select name="var_personasDependeciaEconimica" variant="outlined" value={var_personasDependeciaEconimica} onChange={manejoCambiosInputs} onBlur={handleBlur} error={!!errors.var_personasDependeciaEconimica}
                             helperText={errors.var_personasDependeciaEconimica} fullWidth sx={{ mb: 2 }} FormHelperTextProps={{
                                 sx: {
