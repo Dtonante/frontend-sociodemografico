@@ -213,7 +213,7 @@ const VistaDatosProfesional2 = () => {
             <Card variant="outlined" className="contenedor-borde" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: '#F2F2F2', borderColor: '#202B52' }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}>Datos adicionales</Typography>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}><strong>Datos adicionales</strong></Typography>
                     </Box>
                 </Box>
                 <Divider style={{ marginLeft: '5%', marginRight: '5%', borderColor: '#202B52' }} />
@@ -221,7 +221,7 @@ const VistaDatosProfesional2 = () => {
                     <form onSubmit={(event) => {
                         event.preventDefault();
                     }}>
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Estado Civil:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Estado Civil:</Typography>
                         <TextField select name="var_estadoCivil" variant="outlined" value={var_estadoCivil} onChange={manejoCambiosInputs} fullWidth sx={{ mb: 2 }} onBlur={handleBlur}
                             error={!!errors.var_estadoCivil}
                             helperText={errors.var_estadoCivil} FormHelperTextProps={{
@@ -231,7 +231,7 @@ const VistaDatosProfesional2 = () => {
                             }} InputProps={{
                                 sx: {
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 },
                             }}  >
@@ -241,7 +241,7 @@ const VistaDatosProfesional2 = () => {
                             <MenuItem value="Viudo">Viudo</MenuItem>
                             <MenuItem value="Union libre">Unión libre</MenuItem>
                         </TextField>
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>¿Vive Solo?:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>¿Vive Solo?:</Typography>
                         <TextField select name="boolean_viveSolo" variant="outlined" value={boolean_viveSolo} onChange={manejoCambiosInputs} fullWidth sx={{ mb: 2 }} onBlur={handleBlur}
                             error={!!errors.boolean_viveSolo}
                             helperText={errors.boolean_viveSolo} FormHelperTextProps={{
@@ -251,7 +251,7 @@ const VistaDatosProfesional2 = () => {
                             }} InputProps={{
                                 sx: {
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 },
                             }}  >
@@ -262,7 +262,7 @@ const VistaDatosProfesional2 = () => {
                         {boolean_viveSolo === false && (
                             <>
 
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Con cuantas personas vive:</Typography>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Con cuantas personas vive:</Typography>
                                 <TextField select name="var_numeroPersonasConLasQueVive" variant="outlined" value={var_numeroPersonasConLasQueVive} onChange={manejoCambiosInputs} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_numeroPersonasConLasQueVive}
                                     helperText={errors.var_numeroPersonasConLasQueVive} FormHelperTextProps={{
                                         sx: {
@@ -271,7 +271,7 @@ const VistaDatosProfesional2 = () => {
                                     }} InputProps={{
                                         sx: {
                                             height: "40px",
-                                            fontFamily: "Poppins",
+                                            fontFamily: "Roboto Condensed",
                                             fontSize: "16px"
                                         },
                                     }}
@@ -285,7 +285,7 @@ const VistaDatosProfesional2 = () => {
                                 </TextField>
 
                                 <FormControl sx={{ mb: 2 }} fullWidth error={!!errors.set_personasConLasQueVive}>
-                                    <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>¿Vive con? (Selecciona todas las personas con las que habita):</Typography>
+                                    <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>¿Vive con? (Selecciona todas las personas con las que habita):</Typography>
                                     <Select
                                         name="set_personasConLasQueVive"
                                         multiple
@@ -297,7 +297,7 @@ const VistaDatosProfesional2 = () => {
                                         variant="outlined"
                                         sx={{
                                             height: "40px",
-                                            fontFamily: "Poppins",
+                                            fontFamily: "Roboto Condensed",
                                             fontSize: "16px"
                                         }}
 
@@ -323,7 +323,7 @@ const VistaDatosProfesional2 = () => {
                                 </FormControl>
                             </>
                         )}
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>¿Tiene mascotas?:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>¿Tiene mascotas?:</Typography>
                         <TextField select name="boolean_viveConMascotas" variant="outlined" value={boolean_viveConMascotas} onChange={manejoCambiosInputs} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.boolean_viveConMascotas}
                             helperText={errors.boolean_viveConMascotas} FormHelperTextProps={{
                                 sx: {
@@ -332,7 +332,7 @@ const VistaDatosProfesional2 = () => {
                             }} InputProps={{
                                 sx: {
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 },
                             }}
@@ -345,7 +345,7 @@ const VistaDatosProfesional2 = () => {
                             <>
 
                                 <FormControl sx={{ mb: 2 }} fullWidth error={!!errors.set_tipoMascotas} >
-                                    <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Indica qué tipos de mascotas tienes en casa (se pueden seleccionar varias opciones):</Typography>
+                                    <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Indica qué tipos de mascotas tienes en casa (se pueden seleccionar varias opciones):</Typography>
                                     <Select
                                         name="set_tipoMascotas"
                                         multiple
@@ -357,7 +357,7 @@ const VistaDatosProfesional2 = () => {
                                         variant="outlined"
                                         sx={{
                                             height: "40px",
-                                            fontFamily: "Poppins",
+                                            fontFamily: "Roboto Condensed",
                                             fontSize: "16px"
                                         }}
 
@@ -384,7 +384,7 @@ const VistaDatosProfesional2 = () => {
                             </>
                         )}
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Cantidad de personas con las que <strong>NO</strong> vive pero dependen económicamente de usted:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Cantidad de personas con las que <strong>NO</strong> vive pero dependen económicamente de usted:</Typography>
                         <TextField select name="var_personasDependeciaEconimica" variant="outlined" value={var_personasDependeciaEconimica} onChange={manejoCambiosInputs} onBlur={handleBlur} error={!!errors.var_personasDependeciaEconimica}
                             helperText={errors.var_personasDependeciaEconimica} fullWidth sx={{ mb: 2 }} FormHelperTextProps={{
                                 sx: {
@@ -393,7 +393,7 @@ const VistaDatosProfesional2 = () => {
                             }} InputProps={{
                                 sx: {
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 },
                             }}
@@ -407,7 +407,7 @@ const VistaDatosProfesional2 = () => {
                             <MenuItem value="N/A">No aplica</MenuItem>
                         </TextField>
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Total ingresos propios y grupo familiar:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Total ingresos propios y grupo familiar:</Typography>
                         <TextField select name="var_totalIngresosPropiosYGrupoFamiliar" variant="outlined" value={var_totalIngresosPropiosYGrupoFamiliar} onChange={manejoCambiosInputs} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_totalIngresosPropiosYGrupoFamiliar}
                             helperText={errors.var_totalIngresosPropiosYGrupoFamiliar} FormHelperTextProps={{
                                 sx: {
@@ -416,7 +416,7 @@ const VistaDatosProfesional2 = () => {
                             }} InputProps={{
                                 sx: {
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 },
                             }}
@@ -465,7 +465,7 @@ const VistaDatosProfesional2 = () => {
                         </div>
 
                         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                            <Button sx={{ backgroundColor: '#202B52' }} onClick={manejarSiguiente} variant="contained" type="submit"> Siguiente </Button>
+                            <Button sx={{ backgroundColor: '#202B52', fontFamily: 'Poppins' }} onClick={manejarSiguiente} variant="contained" type="submit"> Siguiente </Button>
                         </div>
 
 

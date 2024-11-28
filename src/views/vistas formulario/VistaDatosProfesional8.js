@@ -306,14 +306,14 @@ const VistaDatosProfesional8 = () => {
             <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: '#F2F2F2', borderColor: '#202B52' }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}> Medios de transporte utilizado</Typography>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}><strong>Medios de transporte utilizado</strong></Typography>
                     </Box>
                 </Box>
                 <Divider style={{ marginLeft: '5%', marginRight: '5%', borderColor: '#202B52' }} />
 
                 <CardContent sx={{ padding: "30px" }}>
                     <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.selectedTransporte}>
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>
                             ¿Con cuál medio de transporte propio cuenta? (se pueden seleccionar varias opciones):
                         </Typography>
                         <Select
@@ -335,7 +335,7 @@ const VistaDatosProfesional8 = () => {
                             }}
                             sx={{
                                 height: "40px",
-                                fontFamily: "Poppins",
+                                fontFamily: "Roboto Condensed",
                                 fontSize: "16px"
                             }}
                         >
@@ -353,35 +353,8 @@ const VistaDatosProfesional8 = () => {
                         )}
                     </FormControl>
 
-
-                    {/* <FormControl fullWidth sx={{ mb: 2 }}>
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿En cuál medio de transporte te desplazas a la universidad? (se pueden seleccionar varias opciones):</Typography>
-                        <TextField select name="set_mediosTransportePublico" value={mediosTransportePublico} onChange={manejarCambio} fullWidth variant="outlined" SelectProps={{ multiple: true }} onBlur={handleBlur}
-                            error={!!errors.mediosTransportePublico}
-                            helperText={errors.mediosTransportePublico} FormHelperTextProps={{
-                                sx: {
-                                    marginLeft: 0,
-                                },
-                            }} InputProps={{
-                                sx: {
-                                    height: "40px",
-                                    fontFamily: "Poppins",
-                                    fontSize: "16px"
-                                },
-                            }} >
-                            <MenuItem value="transporte propio">Transporte propio</MenuItem>
-                            <MenuItem value="bus">Bus</MenuItem>
-                            <MenuItem value="metro">Metro</MenuItem>
-                            <MenuItem value="bici">Bicicleta</MenuItem>
-                            <MenuItem value="caminando">Caminando</MenuItem>
-                            <MenuItem value="taxi">Taxi</MenuItem>
-                            <MenuItem value="mototaxi">Plataformas</MenuItem>
-                        </TextField>
-
-                    </FormControl> */}
-
                     <FormControl fullWidth sx={{ mb: 2 }}>
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>
                             ¿En cuál medio de transporte te desplazas a la universidad? (se pueden seleccionar varias opciones):
                         </Typography>
                         <Select
@@ -404,7 +377,7 @@ const VistaDatosProfesional8 = () => {
                     
                                 sx={{
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px",
                                 }}
                             
@@ -448,7 +421,7 @@ const VistaDatosProfesional8 = () => {
 
                     {habilitarPlaca && (
                         <>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Número de placa:</Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Número de placa:</Typography>
                             <TextField value={placa} onChange={manejarCambioPlaca} fullWidth variant="outlined" sx={{
                                 mb: 2, input: {
                                     textTransform: "uppercase", // Fuerza las letras a mostrarse en mayúsculas
@@ -456,7 +429,7 @@ const VistaDatosProfesional8 = () => {
                             }} InputProps={{
                                 sx: {
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px",
                                 }, inputProps: { maxLength: 7 }
                             }} />
@@ -465,7 +438,7 @@ const VistaDatosProfesional8 = () => {
                             {/* Mostrar el segundo campo de placa si se seleccionaron más de uno de los IDs válidos */}
                             {habilitarPlacaExtra && (
                                 <>
-                                    <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Número de placa extra:</Typography>
+                                    <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Número de placa extra:</Typography>
 
                                     <TextField
                                         sx={{ input: { textTransform: "uppercase" } }}
@@ -476,7 +449,7 @@ const VistaDatosProfesional8 = () => {
                                         InputProps={{
                                             sx: {
                                                 height: "40px",
-                                                fontFamily: "Poppins",
+                                                fontFamily: "Roboto Condensed",
                                                 fontSize: "16px",
                                             }, inputProps: { maxLength: 7 }
                                         }}
@@ -526,7 +499,7 @@ const VistaDatosProfesional8 = () => {
 
 
                     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Button sx={{ backgroundColor: '#202B52' }} onClick={manejarSiguiente} variant="contained" type="button">
+                        <Button sx={{ backgroundColor: '#202B52', fontFamily: 'Poppins' }} onClick={manejarSiguiente} variant="contained" type="button">
                             Siguiente
                         </Button>
                     </div>

@@ -263,21 +263,21 @@ const VistaAgradecimientos = () => {
                 className="contenedor-items-buttoms" 
 
             >
-                <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#1b263b', fontFamily: 'Roboto Condensed' }}>
+                <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#1b263b', fontFamily: 'Poppins' }}>
                     ¡Gracias por brindardos tu información!
                 </h2>
                 {/* Caja informativa */}
                 <div
                     style={{
                         backgroundColor: '#F2F2F2',
-                        border: '2px solid #202B52',
+                        // border: '2px solid #202B52',
                         borderRadius: '10px',
                         padding: '15px',
                         textAlign: 'justify',
                     }}
                 >
-                    <p style={{ margin: 0, color: '#1b263b', fontSize: '14px', fontFamily: 'Poppins' }}>
-                        <strong style={{ fontFamily: 'Roboto Condensed' }}>Importante: </strong>Tu información ha sido registrada con éxito, agradecemos tu tiempo.
+                    <p style={{ margin: 0, color: '#1b263b', fontSize: '18px', fontFamily: 'Poppins' }}>
+                        <strong style={{ fontFamily: 'Poppins', fontSize: '19px' }}>Importante: </strong>Tu información ha sido registrada con éxito, agradecemos tu tiempo.
                     </p>
                 </div>
 

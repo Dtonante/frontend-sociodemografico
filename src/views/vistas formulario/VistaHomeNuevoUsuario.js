@@ -58,8 +58,8 @@ const VistaHomeUsuarioNuevo = () => {
                         textAlign: 'justify',
                     }}
                 >
-                    <p style={{ margin: 0, color: '#1b263b', fontSize: '14px', fontFamily: 'Poppins' }}>
-                        <strong style={{ fontFamily: 'Roboto Condensed', fontSize: "16px" }}>Importante: </strong>El perfil sociodemográfico es un instrumento creado para reconocer cuáles son
+                    <p style={{ margin: 0, color: '#1b263b', fontSize: '18px', fontFamily: 'Roboto Condensed' }}>
+                        <strong style={{ fontFamily: 'Roboto Condensed', fontSize: "19px" }}>Importante: </strong>El perfil sociodemográfico es un instrumento creado para reconocer cuáles son
                         las características de la población trabajadora que se tienen en La Institución
                         Universitaria ESUMER.<br/> <br/>
 
@@ -113,6 +113,7 @@ const VistaHomeUsuarioNuevo = () => {
                     <div className="botones-accion">
                         <button
                             style={{
+                                fontFamily:"Poppins",
                                 padding: '10px 20px',
                                 fontSize: '16px',
                                 backgroundColor: '#1b263b',

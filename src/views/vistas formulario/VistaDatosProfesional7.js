@@ -325,7 +325,7 @@ const VistaDatosProfesional7 = () => {
             <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: '#F2F2F2', borderColor: '#202B52' }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}>Salud física </Typography>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}><strong>Salud física</strong> </Typography>
                     </Box>
                 </Box>
                 <Divider style={{ marginLeft: '5%', marginRight: '5%', borderColor: '#202B52' }} />
@@ -336,11 +336,11 @@ const VistaDatosProfesional7 = () => {
 
 
                         <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.selectedActividadTiempoLibre}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Seleccione las actividades que realiza en su tiempo libre (se pueden seleccionar varias opciones):</Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione las actividades que realiza en su tiempo libre (se pueden seleccionar varias opciones):</Typography>
                             <Select name='actividadTiempoLibre'
                                 sx={{
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 }}
                                 multiple onBlur={handleBlur} value={selectedActividadTiempoLibre} onChange={(event) => manejarCambio(event, 'actividadTiempoLibre')} renderValue={(selected) => {
@@ -373,13 +373,13 @@ const VistaDatosProfesional7 = () => {
                             )}
                         </FormControl>
                         <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.pasoMayorTiempoLibre}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>
                                 ¿Con quién pasa la mayor parte de su tiempo libre?:
                             </Typography>
                             <Select
                                 sx={{
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 }}
                                 name="set_pasoMayorTiempoLibre"
@@ -401,11 +401,11 @@ const VistaDatosProfesional7 = () => {
 
 
                         <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} error={!!errors.boolean_usaLentes}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} > ¿Usa Lentes?:</Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} > ¿Usa Lentes?:</Typography>
                             <RadioGroup name="boolean_usaLentes" value={boolean_usaLentes} onChange={manejarCambio} row onBlur={handleBlur}
                                 sx={{
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 }}  >
                                 <FormControlLabel value="true" control={<Radio />} label="Sí" />
@@ -419,7 +419,7 @@ const VistaDatosProfesional7 = () => {
                         </FormControl>
 
                         <FormControl fullWidth sx={{ mb: 2 }}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Altura (cm): </Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >Altura (cm): </Typography>
                             <TextField name="var_altura" value={altura} onChange={manejarCambio} placeholder="Ingrese su altura en cm" fullWidth onBlur={handleBlur} error={!!errors.altura} helperText={errors.altura} FormHelperTextProps={{
                                 sx: {
                                     marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
@@ -428,7 +428,7 @@ const VistaDatosProfesional7 = () => {
                                 InputProps={{
                                     sx: {
                                         height: "40px",
-                                        fontFamily: "Poppins",
+                                        fontFamily: "Roboto Condensed",
                                         fontSize: "16px"
                                     },
                                 }} />
@@ -436,7 +436,7 @@ const VistaDatosProfesional7 = () => {
 
 
                         <FormControl fullWidth sx={{ mb: 2 }}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Peso (kg): </Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >Peso (kg): </Typography>
                             <TextField name="var_peso" value={peso} onChange={manejarCambio} placeholder="Ingrese su peso en kg" fullWidth onBlur={handleBlur} error={!!errors.peso} helperText={errors.peso} FormHelperTextProps={{
                                 sx: {
                                     marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
@@ -445,18 +445,18 @@ const VistaDatosProfesional7 = () => {
                                 InputProps={{
                                     sx: {
                                         height: "40px",
-                                        fontFamily: "Poppins",
+                                        fontFamily: "Roboto Condensed",
                                         fontSize: "16px"
                                     },
                                 }} />
                         </FormControl>
 
                         <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} error={!!errors.boolean_bebidasEnergizantes}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Consume bebidas energizantes?:</Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >¿Consume bebidas energizantes?:</Typography>
                             <RadioGroup name="boolean_bebidasEnergizantes" value={boolean_bebidasEnergizantes} onChange={manejarCambio} row onBlur={handleBlur}
                                 sx={{
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 }} >
                                 <FormControlLabel value="true" control={<Radio />} label="Sí" />
@@ -473,11 +473,11 @@ const VistaDatosProfesional7 = () => {
 
 
                         <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} error={!!errors.actividadFisica}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Realiza actividad física?: </Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >¿Realiza actividad física?: </Typography>
                             <RadioGroup name="boolean_actividadFisica" value={actividadFisica} onChange={manejarCambio} row onBlur={handleBlur}
                                 sx={{
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 }} >
                                 <FormControlLabel value={true} control={<Radio />} label="Sí" />
@@ -492,11 +492,11 @@ const VistaDatosProfesional7 = () => {
 
                         {actividadFisica && (
                             <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.frecuenciaActividadFisica}>
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Frecuencia:</Typography>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >Frecuencia:</Typography>
                                 <Select name="var_frecuenciaActividadFisica" value={frecuenciaActividadFisica} onChange={manejarCambio} displayEmpty onBlur={handleBlur}
                                     sx={{
                                         height: "40px",
-                                        fontFamily: "Poppins",
+                                        fontFamily: "Roboto Condensed",
                                         fontSize: "16px"
                                     }}  >
                                     <MenuItem value="">Seleccione una frecuencia</MenuItem>
@@ -512,11 +512,11 @@ const VistaDatosProfesional7 = () => {
                         )}
 
                         <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} error={!!errors.fuma}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Fuma o vapea?:</Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >¿Fuma o vapea?:</Typography>
                             <RadioGroup name="boolean_fuma" value={fuma} onChange={manejarCambio} row onBlur={handleBlur}
                                 sx={{
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 }}  >
                                 <FormControlLabel value={true} control={<Radio />} label="Sí" />
@@ -531,11 +531,11 @@ const VistaDatosProfesional7 = () => {
 
                         {fuma && (
                             <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.frecuenciaFuma}>
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Frecuencia:</Typography>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >Frecuencia:</Typography>
                                 <Select name="var_frecuenciaFuma" value={frecuenciaFuma} onChange={manejarCambio} displayEmpty onBlur={handleBlur}
                                     sx={{
                                         height: "40px",
-                                        fontFamily: "Poppins",
+                                        fontFamily: "Roboto Condensed",
                                         fontSize: "16px"
                                     }}  >
                                     <MenuItem value="">Seleccione una frecuencia</MenuItem>
@@ -551,11 +551,11 @@ const VistaDatosProfesional7 = () => {
                         )}
 
                         <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} error={!!errors.toma}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Consume bebidas alcohólicas?:</Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >¿Consume bebidas alcohólicas?:</Typography>
                             <RadioGroup name="boolean_toma" value={toma} onChange={manejarCambio} row onBlur={handleBlur}
                                 sx={{
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 }}  >
                                 <FormControlLabel value={true} control={<Radio />} label="Sí" />
@@ -570,11 +570,11 @@ const VistaDatosProfesional7 = () => {
 
                         {toma && (
                             <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.frecuenciaToma}>
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Frecuencia:</Typography>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >Frecuencia:</Typography>
                                 <Select name="var_frecuenciaToma" value={frecuenciaToma} onChange={manejarCambio} displayEmpty onBlur={handleBlur}
                                     sx={{
                                         height: "40px",
-                                        fontFamily: "Poppins",
+                                        fontFamily: "Roboto Condensed",
                                         fontSize: "16px"
                                     }} >
                                     <MenuItem value="">Seleccione una frecuencia</MenuItem>
@@ -590,11 +590,11 @@ const VistaDatosProfesional7 = () => {
                         )}
 
                         <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} error={!!errors.sustanciaPsicoactiva}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Consume sustancias psicoactivas?:</Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >¿Consume sustancias psicoactivas?:</Typography>
                             <RadioGroup name="boolean_sustanciasPsicoactivas" value={sustanciaPsicoactiva} onChange={manejarCambio} row
                                 sx={{
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 }} >
                                 <FormControlLabel value="true" control={<Radio />} label="Sí" />
@@ -609,11 +609,11 @@ const VistaDatosProfesional7 = () => {
 
                         {sustanciaPsicoactiva && (
                             <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.frecuenciaSustanciaPsicoactiva}>
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Frecuencia:</Typography>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >Frecuencia:</Typography>
                                 <Select name="var_frecuenciaSustanciasPsicoactivas" onBlur={handleBlur} value={frecuenciaSustanciaPsicoactiva} onChange={manejarCambio} displayEmpty
                                     sx={{
                                         height: "40px",
-                                        fontFamily: "Poppins",
+                                        fontFamily: "Roboto Condensed",
                                         fontSize: "16px"
                                     }}  >
                                     <MenuItem value="">Seleccione una frecuencia</MenuItem>
@@ -665,7 +665,7 @@ const VistaDatosProfesional7 = () => {
                         </div>
 
                         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                            <Button sx={{ backgroundColor: '#202B52' }} onClick={manejarSiguiente} variant="contained" type="submit">
+                            <Button sx={{ backgroundColor: '#202B52', fontFamily: 'Poppins' }} onClick={manejarSiguiente} variant="contained" type="submit">
                                 Siguiente
                             </Button>
                         </div>

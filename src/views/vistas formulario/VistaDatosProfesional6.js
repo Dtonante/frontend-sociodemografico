@@ -186,18 +186,18 @@ const VistaDatosProfesional6 = () => {
             <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: " auto", backgroundColor: '#F2F2F2', borderColor: '#202B52' }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}>Formación académica</Typography>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}><strong>Formación académica</strong> </Typography>
                     </Box>
                 </Box>
                 <Divider style={{ marginLeft: '5%', marginRight: '5%', borderColor: '#202B52' }} />
 
                 <CardContent sx={{ padding: "30px" }}>
                     <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.nivelEscolaridad}>
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Nivel de Escolaridad: </Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >Nivel de Escolaridad: </Typography>
                         <Select onBlur={handleBlur} labelId="nivelEscolar-label" name="nivelEscolaridad" value={nivelEscolaridad} onChange={manejarCambio}
                             sx={{
                                 height: "40px",
-                                fontFamily: "Poppins",
+                                fontFamily: "Roboto Condensed",
                                 fontSize: "16px"
                             }} >
                             <MenuItem value="bachicher">Bachiller </MenuItem>
@@ -216,11 +216,11 @@ const VistaDatosProfesional6 = () => {
                     </FormControl>
 
                     <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} error={!!errors.graduacion} >
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Te has graduado en los ultimos dos años?:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >¿Te has graduado en los ultimos dos años?:</Typography>
                         <RadioGroup name="graduacion" value={graduacion} onChange={manejarCambio} row onBlur={handleBlur}
                             sx={{
                                 height: "40px",
-                                fontFamily: "Poppins",
+                                fontFamily: "Roboto Condensed",
                                 fontSize: "16px"
                             }}>
                             <FormControlLabel value="true" control={<Radio />} label="Sí" />
@@ -233,13 +233,13 @@ const VistaDatosProfesional6 = () => {
 
                     {graduacion && (
                         <FormControl fullWidth sx={{ mb: 2 }}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Anexar certificado:</Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Anexar certificado:</Typography>
                             <input id="certificado-pdf" name="certificadoPdf" type="file" accept="application/pdf" onChange={manejarCambioPdf}
                                 style={{
                                     border: "1px solid #202B52",
                                     borderRadius: "4px",
                                     padding: "10px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "14px",
                                     color: "#202B52",
                                     cursor: "pointer",
@@ -264,11 +264,11 @@ const VistaDatosProfesional6 = () => {
 
 
                     <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} error={!!errors.actualmenteEstudia} >
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Actualmente Estudia?:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >¿Actualmente Estudia?:</Typography>
                         <RadioGroup name="boolean_actualmenteEstudia" value={actualmenteEstudia} onChange={manejarCambio} row onBlur={handleBlur}
                             sx={{
                                 height: "40px",
-                                fontFamily: "Poppins",
+                                fontFamily: "Roboto Condensed",
                                 fontSize: "16px"
                             }}>
                             <FormControlLabel value="true" control={<Radio />} label="Sí" />
@@ -281,12 +281,12 @@ const VistaDatosProfesional6 = () => {
 
                     {actualmenteEstudia && (
                         <FormControl fullWidth sx={{ mb: 2 }}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Nombre del programa: </Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >Nombre del programa: </Typography>
                             <TextField name="nombreCarrera" value={nombreCarrera} onChange={manejarCambio} variant="outlined"
                                 InputProps={{
                                     sx: {
                                         height: "40px",
-                                        fontFamily: "Poppins",
+                                        fontFamily: "Roboto Condensed",
                                         fontSize: "16px"
                                     },
                                 }} />
@@ -330,7 +330,7 @@ const VistaDatosProfesional6 = () => {
                     </div>
 
                     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Button sx={{ backgroundColor: '#202B52' }} variant="contained" onClick={manejarSiguiente} type="submit">
+                        <Button sx={{ backgroundColor: '#202B52', fontFamily: 'Poppins' }} variant="contained" onClick={manejarSiguiente} type="submit">
                             Siguiente
                         </Button>
                     </div>

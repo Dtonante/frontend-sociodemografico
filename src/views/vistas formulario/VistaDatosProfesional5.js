@@ -349,7 +349,7 @@ const VistaDatosProfesional5 = () => {
                 fontFamily: "Roboto Condensed",
               }}
             >
-              Información laboral
+              <strong>Información laboral</strong>
             </Typography>
           </Box>
         </Box>
@@ -364,7 +364,7 @@ const VistaDatosProfesional5 = () => {
           <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.afiliado}>
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               ¿En proceso de ingreso o vinculado?:
             </Typography>
@@ -376,7 +376,7 @@ const VistaDatosProfesional5 = () => {
               onBlur={handleBlur}
               sx={{
                 height: "40px",
-                fontFamily: "Poppins",
+                fontFamily: "Roboto Condensed",
                 fontSize: "16px",
               }}
             >
@@ -398,7 +398,7 @@ const VistaDatosProfesional5 = () => {
             <form>
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
                 Correo Electrónico Institucional:
               </Typography>
@@ -421,7 +421,7 @@ const VistaDatosProfesional5 = () => {
                 InputProps={{
                   sx: {
                     height: "40px",
-                    fontFamily: "Poppins",
+                    fontFamily: "Roboto Condensed",
                     fontSize: "16px",
                   },
                 }}
@@ -434,7 +434,7 @@ const VistaDatosProfesional5 = () => {
               >
                 <Typography
                   variant="h6"
-                  sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                  sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
                 >
                   Tipo de Contrato:
                 </Typography>
@@ -446,7 +446,7 @@ const VistaDatosProfesional5 = () => {
                   onBlur={handleBlur}
                   sx={{
                     height: "40px",
-                    fontFamily: "Poppins",
+                    fontFamily: "Roboto Condensed",
                     fontSize: "16px",
                   }}
                 >
@@ -476,7 +476,7 @@ const VistaDatosProfesional5 = () => {
 
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
                 Salario:
               </Typography>
@@ -499,7 +499,7 @@ const VistaDatosProfesional5 = () => {
                 InputProps={{
                   sx: {
                     height: "40px",
-                    fontFamily: "Poppins",
+                    fontFamily: "Roboto Condensed",
                     fontSize: "16px",
                   },
                 }}
@@ -507,7 +507,7 @@ const VistaDatosProfesional5 = () => {
 
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
                 Fecha de Ingreso:
               </Typography>
@@ -534,7 +534,7 @@ const VistaDatosProfesional5 = () => {
                 InputProps={{
                   sx: {
                     height: "40px",
-                    fontFamily: "Poppins",
+                    fontFamily: "Roboto Condensed",
                     fontSize: "16px",
                   },
                 }}
@@ -542,7 +542,7 @@ const VistaDatosProfesional5 = () => {
 
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
                 Antigüedad en la Institución (días):
               </Typography>
@@ -558,7 +558,7 @@ const VistaDatosProfesional5 = () => {
                 InputProps={{
                   sx: {
                     height: "40px",
-                    fontFamily: "Poppins",
+                    fontFamily: "Roboto Condensed",
                     fontSize: "16px",
                   },
                 }}
@@ -571,7 +571,7 @@ const VistaDatosProfesional5 = () => {
               >
                 <Typography
                   variant="h6"
-                  sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                  sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
                 >
                   Área laboral a la que pertenece:
                 </Typography>
@@ -583,7 +583,7 @@ const VistaDatosProfesional5 = () => {
                   onBlur={handleBlur}
                   sx={{
                     height: "40px",
-                    fontFamily: "Poppins",
+                    fontFamily: "Roboto Condensed",
                     fontSize: "16px",
                   }}
                 >
@@ -606,7 +606,7 @@ const VistaDatosProfesional5 = () => {
 
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
                 Cargo:
               </Typography>
@@ -629,7 +629,7 @@ const VistaDatosProfesional5 = () => {
                 InputProps={{
                   sx: {
                     height: "40px",
-                    fontFamily: "Poppins",
+                    fontFamily: "Roboto Condensed",
                     fontSize: "16px",
                   },
                 }}
@@ -637,7 +637,7 @@ const VistaDatosProfesional5 = () => {
 
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
                 Jefe Inmediato:
               </Typography>
@@ -662,7 +662,7 @@ const VistaDatosProfesional5 = () => {
                 InputProps={{
                   sx: {
                     height: "40px",
-                    fontFamily: "Poppins",
+                    fontFamily: "Roboto Condensed",
                     fontSize: "16px",
                   },
                 }}
@@ -671,7 +671,7 @@ const VistaDatosProfesional5 = () => {
               <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.sede}>
                 <Typography
                   variant="h6"
-                  sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                  sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
                 >
                   Sede:
                 </Typography>
@@ -683,7 +683,7 @@ const VistaDatosProfesional5 = () => {
                   onBlur={handleBlur}
                   sx={{
                     height: "40px",
-                    fontFamily: "Poppins",
+                    fontFamily: "Roboto Condensed",
                     fontSize: "16px",
                   }}
                 >
@@ -747,7 +747,7 @@ const VistaDatosProfesional5 = () => {
 
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <Button
-              sx={{ backgroundColor: "#202B52" }}
+              sx={{ backgroundColor: "#202B52", fontFamily: 'Poppins' }}
               onClick={manejarSiguiente}
               variant="contained"
               type="submit"

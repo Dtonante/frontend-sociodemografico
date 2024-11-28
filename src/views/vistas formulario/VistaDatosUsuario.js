@@ -628,6 +628,21 @@ const VistaDatosUsuario = () => {
     });
   };
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth); // Actualiza el ancho de la ventana
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Limpieza del listener al desmontar el componente
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <div
       style={{
@@ -642,7 +657,8 @@ const VistaDatosUsuario = () => {
         <img
           src="public/logo_form.png"
           alt="Descripción de la imagen"
-          style={{ width: "20%", height: "auto" }}
+          style={{ width: windowWidth < 1000 ? "50%" : "20%", 
+            height: "auto", }}
         />
       </div>
       <Card
@@ -667,8 +683,8 @@ const VistaDatosUsuario = () => {
                 fontFamily: "Roboto Condensed",
               }}
             >
-              {" "}
-              Datos personales{" "}
+              
+              <strong>Datos personales</strong>
             </Typography>
           </Box>
         </Box>
@@ -683,7 +699,7 @@ const VistaDatosUsuario = () => {
           <form onSubmit={manejarEnvio}>
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Nombre Completo:
             </Typography>
@@ -702,12 +718,12 @@ const VistaDatosUsuario = () => {
               helperText={errors.var_nombreCompleto}
               FormHelperTextProps={{ sx: { marginLeft: 0 } }}
               InputProps={{
-                sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" },
+                sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" },
               }}
             />
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Tipo de Documento:
             </Typography>
@@ -725,7 +741,7 @@ const VistaDatosUsuario = () => {
               helperText={errors.int_tipoDocumentoFK}
               FormHelperTextProps={{ sx: { marginLeft: 0 } }}
               InputProps={{
-                sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" },
+                sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" },
               }}
             >
               {tiposDocumento.map((option) => (
@@ -740,7 +756,7 @@ const VistaDatosUsuario = () => {
             </TextField>
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Número de Documento:
             </Typography>
@@ -759,12 +775,12 @@ const VistaDatosUsuario = () => {
               helperText={errors.var_numeroDocumento}
               FormHelperTextProps={{ sx: { marginLeft: 0 } }}
               InputProps={{
-                sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" },
+                sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" },
               }}
             />
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Fecha de Nacimiento:
             </Typography>
@@ -790,7 +806,7 @@ const VistaDatosUsuario = () => {
               InputProps={{
                 sx: {
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 },
               }}
@@ -801,12 +817,12 @@ const VistaDatosUsuario = () => {
 
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Género:
             </Typography>
             <FormControl className="genero"  component="fieldset"  sx={{ mb: 2}} error={!!errors.var_genero} >
-              <RadioGroup className="genero" name="var_genero" value={formData.var_genero} onChange={handleInputChange}  row onBlur={handleBlur} sx={{  height: "40px", fontFamily: "Poppins", fontSize: "16px", }} >
+              <RadioGroup className="genero" name="var_genero" value={formData.var_genero} onChange={handleInputChange}  row onBlur={handleBlur} sx={{  height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px", }} >
                 <FormControlLabel  value="Masculino"  control={<Radio />} label="Masculino" />
                 <FormControlLabel value="Femenino"  control={<Radio />}  label="Femenino" />
                 <FormControlLabel value="Otro" control={<Radio />} label="Otro" />
@@ -818,7 +834,7 @@ const VistaDatosUsuario = () => {
 
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Grupo Sanguíneo:
             </Typography>
@@ -841,7 +857,7 @@ const VistaDatosUsuario = () => {
               InputProps={{
                 sx: {
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 },
               }}
@@ -857,7 +873,7 @@ const VistaDatosUsuario = () => {
             </TextField>
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Grupo Étnico:
             </Typography>
@@ -879,7 +895,7 @@ const VistaDatosUsuario = () => {
               InputProps={{
                 sx: {
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 },
               }}
@@ -892,7 +908,7 @@ const VistaDatosUsuario = () => {
             </TextField>
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Correo Electrónico Personal:
             </Typography>
@@ -915,7 +931,7 @@ const VistaDatosUsuario = () => {
               InputProps={{
                 sx: {
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 },
               }}
@@ -923,7 +939,7 @@ const VistaDatosUsuario = () => {
 
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Celular:
             </Typography>
@@ -940,13 +956,13 @@ const VistaDatosUsuario = () => {
               helperText={errors.var_celular}
               FormHelperTextProps={{ sx: { marginLeft: 0 } }}
               InputProps={{
-                sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" }, inputProps: { maxLength: 12, }
+                sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" }, inputProps: { maxLength: 12, }
               }}
             />
 
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Nombre del contacto de emergencia
             </Typography>
@@ -972,7 +988,7 @@ const VistaDatosUsuario = () => {
               InputProps={{
                 sx: {
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 },
               }}
@@ -983,7 +999,7 @@ const VistaDatosUsuario = () => {
 
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Teléfono fijo o celular del contacto de emergencia:
             </Typography>
@@ -1000,12 +1016,12 @@ const VistaDatosUsuario = () => {
               helperText={errors.var_telefonoEmergencia}
               FormHelperTextProps={{ sx: { marginLeft: 0 } }}
               InputProps={{
-                sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" }, inputProps: { maxLength: 10, }
+                sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" }, inputProps: { maxLength: 10, }
               }}
             />
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Crear contraseña (Nota: La contraseña debe tener un mínimo de 8 carácteres, mínimo una mayúsculas, mínimo una minúscula y mínimo un número):
             </Typography>
@@ -1028,7 +1044,7 @@ const VistaDatosUsuario = () => {
               InputProps={{
                 sx: {
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 },
               }}
@@ -1036,7 +1052,7 @@ const VistaDatosUsuario = () => {
 
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Confirmar creacion de contraseña:
             </Typography>
@@ -1059,7 +1075,7 @@ const VistaDatosUsuario = () => {
               InputProps={{
                 sx: {
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 },
               }}
@@ -1105,7 +1121,7 @@ const VistaDatosUsuario = () => {
 
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <Button
-                sx={{ backgroundColor: "#202B52" }}
+                sx={{ backgroundColor: "#202B52", fontFamily: 'poppins' }}
                 variant="contained"
                 type="submit"
               >

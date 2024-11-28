@@ -260,7 +260,7 @@ const VistaDatosProfesional3 = () => {
                 fontFamily: "Roboto Condensed",
               }}
             >
-              Seguridad social
+              <strong>Seguridad social</strong>
             </Typography>
           </Box>
         </Box>
@@ -276,7 +276,7 @@ const VistaDatosProfesional3 = () => {
             <FormControl sx={{ mb: 2 }} error={!!errors.cambioEpsOArl}>
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
                 ¿Ha cambiado de EPS o AFP?:
               </Typography>
@@ -306,7 +306,7 @@ const VistaDatosProfesional3 = () => {
                 onBlur={handleBlur}
                 sx={{
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 }}
               >
@@ -326,7 +326,7 @@ const VistaDatosProfesional3 = () => {
             </FormControl>
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Seleccione EPS:{" "}
             </Typography>
@@ -349,7 +349,7 @@ const VistaDatosProfesional3 = () => {
               InputProps={{
                 sx: {
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 },
               }}
@@ -368,7 +368,7 @@ const VistaDatosProfesional3 = () => {
             >
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
                 Seleccione Fondo de Pensión:{" "}
               </Typography>
@@ -379,7 +379,7 @@ const VistaDatosProfesional3 = () => {
                 onBlur={handleBlur}
                 sx={{
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 }}
               >
@@ -410,7 +410,7 @@ const VistaDatosProfesional3 = () => {
             >
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
                 Seleccione los servicios de salud adicional (se pueden seleccionar varias opciones):
               </Typography>
@@ -439,7 +439,7 @@ const VistaDatosProfesional3 = () => {
                 }}
                 sx={{
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 }}
               >
@@ -479,7 +479,7 @@ const VistaDatosProfesional3 = () => {
             >
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
                 Seleccione Antecedentes Médicos (se pueden seleccionar varias opciones):
               </Typography>
@@ -514,7 +514,7 @@ const VistaDatosProfesional3 = () => {
                 }}
                 sx={{
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 }}
               >
@@ -587,7 +587,7 @@ const VistaDatosProfesional3 = () => {
 
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <Button
-                sx={{ backgroundColor: "#202B52" }}
+                sx={{ backgroundColor: "#202B52", fontFamily:'Poppins' }}
                 variant="contained"
                 onClick={manejarSiguiente}
                 type="submit"
