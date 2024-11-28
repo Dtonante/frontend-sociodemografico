@@ -252,7 +252,7 @@ const VistaAgradecimientos = () => {
             <div style={{ width: '100%', height: '35%', position: 'relative', textAlign: 'center', }}>
                 <img
                     className="imagen-fondo"
-                    src="public/fondo_home.jpg" // Reemplaza con la ruta correcta de la imagen
+                    src="public/Fondo_formulario-07.jpg" // Reemplaza con la ruta correcta de la imagen
                     alt="Fondo"
 
                 />

@@ -683,7 +683,6 @@ const VistaDatosUsuario = () => {
                 fontFamily: "Roboto Condensed",
               }}
             >
-              
               <strong>Datos personales</strong>
             </Typography>
           </Box>
@@ -1023,7 +1022,7 @@ const VistaDatosUsuario = () => {
               variant="h6"
               sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
-              Crear contraseña (Nota: La contraseña debe tener un mínimo de 8 carácteres, mínimo una mayúsculas, mínimo una minúscula y mínimo un número):
+              * Crear contraseña (Nota: La contraseña debe tener un mínimo de 8 carácteres, mínimo una mayúsculas, mínimo una minúscula y mínimo un número):
             </Typography>
             <TextField
               name="var_contrasena"

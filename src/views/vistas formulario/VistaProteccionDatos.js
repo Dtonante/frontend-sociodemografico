@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import show_alert from '../../components/showAlert/alertFuntion';
+import '../../css/VistaHomeNuevoUsuario.css'
+
+
 const VistaProteccionDatos = () => {
   const [aceptaDatos, setAceptaDatos] = useState(null);
   const navigate = useNavigate();
@@ -31,19 +34,19 @@ const VistaProteccionDatos = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-between',
-        height: '100%',
+        height: '109vh',
         margin: 0,
         padding: 0,
       }}
     >
       {/* Imagen de fondo */}
-      <div style={{ width: '100%', height: '35%', position: 'relative', textAlign: 'center' }}>
+      <div style={{ width: '100%', height: '36.5%', position: 'relative', textAlign: 'center' }}>
         <img
-          src="public/fondo_home.jpg"
+          src="public/Fondo_formulario-07.jpg"
           alt="Fondo"
           style={{
             width: '60%',
-            height: '85%',
+            height: '85%', 
             objectFit: 'cover',
           }}
         />
@@ -59,7 +62,7 @@ const VistaProteccionDatos = () => {
           gap: '20px',
           maxWidth: '60%',
           margin: '0 auto',
-          marginTop: '-1.5%',
+          marginTop: '-4%',
         }}
       >
         {/* Título */}
