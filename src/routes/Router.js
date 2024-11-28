@@ -41,90 +41,26 @@ const VistaAgradecimientos = lazy(()=> import("../views/vistas formulario/VistaA
 //inicio vista home
 const VistaHomeUsuarioNuevo = lazy(()=> import("../views/vistas formulario/VistaHomeNuevoUsuario.js"))
 //fin vista home
-//inicio vista login
-const Login = lazy(()=> import("../views/vistas login/login.js"))
 
-
-
-//ruta de eps
-const CompShowEps = lazy(() => import("../views/eps/ShowEps.js"));
-//fin ruta eps
-
-
-/*****Pages******/
-const Dashboard1 = lazy(() => import("../views/dashboards/Dashboard1.js"));
-
-/*****Tables******/
-const BasicTable = lazy(() => import("../views/tables/BasicTable.js"));
-
-// form elements
-const ExAutoComplete = lazy(() =>
-  import("../views/FormElements/ExAutoComplete.js")
-);
-const ExButton = lazy(() => import("../views/FormElements/ExButton.js"));
-const ExCheckbox = lazy(() => import("../views/FormElements/ExCheckbox.js"));
-const ExRadio = lazy(() => import("../views/FormElements/ExRadio.js"));
-const ExSlider = lazy(() => import("../views/FormElements/ExSlider.js"));
-const ExSwitch = lazy(() => import("../views/FormElements/ExSwitch.js"));
-
-// form layouts
-const FormLayouts = lazy(() => import("../views/FormLayouts/FormLayouts.js"));
-
-/*****Routes******/
-
-// const ThemeRoutes = [
-  
-//   {
-//     path: "/",
-//     element:<FullLayout/>,
-//     children: [
-//       // { path: "/", element: <Navigate to="dashboards/dashboard1" /> },
-//       { path: "eps", exact: true, element: <CompShowEps /> },
-
-//       { path: "dashboards/dashboard1", exact: true, element: <Dashboard1 /> },
-//       { path: "tables/basic-table", element: <BasicTable /> },
-//       { path: "/form-layouts/form-layouts", element: <FormLayouts /> },
-//       { path: "/form-elements/autocomplete", element: <ExAutoComplete /> },
-//       { path: "/form-elements/button", element: <ExButton /> },
-//       { path: "/form-elements/checkbox", element: <ExCheckbox /> },
-//       { path: "/form-elements/radio", element: <ExRadio /> },
-//       { path: "/form-elements/slider", element: <ExSlider /> },
-//       { path: "/", element: <ExSwitch /> },
-//     ],
-//   },
-//   { path: "/", exact: true, element: <VistaProteccionDatos /> },
-//   { path: "/datosUsuario", exact: true, element: <VistaDatosUsuario /> },
-// ];
 
 const ThemeRoutes = [
   { path: "/", element: <VistaHomeUsuarioNuevo/>,},
-  { path: "/login", element: <Login />,},
   { path: "/proteccionDatos", element: <VistaProteccionDatos />,},
-  { path: "/datosUsuario",  element: <VistaDatosUsuario /> },
-  { path: "/datosProfesional",  element: <VistaDatosProfesional /> },
-  { path: "/datosProfesional2",  element: <VistaDatosProfesional2 /> },
-  { path: "/datosProfesional3",  element: <VistaDatosProfesional3 /> },
-  { path: "/datosProfesional4",  element: <VistaDatosProfesional4 /> },
-  { path: "/datosProfesional5",  element: <VistaDatosProfesional5 /> },
-  { path: "/datosProfesional6",  element: <VistaDatosProfesional6 /> },
-  { path: "/datosProfesional7",  element: <VistaDatosProfesional7 /> },
-  { path: "/datosProfesional8",  element: <VistaDatosProfesional8 /> },
-  { path: "/agradecimientos",  element: <VistaAgradecimientos /> },
+  { path: "/InfoUsuario",  element: <VistaDatosUsuario /> },
+  { path: "/DatosProfesionales",  element: <VistaDatosProfesional /> },
+  { path: "/DatosAdicionales",  element: <VistaDatosProfesional2 /> },
+  { path: "/SeguridadSocial",  element: <VistaDatosProfesional3 /> },
+  { path: "/InformacionBancaria",  element: <VistaDatosProfesional4 /> },
+  { path: "/InformacionLaboral",  element: <VistaDatosProfesional5 /> },
+  { path: "/FormacionAcademica",  element: <VistaDatosProfesional6 /> },
+  { path: "/SaludFisica",  element: <VistaDatosProfesional7 /> },
+  { path: "/Transporte",  element: <VistaDatosProfesional8 /> },
+  { path: "/Agradecimiento",  element: <VistaAgradecimientos /> },
 
   {
     path: "/app",
     element: <FullLayout />,
     children: [
-      { path: "eps", exact: true, element: <CompShowEps /> }
-      // { path: "/app/dashboards/dashboard1", exact: true, element: <Dashboard1 /> },
-      // { path: "tables/basic-table", element: <BasicTable /> },
-      // { path: "form-layouts/form-layouts", element: <FormLayouts /> },
-      // { path: "form-elements/autocomplete", element: <ExAutoComplete /> },
-      // { path: "form-elements/button", element: <ExButton /> },
-      // { path: "form-elements/checkbox", element: <ExCheckbox /> },
-      // { path: "form-elements/radio", element: <ExRadio /> },
-      // { path: "form-elements/slider", element: <ExSlider /> },
-      // { path: "form-elements/switch", element: <ExSwitch /> },
     ],
   },
 ];

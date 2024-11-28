@@ -11,7 +11,7 @@ const VistaDatosProfesional4 = () => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [touchedFields, setTouchedFields] = useState({});
-  const porcentajeProgreso = 45;
+  const porcentajeProgreso = 60;
 
   // Validaciones basadas en los campos tocados
   useEffect(() => {
@@ -42,7 +42,7 @@ const VistaDatosProfesional4 = () => {
     useEffect(() => {
         const fetchBancos = async () => {
             try {
-                const response = await axios.get("https://evaluacion.esumer.edu.co/cuentasBancarias");
+                const response = await axios.get("https://evaluacion.esumer.edu.co/api/cuentasBancarias");
                 setBancos(response.data);
             } catch (error) {
                 console.error("Error al obtener los bancos:", error);
@@ -87,7 +87,7 @@ const VistaDatosProfesional4 = () => {
       setErrors(nuevosErrores);
       return;
     }
-    navigate("/datosProfesional5");
+    navigate("/InformacionLaboral");
   };
 
   const handleKeyPress = (event, fieldName) => {
@@ -213,7 +213,7 @@ const VistaDatosProfesional4 = () => {
                 variant="h6"
                 sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
               >
-                Tipo de Cuenta
+                Tipo de Cuenta:
               </Typography>
               <RadioGroup
                 name="tipoCuenta"
@@ -245,11 +245,12 @@ const VistaDatosProfesional4 = () => {
               )}
             </FormControl>
 
-            <Typography variant="h6" sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }} > Número de Cuenta: </Typography>
+            <Typography variant="h6" sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }} >Número de Cuenta: </Typography>
             <TextField variant="outlined" fullWidth sx={{ mb: 2 }} name="numeroCuenta"  onKeyPress={(event) => handleKeyPress(event, "numeroCuenta") }  value={numeroCuenta} onChange={manejarCambio} onBlur={handleBlur}  error={!!errors.numeroCuenta} helperText={errors.numeroCuenta} FormHelperTextProps={{ sx: { marginLeft: 0, }, }} InputProps={{ sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px", }, inputProps: { maxLength: 18, }, }}    />
 
             <div
               style={{
+                fontFamily: 'Poppins',
                 display: "flex",
                 alignItems: "center",
                 backgroundColor: "#F2F2F2",
@@ -260,6 +261,7 @@ const VistaDatosProfesional4 = () => {
             >
               <div
                 style={{
+                  fontFamily: 'Poppins',
                   height: "10px",
                   width: "90%",
                   backgroundColor: "#F2F2F2",
@@ -271,6 +273,7 @@ const VistaDatosProfesional4 = () => {
               >
                 <div
                   style={{
+                    fontFamily: 'Poppins',
                     width: `${porcentajeProgreso}%`,
                     height: "100%",
                     backgroundColor: "#202B52",

@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import '../../css/VistaHomeNuevoUsuario.css'
-
+import Swal from 'sweetalert2';
+import { showAlert } from "../../components/showAlert/alertFuntion";
 
 
 const VistaAgradecimientos = () => {
@@ -26,13 +27,13 @@ const VistaAgradecimientos = () => {
 
         const guardarDatos = async () => {
 
-            const URI_PROFESIONAL = 'https://evaluacion.esumer.edu.co/profesional/'
-            const URI_PROFESIONAL_FACTORES_RIESGO = 'https://evaluacion.esumer.edu.co/profesionalFactoresRiesgo/'
-            const URI_PROFESIONAL_SERVICIOS_SALUD_ADICIONAL = 'https://evaluacion.esumer.edu.co/profesionalServicioSaludAdicional/'
-            const URI_PROFESIONAL_ANTECEDENTES_MEDICOS = 'https://evaluacion.esumer.edu.co/profesionalAntecedenteMedico/'
-            const URI_PROFESIONAL_TIEMPO_LIBRE = 'https://evaluacion.esumer.edu.co/profesionalTiempoLibre/'
-            const URI_PROFESIONAL_SERVICIO_QUE_NO_CUENTAN = 'https://evaluacion.esumer.edu.co/profesionalServiciosQueNoCuentan/'
-            const URI_PROFESIONAL_TRANSPORTE_PROPIO = 'https://evaluacion.esumer.edu.co/profesionalTransportePropio/'
+            const URI_PROFESIONAL = 'https://evaluacion.esumer.edu.co/api/profesional/'
+            const URI_PROFESIONAL_FACTORES_RIESGO = 'https://evaluacion.esumer.edu.co/api/profesionalFactoresRiesgo/'
+            const URI_PROFESIONAL_SERVICIOS_SALUD_ADICIONAL = 'https://evaluacion.esumer.edu.co/api/profesionalServicioSaludAdicional/'
+            const URI_PROFESIONAL_ANTECEDENTES_MEDICOS = 'https://evaluacion.esumer.edu.co/api/profesionalAntecedenteMedico/'
+            const URI_PROFESIONAL_TIEMPO_LIBRE = 'https://evaluacion.esumer.edu.co/api/profesionalTiempoLibre/'
+            const URI_PROFESIONAL_SERVICIO_QUE_NO_CUENTAN = 'https://evaluacion.esumer.edu.co/api/profesionalServiciosQueNoCuentan/'
+            const URI_PROFESIONAL_TRANSPORTE_PROPIO = 'https://evaluacion.esumer.edu.co/api/profesionalTransportePropio/'
 
             // Obtener todos los datos del localStorage
             const id_usuarioFK = parseInt(localStorage.getItem('usuarioId'), 10);
@@ -198,26 +199,29 @@ const VistaAgradecimientos = () => {
                 } else {
                     console.error("selectedTransporte no es un array válido o está vacío");
                 }
-
-
             } catch (error) {
                 if (error.response && error.response.status === 400) {
-
-                    const selectedAntecedentesMedicos = JSON.parse(localStorage.getItem('selectedAntecedentes'));
-                    // const selectedTransporte = JSON.parse(localStorage.getItem('selectedTransporte'));
-                    // const placa = localStorage.getItem('placa')
-                    // console.log('jeje', placa)
-
-
-                    // console.log('Factores de riesgo seleccionados vista agradecimientos:', selectedAntecedentesMedicos);
-                    // console.log('puto', selectedTransporte)
-
-                    // Si el error es por duplicado, muestra un mensaje amigable
+                    // Si el error es por duplicado, muestra un mensaje amigable con showAlert
                     console.log('Ya se ha creado un profesional con este usuario. No es necesario volver a crear.');
+                    showAlert({
+                        title: 'Error de duplicado',
+                        icon: 'error',
+                        text: 'Ya se ha creado un profesional con este usuario. No es necesario volver a crear.',
+                        showCancelButton: false,
+                        confirmButtonText: 'OK',
+                    });
                 } else {
-                    // En otros casos, muestra un error genérico
+                    // En otros casos, muestra un error genérico con showAlert
                     console.error('Error al guardar los datos:', error.message);
+                    showAlert({
+                        title: 'Error al crear profesional',
+                        icon: 'error',
+                        text: 'Ocurrió un problema al guardar los datos. Envia un correo electronico a: profesional2.tic@esumer.edu.co o a soporte.tecnico@esumer.edu.co.',
+                        showCancelButton: false,
+                        confirmButtonText: 'OK',
+                    });
                 }
+                
             }
         };
 
@@ -256,7 +260,7 @@ const VistaAgradecimientos = () => {
 
             {/* Contenedor compacto */}
             <div
-                className="contenedor-items-buttoms"
+                className="contenedor-items-buttoms" 
 
             >
                 <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#1b263b', fontFamily: 'Roboto Condensed' }}>
@@ -319,21 +323,7 @@ const VistaAgradecimientos = () => {
                     </div>
 
                     {/* Botones de acción */}
-                    <div className="botones-accion">
-                        <button
-                            style={{
-                                padding: '10px 20px',
-                                fontSize: '16px',
-                                backgroundColor: '#1b263b',
-                                color: 'white',
-                                border: 'none',
-                                borderRadius: '5px',
-                                cursor: 'pointer',
-                            }}
-                            onClick={manejarLogin}
-                        >
-                            log in
-                        </button>
+                    <div className="botones-accion">                      
                         <button
                             style={{
                                 padding: '10px 20px',
@@ -346,7 +336,7 @@ const VistaAgradecimientos = () => {
                             }}
                             onClick={manejarDatosUsuario}
                         >
-                            Formulario
+                            Home
                         </button>
                     </div>
                 </div>

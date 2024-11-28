@@ -6,16 +6,16 @@ import { useNavigate } from 'react-router-dom';
 const VistaDatosProfesional8 = () => {
     // Estado para almacenar los medios de transporte público seleccionados
     const [mediosTransportePublico, setMediosTransportePublico] = useState([]);
-    const [selectedTransporte, setSelectedTransporte] = useState([]);  
-    const [placa, setPlaca] = useState('');  
+    const [selectedTransporte, setSelectedTransporte] = useState([]);
+    const [placa, setPlaca] = useState('');
     const [transportes, setTransportes] = useState([]);
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [touchedFields, setTouchedFields] = useState({});
     const [habilitarPlaca, setHabilitarPlaca] = useState(false);
-    const [habilitarPlacaExtra, setHabilitarPlacaExtra] = useState(false); 
+    const [habilitarPlacaExtra, setHabilitarPlacaExtra] = useState(false);
     const [placaExtra, setPlacaExtra] = useState("N/A");
-    const porcentajeProgreso = 95;
+    const porcentajeProgreso = 100;
 
     // Validaciones basadas en los campos tocados
     useEffect(() => {
@@ -46,10 +46,10 @@ const VistaDatosProfesional8 = () => {
     useEffect(() => {
         const fetchTransportes = async () => {
             try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/transportePropio/');
-                setTransportes(response.data);  
+                const response = await axios.get('https://evaluacion.esumer.edu.co/api/transportePropio/');
+                setTransportes(response.data);
             } catch (error) {
-                console.error('Error al obtener los transportes:', error); 
+                console.error('Error al obtener los transportes:', error);
             }
         };
 
@@ -73,7 +73,7 @@ const VistaDatosProfesional8 = () => {
             setHabilitarPlaca(true);
         } else {
             setHabilitarPlaca(false);
-            setPlaca("N/A"); 
+            setPlaca("N/A");
             // Guardar el array actualizado en localStorage
             localStorage.setItem("selectedTransporte", JSON.stringify(value));
         }
@@ -95,22 +95,154 @@ const VistaDatosProfesional8 = () => {
     };
 
 
-    // Manejar el cambio de la placa
-    const manejarCambioPlaca = (event) => {
-        const nuevaPlaca = event.target.value;
+    // // Manejar el cambio de la placa
+    // const manejarCambioPlaca = (event) => {
+    //     const nuevaPlaca = event.target.value;
 
-        if (habilitarPlaca) {
-            setPlaca(nuevaPlaca);
-            localStorage.setItem('placa', nuevaPlaca);
+    //     if (habilitarPlaca) {
+    //         setPlaca(nuevaPlaca);
+    //         localStorage.setItem('placa', nuevaPlaca);
+    //     }
+    // };
+
+
+    // const manejarCambioPlaca = (event) => {
+    //     let nuevaPlaca = event.target.value.toUpperCase();
+
+    //     // Permite solo letras, números y el guion, eliminando caracteres no válidos
+    //     nuevaPlaca = nuevaPlaca.replace(/[^A-Z0-9-]/g, "");
+
+    //     // Asegura que los tres primeros caracteres sean letras
+    //     if (nuevaPlaca.length <= 3) {
+    //         nuevaPlaca = nuevaPlaca.replace(/[^A-Z]/g, ""); // Solo letras al inicio
+    //     }
+
+    //     // Inserta automáticamente el guion después de las 3 letras
+    //     if (nuevaPlaca.length === 4 && nuevaPlaca[3] !== "-") {
+    //         nuevaPlaca = nuevaPlaca.slice(0, 3) + "-" + nuevaPlaca.slice(3);
+    //     }
+
+    //     // Asegura que los caracteres después del guion cumplan las reglas
+    //     if (nuevaPlaca.length > 4 && nuevaPlaca[3] === "-") {
+    //         const partePosterior = nuevaPlaca.slice(4);
+
+    //         // Validación progresiva para que:
+    //         // - Primer carácter después del guion sea un número
+    //         // - Segundo carácter después del guion sea un número
+    //         // - Tercer carácter después del guion pueda ser un número o una letra
+    //         if (partePosterior.length === 1 && !/^\d$/.test(partePosterior)) {
+    //             nuevaPlaca = nuevaPlaca.slice(0, 4); // Elimina el carácter no numérico
+    //         } else if (partePosterior.length === 2 && !/^\d{2}$/.test(partePosterior)) {
+    //             nuevaPlaca = nuevaPlaca.slice(0, 5); // Elimina caracteres adicionales
+    //         } else if (partePosterior.length === 3 && !/^\d{2}[A-Z]$/.test(partePosterior)) {
+    //             nuevaPlaca = nuevaPlaca.slice(0, 6); // Solo permite dos números seguidos de una letra
+    //         }
+    //     }
+
+    //     // Validación estricta de los formatos de placas
+    //     if (/^[A-Z]{3}-\d{3}$/.test(nuevaPlaca) || /^[A-Z]{3}-\d{2}[A-Z]{1}$/.test(nuevaPlaca)) {
+    //         if (habilitarPlaca) {
+    //             setPlaca(nuevaPlaca); // Actualiza el estado
+    //             localStorage.setItem("placa", nuevaPlaca); // Guarda en localStorage
+    //         }
+    //     } else if (!/^([A-Z]{0,3}-?\d{0,2}[A-Z]?)?$/.test(nuevaPlaca)) {
+    //         // Bloquea cualquier formato que no sea progresivamente válido
+    //         return;
+    //     } else {
+    //         setPlaca(nuevaPlaca); // Permite la entrada progresiva
+    //     }
+    // };
+
+
+
+
+
+
+    // /// Manejar el cambio de la placa extra
+    // const manejarCambioPlacaExtra = (event) => {
+    //     const nuevaPlacaExtra = event.target.value;
+    //     setPlacaExtra(nuevaPlacaExtra);
+    //     actualizarPlacaEnLocalStorage(placa, nuevaPlacaExtra); 
+    // };
+
+
+
+    // Función de validación común para placas
+const validarPlaca = (placa) => {
+    let nuevaPlaca = placa.toUpperCase();
+
+    // Permite solo letras, números y el guion, eliminando caracteres no válidos
+    nuevaPlaca = nuevaPlaca.replace(/[^A-Z0-9-]/g, "");
+
+    // Asegura que los tres primeros caracteres sean letras
+    if (nuevaPlaca.length <= 3) {
+        nuevaPlaca = nuevaPlaca.replace(/[^A-Z]/g, ""); // Solo letras al inicio
+    }
+
+    // Inserta automáticamente el guion después de las 3 letras
+    if (nuevaPlaca.length === 4 && nuevaPlaca[3] !== "-") {
+        nuevaPlaca = nuevaPlaca.slice(0, 3) + "-" + nuevaPlaca.slice(3);
+    }
+
+    // Asegura que los caracteres después del guion cumplan las reglas
+    if (nuevaPlaca.length > 4 && nuevaPlaca[3] === "-") {
+        const partePosterior = nuevaPlaca.slice(4);
+
+        // Validación progresiva para que:
+        // - Primer carácter después del guion sea un número
+        // - Segundo carácter después del guion sea un número
+        // - Tercer carácter después del guion pueda ser un número o una letra
+        if (partePosterior.length === 1 && !/^\d$/.test(partePosterior)) {
+            nuevaPlaca = nuevaPlaca.slice(0, 4); // Elimina el carácter no numérico
+        } else if (partePosterior.length === 2 && !/^\d{2}$/.test(partePosterior)) {
+            nuevaPlaca = nuevaPlaca.slice(0, 5); // Elimina caracteres adicionales
+        } else if (partePosterior.length === 3 && !/^\d{2}[A-Z0-9]$/.test(partePosterior)) {
+            nuevaPlaca = nuevaPlaca.slice(0, 6); // Solo permite dos números seguidos de una letra o número
+        }
+    }
+
+    return nuevaPlaca;
+};
+
+
+    // Manejar el cambio de la placa principal
+    const manejarCambioPlaca = (event) => {
+        let nuevaPlaca = event.target.value;
+
+        // Usar la función de validación común
+        nuevaPlaca = validarPlaca(nuevaPlaca);
+
+        // Validación estricta de los formatos de placas
+        if (/^[A-Z]{3}-\d{3}$/.test(nuevaPlaca) || /^[A-Z]{3}-\d{2}[A-Z]{1}$/.test(nuevaPlaca)) {
+            if (habilitarPlaca) {
+                setPlaca(nuevaPlaca); // Actualiza el estado
+                localStorage.setItem("placa", nuevaPlaca); // Guarda en localStorage
+            }
+        } else if (!/^([A-Z]{0,3}-?\d{0,2}[A-Z]?)?$/.test(nuevaPlaca)) {
+            // Bloquea cualquier formato que no sea progresivamente válido
+            return;
+        } else {
+            setPlaca(nuevaPlaca); // Permite la entrada progresiva
         }
     };
 
-    /// Manejar el cambio de la placa extra
+    // Manejar el cambio de la placa extra
     const manejarCambioPlacaExtra = (event) => {
-        const nuevaPlacaExtra = event.target.value;
+        let nuevaPlacaExtra = event.target.value;
+
+        // Usar la función de validación común
+        nuevaPlacaExtra = validarPlaca(nuevaPlacaExtra);
+
+        // Actualizar el estado con la nueva placa extra
         setPlacaExtra(nuevaPlacaExtra);
-        actualizarPlacaEnLocalStorage(placa, nuevaPlacaExtra); // Actualizar localStorage
+
+        // Actualizar el localStorage con los valores de placa
+        actualizarPlacaEnLocalStorage(placa, nuevaPlacaExtra);
     };
+
+
+
+
 
     // Función para actualizar el valor de la placa en localStorage
     const actualizarPlacaEnLocalStorage = (placaPrincipal, placaExtraValor) => {
@@ -156,7 +288,7 @@ const VistaDatosProfesional8 = () => {
 
         console.log('reputos', selectedTransporte, placa)
 
-        navigate("/agradecimientos");
+        navigate("/Agradecimiento");
     };
 
     return (
@@ -174,7 +306,7 @@ const VistaDatosProfesional8 = () => {
             <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: '#F2F2F2', borderColor: '#202B52' }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}> Medios de transporte utilizado :</Typography>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}> Medios de transporte utilizado</Typography>
                     </Box>
                 </Box>
                 <Divider style={{ marginLeft: '5%', marginRight: '5%', borderColor: '#202B52' }} />
@@ -182,7 +314,7 @@ const VistaDatosProfesional8 = () => {
                 <CardContent sx={{ padding: "30px" }}>
                     <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.selectedTransporte}>
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>
-                            ¿Con cuál medio de transporte propio cuenta? :
+                            ¿Con cuál medio de transporte propio cuenta? (se pueden seleccionar varias opciones):
                         </Typography>
                         <Select
                             multiple
@@ -223,7 +355,7 @@ const VistaDatosProfesional8 = () => {
 
 
                     <FormControl fullWidth sx={{ mb: 2 }}>
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿En cuál medio de transporte te desplazas a la universidad? :</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿En cuál medio de transporte te desplazas a la universidad? (se pueden seleccionar varias opciones):</Typography>
                         <TextField select name="set_mediosTransportePublico" value={mediosTransportePublico} onChange={manejarCambio} fullWidth variant="outlined" SelectProps={{ multiple: true }} onBlur={handleBlur}
                             error={!!errors.mediosTransportePublico}
                             helperText={errors.mediosTransportePublico} FormHelperTextProps={{
@@ -252,12 +384,16 @@ const VistaDatosProfesional8 = () => {
                     {habilitarPlaca && (
                         <>
                             <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Número de placa:</Typography>
-                            <TextField value={placa} onChange={manejarCambioPlaca} fullWidth variant="outlined" sx={{ mb: 2 }} InputProps={{
+                            <TextField value={placa} onChange={manejarCambioPlaca} fullWidth variant="outlined" sx={{
+                                mb: 2, input: {
+                                    textTransform: "uppercase", // Fuerza las letras a mostrarse en mayúsculas
+                                },
+                            }} InputProps={{
                                 sx: {
                                     height: "40px",
                                     fontFamily: "Poppins",
-                                    fontSize: "16px"
-                                }
+                                    fontSize: "16px",
+                                }, inputProps: { maxLength: 7 }
                             }} />
 
 
@@ -267,6 +403,7 @@ const VistaDatosProfesional8 = () => {
                                     <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Número de placa extra:</Typography>
 
                                     <TextField
+                                        sx={{ input: { textTransform: "uppercase" } }}
                                         value={placaExtra}
                                         onChange={manejarCambioPlacaExtra}
                                         fullWidth
@@ -276,7 +413,7 @@ const VistaDatosProfesional8 = () => {
                                                 height: "40px",
                                                 fontFamily: "Poppins",
                                                 fontSize: "16px",
-                                            }
+                                            }, inputProps: { maxLength: 7 }
                                         }}
                                     />
                                 </>
@@ -288,6 +425,7 @@ const VistaDatosProfesional8 = () => {
 
                     <div
                         style={{
+                            fontFamily: 'Poppins',
                             display: 'flex',
                             alignItems: 'center',
                             backgroundColor: '#F2F2F2',
@@ -298,6 +436,7 @@ const VistaDatosProfesional8 = () => {
                     >
                         <div
                             style={{
+                                fontFamily: 'Poppins',
                                 height: '10px',
                                 width: '90%',
                                 backgroundColor: '#F2F2F2',
@@ -309,6 +448,7 @@ const VistaDatosProfesional8 = () => {
                         >
                             <div
                                 style={{
+                                    fontFamily: 'Poppins',
                                     width: `${porcentajeProgreso}%`,
                                     height: '100%',
                                     backgroundColor: '#202B52',

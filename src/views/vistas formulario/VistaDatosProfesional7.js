@@ -11,11 +11,11 @@ const VistaDatosProfesional7 = () => {
     const [actividadFisica, setActividadFisica] = useState();
     const [frecuenciaActividadFisica, setFrecuenciaActividadFisica] = useState("");
     const [fuma, setFuma] = useState();
-    const [frecuenciaFuma, setFrecuenciaFuma] = useState("N/A");
+    const [frecuenciaFuma, setFrecuenciaFuma] = useState("");
     const [toma, setToma] = useState();
-    const [frecuenciaToma, setFrecuenciaToma] = useState("N/A");
+    const [frecuenciaToma, setFrecuenciaToma] = useState("");
     const [sustanciaPsicoactiva, setSustanciaPsicoactiva] = useState();
-    const [frecuenciaSustanciaPsicoactiva, setFrecuenciaSustanciaPsicoactiva] = useState("N/A");
+    const [frecuenciaSustanciaPsicoactiva, setFrecuenciaSustanciaPsicoactiva] = useState("");
     const [peso, setPeso] = useState("");
     const [altura, setAltura] = useState("");
     const [boolean_usaLentes, setBoolean_usaLentes] = useState()
@@ -23,42 +23,42 @@ const VistaDatosProfesional7 = () => {
     const [errors, setErrors] = useState({});
     const [touchedFields, setTouchedFields] = useState({});
     const [boolean_bebidasEnergizantes, setBoolean_bebidasEnergizantes] = useState()
-    const porcentajeProgreso = 70;
+    const porcentajeProgreso = 90;
 
     // Validaciones basadas en los campos tocados
     useEffect(() => {
         const nuevosErrores = {};
 
         if (touchedFields.set_pasoMayorTiempoLibre && !pasoMayorTiempoLibre) {
-            nuevosErrores.pasoMayorTiempoLibre = "El nombre completo es obligatorio";
+            nuevosErrores.pasoMayorTiempoLibre = "Este campo es obligatorio.";
         }
 
         if (touchedFields.var_peso && (!peso || peso.trim() === "")) {
-            nuevosErrores.peso = "El nombre completo es obligatorio";
+            nuevosErrores.peso = "Indicar su peso(KG) es obligatorio.";
         }
 
         if (touchedFields.var_altura && (!altura || altura.trim() === "")) {
-            nuevosErrores.altura = "El nombre completo es obligatorio";
+            nuevosErrores.altura = "Indicar su altura es obligatorio.";
         }
 
         if (touchedFields.actividadTiempoLibre && (!selectedActividadTiempoLibre || selectedActividadTiempoLibre.length === 0)) {
-            nuevosErrores.selectedActividadTiempoLibre = "El nombre completo es obligatorio";
+            nuevosErrores.selectedActividadTiempoLibre = "Las actividades de tiempo libre es obligatorio.";
         }
 
         if (touchedFields.var_frecuenciaSustanciasPsicoactivas && !frecuenciaSustanciaPsicoactiva) {
-            nuevosErrores.frecuenciaSustanciaPsicoactiva = "El nombre completo es obligatorio";
+            nuevosErrores.frecuenciaSustanciaPsicoactiva = "Indicar la frecuencia de consumo es obligatorio.";
         }
 
         if (touchedFields.var_frecuenciaToma && !frecuenciaToma) {
-            nuevosErrores.frecuenciaToma = "El nombre completo es obligatorio";
+            nuevosErrores.frecuenciaToma = "Indicar la frecuencia de consumo es obligatorio.";
         }
 
         if (touchedFields.var_frecuenciaFuma && !frecuenciaFuma) {
-            nuevosErrores.frecuenciaFuma = "El nombre completo es obligatorio";
+            nuevosErrores.frecuenciaFuma = "Indicar la frecuencia de consumo es obligatorio.";
         }
 
         if (touchedFields.var_frecuenciaActividadFisica && !frecuenciaActividadFisica) {
-            nuevosErrores.frecuenciaActividadFisica = "El nombre completo es obligatorio";
+            nuevosErrores.frecuenciaActividadFisica = "Indicar la frecuencia de actividad fisica es obligatorio.";
         }
 
 
@@ -77,12 +77,16 @@ const VistaDatosProfesional7 = () => {
 
     const generarOpciones = () => {
         const opciones = [
-            { value: "tio", label: "Tío" },
-            { value: "hermanos", label: "Hermanos" },
+            { value: "Hijos", label: "Hijos" },
             { value: "madre", label: "Madre" },
             { value: "padre", label: "Padre" },
+            { value: "hermanos", label: "Hermanos" },
             { value: "abuelos", label: "Abuelos" },
-            { value: "mascota", label: "Mascota" },
+            { value: "tios", label: "Tíos" },
+            { value: "mascotas", label: "Mascotas" },
+            { value: "Amigos", label: "Amigos" },
+            { value: "solo", label: "Solo" },
+            { value: "Otros", label: "Otros" },
         ];
         return opciones.map((opcion) => (
             <MenuItem key={opcion.value} value={opcion.value}>
@@ -96,7 +100,7 @@ const VistaDatosProfesional7 = () => {
     useEffect(() => {
         const fetchActividadTiempoLibre = async () => {
             try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/tiempoLibre/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/api/tiempoLibre/');
                 setActividadTiempoLibre(response.data);
             } catch (error) {
                 console.error('Error al obtener las actividades de tiempo libre:', error);
@@ -295,7 +299,7 @@ const VistaDatosProfesional7 = () => {
 
 
 
-        navigate("/datosProfesional8");
+        navigate("/Transporte");
     };
 
     return (
@@ -324,7 +328,7 @@ const VistaDatosProfesional7 = () => {
 
 
                         <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.selectedActividadTiempoLibre}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Seleccione las actividades que realiza en su tiempo libre : </Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Seleccione las actividades que realiza en su tiempo libre (se pueden seleccionar varias opciones):</Typography>
                             <Select name='actividadTiempoLibre'
                                 sx={{
                                     height: "40px",
@@ -362,7 +366,7 @@ const VistaDatosProfesional7 = () => {
                         </FormControl>
                         <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.pasoMayorTiempoLibre}>
                             <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>
-                                ¿Con quién pasa la mayor parte de su tiempo libre?:
+                                ¿Con quién pasa la mayor parte de su tiempo libre? (se pueden seleccionar varias opciones):
                             </Typography>
                             <Select
                                 sx={{
@@ -389,7 +393,7 @@ const VistaDatosProfesional7 = () => {
 
 
                         <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} error={!!errors.boolean_usaLentes}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} > ¿Usa Lentes? :</Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} > ¿Usa Lentes?:</Typography>
                             <RadioGroup name="boolean_usaLentes" value={boolean_usaLentes} onChange={manejarCambio} row onBlur={handleBlur}
                                 sx={{
                                     height: "40px",
@@ -407,7 +411,7 @@ const VistaDatosProfesional7 = () => {
                         </FormControl>
 
                         <FormControl fullWidth sx={{ mb: 2 }}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} > Altura (cm) </Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Altura (cm): </Typography>
                             <TextField name="var_altura" value={altura} onChange={manejarCambio} placeholder="Ingrese su altura en cm" fullWidth onBlur={handleBlur} error={!!errors.altura} helperText={errors.altura} FormHelperTextProps={{
                                 sx: {
                                     marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
@@ -424,7 +428,7 @@ const VistaDatosProfesional7 = () => {
 
 
                         <FormControl fullWidth sx={{ mb: 2 }}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} > Peso (kg) </Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Peso (kg): </Typography>
                             <TextField name="var_peso" value={peso} onChange={manejarCambio} placeholder="Ingrese su peso en kg" fullWidth onBlur={handleBlur} error={!!errors.peso} helperText={errors.peso} FormHelperTextProps={{
                                 sx: {
                                     marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
@@ -440,7 +444,7 @@ const VistaDatosProfesional7 = () => {
                         </FormControl>
 
                         <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} error={!!errors.boolean_bebidasEnergizantes}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Consume bebidas energizantes? :</Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Consume bebidas energizantes?:</Typography>
                             <RadioGroup name="boolean_bebidasEnergizantes" value={boolean_bebidasEnergizantes} onChange={manejarCambio} row onBlur={handleBlur}
                                 sx={{
                                     height: "40px",
@@ -461,7 +465,7 @@ const VistaDatosProfesional7 = () => {
 
 
                         <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} error={!!errors.actividadFisica}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Realiza actividad física? </Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Realiza actividad física?: </Typography>
                             <RadioGroup name="boolean_actividadFisica" value={actividadFisica} onChange={manejarCambio} row onBlur={handleBlur}
                                 sx={{
                                     height: "40px",
@@ -480,7 +484,7 @@ const VistaDatosProfesional7 = () => {
 
                         {actividadFisica && (
                             <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.frecuenciaActividadFisica}>
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Frecuencia :</Typography>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Frecuencia:</Typography>
                                 <Select name="var_frecuenciaActividadFisica" value={frecuenciaActividadFisica} onChange={manejarCambio} displayEmpty onBlur={handleBlur}
                                     sx={{
                                         height: "40px",
@@ -500,7 +504,7 @@ const VistaDatosProfesional7 = () => {
                         )}
 
                         <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} error={!!errors.fuma}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} > ¿Fuma o vapea? </Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Fuma o vapea?:</Typography>
                             <RadioGroup name="boolean_fuma" value={fuma} onChange={manejarCambio} row onBlur={handleBlur}
                                 sx={{
                                     height: "40px",
@@ -519,7 +523,7 @@ const VistaDatosProfesional7 = () => {
 
                         {fuma && (
                             <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.frecuenciaFuma}>
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Frecuencia :</Typography>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Frecuencia:</Typography>
                                 <Select name="var_frecuenciaFuma" value={frecuenciaFuma} onChange={manejarCambio} displayEmpty onBlur={handleBlur}
                                     sx={{
                                         height: "40px",
@@ -539,7 +543,7 @@ const VistaDatosProfesional7 = () => {
                         )}
 
                         <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} error={!!errors.toma}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} > ¿Consume bebidas alcohólicas? :</Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Consume bebidas alcohólicas?:</Typography>
                             <RadioGroup name="boolean_toma" value={toma} onChange={manejarCambio} row onBlur={handleBlur}
                                 sx={{
                                     height: "40px",
@@ -558,7 +562,7 @@ const VistaDatosProfesional7 = () => {
 
                         {toma && (
                             <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.frecuenciaToma}>
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Frecuencia :</Typography>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Frecuencia:</Typography>
                                 <Select name="var_frecuenciaToma" value={frecuenciaToma} onChange={manejarCambio} displayEmpty onBlur={handleBlur}
                                     sx={{
                                         height: "40px",
@@ -578,7 +582,7 @@ const VistaDatosProfesional7 = () => {
                         )}
 
                         <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} error={!!errors.sustanciaPsicoactiva}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Consume sustancias psicoactivas? :</Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Consume sustancias psicoactivas?:</Typography>
                             <RadioGroup name="boolean_sustanciasPsicoactivas" value={sustanciaPsicoactiva} onChange={manejarCambio} row
                                 sx={{
                                     height: "40px",
@@ -597,7 +601,7 @@ const VistaDatosProfesional7 = () => {
 
                         {sustanciaPsicoactiva && (
                             <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.frecuenciaSustanciaPsicoactiva}>
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Frecuencia :</Typography>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Frecuencia:</Typography>
                                 <Select name="var_frecuenciaSustanciasPsicoactivas" onBlur={handleBlur} value={frecuenciaSustanciaPsicoactiva} onChange={manejarCambio} displayEmpty
                                     sx={{
                                         height: "40px",

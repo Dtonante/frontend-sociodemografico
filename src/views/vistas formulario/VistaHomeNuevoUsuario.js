@@ -41,7 +41,7 @@ const VistaHomeUsuarioNuevo = () => {
 
             {/* Contenedor compacto */}
             <div
-                className='contenedor-items-buttoms'
+                className='contenedor-items-buttoms' 
 
 
             >
@@ -61,7 +61,9 @@ const VistaHomeUsuarioNuevo = () => {
                     <p style={{ margin: 0, color: '#1b263b', fontSize: '14px', fontFamily: 'Poppins' }}>
                         <strong style={{ fontFamily: 'Roboto Condensed' }}>Importante: </strong>El perfil sociodemográfico es un instrumento creado para reconocer cuáles son
                         las características de la población trabajadora que se tienen en La Institución
-                        Universitaria ESUMER.
+                        Universitaria ESUMER.<br/> <br/>
+
+                        Si has finalizado alguno de los siguientes niveles académicos: bachillerato, técnico, tecnológico, pregrado, posgrado, maestría o doctorado, asegúrate de contar con la certificación correspondiente en formato PDF.
                     </p>
                 </div>
 
@@ -109,20 +111,6 @@ const VistaHomeUsuarioNuevo = () => {
 
                     {/* Botones de acción */}
                     <div className="botones-accion">
-                        <button
-                            style={{
-                                padding: '10px 20px',
-                                fontSize: '16px',
-                                backgroundColor: '#1b263b',
-                                color: 'white',
-                                border: 'none',
-                                borderRadius: '5px',
-                                cursor: 'pointer',
-                            }}
-                            onClick={manejarLogin}
-                        >
-                            log in
-                        </button>
                         <button
                             style={{
                                 padding: '10px 20px',

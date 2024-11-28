@@ -17,40 +17,40 @@ const VistaDatosProfesional2 = () => {
     const [set_personasConLasQueVive, setSet_personasConLasQueVive] = useState(["N/A"])
     const [errors, setErrors] = useState({});
     const [touchedFields, setTouchedFields] = useState({});
-    const porcentajeProgreso = 30;
+    const porcentajeProgreso = 40;
 
     // Validaciones basadas en los campos tocados
     useEffect(() => {
         const nuevosErrores = {};
 
         if (touchedFields.var_estadoCivil && !var_estadoCivil) {
-            nuevosErrores.var_estadoCivil = "El nombre completo es";
+            nuevosErrores.var_estadoCivil = "El Estado civil es obligatorio";
         }
 
         if (touchedFields.boolean_viveSolo && boolean_viveSolo == null) {
-            nuevosErrores.boolean_viveSolo = "El nombre completo es";
+            nuevosErrores.boolean_viveSolo = "El campo de vive solo es obligatorio";
         }
         if (boolean_viveSolo == true && var_numeroPersonasConLasQueVive == null) {
-            nuevosErrores.var_numeroPersonasConLasQueVive = "El nombre completo es";
+            nuevosErrores.var_numeroPersonasConLasQueVive = "El número de personas con los que vive es obligatorio";
         }
 
         if (touchedFields.var_personasDependeciaEconimica && !var_personasDependeciaEconimica) {
-            nuevosErrores.var_personasDependeciaEconimica = "El nombre completo es";
+            nuevosErrores.var_personasDependeciaEconimica = "El número de personas que dependen economicamente de usted es obligatorio";
         }
 
         if (touchedFields.var_totalIngresosPropiosYGrupoFamiliar && !var_totalIngresosPropiosYGrupoFamiliar) {
-            nuevosErrores.var_totalIngresosPropiosYGrupoFamiliar = "El nombre completo es";
+            nuevosErrores.var_totalIngresosPropiosYGrupoFamiliar = "El total de ingresos son obligatorios";
         }
 
         if (touchedFields.boolean_viveConMascotas && boolean_viveConMascotas == null) {
-            nuevosErrores.boolean_viveConMascotas = "El nombre completo es";
+            nuevosErrores.boolean_viveConMascotas = "El campo si tiene mascotas obligatorio";
         }
 
         if (touchedFields.set_tipoMascotas && (!set_tipoMascotas || set_tipoMascotas.length === 0)) {
-            nuevosErrores.set_tipoMascotas = "El nombre completo es obligatorio";
+            nuevosErrores.set_tipoMascotas = "Los tipos de mascotas es obligatorio";
         }
         if (touchedFields.set_personasConLasQueVive && (!set_personasConLasQueVive || set_personasConLasQueVive.length === 0)) {
-            nuevosErrores.set_personasConLasQueVive = "El nombre completo es obligatorio";
+            nuevosErrores.set_personasConLasQueVive = "Las personas con las que vive son obligatorios";
         }
 
 
@@ -153,35 +153,35 @@ const VistaDatosProfesional2 = () => {
         const nuevosErrores = {};
 
         if (!var_estadoCivil) {
-            nuevosErrores.var_estadoCivil = "Selecionar una eps es obligatorio.";
+            nuevosErrores.var_estadoCivil = "El Estado civil es obligatorio";
         }
 
         if (boolean_viveSolo == null) {
-            nuevosErrores.boolean_viveSolo = "Selecionar una eps es obligatorio.";
+            nuevosErrores.boolean_viveSolo = "El campo de vive solo es obligatorio";
         }
 
         if (!var_personasDependeciaEconimica) {
-            nuevosErrores.var_personasDependeciaEconimica = "Selecionar una eps es obligatorio.";
+            nuevosErrores.var_personasDependeciaEconimica = "El número de personas que dependen economicamente de usted es obligatorio";
         }
 
         if (!var_totalIngresosPropiosYGrupoFamiliar) {
-            nuevosErrores.var_totalIngresosPropiosYGrupoFamiliar = "Selecionar una eps es obligatorio.";
+            nuevosErrores.var_totalIngresosPropiosYGrupoFamiliar = "El total de ingresos son obligatorios";
         }
 
         if (boolean_viveConMascotas == null) {
-            nuevosErrores.boolean_viveConMascotas = "Selecionar una eps es obligatorio.";
+            nuevosErrores.boolean_viveConMascotas = "El campo si tiene mascotas obligatorio";
         }
 
         if (boolean_viveSolo === false && !var_numeroPersonasConLasQueVive) {
-            nuevosErrores.var_numeroPersonasConLasQueVive = "Selecionar una eps es obligatorio.";
+            nuevosErrores.var_numeroPersonasConLasQueVive = "El campo de vive solo es obligatorio";
         }
 
         if (!set_tipoMascotas || set_tipoMascotas.length === 0) {
-            nuevosErrores.set_tipoMascotas = "Seleccionar los antecedentes médicos es obligatorio.";
-        } set_personasConLasQueVive
+            nuevosErrores.set_tipoMascotas = "Los tipos de mascotas es obligatorio";
+        } 
 
         if (!set_personasConLasQueVive || set_personasConLasQueVive.length === 0) {
-            nuevosErrores.set_personasConLasQueVive = "Seleccionar los antecedentes médicos es obligatorio.";
+            nuevosErrores.set_personasConLasQueVive = "Las personas con las que vive son obligatorios";
         }
 
 
@@ -195,11 +195,11 @@ const VistaDatosProfesional2 = () => {
 
 
 
-        navigate('/datosProfesional3');
+        navigate('/SeguridadSocial');
     };
 
     return (
-        <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', paddingBottom: '3%', height: '100vh' }}>
+        <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', paddingBottom: '3%', height: '100%' }}>
             <div style={{ textAlign: 'center', marginBottom: '1%', marginTop: '-1%' }}>
                 <img
                     src="public/logo_form.png"
@@ -323,7 +323,7 @@ const VistaDatosProfesional2 = () => {
                                 </FormControl>
                             </>
                         )}
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>¿Tiene mascotas? :</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>¿Tiene mascotas?:</Typography>
                         <TextField select name="boolean_viveConMascotas" variant="outlined" value={boolean_viveConMascotas} onChange={manejoCambiosInputs} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.boolean_viveConMascotas}
                             helperText={errors.boolean_viveConMascotas} FormHelperTextProps={{
                                 sx: {
@@ -345,7 +345,7 @@ const VistaDatosProfesional2 = () => {
                             <>
 
                                 <FormControl sx={{ mb: 2 }} fullWidth error={!!errors.set_tipoMascotas} >
-                                    <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Indica qué tipos de mascotas tienes en casa :</Typography>
+                                    <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Indica qué tipos de mascotas tienes en casa (se pueden seleccionar varias opciones):</Typography>
                                     <Select
                                         name="set_tipoMascotas"
                                         multiple
@@ -384,7 +384,7 @@ const VistaDatosProfesional2 = () => {
                             </>
                         )}
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Cantidad de personas con las que NO vive pero dependen económicamente de usted :</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Cantidad de personas con las que NO vive pero dependen económicamente de usted:</Typography>
                         <TextField select name="var_personasDependeciaEconimica" variant="outlined" value={var_personasDependeciaEconimica} onChange={manejoCambiosInputs} onBlur={handleBlur} error={!!errors.var_personasDependeciaEconimica}
                             helperText={errors.var_personasDependeciaEconimica} fullWidth sx={{ mb: 2 }} FormHelperTextProps={{
                                 sx: {
@@ -430,6 +430,7 @@ const VistaDatosProfesional2 = () => {
 
                         <div
                             style={{
+                                fontFamily: 'Poppins',
                                 display: 'flex',
                                 alignItems: 'center',
                                 backgroundColor: '#F2F2F2',
@@ -440,6 +441,7 @@ const VistaDatosProfesional2 = () => {
                         >
                             <div
                                 style={{
+                                    fontFamily: 'Poppins',
                                     height: '10px',
                                     width: '90%',
                                     backgroundColor: '#F2F2F2',
@@ -451,6 +453,7 @@ const VistaDatosProfesional2 = () => {
                             >
                                 <div
                                     style={{
+                                        fontFamily: 'Poppins',
                                         width: `${porcentajeProgreso}%`,
                                         height: '100%',
                                         backgroundColor: '#202B52',

@@ -37,7 +37,7 @@ const VistaDatosProfesional3 = () => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [touchedFields, setTouchedFields] = useState({});
-  const porcentajeProgreso = 38;
+  const porcentajeProgreso = 50;
 
   // Validaciones basadas en los campos tocados
   useEffect(() => {
@@ -93,7 +93,7 @@ const VistaDatosProfesional3 = () => {
     useEffect(() => {
         const fetchServiciosSaludAdicional = async () => {
             try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/servicioSaludAdicional/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/api/servicioSaludAdicional/');
                 setServiciosSaludAdicionalOptions(response.data);
             } catch (error) {
                 console.error('Error al obtener los servicios de salud adicional:', error);
@@ -106,7 +106,7 @@ const VistaDatosProfesional3 = () => {
     useEffect(() => {
         const fetchEps = async () => {
             try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/eps/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/api/eps/');
                 setEpsOptions(response.data);
             } catch (error) {
                 console.error('Error al obtener las EPS:', error);
@@ -120,7 +120,7 @@ const VistaDatosProfesional3 = () => {
     useEffect(() => {
         const fetchAntecedentes = async () => {
             try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/antecedentesMedicos/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/api/antecedentesMedicos/');
                 setAntecedentesOptions(response.data);
             } catch (error) {
                 console.error('Error al obtener los antecedentes médicos:', error);
@@ -134,7 +134,7 @@ const VistaDatosProfesional3 = () => {
     useEffect(() => {
         const fetchFondosPension = async () => {
             try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/fondoPension/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/api/fondoPension/');
                 setFondoPensionOptions(response.data); // Guardamos las opciones en el estado
             } catch (error) {
                 console.error('Error al obtener los fondos de pensión:', error);
@@ -214,7 +214,7 @@ const VistaDatosProfesional3 = () => {
     localStorage.setItem("formDataProfesional", JSON.stringify(formData)); // Guardar todos los datos
 
     // Redirigir a la siguiente vista (ajustar el nombre de la ruta según tu configuración)
-    navigate("/datosProfesional4");
+    navigate("/InformacionBancaria");
   };
 
   return (
@@ -278,7 +278,7 @@ const VistaDatosProfesional3 = () => {
                 variant="h6"
                 sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
               >
-                ¿Ha cambiado de EPS o AFP?
+                ¿Ha cambiado de EPS o AFP?:
               </Typography>
               <RadioGroup
                 row
@@ -412,7 +412,7 @@ const VistaDatosProfesional3 = () => {
                 variant="h6"
                 sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
               >
-                Seleccione los servicios de salud adicional:
+                Seleccione los servicios de salud adicional (se pueden seleccionar varias opciones):
               </Typography>
               <Select
                 name="selectedServiciosSaludAdicional"
@@ -481,7 +481,7 @@ const VistaDatosProfesional3 = () => {
                 variant="h6"
                 sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
               >
-                Seleccione Antecedentes Médicos:
+                Seleccione Antecedentes Médicos (se pueden seleccionar varias opciones):
               </Typography>
 
               <Select
@@ -549,6 +549,7 @@ const VistaDatosProfesional3 = () => {
 
             <div
               style={{
+                fontFamily: 'Poppins',
                 display: "flex",
                 alignItems: "center",
                 backgroundColor: "#F2F2F2",
@@ -559,6 +560,7 @@ const VistaDatosProfesional3 = () => {
             >
               <div
                 style={{
+                  fontFamily: 'Poppins',
                   height: "10px",
                   width: "90%",
                   backgroundColor: "#F2F2F2",
@@ -570,6 +572,7 @@ const VistaDatosProfesional3 = () => {
               >
                 <div
                   style={{
+                    fontFamily: 'Poppins',
                     width: `${porcentajeProgreso}%`,
                     height: "100%",
                     backgroundColor: "#202B52",

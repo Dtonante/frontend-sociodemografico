@@ -22,7 +22,7 @@ const VistaDatosProfesional = () => {
     });
     const [errors, setErrors] = useState({});
     const [touchedFields, setTouchedFields] = useState({});
-    const porcentajeProgreso = 23;
+    const porcentajeProgreso = 30;
 
     // Validaciones basadas en los campos tocados
     useEffect(() => {
@@ -62,7 +62,7 @@ const VistaDatosProfesional = () => {
     useEffect(() => {
         const fetchServiciosQueNoCuentan = async () => {
             try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/serviciosQueNoCuentan/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/api/serviciosQueNoCuentan/');
                 setServiciosQueNoCuentan(response.data);
             } catch (error) {
                 console.error('Error al obtener los servicios que no cuentan:', error);
@@ -77,7 +77,7 @@ const VistaDatosProfesional = () => {
     useEffect(() => {
         const fetchFactoresRiesgo = async () => {
             try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/factoresRiesgo/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/api/factoresRiesgo/');
                 setFactoresRiesgoOptions(response.data);
             } catch (error) {
                 console.error('Error al obtener los factores de riesgo:', error);
@@ -223,7 +223,7 @@ const VistaDatosProfesional = () => {
         localStorage.setItem('datosProfesional', JSON.stringify(formData));
         localStorage.setItem('direccion', JSON.stringify(direccion));
 
-        navigate('/datosProfesional2');
+        navigate('/DatosAdicionales');
     };
 
     return (
@@ -434,7 +434,7 @@ const VistaDatosProfesional = () => {
                             </Grid>
                         </Grid>
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Zona de la vivienda :</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Zona de la vivienda:</Typography>
                         <TextField select name="var_zonaVivienda" value={formData.var_zonaVivienda} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_zonaVivienda}
                             helperText={errors.var_zonaVivienda} FormHelperTextProps={{
                                 sx: {
@@ -490,7 +490,7 @@ const VistaDatosProfesional = () => {
 
                         {/* servicios con los que no cuentan */}
                         <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.selectedServiciosQueNoCuentan} >
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Seleccione los servicios con los que NO cuenta la vivienda: </Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Seleccione los servicios con los que NO cuenta la vivienda (se pueden seleccionar varias opciones): </Typography>
                             <Select
                                 multiple
                                 onBlur={handleBlur}
@@ -539,7 +539,7 @@ const VistaDatosProfesional = () => {
 
 
                         <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.selectedFactoresRiesgo}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Seleccione factores de riesgo que tiene la vivienda: </Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Seleccione los factores de riesgo que tiene la vivienda (se pueden seleccionar varias opciones): </Typography>
                             <Select
                                 multiple
                                 onBlur={handleBlur}
@@ -590,6 +590,7 @@ const VistaDatosProfesional = () => {
 
                         <div
                             style={{
+                                fontFamily: 'Poppins',
                                 display: 'flex',
                                 alignItems: 'center',
                                 backgroundColor: '#F2F2F2',
@@ -600,6 +601,7 @@ const VistaDatosProfesional = () => {
                         >
                             <div
                                 style={{
+                                    fontFamily: 'Poppins',
                                     height: '10px',
                                     width: '90%',
                                     backgroundColor: '#F2F2F2',
@@ -611,6 +613,7 @@ const VistaDatosProfesional = () => {
                             >
                                 <div
                                     style={{
+                                        fontFamily: 'Poppins',
                                         width: `${porcentajeProgreso}%`,
                                         height: '100%',
                                         backgroundColor: '#202B52',

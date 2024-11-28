@@ -44,7 +44,7 @@ const VistaDatosUsuario = () => {
     date_fechaNacimiento: "",
   });
   const [touchedFields, setTouchedFields] = useState({});
-  const porcentajeProgreso = 15;
+  const porcentajeProgreso = 20;
 
   // Validaciones basadas en los campos tocados
   useEffect(() => {
@@ -186,22 +186,36 @@ const VistaDatosUsuario = () => {
       } else if (!/^\d+$/.test(formData.var_telefonoFijo)) {
         nuevosErrores.var_telefonoFijo =
           "El teléfono fijo solo puede contener números";
-      } else if (formData.var_telefonoFijo.length < 7) {
+      } else if (formData.var_telefonoFijo.length < 10) {
         nuevosErrores.var_telefonoFijo =
-          "El teléfono fijo debe tener al menos 7 dígitos";
-      } else if (formData.var_telefonoFijo.length > 10) {
+          "El teléfono fijo debe tener al menos 10 dígitos";
+      } else if (formData.var_telefonoFijo.length > 12) {
         nuevosErrores.var_telefonoFijo =
-          "El teléfono fijo no puede exceder los 10 dígitos";
+          "El teléfono fijo no puede exceder los 12 dígitos";
       }
     }
 
     // Validación contraseña
+    // if (touchedFields.var_contrasena && !formData.var_contrasena.trim() ) {
+    //   nuevosErrores.var_contrasena = "La contraseña es obligatoria";
+    // } else if (formData.var_contrasena && formData.var_contrasena.length < 6) {
+    //   nuevosErrores.var_contrasena =
+    //     "La contraseña debe tener al menos 6 caracteres";
+    // }
+
     if (touchedFields.var_contrasena && !formData.var_contrasena.trim()) {
       nuevosErrores.var_contrasena = "La contraseña es obligatoria";
-    } else if (formData.var_contrasena && formData.var_contrasena.length < 6) {
+    } else if (formData.var_contrasena && formData.var_contrasena.length < 8) {
       nuevosErrores.var_contrasena =
-        "La contraseña debe tener al menos 6 caracteres";
+        "La contraseña debe tener al menos 8 caracteres";
+    } else if (formData.var_contrasena && !/[a-z]/.test(formData.var_contrasena)) {
+      nuevosErrores.var_contrasena = "La contraseña debe contener al menos una letra minúscula";
+    } else if (formData.var_contrasena && !/[A-Z]/.test(formData.var_contrasena)) {
+      nuevosErrores.var_contrasena = "La contraseña debe contener al menos una letra mayúscula";
+    } else if (formData.var_contrasena && !/\d/.test(formData.var_contrasena)) {
+      nuevosErrores.var_contrasena = "La contraseña debe contener al menos un número";
     }
+    
 
     // Validación confirmar contraseña
     if (
@@ -447,7 +461,7 @@ const VistaDatosUsuario = () => {
     const fetchTiposDocumento = async () => {
       try {
         const response = await axios.get(
-          "https://evaluacion.esumer.edu.co/tipodocumentos/"
+          "https://evaluacion.esumer.edu.co/api/tipodocumentos/"
         );
         setTiposDocumento(response.data);
       } catch (error) {
@@ -537,7 +551,7 @@ const VistaDatosUsuario = () => {
 
     try {
       const response = await axios.post(
-        "https://evaluacion.esumer.edu.co/usuarios/",
+        "https://evaluacion.esumer.edu.co/api/usuarios/",
         formData
       );
       console.log("Usuario creado:", response.data);
@@ -556,7 +570,7 @@ const VistaDatosUsuario = () => {
       localStorage.setItem("var_celular", formData.var_celular);
       localStorage.setItem("var_telefonoFijo", formData.var_telefonoFijo);
 
-      navigate("/datosProfesional");
+      navigate("/DatosProfesionales");
     } catch (error) {
       console.error("Error al crear el usuario:", error);
     }
@@ -644,7 +658,7 @@ const VistaDatosUsuario = () => {
               onChange={handleInputChange}
               onKeyPress={(event) =>
                 handleKeyPress(event, "var_nombreCompleto")
-              } // Condicional basado en el nombre del campo
+              } 
               fullWidth
               sx={{ mb: 2 }}
               onBlur={handleBlur}
@@ -915,7 +929,7 @@ const VistaDatosUsuario = () => {
               variant="outlined"
               value={formData.var_celular}
               onChange={handleInputChange}
-              onKeyPress={(event) => handleKeyPress(event, "var_celular")} // Condicional basado en el nombre del campo
+              onKeyPress={(event) => handleKeyPress(event, "var_celular")} 
               fullWidth
               sx={{ mb: 2 }}
               onBlur={handleBlur}
@@ -930,7 +944,7 @@ const VistaDatosUsuario = () => {
               variant="h6"
               sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
             >
-              Telefono fijo:
+              Teléfono fijo, incluye el indicativo (Nota: Si no cuenta con teléfono fijo, ingresa el de algún familiar o conocido):
             </Typography>
             <TextField
               name="var_telefonoFijo"
@@ -945,14 +959,14 @@ const VistaDatosUsuario = () => {
               helperText={errors.var_telefonoFijo}
               FormHelperTextProps={{ sx: { marginLeft: 0 } }}
               InputProps={{
-                sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" }, inputProps: { maxLength: 7, }
+                sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" }, inputProps: { maxLength: 10, }
               }}
             />
             <Typography
               variant="h6"
               sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
             >
-              Crear contraseña:
+              Crear contraseña (Nota: La contraseña debe tener un mínimo de 8 carácteres, mínimo una mayúsculas, mínimo una minúscula y mínimo un número):
             </Typography>
             <TextField
               name="var_contrasena"
@@ -978,6 +992,7 @@ const VistaDatosUsuario = () => {
                 },
               }}
             />
+            
             <Typography
               variant="h6"
               sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
@@ -1011,6 +1026,7 @@ const VistaDatosUsuario = () => {
 
             <div
               style={{
+                fontFamily: 'Poppins',
                 display: "flex",
                 alignItems: "center",
                 backgroundColor: "#F2F2F2",
@@ -1021,6 +1037,7 @@ const VistaDatosUsuario = () => {
             >
               <div
                 style={{
+                  fontFamily: 'Poppins',
                   height: "10px",
                   width: "90%",
                   backgroundColor: "#F2F2F2",
@@ -1032,6 +1049,7 @@ const VistaDatosUsuario = () => {
               >
                 <div
                   style={{
+                    fontFamily: 'Poppins',
                     width: `${porcentajeProgreso}%`,
                     height: "100%",
                     backgroundColor: "#202B52",

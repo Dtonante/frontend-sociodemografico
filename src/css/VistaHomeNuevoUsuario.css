@@ -5,7 +5,7 @@
     align-items: center;
     width: 100%;
     margin-top: 7%;
-    flex-wrap: wrap; /* Permitir que los elementos se ajusten automáticamente */
+    flex-wrap: wrap; 
 }
 
 .contenedor-items-buttoms {
@@ -22,7 +22,7 @@
 .iconos-sociales {
     display: flex;
     gap: 12px;
-    flex-wrap: wrap; /* Permite que los iconos se distribuyan en varias filas */
+    flex-wrap: wrap; 
 }
 
 .botones-accion {
