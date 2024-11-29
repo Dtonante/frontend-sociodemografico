@@ -130,7 +130,7 @@ const VistaDatosProfesional5 = () => {
   useEffect(() => {
     const fetchEstructuraOrganizacional = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/estructuraOrganizacional');
+        const response = await axios.get('https://evaluacion.esumer.edu.co/api/estructuraOrganizacional');
         setEstructuraOrganizacional(response.data);
       } catch (error) {
         console.error('Error al obtener las áreas:', error);
@@ -478,17 +478,8 @@ const VistaDatosProfesional5 = () => {
                 )}
               </FormControl>
 
-              <Typography
-                variant="h6"
-                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
-              >
-                Salario:
-              </Typography>
-              <TextField
-                variant="outlined"
-                fullWidth
-                name="var_salario"
-                value={salario}
+              <Typography variant="h6"  sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} > Salario: </Typography>
+              <TextField variant="outlined" fullWidth name="var_salario" value={salario}
                 onChange={manejarCambio}
                 onKeyPress={(event) => handleKeyPress(event, "var_salario")} // Condicional basado en el nombre del campo
                 sx={{ mb: 2 }}

@@ -46,7 +46,7 @@ const VistaDatosProfesional8 = () => {
     useEffect(() => {
         const fetchTransportes = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/transportePropio/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/api/transportePropio/');
                 setTransportes(response.data);
             } catch (error) {
                 console.error('Error al obtener los transportes:', error);

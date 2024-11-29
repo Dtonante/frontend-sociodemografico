@@ -25,7 +25,7 @@ import '../../css/VistaHomeNuevoUsuario.css'
 const VistaDatosUsuario = () => {
   const minDate = DateTime.now().minus({ years: 18 }).toISODate(); // Fecha mínima: 18 años atrás
   const [formData, setFormData] = React.useState({
-    id_rolFK: 1,
+    id_rolFK: 2,
     boolean_estado: true,
     var_nombreCompleto: "",
     int_tipoDocumentoFK: "",
@@ -491,7 +491,7 @@ const VistaDatosUsuario = () => {
     const fetchTiposDocumento = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3001/tipodocumentos/"
+          "https://evaluacion.esumer.edu.co/api/tipodocumentos/"
         );
         setTiposDocumento(response.data);
       } catch (error) {
@@ -587,7 +587,7 @@ const VistaDatosUsuario = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/usuarios/",
+        "https://evaluacion.esumer.edu.co/api/usuarios/",
         formData
       );
       console.log("Usuario creado:", response.data);

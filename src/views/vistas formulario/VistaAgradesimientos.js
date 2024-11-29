@@ -27,13 +27,13 @@ const VistaAgradecimientos = () => {
 
         const guardarDatos = async () => {
 
-            const URI_PROFESIONAL = 'http://localhost:3001/profesional/'
-            const URI_PROFESIONAL_FACTORES_RIESGO = 'http://localhost:3001/profesionalFactoresRiesgo/'
-            const URI_PROFESIONAL_SERVICIOS_SALUD_ADICIONAL = 'http://localhost:3001/profesionalServicioSaludAdicional/'
-            const URI_PROFESIONAL_ANTECEDENTES_MEDICOS = 'http://localhost:3001/profesionalAntecedenteMedico/'
-            const URI_PROFESIONAL_TIEMPO_LIBRE = 'http://localhost:3001/profesionalTiempoLibre/'
-            const URI_PROFESIONAL_SERVICIO_QUE_NO_CUENTAN = 'http://localhost:3001/profesionalServiciosQueNoCuentan/'
-            const URI_PROFESIONAL_TRANSPORTE_PROPIO = 'http://localhost:3001/profesionalTransportePropio/'
+            const URI_PROFESIONAL = 'https://evaluacion.esumer.edu.co/api/profesional/'
+            const URI_PROFESIONAL_FACTORES_RIESGO = 'https://evaluacion.esumer.edu.co/api/profesionalFactoresRiesgo/'
+            const URI_PROFESIONAL_SERVICIOS_SALUD_ADICIONAL = 'https://evaluacion.esumer.edu.co/api/profesionalServicioSaludAdicional/'
+            const URI_PROFESIONAL_ANTECEDENTES_MEDICOS = 'https://evaluacion.esumer.edu.co/api/profesionalAntecedenteMedico/'
+            const URI_PROFESIONAL_TIEMPO_LIBRE = 'https://evaluacion.esumer.edu.co/api/profesionalTiempoLibre/'
+            const URI_PROFESIONAL_SERVICIO_QUE_NO_CUENTAN = 'https://evaluacion.esumer.edu.co/api/profesionalServiciosQueNoCuentan/'
+            const URI_PROFESIONAL_TRANSPORTE_PROPIO = 'https://evaluacion.esumer.edu.co/api/profesionalTransportePropio/'
 
             // Obtener todos los datos del localStorage
             const id_usuarioFK = parseInt(localStorage.getItem('usuarioId'), 10);
