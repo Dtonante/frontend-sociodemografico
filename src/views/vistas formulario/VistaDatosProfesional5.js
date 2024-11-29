@@ -195,9 +195,18 @@ const VistaDatosProfesional5 = () => {
       localStorage.setItem('var_tipoContrato', value);
 
     } else if (name === "var_salario") {
-      const formattedSalario = handleFormatSalario(value); 
-      setSalario(formattedSalario); 
-      localStorage.setItem('var_salario', formattedSalario); 
+      // Elimina los puntos para trabajar con el valor numérico puro
+      const rawValue = value.replace(/\./g, "");
+
+      // Verifica si el valor ingresado es un número
+      if (!isNaN(rawValue)) {
+        // Aplica el formato con puntos como separadores de miles
+        const formattedValue = new Intl.NumberFormat("de-DE").format(rawValue);
+
+        // Actualiza el estado y guarda en localStorage
+        setSalario(formattedValue);
+        localStorage.setItem("var_salario", formattedValue);
+      }
 
     } else if (name === "date_fechaIngresoInstitucion") {
       setFechaIngreso(value);
@@ -238,20 +247,7 @@ const VistaDatosProfesional5 = () => {
     }
   };
 
-  // Función para manejar el cambio de formato
-  const handleFormatSalario = (value) => {
-    // Eliminar caracteres no numéricos
-    const numericValue = value.replace(/[^0-9]/g, "");
-
-    // Formatear el número
-    const formattedValue = new Intl.NumberFormat("es-CO", {
-      style: "decimal",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(numericValue);
-
-    return formattedValue;
-  };
+ 
 
   
 
