@@ -23,13 +23,13 @@ const VistaHomeUsuarioNuevo = () => {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                height: '100vh',
+                height: '130vh',
                 margin: 0,
                 padding: 0,
             }}
         >
             {/* Imagen de fondo */}
-            <div style={{ width: '100%', height: '40%', position: 'relative', textAlign: 'center', }}>
+            <div style={{ width: '100%', height: '31.2%', position: 'relative', textAlign: 'center', }}>
 
                 <img
                     className="imagen-fondo"

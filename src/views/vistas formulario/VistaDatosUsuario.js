@@ -218,7 +218,7 @@ const VistaDatosUsuario = () => {
       nuevosErrores.var_contrasena = "La contraseña es obligatoria";
     } else if (formData.var_contrasena && formData.var_contrasena.length < 8) {
       nuevosErrores.var_contrasena =
-        "La contraseña debe tener al menos 8 caracteres";
+        "La contraseña debe tener al menos 8 caracteres y minumo un numero, una minuscula y una mayuscula";
     } else if (formData.var_contrasena && !/[a-z]/.test(formData.var_contrasena)) {
       nuevosErrores.var_contrasena = "La contraseña debe contener al menos una letra minúscula";
     } else if (formData.var_contrasena && !/[A-Z]/.test(formData.var_contrasena)) {
@@ -1021,8 +1021,7 @@ const VistaDatosUsuario = () => {
             <Typography
               variant="h6"
               sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
-            >
-              * Crear contraseña (Nota: La contraseña debe tener un mínimo de 8 carácteres, mínimo una mayúsculas, mínimo una minúscula y mínimo un número):
+            >Crear contraseña:
             </Typography>
             <TextField
               name="var_contrasena"

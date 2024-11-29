@@ -34,21 +34,17 @@ const VistaProteccionDatos = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-between',
-        height: '109vh',
+        height: '150vh',
         margin: 0,
         padding: 0,
       }}
     >
       {/* Imagen de fondo */}
-      <div style={{ width: '100%', height: '36.5%', position: 'relative', textAlign: 'center' }}>
+      <div style={{ width: '100%', height: '27%', position: 'relative', textAlign: 'center' }}>
         <img
           src="public/Fondo_formulario-07.jpg"
           alt="Fondo"
-          style={{
-            width: '60%',
-            height: '85%', 
-            objectFit: 'cover',
-          }}
+          className='img-fondo-proteccion'
         />
       </div>
 
@@ -66,7 +62,7 @@ const VistaProteccionDatos = () => {
         }}
       >
         {/* Título */}
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#202B52', textAlign: 'center', fontFamily: 'Roboto Condensed', marginTop:'3.8%' }}>
+        <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#202B52', textAlign: 'center', fontFamily: 'Roboto Condensed', marginTop:'3%' }}>
           Ley de Protección y Tratamiento de Datos
         </h2>
 

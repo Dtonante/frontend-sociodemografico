@@ -171,7 +171,7 @@ const VistaDatosProfesional6 = () => {
 
 
     return (
-        <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', boxSizing: 'border-box', height: '100vh', overflow: 'hidden' }}>
+        <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', boxSizing: 'border-box', height: '150vh', overflow: 'hidden' }}>
 
             <div style={{ textAlign: 'center', marginBottom: '1%', marginTop: '-1%' }}>
                 <img
