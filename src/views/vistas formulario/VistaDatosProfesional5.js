@@ -193,9 +193,12 @@ const VistaDatosProfesional5 = () => {
     } else if (name === "tipoContrato") {
       setTipoContrato(value);
       localStorage.setItem('var_tipoContrato', value);
+
     } else if (name === "var_salario") {
-      setSalario(value);
-      localStorage.setItem('var_salario', value);
+      const formattedSalario = handleFormatSalario(value); 
+      setSalario(formattedSalario); 
+      localStorage.setItem('var_salario', formattedSalario); 
+
     } else if (name === "date_fechaIngresoInstitucion") {
       setFechaIngreso(value);
       localStorage.setItem('date_fechaIngresoInstitucion', value);
@@ -234,6 +237,24 @@ const VistaDatosProfesional5 = () => {
       localStorage.setItem("var_correoElectronicoInstitucional", value);
     }
   };
+
+  // Función para manejar el cambio de formato
+  const handleFormatSalario = (value) => {
+    // Eliminar caracteres no numéricos
+    const numericValue = value.replace(/[^0-9]/g, "");
+
+    // Formatear el número
+    const formattedValue = new Intl.NumberFormat("es-CO", {
+      style: "decimal",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(numericValue);
+
+    return formattedValue;
+  };
+
+  
+
 
   const manejarSiguiente = () => {
     const nuevosErrores = {};
@@ -478,10 +499,10 @@ const VistaDatosProfesional5 = () => {
                 )}
               </FormControl>
 
-              <Typography variant="h6"  sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} > Salario: </Typography>
+              <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} > Salario: </Typography>
               <TextField variant="outlined" fullWidth name="var_salario" value={salario}
                 onChange={manejarCambio}
-                onKeyPress={(event) => handleKeyPress(event, "var_salario")} // Condicional basado en el nombre del campo
+                onKeyPress={(event) => handleKeyPress(event, "var_salario")} 
                 sx={{ mb: 2 }}
                 onBlur={handleBlur}
                 error={!!errors.salario}
@@ -496,7 +517,7 @@ const VistaDatosProfesional5 = () => {
                     height: "40px",
                     fontFamily: "Roboto Condensed",
                     fontSize: "16px",
-                  },
+                  }, inputProps: { maxLength: 11 }
                 }}
               />
 
