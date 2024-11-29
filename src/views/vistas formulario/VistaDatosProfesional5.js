@@ -130,7 +130,7 @@ const VistaDatosProfesional5 = () => {
     useEffect(() => {
         const fetchEstructuraOrganizacional = async () => {
             try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/estructuraOrganizacional');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/api/estructuraOrganizacional');
                 setEstructuraOrganizacional(response.data);
             } catch (error) {
                 console.error('Error al obtener las áreas:', error);

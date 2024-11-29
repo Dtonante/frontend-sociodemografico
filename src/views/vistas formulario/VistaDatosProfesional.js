@@ -62,7 +62,7 @@ const VistaDatosProfesional = () => {
     useEffect(() => {
         const fetchServiciosQueNoCuentan = async () => {
             try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/serviciosQueNoCuentan/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/api/serviciosQueNoCuentan/');
                 setServiciosQueNoCuentan(response.data);
             } catch (error) {
                 console.error('Error al obtener los servicios que no cuentan:', error);
@@ -77,7 +77,7 @@ const VistaDatosProfesional = () => {
     useEffect(() => {
         const fetchFactoresRiesgo = async () => {
             try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/factoresRiesgo/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/api/factoresRiesgo/');
                 setFactoresRiesgoOptions(response.data);
             } catch (error) {
                 console.error('Error al obtener los factores de riesgo:', error);

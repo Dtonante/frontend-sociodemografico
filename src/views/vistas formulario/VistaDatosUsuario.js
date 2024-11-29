@@ -447,7 +447,7 @@ const VistaDatosUsuario = () => {
     const fetchTiposDocumento = async () => {
       try {
         const response = await axios.get(
-          "https://evaluacion.esumer.edu.co/tipodocumentos/"
+          "https://evaluacion.esumer.edu.co/api/tipodocumentos/"
         );
         setTiposDocumento(response.data);
       } catch (error) {
@@ -537,7 +537,7 @@ const VistaDatosUsuario = () => {
 
     try {
       const response = await axios.post(
-        "https://evaluacion.esumer.edu.co/usuarios/",
+        "https://evaluacion.esumer.edu.co/api/usuarios/",
         formData
       );
       console.log("Usuario creado:", response.data);

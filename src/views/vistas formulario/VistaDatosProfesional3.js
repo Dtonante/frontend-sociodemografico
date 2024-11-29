@@ -93,7 +93,7 @@ const VistaDatosProfesional3 = () => {
     useEffect(() => {
         const fetchServiciosSaludAdicional = async () => {
             try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/servicioSaludAdicional/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/api/servicioSaludAdicional/');
                 setServiciosSaludAdicionalOptions(response.data);
             } catch (error) {
                 console.error('Error al obtener los servicios de salud adicional:', error);
@@ -106,7 +106,7 @@ const VistaDatosProfesional3 = () => {
     useEffect(() => {
         const fetchEps = async () => {
             try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/eps/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/api/eps/');
                 setEpsOptions(response.data);
             } catch (error) {
                 console.error('Error al obtener las EPS:', error);
@@ -120,7 +120,7 @@ const VistaDatosProfesional3 = () => {
     useEffect(() => {
         const fetchAntecedentes = async () => {
             try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/antecedentesMedicos/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/api/antecedentesMedicos/');
                 setAntecedentesOptions(response.data);
             } catch (error) {
                 console.error('Error al obtener los antecedentes médicos:', error);
@@ -134,7 +134,7 @@ const VistaDatosProfesional3 = () => {
     useEffect(() => {
         const fetchFondosPension = async () => {
             try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/fondoPension/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/api/fondoPension/');
                 setFondoPensionOptions(response.data); // Guardamos las opciones en el estado
             } catch (error) {
                 console.error('Error al obtener los fondos de pensión:', error);

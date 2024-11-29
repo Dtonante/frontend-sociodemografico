@@ -96,7 +96,7 @@ const VistaDatosProfesional7 = () => {
     useEffect(() => {
         const fetchActividadTiempoLibre = async () => {
             try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/tiempoLibre/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/api/tiempoLibre/');
                 setActividadTiempoLibre(response.data);
             } catch (error) {
                 console.error('Error al obtener las actividades de tiempo libre:', error);
