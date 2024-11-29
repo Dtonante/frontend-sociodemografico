@@ -18,11 +18,12 @@ const VistaDatosProfesional7 = () => {
     const [frecuenciaSustanciaPsicoactiva, setFrecuenciaSustanciaPsicoactiva] = useState("");
     const [peso, setPeso] = useState("");
     const [altura, setAltura] = useState("");
-    const [boolean_usaLentes, setBoolean_usaLentes] = useState()
+    const [boolean_usaLentes, setBoolean_usaLentes] = useState();
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [touchedFields, setTouchedFields] = useState({});
-    const [boolean_bebidasEnergizantes, setBoolean_bebidasEnergizantes] = useState()
+    const [boolean_bebidasEnergizantes, setBoolean_bebidasEnergizantes] = useState();
+    const [var_frecuenciaBebidasEnergeticas, setVar_frecuenciaBebidasEnergeticas] = useState("")
     const porcentajeProgreso = 90;
 
     // Validaciones basadas en los campos tocados
@@ -57,14 +58,16 @@ const VistaDatosProfesional7 = () => {
             nuevosErrores.frecuenciaFuma = "Indicar la frecuencia de consumo es obligatorio.";
         }
 
-        if (touchedFields.var_frecuenciaActividadFisica && !frecuenciaActividadFisica) {
-            nuevosErrores.frecuenciaActividadFisica = "Indicar la frecuencia de actividad fisica es obligatorio.";
+        if (touchedFields.var_frecuenciaBebidasEnergeticas && !var_frecuenciaBebidasEnergeticas) {
+            nuevosErrores.var_frecuenciaBebidasEnergeticas = "Indicar la frecuencia de actividad fisica es obligatorio.";
         }
 
 
 
+
+
         setErrors(nuevosErrores);
-    }, [pasoMayorTiempoLibre, boolean_usaLentes, actividadFisica, frecuenciaFuma, frecuenciaToma, peso, altura, frecuenciaSustanciaPsicoactiva, selectedActividadTiempoLibre, frecuenciaActividadFisica, touchedFields]);
+    }, [pasoMayorTiempoLibre, boolean_usaLentes, actividadFisica, var_frecuenciaBebidasEnergeticas, frecuenciaFuma, frecuenciaToma, peso, altura, frecuenciaSustanciaPsicoactiva, selectedActividadTiempoLibre, frecuenciaActividadFisica, touchedFields]);
 
     const handleBlur = (event) => {
         const { name } = event.target;
@@ -100,7 +103,7 @@ const VistaDatosProfesional7 = () => {
     useEffect(() => {
         const fetchActividadTiempoLibre = async () => {
             try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/api/tiempoLibre/');
+                const response = await axios.get('http://localhost:3001/tiempoLibre/');
                 setActividadTiempoLibre(response.data);
             } catch (error) {
                 console.error('Error al obtener las actividades de tiempo libre:', error);
@@ -109,74 +112,6 @@ const VistaDatosProfesional7 = () => {
 
         fetchActividadTiempoLibre();
     }, []);
-
-
-
-    useEffect(() => {
-        // Recuperamos todos los datos guardados en localStorage
-
-        // Datos del profesional
-        const formDataProfesional = localStorage.getItem('formDataProfesional') ? JSON.parse(localStorage.getItem('formDataProfesional')) : null;
-        const datosProfesional = localStorage.getItem('datosProfesional') ? JSON.parse(localStorage.getItem('datosProfesional')) : null;
-        const direccion = localStorage.getItem('direccion') ? JSON.parse(localStorage.getItem('direccion')) : null;
-        const banco = localStorage.getItem('selectedBanco') || null;
-        const tipo_cuenta = localStorage.getItem('tipoCuenta') || null;
-        const numero_cuenta = localStorage.getItem('numeroCuenta') || null;
-        const selectedServiciosSaludAdicional = localStorage.getItem('selectedServiciosSaludAdicional') ? JSON.parse(localStorage.getItem('selectedServiciosSaludAdicional')) : null;
-
-        // Datos adicionales
-        const tipoVinculacion = localStorage.getItem('var_tipoVinculacion');
-        const tipoContrato = localStorage.getItem('var_tipoContrato');
-        const salario = localStorage.getItem('var_salario');
-        const fechaIngreso = localStorage.getItem('date_fechaIngresoInstitucion');
-        const antiguedadInstitucion = localStorage.getItem('var_antiguedadInstitucion');
-        const areaSeleccionada = localStorage.getItem('area');
-        const cargo = localStorage.getItem('var_cargo');
-        const jefeInmediato = localStorage.getItem('var_jefeInmediato');
-        const sede = localStorage.getItem('var_sede');
-        const turnoTrabajo = localStorage.getItem('var_turnoTrabajo');
-
-        // Datos de escolaridad
-        const nivelEscolaridad = localStorage.getItem('nivelEscolaridad');
-        const actualmenteEstudia = localStorage.getItem('actualmenteEstudia') === "true";
-        const nombreCarrera = localStorage.getItem('nombreCarrera') || "N/A"; // Si no tiene nombre de carrera, muestra "N/A"
-
-        // Agrupamos todos los datos en un solo objeto
-        const datosProfesionalCompleto = {
-            formDataProfesional,
-            datosProfesional,
-            direccion,
-            banco,
-            tipo_cuenta,
-            numero_cuenta,
-            selectedServiciosSaludAdicional,
-            tipoVinculacion,
-            tipoContrato,
-            salario,
-            fechaIngreso,
-            antiguedadInstitucion,
-            areaSeleccionada,
-            cargo,
-            jefeInmediato,
-            sede,
-            turnoTrabajo,
-            nivelEscolaridad,
-            actualmenteEstudia,
-            nombreCarrera
-        };
-
-        // Mostramos el objeto completo en la consola
-        console.log("Datos completos del Profesional:", datosProfesionalCompleto);
-
-    }, []);
-
-
-
-
-
-
-
-
 
 
     const manejarCambio = (event, campo) => {
@@ -214,7 +149,7 @@ const VistaDatosProfesional7 = () => {
         } else if (name === "var_peso") {
             if (/^\d*$/.test(value)) {
                 setPeso(value);
-                localStorage.setItem('var_peso', value); 
+                localStorage.setItem('var_peso', value);
             }
         } else if (name === "var_altura") {
             if (/^\d*$/.test(value)) {
@@ -236,6 +171,9 @@ const VistaDatosProfesional7 = () => {
             const booleanValue = value === "true";
             setBoolean_bebidasEnergizantes(booleanValue);
             localStorage.setItem('boolean_bebidasEnergizantes', booleanValue.toString());
+        } else if (name === "var_frecuenciaBebidasEnergeticas") {
+            setVar_frecuenciaBebidasEnergeticas(value);
+            localStorage.setItem('var_frecuenciaBebidasEnergeticas', value)
         }
 
 
@@ -264,6 +202,12 @@ const VistaDatosProfesional7 = () => {
 
         if (sustanciaPsicoactiva === true && !frecuenciaSustanciaPsicoactiva) {
             nuevosErrores.frecuenciaSustanciaPsicoactiva = "Indicar la frecuencia de consumo es obligatorio.";
+        }
+
+
+
+        if (boolean_bebidasEnergizantes === true && !var_frecuenciaBebidasEnergeticas) {
+            nuevosErrores.var_frecuenciaBebidasEnergeticas = "Indicar la frecuencia de consumo es obligatorio.";
         }
 
         if (toma === true && !frecuenciaToma) {
@@ -309,6 +253,10 @@ const VistaDatosProfesional7 = () => {
 
         navigate("/Transporte");
     };
+
+    const manejarAtras = () => {
+        navigate('/FormacionAcademica')
+    }
 
     return (
         <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', paddingBottom: '3%' }}>
@@ -468,6 +416,26 @@ const VistaDatosProfesional7 = () => {
                                 </Typography>
                             )}
                         </FormControl>
+                        {boolean_bebidasEnergizantes && (
+                            <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.var_frecuenciaBebidasEnergeticas}>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >Frecuencia:</Typography>
+                                <Select name="var_frecuenciaBebidasEnergeticas" value={var_frecuenciaBebidasEnergeticas} onChange={manejarCambio} displayEmpty onBlur={handleBlur}
+                                    sx={{
+                                        height: "40px",
+                                        fontFamily: "Roboto Condensed",
+                                        fontSize: "16px"
+                                    }}  >
+                                    <MenuItem value="">Seleccione una frecuencia</MenuItem>
+                                    <MenuItem value="diariamente">Diariamente</MenuItem>
+                                    <MenuItem value="Ocasionalmente">Ocasionalmente</MenuItem>
+                                    <MenuItem value="Mensualmente">Mensualmente</MenuItem>
+                                </Select>
+                                {errors.var_frecuenciaBebidasEnergeticas && (
+                                    <FormHelperText sx={{ marginLeft: 0, }}
+                                    >{errors.var_frecuenciaBebidasEnergeticas}</FormHelperText>
+                                )}
+                            </FormControl>
+                        )}
 
 
 
@@ -665,6 +633,23 @@ const VistaDatosProfesional7 = () => {
                         </div>
 
                         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <button
+                                style={{
+                                    fontFamily: 'poppins',
+                                    padding: '10px 20px',
+                                    fontSize: '16px',
+                                    backgroundColor: '#202B52',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '5px',
+                                    cursor: 'pointer',
+                                    marginRight: '8px'
+
+                                }}
+                                onClick={manejarAtras}
+                            >
+                                Atras
+                            </button>
                             <Button sx={{ backgroundColor: '#202B52', fontFamily: 'Poppins' }} onClick={manejarSiguiente} variant="contained" type="submit">
                                 Siguiente
                             </Button>

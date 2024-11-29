@@ -77,25 +77,21 @@ const VistaProteccionDatos = () => {
           }}
         >
           <p style={{ margin: 0, color: '#202B52', fontSize: '18px', fontFamily: 'Roboto Condensed' }}>
-            <strong style={{ fontFamily: 'Roboto Condensed', textAlign: 'center',  display: 'block', fontSize: '19px'}}>*1. Autorización tratamiento de datos:</strong>  
+            <strong style={{ fontFamily: 'Roboto Condensed', textAlign: 'center',  display: 'block', fontSize: '19px'}}>Autorización tratamiento de datos:</strong>  
              <br/>
             El perfil sociodemográfico nos permitirá reconocer cuáles son las
             características de la población trabajadora que se tienen en La Institución
             Universitaria ESUMER.
             <br/><br/>
-            Los datos suministrados en la encuesta tendrán el tratamiento necesario,
-            seguro y confidencial con la finalidad de crear, gestionar y ejecutar mejores
-            planes de bienestar y de seguridad y salud en el trabajo.
+            Los datos suministrados en la encuesta tendrán el tratamiento necesario, seguro y confidencial con la finalidad de crear, gestionar y ejecutar mejores planes de bienestar y de seguridad y salud en el trabajo. 
             <br/><br/>
             Con el diligenciamiento de esta encuesta <strong>estás aceptando el tratamiento que
-            te ha sido informado.</strong> En caso contrario por favor no continúes respondiendo.
+            te ha sido informado.</strong> En caso contrario por favor no continúes respondiendo. Ley 1581 de 2012.
             <br/><br/>
             
             <strong style={{ fontFamily: 'Roboto Condensed', textAlign: 'center',  display: 'block', fontSize: '19px'}}>Autorización tratamiento de datos general:</strong>  
             <br/>
-            Indícanos si en tu calidad de trabajador de la Institución nos autorizas para
-            conocerte mejor y comunicarnos contigo a través de los canales de contacto
-            que nos has suministrado directamente.
+            Indícanos, si en calidad de trabajador de la Institución Universitaria ESUMER, autorizas el uso de la información con fines estadísticos, demográficos, con el objetivo de conocerte mejor, de igual forma se solicita autorización para comunicarnos contigo a través de los canales de contacto que informe en la encuesta.
           </p>
         </div>
 
@@ -166,6 +162,7 @@ const VistaProteccionDatos = () => {
         <div style={{ display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
           <button
             style={{
+              fontFamily: 'poppins',
               padding: '10px 20px',
               fontSize: '16px',
               backgroundColor: '#202B52',

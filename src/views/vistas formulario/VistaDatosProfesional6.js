@@ -67,9 +67,9 @@ const VistaDatosProfesional6 = () => {
             setNombreCarrera(value);
             localStorage.setItem('nombreCarrera', value);
         } else if (name === "graduacion") {
-            const gradua=value=== "true"
+            const gradua = value === "true"
             setGraduacion(gradua)
-            if (!gradua){
+            if (!gradua) {
                 setCertificadoPdf("N/A")
             }
         }
@@ -104,19 +104,19 @@ const VistaDatosProfesional6 = () => {
 
     const manejarSiguiente = async () => {
         const formData = new FormData();
-    
+
         // Verificar si la variable graduacion es true
         if (graduacion) {
             // Solo se adjunta el certificado si graduacion es true
             if (certificadoPdf) {
                 formData.append("file", certificadoPdf);  // Adjunta el archivo PDF
-            } 
+            }
             // else {
             //     show_alert("Por favor, sube un archivo PDF antes de continuar." , 'info');
             //     return; 
             // }
         }
-    
+
         try {
             // Enviar el formulario con el archivo PDF al backend si graduacion es true
             if (graduacion && certificadoPdf) {
@@ -125,27 +125,27 @@ const VistaDatosProfesional6 = () => {
                         "Content-Type": "multipart/form-data",
                     },
                 });
-    
+
                 // Si la respuesta es exitosa, obtenemos la URL del certificado y la guardamos en localStorage
-                const {  file_patch } = response.data;
+                const { file_patch } = response.data;
                 console.log("Archivo PDF enviado correctamente");
                 console.log("var_certificado del certificado:", file_patch);
-    
+
                 // Guardamos la URL en el localStorage si es necesario
                 localStorage.setItem('certificadoUrl', file_patch);
-            }else {
+            } else {
                 localStorage.setItem('certificadoUrl', "N/A");
             }
 
-            
-    
+
+
             // Validaciones de otros campos (por ejemplo, nivelEscolaridad, actualmenteEstudia)
             const nuevosErrores = {};
-    
+
             if (!nivelEscolaridad) {
                 nuevosErrores.nivelEscolaridad = "El nivel de escolaridad es obligatorio.";
             }
-    
+
             if (actualmenteEstudia === undefined) {
                 nuevosErrores.actualmenteEstudia = "Este campo es obligatorio.";
             }
@@ -153,12 +153,12 @@ const VistaDatosProfesional6 = () => {
             if (graduacion === undefined) {
                 nuevosErrores.graduacion = "Este campo es obligatorio.";
             }
-    
+
             if (Object.keys(nuevosErrores).length > 0) {
                 setErrors(nuevosErrores);
                 return;
             }
-    
+
             // Navegar a la siguiente vista
             navigate("/SaludFisica");
         } catch (error) {
@@ -166,7 +166,11 @@ const VistaDatosProfesional6 = () => {
             show_alert("Hubo un error al enviar el archivo. Inténtalo nuevamente.", 'error');
         }
     };
-    
+
+    const manejarAtras = () => {
+        navigate('/InformacionLaboral')
+    }
+
 
 
 
@@ -330,6 +334,23 @@ const VistaDatosProfesional6 = () => {
                     </div>
 
                     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                        <button
+                            style={{
+                                fontFamily: 'poppins',
+                                padding: '10px 20px',
+                                fontSize: '16px',
+                                backgroundColor: '#202B52',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '5px',
+                                cursor: 'pointer',
+                                marginRight: '8px'
+
+                            }}
+                            onClick={manejarAtras}
+                        >
+                            Atras
+                        </button>
                         <Button sx={{ backgroundColor: '#202B52', fontFamily: 'Poppins' }} variant="contained" onClick={manejarSiguiente} type="submit">
                             Siguiente
                         </Button>

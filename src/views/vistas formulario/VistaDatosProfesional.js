@@ -62,7 +62,7 @@ const VistaDatosProfesional = () => {
     useEffect(() => {
         const fetchServiciosQueNoCuentan = async () => {
             try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/api/serviciosQueNoCuentan/');
+                const response = await axios.get('http://localhost:3001/serviciosQueNoCuentan/');
                 setServiciosQueNoCuentan(response.data);
             } catch (error) {
                 console.error('Error al obtener los servicios que no cuentan:', error);
@@ -77,7 +77,7 @@ const VistaDatosProfesional = () => {
     useEffect(() => {
         const fetchFactoresRiesgo = async () => {
             try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/api/factoresRiesgo/');
+                const response = await axios.get('http://localhost:3001/factoresRiesgo/');
                 setFactoresRiesgoOptions(response.data);
             } catch (error) {
                 console.error('Error al obtener los factores de riesgo:', error);
@@ -225,6 +225,10 @@ const VistaDatosProfesional = () => {
 
         navigate('/DatosAdicionales');
     };
+
+    const manejarAtras = () => {
+        navigate('/InfoUsuario')
+    }
 
     return (
         <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', paddingBottom: '3%' }}>
@@ -627,6 +631,24 @@ const VistaDatosProfesional = () => {
 
 
                         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <button
+                                style={{
+                                    fontFamily: 'poppins',
+                                    padding: '10px 20px',
+                                    fontSize: '16px',
+                                    backgroundColor: '#202B52',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '5px',
+                                    cursor: 'pointer',
+                                    marginRight: '8px'
+
+                                }}
+                                onClick={manejarAtras}
+                            >
+                                Atras
+                            </button>
+
                             <Button sx={{ backgroundColor: '#202B52', fontFamily: 'Poppins' }} variant="contained" onClick={manejarSiguiente} type="submit">
                                 Siguiente
                             </Button>

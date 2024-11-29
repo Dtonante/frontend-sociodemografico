@@ -27,13 +27,13 @@ const VistaAgradecimientos = () => {
 
         const guardarDatos = async () => {
 
-            const URI_PROFESIONAL = 'https://evaluacion.esumer.edu.co/api/profesional/'
-            const URI_PROFESIONAL_FACTORES_RIESGO = 'https://evaluacion.esumer.edu.co/api/profesionalFactoresRiesgo/'
-            const URI_PROFESIONAL_SERVICIOS_SALUD_ADICIONAL = 'https://evaluacion.esumer.edu.co/api/profesionalServicioSaludAdicional/'
-            const URI_PROFESIONAL_ANTECEDENTES_MEDICOS = 'https://evaluacion.esumer.edu.co/api/profesionalAntecedenteMedico/'
-            const URI_PROFESIONAL_TIEMPO_LIBRE = 'https://evaluacion.esumer.edu.co/api/profesionalTiempoLibre/'
-            const URI_PROFESIONAL_SERVICIO_QUE_NO_CUENTAN = 'https://evaluacion.esumer.edu.co/api/profesionalServiciosQueNoCuentan/'
-            const URI_PROFESIONAL_TRANSPORTE_PROPIO = 'https://evaluacion.esumer.edu.co/api/profesionalTransportePropio/'
+            const URI_PROFESIONAL = 'http://localhost:3001/profesional/'
+            const URI_PROFESIONAL_FACTORES_RIESGO = 'http://localhost:3001/profesionalFactoresRiesgo/'
+            const URI_PROFESIONAL_SERVICIOS_SALUD_ADICIONAL = 'http://localhost:3001/profesionalServicioSaludAdicional/'
+            const URI_PROFESIONAL_ANTECEDENTES_MEDICOS = 'http://localhost:3001/profesionalAntecedenteMedico/'
+            const URI_PROFESIONAL_TIEMPO_LIBRE = 'http://localhost:3001/profesionalTiempoLibre/'
+            const URI_PROFESIONAL_SERVICIO_QUE_NO_CUENTAN = 'http://localhost:3001/profesionalServiciosQueNoCuentan/'
+            const URI_PROFESIONAL_TRANSPORTE_PROPIO = 'http://localhost:3001/profesionalTransportePropio/'
 
             // Obtener todos los datos del localStorage
             const id_usuarioFK = parseInt(localStorage.getItem('usuarioId'), 10);
@@ -105,10 +105,72 @@ const VistaAgradecimientos = () => {
             const var_correoElectronicoInstitucional = localStorage.getItem('var_correoElectronicoInstitucional');
             const boolean_usaLentes = localStorage.getItem('boolean_usaLentes') === 'true';
             const boolean_bebidasEnergizantes = localStorage.getItem('boolean_bebidasEnergizantes') === 'true';
+            let var_frecuenciaBebidasEnergeticas = localStorage.getItem('var_frecuenciaBebidasEnergeticas')
+            if (boolean_bebidasEnergizantes == false){
+                var_frecuenciaBebidasEnergeticas = 'N/A'
+            }
             const var_zonaVivienda = localStorage.getItem('var_zonaVivienda')
 
+
+            console.log("id_usuarioFK:", id_usuarioFK);
+            console.log("boolean_aceptaTratamientoDatos:", boolean_aceptaTratamientoDatos);
+            console.log("date_fechaNacimiento:", date_fechaNacimiento);
+            console.log("var_departamentoResidencia:", var_departamentoResidencia);
+            console.log("var_ciudadResidencia:", var_ciudadResidencia);
+            console.log("var_direccionResidencia:", var_direccionResidencia);
+            console.log("var_estratoVivienda:", var_estratoVivienda);
+            console.log("var_tipoVivienda:", var_tipoVivienda);
+            console.log("var_estadoCivil:", var_estadoCivil);
+            console.log("boolean_viveSolo:", boolean_viveSolo);
+            console.log("var_numeroPersonasConLasQueVive:", var_numeroPersonasConLasQueVive);
+            console.log("set_personasConLasQueVive:", set_personasConLasQueVive);
+            console.log("boolean_viveConMascotas:", boolean_viveConMascotas);
+            console.log("set_tipoMascotas:", set_tipoMascotas);
+            console.log("var_personasDependeciaEconimica:", var_personasDependeciaEconimica);
+            console.log("var_totalIngresosPropiosYGrupoFamiliar:", var_totalIngresosPropiosYGrupoFamiliar);
+            console.log("var_grupoEtnico:", var_grupoEtnico);
+            console.log("var_rh:", var_rh);
+            console.log("id_epsFK:", id_epsFK);
+            console.log("id_fondoPensionFK:", id_fondoPensionFK);
+            console.log("boolean_cambioEpsOArl:", boolean_cambioEpsOArl);
+            console.log("id_cuentaBancariaFK:", id_cuentaBancariaFK);
+            console.log("var_tipoCuenta:", var_tipoCuenta);
+            console.log("var_numeroCuenta:", var_numeroCuenta);
+            console.log("var_tipoContrato:", var_tipoContrato);
+            console.log("var_salario:", var_salario);
+            console.log("date_fechaIngresoInstitucion:", date_fechaIngresoInstitucion);
+            console.log("var_antiguedadInstitucion:", var_antiguedadInstitucion);
+            console.log("id_areaFK:", id_areaFK);
+            console.log("var_cargo:", var_cargo);
+            console.log("var_jefeInmediato:", var_jefeInmediato);
+            console.log("var_sede:", var_sede);
+            console.log("var_celular:", var_celular);
+            console.log("var_telefonoEmergencia:", var_telefonoEmergencia);
+            console.log("var_nivelEscolaridad:", var_nivelEscolaridad);
+            console.log("var_nombreCarrera:", var_nombreCarrera);
+            console.log("boolean_actualmenteEstudia:", boolean_actualmenteEstudia);
+            console.log("boolean_actividadFisica:", boolean_actividadFisica);
+            console.log("var_frecuenciaActividadFisica:", var_frecuenciaActividadFisica);
+            console.log("boolean_fuma:", boolean_fuma);
+            console.log("var_frecuenciaFuma:", var_frecuenciaFuma);
+            console.log("boolean_toma:", boolean_toma);
+            console.log("var_frecuenciaToma:", var_frecuenciaToma);
+            console.log("boolean_sustanciasPsicoactivas:", boolean_sustanciasPsicoactivas);
+            console.log("var_frecuenciaSustanciasPsicoactivas:", var_frecuenciaSustanciasPsicoactivas);
+            console.log("set_mediosTransportePublico:", set_mediosTransportePublico);
+            console.log("set_pasoMayorTiempoLibre:", set_pasoMayorTiempoLibre);
+            console.log("var_peso:", var_peso);
+            console.log("var_altura:", var_altura);
+            console.log("var_urlDatosAdjuntos:", var_urlDatosAdjuntos);
+            console.log("var_correoElectronicoInstitucional:", var_correoElectronicoInstitucional);
+            console.log("boolean_usaLentes:", boolean_usaLentes);
+            console.log("boolean_bebidasEnergizantes:", boolean_bebidasEnergizantes);
+            console.log("var_zonaVivienda:", var_zonaVivienda);
+            console.log("var_frecuenciaBebidasEnergeticas:", var_frecuenciaBebidasEnergeticas);
+
+
             try {
-                const response = await axios.post(URI_PROFESIONAL, { id_usuarioFK: id_usuarioFK, boolean_aceptaTratamientoDatos: boolean_aceptaTratamientoDatos, date_fechaNacimiento: date_fechaNacimiento, var_departamentoResidencia: var_departamentoResidencia, var_ciudadResidencia: var_ciudadResidencia, var_direccionResidencia: var_direccionResidencia, var_estratoVivienda: var_estratoVivienda, var_tipoVivienda: var_tipoVivienda, var_estadoCivil: var_estadoCivil, boolean_viveSolo: boolean_viveSolo, var_numeroPersonasConLasQueVive: var_numeroPersonasConLasQueVive, set_personasConLasQueVive: set_personasConLasQueVive, boolean_viveConMascotas: boolean_viveConMascotas, set_tipoMascotas: set_tipoMascotas, var_personasDependeciaEconimica: var_personasDependeciaEconimica, var_totalIngresosPropiosYGrupoFamiliar: var_totalIngresosPropiosYGrupoFamiliar, var_grupoEtnico: var_grupoEtnico, var_rh: var_rh, id_epsFK: id_epsFK, id_fondoPensionFK: id_fondoPensionFK, boolean_cambioEpsOArl: boolean_cambioEpsOArl, id_cuentaBancariaFK: id_cuentaBancariaFK, var_tipoCuenta: var_tipoCuenta, var_numeroCuenta: var_numeroCuenta, var_tipoContrato: var_tipoContrato, var_salario: var_salario, date_fechaIngresoInstitucion: date_fechaIngresoInstitucion, var_antiguedadInstitucion: var_antiguedadInstitucion, id_areaFK: id_areaFK, var_cargo: var_cargo, var_jefeInmediato: var_jefeInmediato, var_sede: var_sede, var_celular: var_celular, var_telefonoEmergencia: var_telefonoEmergencia, var_nivelEscolaridad: var_nivelEscolaridad, var_nombreCarrera: var_nombreCarrera, boolean_actualmenteEstudia: boolean_actualmenteEstudia, boolean_actividadFisica: boolean_actividadFisica, var_frecuenciaActividadFisica: var_frecuenciaActividadFisica, boolean_fuma: boolean_fuma, var_frecuenciaFuma: var_frecuenciaFuma, boolean_toma: boolean_toma, var_frecuenciaToma: var_frecuenciaToma, boolean_sustanciasPsicoactivas: boolean_sustanciasPsicoactivas, var_frecuenciaSustanciasPsicoactivas: var_frecuenciaSustanciasPsicoactivas, set_mediosTransportePublico: set_mediosTransportePublico, set_pasoMayorTiempoLibre: set_pasoMayorTiempoLibre, var_peso: var_peso, var_altura: var_altura, var_urlDatosAdjuntos: var_urlDatosAdjuntos, var_correoElectronicoInstitucional: var_correoElectronicoInstitucional, boolean_usaLentes: boolean_usaLentes, boolean_bebidasEnergizantes: boolean_bebidasEnergizantes, var_zonaVivienda: var_zonaVivienda });
+                const response = await axios.post(URI_PROFESIONAL, { id_usuarioFK: id_usuarioFK, boolean_aceptaTratamientoDatos: boolean_aceptaTratamientoDatos, date_fechaNacimiento: date_fechaNacimiento, var_departamentoResidencia: var_departamentoResidencia, var_ciudadResidencia: var_ciudadResidencia, var_direccionResidencia: var_direccionResidencia, var_estratoVivienda: var_estratoVivienda, var_tipoVivienda: var_tipoVivienda, var_estadoCivil: var_estadoCivil, boolean_viveSolo: boolean_viveSolo, var_numeroPersonasConLasQueVive: var_numeroPersonasConLasQueVive, set_personasConLasQueVive: set_personasConLasQueVive, boolean_viveConMascotas: boolean_viveConMascotas, set_tipoMascotas: set_tipoMascotas, var_personasDependeciaEconimica: var_personasDependeciaEconimica, var_totalIngresosPropiosYGrupoFamiliar: var_totalIngresosPropiosYGrupoFamiliar, var_grupoEtnico: var_grupoEtnico, var_rh: var_rh, id_epsFK: id_epsFK, id_fondoPensionFK: id_fondoPensionFK, boolean_cambioEpsOArl: boolean_cambioEpsOArl, id_cuentaBancariaFK: id_cuentaBancariaFK, var_tipoCuenta: var_tipoCuenta, var_numeroCuenta: var_numeroCuenta, var_tipoContrato: var_tipoContrato, var_salario: var_salario, date_fechaIngresoInstitucion: date_fechaIngresoInstitucion, var_antiguedadInstitucion: var_antiguedadInstitucion, id_areaFK: id_areaFK, var_cargo: var_cargo, var_jefeInmediato: var_jefeInmediato, var_sede: var_sede, var_celular: var_celular, var_telefonoEmergencia: var_telefonoEmergencia, var_nivelEscolaridad: var_nivelEscolaridad, var_nombreCarrera: var_nombreCarrera, boolean_actualmenteEstudia: boolean_actualmenteEstudia, boolean_actividadFisica: boolean_actividadFisica, var_frecuenciaActividadFisica: var_frecuenciaActividadFisica, boolean_fuma: boolean_fuma, var_frecuenciaFuma: var_frecuenciaFuma, boolean_toma: boolean_toma, var_frecuenciaToma: var_frecuenciaToma, boolean_sustanciasPsicoactivas: boolean_sustanciasPsicoactivas, var_frecuenciaSustanciasPsicoactivas: var_frecuenciaSustanciasPsicoactivas, set_mediosTransportePublico: set_mediosTransportePublico, set_pasoMayorTiempoLibre: set_pasoMayorTiempoLibre, var_peso: var_peso, var_altura: var_altura, var_urlDatosAdjuntos: var_urlDatosAdjuntos, var_correoElectronicoInstitucional: var_correoElectronicoInstitucional, boolean_usaLentes: boolean_usaLentes, boolean_bebidasEnergizantes: boolean_bebidasEnergizantes, var_zonaVivienda: var_zonaVivienda, var_frecuenciaBebidasEnergeticas: var_frecuenciaBebidasEnergeticas });
 
 
                 //se traen los factores de riesgo para crear en la tabla relacional
@@ -221,7 +283,7 @@ const VistaAgradecimientos = () => {
                         confirmButtonText: 'OK',
                     });
                 }
-                
+
             }
         };
 
@@ -260,7 +322,7 @@ const VistaAgradecimientos = () => {
 
             {/* Contenedor compacto */}
             <div
-                className="contenedor-items-buttoms" 
+                className="contenedor-items-buttoms"
 
             >
                 <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#1b263b', fontFamily: 'Poppins' }}>

@@ -42,7 +42,7 @@ const VistaDatosProfesional4 = () => {
     useEffect(() => {
         const fetchBancos = async () => {
             try {
-                const response = await axios.get("https://evaluacion.esumer.edu.co/api/cuentasBancarias");
+                const response = await axios.get("http://localhost:3001/cuentasBancarias");
                 setBancos(response.data);
             } catch (error) {
                 console.error("Error al obtener los bancos:", error);
@@ -108,6 +108,10 @@ const VistaDatosProfesional4 = () => {
       event.preventDefault(); // Evita la entrada de caracteres no válidos
     }
   };
+
+  const manejarAtras = () => {
+    navigate('/SeguridadSocial')
+  }
 
   return (
     <div style={{  backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%",  height: "100vh", overflow: "auto", }}  >
@@ -287,6 +291,23 @@ const VistaDatosProfesional4 = () => {
             </div>
 
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <button
+                style={{
+                  fontFamily: 'poppins',
+                  padding: '10px 20px',
+                  fontSize: '16px',
+                  backgroundColor: '#202B52',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '5px',
+                  cursor: 'pointer',
+                  marginRight: '8px'
+
+                }}
+                onClick={manejarAtras}
+              >
+                Atras
+              </button>
               <Button
                 sx={{ backgroundColor: "#202B52", fontFamily: 'Poppins' }}
                 variant="contained"

@@ -46,7 +46,7 @@ const VistaDatosProfesional8 = () => {
     useEffect(() => {
         const fetchTransportes = async () => {
             try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/api/transportePropio/');
+                const response = await axios.get('http://localhost:3001/transportePropio/');
                 setTransportes(response.data);
             } catch (error) {
                 console.error('Error al obtener los transportes:', error);
@@ -93,78 +93,6 @@ const VistaDatosProfesional8 = () => {
         // Guardar el array actualizado en localStorage
         localStorage.setItem("selectedTransporte", JSON.stringify(value));
     };
-
-
-    // // Manejar el cambio de la placa
-    // const manejarCambioPlaca = (event) => {
-    //     const nuevaPlaca = event.target.value;
-
-    //     if (habilitarPlaca) {
-    //         setPlaca(nuevaPlaca);
-    //         localStorage.setItem('placa', nuevaPlaca);
-    //     }
-    // };
-
-
-    // const manejarCambioPlaca = (event) => {
-    //     let nuevaPlaca = event.target.value.toUpperCase();
-
-    //     // Permite solo letras, números y el guion, eliminando caracteres no válidos
-    //     nuevaPlaca = nuevaPlaca.replace(/[^A-Z0-9-]/g, "");
-
-    //     // Asegura que los tres primeros caracteres sean letras
-    //     if (nuevaPlaca.length <= 3) {
-    //         nuevaPlaca = nuevaPlaca.replace(/[^A-Z]/g, ""); // Solo letras al inicio
-    //     }
-
-    //     // Inserta automáticamente el guion después de las 3 letras
-    //     if (nuevaPlaca.length === 4 && nuevaPlaca[3] !== "-") {
-    //         nuevaPlaca = nuevaPlaca.slice(0, 3) + "-" + nuevaPlaca.slice(3);
-    //     }
-
-    //     // Asegura que los caracteres después del guion cumplan las reglas
-    //     if (nuevaPlaca.length > 4 && nuevaPlaca[3] === "-") {
-    //         const partePosterior = nuevaPlaca.slice(4);
-
-    //         // Validación progresiva para que:
-    //         // - Primer carácter después del guion sea un número
-    //         // - Segundo carácter después del guion sea un número
-    //         // - Tercer carácter después del guion pueda ser un número o una letra
-    //         if (partePosterior.length === 1 && !/^\d$/.test(partePosterior)) {
-    //             nuevaPlaca = nuevaPlaca.slice(0, 4); // Elimina el carácter no numérico
-    //         } else if (partePosterior.length === 2 && !/^\d{2}$/.test(partePosterior)) {
-    //             nuevaPlaca = nuevaPlaca.slice(0, 5); // Elimina caracteres adicionales
-    //         } else if (partePosterior.length === 3 && !/^\d{2}[A-Z]$/.test(partePosterior)) {
-    //             nuevaPlaca = nuevaPlaca.slice(0, 6); // Solo permite dos números seguidos de una letra
-    //         }
-    //     }
-
-    //     // Validación estricta de los formatos de placas
-    //     if (/^[A-Z]{3}-\d{3}$/.test(nuevaPlaca) || /^[A-Z]{3}-\d{2}[A-Z]{1}$/.test(nuevaPlaca)) {
-    //         if (habilitarPlaca) {
-    //             setPlaca(nuevaPlaca); // Actualiza el estado
-    //             localStorage.setItem("placa", nuevaPlaca); // Guarda en localStorage
-    //         }
-    //     } else if (!/^([A-Z]{0,3}-?\d{0,2}[A-Z]?)?$/.test(nuevaPlaca)) {
-    //         // Bloquea cualquier formato que no sea progresivamente válido
-    //         return;
-    //     } else {
-    //         setPlaca(nuevaPlaca); // Permite la entrada progresiva
-    //     }
-    // };
-
-
-
-
-
-
-    // /// Manejar el cambio de la placa extra
-    // const manejarCambioPlacaExtra = (event) => {
-    //     const nuevaPlacaExtra = event.target.value;
-    //     setPlacaExtra(nuevaPlacaExtra);
-    //     actualizarPlacaEnLocalStorage(placa, nuevaPlacaExtra); 
-    // };
-
 
 
     // Función de validación común para placas
@@ -291,6 +219,10 @@ const VistaDatosProfesional8 = () => {
         navigate("/Agradecimiento");
     };
 
+    const manejarAtras = () => {
+        navigate('/SaludFisica')
+    }
+
     return (
         <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', paddingBottom: '3%', height: '100vh', overflow: 'auto' }}>
             <div style={{ textAlign: 'center', marginBottom: '1%', marginTop: '-1%' }}>
@@ -374,13 +306,13 @@ const VistaDatosProfesional8 = () => {
                             MenuProps={{
                                 PaperProps: { style: { maxHeight: 224, width: 250 } },
                             }}
-                    
-                                sx={{
-                                    height: "40px",
-                                    fontFamily: "Roboto Condensed",
-                                    fontSize: "16px",
-                                }}
-                            
+
+                            sx={{
+                                height: "40px",
+                                fontFamily: "Roboto Condensed",
+                                fontSize: "16px",
+                            }}
+
                         >
                             <MenuItem value="transporte propio">
                                 <Checkbox checked={mediosTransportePublico.indexOf("transporte propio") > -1} />
@@ -499,6 +431,23 @@ const VistaDatosProfesional8 = () => {
 
 
                     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                        <button
+                            style={{
+                                fontFamily: 'poppins',
+                                padding: '10px 20px',
+                                fontSize: '16px',
+                                backgroundColor: '#202B52',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '5px',
+                                cursor: 'pointer',
+                                marginRight: '8px'
+
+                            }}
+                            onClick={manejarAtras}
+                        >
+                            Atras
+                        </button>
                         <Button sx={{ backgroundColor: '#202B52', fontFamily: 'Poppins' }} onClick={manejarSiguiente} variant="contained" type="button">
                             Siguiente
                         </Button>
