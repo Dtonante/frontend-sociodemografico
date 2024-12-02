@@ -37,7 +37,7 @@ const VistaDatosProfesional3 = () => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [touchedFields, setTouchedFields] = useState({});
-  const porcentajeProgreso = 38;
+  const porcentajeProgreso = 50;
 
   // Validaciones basadas en los campos tocados
   useEffect(() => {
@@ -214,7 +214,7 @@ const VistaDatosProfesional3 = () => {
     localStorage.setItem("formDataProfesional", JSON.stringify(formData)); // Guardar todos los datos
 
     // Redirigir a la siguiente vista (ajustar el nombre de la ruta según tu configuración)
-    navigate("/datosProfesional4");
+    navigate("/InformacionBancaria");
   };
 
   return (
@@ -260,7 +260,7 @@ const VistaDatosProfesional3 = () => {
                 fontFamily: "Roboto Condensed",
               }}
             >
-              Seguridad social
+              <strong>Seguridad social</strong>
             </Typography>
           </Box>
         </Box>
@@ -276,9 +276,9 @@ const VistaDatosProfesional3 = () => {
             <FormControl sx={{ mb: 2 }} error={!!errors.cambioEpsOArl}>
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
-                ¿Ha cambiado de EPS o AFP?
+                ¿Ha cambiado de EPS o AFP?:
               </Typography>
               <RadioGroup
                 row
@@ -306,7 +306,7 @@ const VistaDatosProfesional3 = () => {
                 onBlur={handleBlur}
                 sx={{
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 }}
               >
@@ -326,7 +326,7 @@ const VistaDatosProfesional3 = () => {
             </FormControl>
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Seleccione EPS:{" "}
             </Typography>
@@ -349,7 +349,7 @@ const VistaDatosProfesional3 = () => {
               InputProps={{
                 sx: {
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 },
               }}
@@ -368,7 +368,7 @@ const VistaDatosProfesional3 = () => {
             >
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
                 Seleccione Fondo de Pensión:{" "}
               </Typography>
@@ -379,7 +379,7 @@ const VistaDatosProfesional3 = () => {
                 onBlur={handleBlur}
                 sx={{
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 }}
               >
@@ -410,9 +410,9 @@ const VistaDatosProfesional3 = () => {
             >
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
-                Seleccione los servicios de salud adicional:
+                Seleccione los servicios de salud adicional (se pueden seleccionar varias opciones):
               </Typography>
               <Select
                 name="selectedServiciosSaludAdicional"
@@ -439,7 +439,7 @@ const VistaDatosProfesional3 = () => {
                 }}
                 sx={{
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 }}
               >
@@ -479,9 +479,9 @@ const VistaDatosProfesional3 = () => {
             >
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
-                Seleccione Antecedentes Médicos:
+                Seleccione Antecedentes Médicos (se pueden seleccionar varias opciones):
               </Typography>
 
               <Select
@@ -514,7 +514,7 @@ const VistaDatosProfesional3 = () => {
                 }}
                 sx={{
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 }}
               >
@@ -549,6 +549,7 @@ const VistaDatosProfesional3 = () => {
 
             <div
               style={{
+                fontFamily: 'Poppins',
                 display: "flex",
                 alignItems: "center",
                 backgroundColor: "#F2F2F2",
@@ -559,6 +560,7 @@ const VistaDatosProfesional3 = () => {
             >
               <div
                 style={{
+                  fontFamily: 'Poppins',
                   height: "10px",
                   width: "90%",
                   backgroundColor: "#F2F2F2",
@@ -570,6 +572,7 @@ const VistaDatosProfesional3 = () => {
               >
                 <div
                   style={{
+                    fontFamily: 'Poppins',
                     width: `${porcentajeProgreso}%`,
                     height: "100%",
                     backgroundColor: "#202B52",
@@ -584,7 +587,7 @@ const VistaDatosProfesional3 = () => {
 
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <Button
-                sx={{ backgroundColor: "#202B52" }}
+                sx={{ backgroundColor: "#202B52", fontFamily:'Poppins' }}
                 variant="contained"
                 onClick={manejarSiguiente}
                 type="submit"

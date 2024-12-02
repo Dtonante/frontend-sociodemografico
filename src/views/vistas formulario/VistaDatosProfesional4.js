@@ -11,7 +11,7 @@ const VistaDatosProfesional4 = () => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [touchedFields, setTouchedFields] = useState({});
-  const porcentajeProgreso = 45;
+  const porcentajeProgreso = 60;
 
   // Validaciones basadas en los campos tocados
   useEffect(() => {
@@ -87,7 +87,7 @@ const VistaDatosProfesional4 = () => {
       setErrors(nuevosErrores);
       return;
     }
-    navigate("/datosProfesional5");
+    navigate("/InformacionLaboral");
   };
 
   const handleKeyPress = (event, fieldName) => {
@@ -134,7 +134,7 @@ const VistaDatosProfesional4 = () => {
       >
         <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
           <Box flexGrow={1}>
-            {" "}
+            
             <Typography
               sx={{
                 fontSize: "18px",
@@ -144,8 +144,8 @@ const VistaDatosProfesional4 = () => {
                 fontFamily: "Roboto Condensed",
               }}
             >
-              Información bancaria
-            </Typography>{" "}
+              <strong>Información bancaria</strong>
+            </Typography>
           </Box>
         </Box>
         <Divider
@@ -168,7 +168,7 @@ const VistaDatosProfesional4 = () => {
             >
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
                 Seleccione Banco:
               </Typography>
@@ -179,7 +179,7 @@ const VistaDatosProfesional4 = () => {
                 onChange={manejarCambio}
                 sx={{
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 }}
               >
@@ -211,9 +211,9 @@ const VistaDatosProfesional4 = () => {
             >
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
-                Tipo de Cuenta
+                Tipo de Cuenta:
               </Typography>
               <RadioGroup
                 name="tipoCuenta"
@@ -223,7 +223,7 @@ const VistaDatosProfesional4 = () => {
                 onBlur={handleBlur}
                 sx={{
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 }}
               >
@@ -245,11 +245,12 @@ const VistaDatosProfesional4 = () => {
               )}
             </FormControl>
 
-            <Typography variant="h6" sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }} > Número de Cuenta: </Typography>
-            <TextField variant="outlined" fullWidth sx={{ mb: 2 }} name="numeroCuenta"  onKeyPress={(event) => handleKeyPress(event, "numeroCuenta") }  value={numeroCuenta} onChange={manejarCambio} onBlur={handleBlur}  error={!!errors.numeroCuenta} helperText={errors.numeroCuenta} FormHelperTextProps={{ sx: { marginLeft: 0, }, }} InputProps={{ sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px", }, inputProps: { maxLength: 18, }, }}    />
+            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >Número de Cuenta: </Typography>
+            <TextField variant="outlined" fullWidth sx={{ mb: 2 }} name="numeroCuenta"  onKeyPress={(event) => handleKeyPress(event, "numeroCuenta") }  value={numeroCuenta} onChange={manejarCambio} onBlur={handleBlur}  error={!!errors.numeroCuenta} helperText={errors.numeroCuenta} FormHelperTextProps={{ sx: { marginLeft: 0, }, }} InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px", }, inputProps: { maxLength: 18, }, }}    />
 
             <div
               style={{
+                fontFamily: 'Poppins',
                 display: "flex",
                 alignItems: "center",
                 backgroundColor: "#F2F2F2",
@@ -260,6 +261,7 @@ const VistaDatosProfesional4 = () => {
             >
               <div
                 style={{
+                  fontFamily: 'Poppins',
                   height: "10px",
                   width: "90%",
                   backgroundColor: "#F2F2F2",
@@ -271,6 +273,7 @@ const VistaDatosProfesional4 = () => {
               >
                 <div
                   style={{
+                    fontFamily: 'Poppins',
                     width: `${porcentajeProgreso}%`,
                     height: "100%",
                     backgroundColor: "#202B52",
@@ -285,7 +288,7 @@ const VistaDatosProfesional4 = () => {
 
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
               <Button
-                sx={{ backgroundColor: "#202B52" }}
+                sx={{ backgroundColor: "#202B52", fontFamily: 'Poppins' }}
                 variant="contained"
                 onClick={manejarSiguiente}
                 type="submit"

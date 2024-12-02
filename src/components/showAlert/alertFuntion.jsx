@@ -68,7 +68,7 @@ style.innerHTML = `
         font-family: 'Poppins', sans-serif !important;
     }
     .swal2-confirm {
-        background-color: #00aa4d !important;
+        background-color: #202B52 !important; /* Cambiar el color de fondo a #202B52 */
         color: white !important;
         border: none !important;
         font-family: 'Poppins', sans-serif !important;

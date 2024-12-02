@@ -5,7 +5,7 @@
     align-items: center;
     width: 100%;
     margin-top: 7%;
-    flex-wrap: wrap; /* Permitir que los elementos se ajusten automáticamente */
+    flex-wrap: wrap; 
 }
 
 .contenedor-items-buttoms {
@@ -22,7 +22,7 @@
 .iconos-sociales {
     display: flex;
     gap: 12px;
-    flex-wrap: wrap; /* Permite que los iconos se distribuyan en varias filas */
+    flex-wrap: wrap; 
 }
 
 .botones-accion {
@@ -36,7 +36,12 @@
     object-fit: cover;
 }
 
+
+
 /* Estilos para pantallas pequeñas */
+
+
+
 @media (max-width: 1100px) {
     .contenedor {
         flex-direction: column;
@@ -60,35 +65,72 @@
     }
 
     /* Imagen de fondo en pantallas pequeñas */
-    .imagen-fondo {
-        width: 100%; 
-        height: auto; 
-    }
+    
 
     .contenedor-items-buttoms {
-        margin-top: 6%;
+        margin-top: -3%;
     }
 }
 @media (max-width: 1000px)  {
 
     .contenedor-items-buttoms {
-        margin-top: 0;
+        margin-top: -3%;
     }
 
 
 }
-@media (max-width: 900px)  {
+@media (max-width: 1500px){
+    .imagen-fondo {
+        width: 100%; 
+        height: 95%; 
+        object-fit: cover;
+
+    }
+
+}
+@media (max-width: 1400px){
+    .imagen-fondo {
+        width: 100%; 
+        height: 94%; 
+        object-fit: cover;
+    }
+
+}
+@media (max-width: 870px)  {
 
     .contenedor-items-buttoms {
-        margin-top: 1%;
+        margin-top: -8%;
+    }
+    .imagen-fondo {
+        width: 100%; 
+        height: 85%;
+        object-fit: cover;
+
+
     }
 
 
 }
+@media (max-width: 800px)  {
+
+    .contenedor-items-buttoms {
+        margin-top: -20%;
+    }
+    .imagen-fondo {
+        width: 100%; 
+        height: 80%;
+        object-fit: cover;
+
+
+    }
+
+
+}
+
 @media (max-width: 820px)  {
 
     .contenedor-items-buttoms {
-        margin-top: -4%;
+        margin-top: -7%;
     }
 
 
@@ -98,7 +140,27 @@
     .contenedor-items-buttoms {
         margin-top: -10%;
     }
+    .imagen-fondo {
+        width: 100%; 
+        height: 80%;
+        object-fit: cover;
 
+
+    }
+
+}
+@media (max-width: 740px)  {
+
+    .contenedor-items-buttoms {
+        margin-top: -15%;
+    }
+    .imagen-fondo {
+        width: 100%; 
+        height: 75%;
+        object-fit: cover;
+
+
+    }
 
 }
 
@@ -106,7 +168,14 @@
 @media (max-width: 650px)  {
 
     .contenedor-items-buttoms {
-        margin-top: -17%;
+        margin-top: -25%;
+    }
+    .imagen-fondo {
+        width: 100%; 
+        height: 63%;
+        object-fit: cover;
+
+
     }
 
 
@@ -115,17 +184,146 @@
 @media (max-width: 550px)  {
 
     .contenedor-items-buttoms {
-        margin-top: -30%;
+        margin-top: -28%;
+    }
+    .imagen-fondo {
+        width: 100%; 
+        height: 87%;
+        object-fit: cover;
+
+
     }
 
 
 }
-@media (max-width: 400px)  {
+@media (max-width: 544px)  {
 
     .contenedor-items-buttoms {
-        margin-top: -50%;
+        margin-top: -2%;
+    }
+    .imagen-fondo {
+        width: 100%; 
+        height: 87%;
+        object-fit: cover;
+
+
     }
 
 
 }
+@media (max-width: 500px)  {
+
+    .contenedor-items-buttoms {
+        margin-top: -3%;
+    
+    }
+    .imagen-fondo {
+        width: 100%; 
+        height: 77%;
+        object-fit: cover;
+
+
+    }
+
+}
+@media (max-width: 530px)  {
+
+    .contenedor-items-buttoms {
+        margin-top: -20%;
+       
+    }
+    .imagen-fondo {
+        width: 100%; 
+        height: 60%;
+        object-fit: cover;
+
+
+    }
+
+}
+
+@media (max-width: 450px)  {
+
+    .contenedor-items-buttoms {
+        margin-top: -3%;
+    }
+    .imagen-fondo {
+        width: 100%; 
+        height: 77%;
+        object-fit: cover;
+
+
+    }
+
+}
+@media (max-width: 436px)  {
+
+    .contenedor-items-buttoms {
+        margin-top: -10%;
+    }
+
+
+}
+
+@media (max-width: 420px)  {
+
+    .contenedor-items-buttoms {
+        margin-top: 2%;
+    }
+
+
+}
+@media (max-width: 575px)  {
+
+    .contenedor-items-buttoms {
+        margin-top: -8%;
+    }
+    .imagen-fondo {
+        width: 100%; 
+        height: 67%;
+        object-fit: cover;
+
+
+    }
+
+}
+
+@media (max-width: 575px)  {
+
+    .genero {
+        margin-bottom: 20px;
+    }
+
+
+}
+
+
+
+.contenedor-principal-proteccion {
+    background-color: #F2F2F2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 150vh;
+    padding: 0;
+    margin: 0;
+}
+
+.img-fondo-proteccion {
+    width: 60%;
+    height: 85%;
+    object-fit: cover;
+}
+
+@media (max-width: 1065px) {
+    .img-fondo-proteccion {
+        width: 100%;
+        height: 85%;
+        object-fit: cover;
+    }
+
+}
+
+
 

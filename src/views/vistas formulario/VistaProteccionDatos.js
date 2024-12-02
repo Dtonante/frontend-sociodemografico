@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import show_alert from '../../components/showAlert/alertFuntion';
+import '../../css/VistaHomeNuevoUsuario.css'
+
+
 const VistaProteccionDatos = () => {
   const [aceptaDatos, setAceptaDatos] = useState(null);
   const navigate = useNavigate();
-  const porcentajeProgreso = 6;
+  const porcentajeProgreso = 10;
 
   const manejarCambioCheckbox = (e) => {
     setAceptaDatos(e.target.value === "si");
@@ -13,7 +16,7 @@ const VistaProteccionDatos = () => {
   const manejarClickSiguiente = () => {
     if (aceptaDatos) {
       localStorage.setItem('aceptaDatos', JSON.stringify(aceptaDatos));
-      navigate('/datosUsuario');
+      navigate('/InfoUsuario');
     } else {
       show_alert('Debes aceptar la manipulación de tus datos para continuar.', 'info');
     }
@@ -31,21 +34,17 @@ const VistaProteccionDatos = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-between',
-        height: '100vh',
+        height: '150vh',
         margin: 0,
         padding: 0,
       }}
     >
       {/* Imagen de fondo */}
-      <div style={{ width: '100%', height: '35%', position: 'relative', textAlign: 'center' }}>
+      <div style={{ width: '100%', height: '27%', position: 'relative', textAlign: 'center' }}>
         <img
-          src="public/fondo_home.jpg" 
+          src="public/Fondo_formulario-07.jpg"
           alt="Fondo"
-          style={{
-            width: '60%',
-            height: '85%',
-            objectFit: 'cover',
-          }}
+          className='img-fondo-proteccion'
         />
       </div>
 
@@ -59,11 +58,11 @@ const VistaProteccionDatos = () => {
           gap: '20px',
           maxWidth: '60%',
           margin: '0 auto',
-          marginTop: '-3%',
+          marginTop: '-4%',
         }}
       >
         {/* Título */}
-        <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#202B52', textAlign: 'center',  fontFamily: 'Roboto Condensed' }}>
+        <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#202B52', textAlign: 'center', fontFamily: 'Roboto Condensed', marginTop:'3%' }}>
           Ley de Protección y Tratamiento de Datos
         </h2>
 
@@ -77,8 +76,26 @@ const VistaProteccionDatos = () => {
             textAlign: 'justify',
           }}
         >
-          <p style={{ margin: 0, color: '#202B52', fontSize: '14px', fontFamily: 'Poppins'  }}>
-            <strong style={{ fontFamily: 'Roboto Condensed'}}>Importante:</strong> En cumplimiento con la normativa vigente sobre protección y tratamiento de datos, queremos informarle sobre la política de manejo de sus datos personales. Al aceptar, usted consiente el uso de sus datos bajo las condiciones expuestas.
+          <p style={{ margin: 0, color: '#202B52', fontSize: '18px', fontFamily: 'Roboto Condensed' }}>
+            <strong style={{ fontFamily: 'Roboto Condensed', textAlign: 'center',  display: 'block', fontSize: '19px'}}>*1. Autorización tratamiento de datos:</strong>  
+             <br/>
+            El perfil sociodemográfico nos permitirá reconocer cuáles son las
+            características de la población trabajadora que se tienen en La Institución
+            Universitaria ESUMER.
+            <br/><br/>
+            Los datos suministrados en la encuesta tendrán el tratamiento necesario,
+            seguro y confidencial con la finalidad de crear, gestionar y ejecutar mejores
+            planes de bienestar y de seguridad y salud en el trabajo.
+            <br/><br/>
+            Con el diligenciamiento de esta encuesta <strong>estás aceptando el tratamiento que
+            te ha sido informado.</strong> En caso contrario por favor no continúes respondiendo.
+            <br/><br/>
+            
+            <strong style={{ fontFamily: 'Roboto Condensed', textAlign: 'center',  display: 'block', fontSize: '19px'}}>Autorización tratamiento de datos general:</strong>  
+            <br/>
+            Indícanos si en tu calidad de trabajador de la Institución nos autorizas para
+            conocerte mejor y comunicarnos contigo a través de los canales de contacto
+            que nos has suministrado directamente.
           </p>
         </div>
 
@@ -93,7 +110,7 @@ const VistaProteccionDatos = () => {
               checked={aceptaDatos === true}
               onChange={manejarCambioCheckbox}
             />
-            Sí, acepto el tratamiento de mis datos
+            Sí autorizo
           </label>
           <label style={{ fontFamily: 'Poppins', color: '#202B52' }}>
             <input
@@ -103,13 +120,14 @@ const VistaProteccionDatos = () => {
               checked={aceptaDatos === false}
               onChange={manejarCambioCheckbox}
             />
-            No acepto el tratamiento de mis datos
+            No autorizo
           </label>
         </div>
 
         {/* Barra de progreso */}
         <div
           style={{
+            fontFamily: 'Poppins',
             display: 'flex',
             alignItems: 'center',
             backgroundColor: '#F2F2F2',
@@ -120,6 +138,7 @@ const VistaProteccionDatos = () => {
         >
           <div
             style={{
+              fontFamily: 'Poppins',
               height: '10px',
               width: '90%',
               backgroundColor: '#F2F2F2',
@@ -131,6 +150,7 @@ const VistaProteccionDatos = () => {
           >
             <div
               style={{
+                fontFamily: 'Poppins',
                 width: `${porcentajeProgreso}%`,
                 height: '100%',
                 backgroundColor: '#202B52',
@@ -161,6 +181,7 @@ const VistaProteccionDatos = () => {
           </button>
           <button
             style={{
+              fontFamily: 'poppins',
               padding: '10px 20px',
               fontSize: '16px',
               backgroundColor: '#202B52',

@@ -34,7 +34,7 @@ const VistaDatosProfesional5 = () => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [touchedFields, setTouchedFields] = useState({});
-  const porcentajeProgreso = 52;
+  const porcentajeProgreso = 70;
   // Calcular la fecha máxima (5 días después de hoy)
   const fechaHoy = new Date();
   const fechaMaxima = new Date();
@@ -50,7 +50,7 @@ const VistaDatosProfesional5 = () => {
     }
 
     if (
-      afiliado === "si" &&
+      afiliado == "si" &&
       touchedFields.var_correoElectronicoInstitucional &&
       !var_correoElectronicoInstitucional
     ) {
@@ -65,39 +65,39 @@ const VistaDatosProfesional5 = () => {
     }
 
     if (afiliado === "si" && touchedFields.tipoContrato && !tipoContrato) {
-      nuevosErrores.tipoContrato = "El departamento es obligatorio";
+      nuevosErrores.tipoContrato = "El tipo de contrato es obligatorio.";
     }
 
-    if (afiliado === "si" && touchedFields.salario && !salario) {
-      nuevosErrores.salario = "El departamento es obligatorio";
+    if (afiliado == "si" && touchedFields.var_salario && !salario) {
+      nuevosErrores.salario = "El salario es obligatorio.";
     }
 
-    if (afiliado === "si" && touchedFields.fechaIngreso && !fechaIngreso) {
-      nuevosErrores.fechaIngreso = "El departamento es obligatorio";
+    if (afiliado === "si" && touchedFields.date_fechaIngresoInstitucion && !fechaIngreso) {
+      nuevosErrores.fechaIngreso = "La fecha de ingreso es obligatorio.";
     }
 
     if (
       afiliado === "si" &&
-      touchedFields.areaSeleccionada &&
+      touchedFields.area &&
       !areaSeleccionada
     ) {
-      nuevosErrores.areaSeleccionada = "El departamento es obligatorio";
+      nuevosErrores.areaSeleccionada = "El área laboral es obligatorio.";
     }
 
-    if (afiliado === "si" && touchedFields.cargo && !cargo) {
-      nuevosErrores.cargo = "El departamento es obligatorio";
+    if (afiliado === "si" && touchedFields.var_cargo && !cargo) {
+      nuevosErrores.cargo = "El cargo es obligatorio.";
     }
 
-    if (afiliado === "si" && touchedFields.jefeInmediato && !jefeInmediato) {
-      nuevosErrores.jefeInmediato = "El departamento es obligatorio";
+    if (afiliado === "si" && touchedFields.var_jefeInmediato && !jefeInmediato) {
+      nuevosErrores.jefeInmediato = "El jefe inmediato es obligatorio.";
     }
 
-    if (afiliado === "si" && touchedFields.sede && !sede) {
-      nuevosErrores.sede = "El departamento es obligatorio";
+    if (afiliado === "si" && touchedFields.var_sede && !sede) {
+      nuevosErrores.sede = "La sede es obligatorio";
     }
 
     // Validar que la fecha de ingreso no sea futura
-    if (afiliado === "si" && touchedFields.fechaIngreso) {
+    if (afiliado === "si" && touchedFields.date_fechaIngresoInstitucion) {
       const fechaHoy = new Date().toISOString().split("T")[0]; // Obtener la fecha de hoy en formato YYYY-MM-DD
       if (!fechaIngreso || fechaIngreso > fechaHoy) {
         nuevosErrores.fechaIngreso = "La fecha de ingreso no puede ser futura";
@@ -273,7 +273,7 @@ const VistaDatosProfesional5 = () => {
 
     if (afiliado === "si" && !sede) {
       nuevosErrores.sede =
-        "El campo servicios con los que no cuentan es obligatorio";
+        "La sede es obligatorio";
     }
 
     if (Object.keys(nuevosErrores).length > 0) {
@@ -281,7 +281,7 @@ const VistaDatosProfesional5 = () => {
       return;
     }
 
-    navigate("/datosProfesional6");
+    navigate("/FormacionAcademica");
   };
 
   const handleKeyPress = (event, fieldName) => {
@@ -349,7 +349,7 @@ const VistaDatosProfesional5 = () => {
                 fontFamily: "Roboto Condensed",
               }}
             >
-              Información laboral
+              <strong>Información laboral</strong>
             </Typography>
           </Box>
         </Box>
@@ -364,9 +364,9 @@ const VistaDatosProfesional5 = () => {
           <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.afiliado}>
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
-              ¿En proceso de ingreso o vinculado? :
+              ¿En proceso de ingreso o vinculado?:
             </Typography>
             <Select
               labelId="afiliado-label"
@@ -376,7 +376,7 @@ const VistaDatosProfesional5 = () => {
               onBlur={handleBlur}
               sx={{
                 height: "40px",
-                fontFamily: "Poppins",
+                fontFamily: "Roboto Condensed",
                 fontSize: "16px",
               }}
             >
@@ -398,7 +398,7 @@ const VistaDatosProfesional5 = () => {
             <form>
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
                 Correo Electrónico Institucional:
               </Typography>
@@ -421,7 +421,7 @@ const VistaDatosProfesional5 = () => {
                 InputProps={{
                   sx: {
                     height: "40px",
-                    fontFamily: "Poppins",
+                    fontFamily: "Roboto Condensed",
                     fontSize: "16px",
                   },
                 }}
@@ -434,7 +434,7 @@ const VistaDatosProfesional5 = () => {
               >
                 <Typography
                   variant="h6"
-                  sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                  sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
                 >
                   Tipo de Contrato:
                 </Typography>
@@ -443,9 +443,10 @@ const VistaDatosProfesional5 = () => {
                   name="tipoContrato"
                   value={tipoContrato}
                   onChange={manejarCambio}
+                  onBlur={handleBlur}
                   sx={{
                     height: "40px",
-                    fontFamily: "Poppins",
+                    fontFamily: "Roboto Condensed",
                     fontSize: "16px",
                   }}
                 >
@@ -475,7 +476,7 @@ const VistaDatosProfesional5 = () => {
 
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
                 Salario:
               </Typography>
@@ -498,7 +499,7 @@ const VistaDatosProfesional5 = () => {
                 InputProps={{
                   sx: {
                     height: "40px",
-                    fontFamily: "Poppins",
+                    fontFamily: "Roboto Condensed",
                     fontSize: "16px",
                   },
                 }}
@@ -506,7 +507,7 @@ const VistaDatosProfesional5 = () => {
 
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
                 Fecha de Ingreso:
               </Typography>
@@ -533,7 +534,7 @@ const VistaDatosProfesional5 = () => {
                 InputProps={{
                   sx: {
                     height: "40px",
-                    fontFamily: "Poppins",
+                    fontFamily: "Roboto Condensed",
                     fontSize: "16px",
                   },
                 }}
@@ -541,9 +542,9 @@ const VistaDatosProfesional5 = () => {
 
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
-                Antigüedad en la Institución (días) :
+                Antigüedad en la Institución (días):
               </Typography>
               <TextField
                 name="var_antiguedadInstitucion"
@@ -557,7 +558,7 @@ const VistaDatosProfesional5 = () => {
                 InputProps={{
                   sx: {
                     height: "40px",
-                    fontFamily: "Poppins",
+                    fontFamily: "Roboto Condensed",
                     fontSize: "16px",
                   },
                 }}
@@ -570,19 +571,19 @@ const VistaDatosProfesional5 = () => {
               >
                 <Typography
                   variant="h6"
-                  sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                  sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
                 >
-                  Área laboral a la que pertenece :
+                  Área laboral a la que pertenece:
                 </Typography>
                 <Select
                   labelId="area-label"
                   name="area"
                   value={areaSeleccionada}
                   onChange={manejarCambio}
-                  label="Área"
+                  onBlur={handleBlur}
                   sx={{
                     height: "40px",
-                    fontFamily: "Poppins",
+                    fontFamily: "Roboto Condensed",
                     fontSize: "16px",
                   }}
                 >
@@ -605,9 +606,9 @@ const VistaDatosProfesional5 = () => {
 
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
-                Cargo :
+                Cargo:
               </Typography>
               <TextField
                 variant="outlined"
@@ -628,7 +629,7 @@ const VistaDatosProfesional5 = () => {
                 InputProps={{
                   sx: {
                     height: "40px",
-                    fontFamily: "Poppins",
+                    fontFamily: "Roboto Condensed",
                     fontSize: "16px",
                   },
                 }}
@@ -636,7 +637,7 @@ const VistaDatosProfesional5 = () => {
 
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
                 Jefe Inmediato:
               </Typography>
@@ -661,7 +662,7 @@ const VistaDatosProfesional5 = () => {
                 InputProps={{
                   sx: {
                     height: "40px",
-                    fontFamily: "Poppins",
+                    fontFamily: "Roboto Condensed",
                     fontSize: "16px",
                   },
                 }}
@@ -670,7 +671,7 @@ const VistaDatosProfesional5 = () => {
               <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.sede}>
                 <Typography
                   variant="h6"
-                  sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                  sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
                 >
                   Sede:
                 </Typography>
@@ -679,11 +680,10 @@ const VistaDatosProfesional5 = () => {
                   name="var_sede"
                   value={sede}
                   onChange={manejarCambio}
-                  label="Sede"
                   onBlur={handleBlur}
                   sx={{
                     height: "40px",
-                    fontFamily: "Poppins",
+                    fontFamily: "Roboto Condensed",
                     fontSize: "16px",
                   }}
                 >
@@ -709,6 +709,7 @@ const VistaDatosProfesional5 = () => {
 
           <div
             style={{
+              fontFamily: 'Poppins',
               display: "flex",
               alignItems: "center",
               backgroundColor: "#F2F2F2",
@@ -719,6 +720,7 @@ const VistaDatosProfesional5 = () => {
           >
             <div
               style={{
+                fontFamily: 'Poppins',
                 height: "10px",
                 width: "90%",
                 backgroundColor: "#F2F2F2",
@@ -730,6 +732,7 @@ const VistaDatosProfesional5 = () => {
             >
               <div
                 style={{
+                  fontFamily: 'Poppins',
                   width: `${porcentajeProgreso}%`,
                   height: "100%",
                   backgroundColor: "#202B52",
@@ -744,7 +747,7 @@ const VistaDatosProfesional5 = () => {
 
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <Button
-              sx={{ backgroundColor: "#202B52" }}
+              sx={{ backgroundColor: "#202B52", fontFamily: 'Poppins' }}
               onClick={manejarSiguiente}
               variant="contained"
               type="submit"

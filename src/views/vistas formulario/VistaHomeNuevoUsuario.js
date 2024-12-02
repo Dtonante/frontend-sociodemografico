@@ -23,17 +23,17 @@ const VistaHomeUsuarioNuevo = () => {
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                height: '100vh',
+                height: '130vh',
                 margin: 0,
                 padding: 0,
             }}
         >
             {/* Imagen de fondo */}
-            <div style={{ width: '100%', height: '35%', position: 'relative', textAlign: 'center', }}>
+            <div style={{ width: '100%', height: '31.2%', position: 'relative', textAlign: 'center', }}>
 
                 <img
                     className="imagen-fondo"
-                    src="public/fondo_home.jpg"
+                    src="public/Fondo_formulario-07.jpg"
                     alt="Fondo"
 
                 />
@@ -58,17 +58,19 @@ const VistaHomeUsuarioNuevo = () => {
                         textAlign: 'justify',
                     }}
                 >
-                    <p style={{ margin: 0, color: '#1b263b', fontSize: '14px', fontFamily: 'Poppins' }}>
-                        <strong style={{ fontFamily: 'Roboto Condensed' }}>Importante: </strong>El perfil sociodemográfico es un instrumento creado para reconocer cuáles son
+                    <p style={{ margin: 0, color: '#1b263b', fontSize: '18px', fontFamily: 'Roboto Condensed' }}>
+                        <strong style={{ fontFamily: 'Roboto Condensed', fontSize: "19px" }}>Importante: </strong>El perfil sociodemográfico es un instrumento creado para reconocer cuáles son
                         las características de la población trabajadora que se tienen en La Institución
-                        Universitaria ESUMER.
+                        Universitaria ESUMER.<br /> <br />
+
+                        Si has finalizado alguno de los siguientes niveles académicos: bachillerato, técnico, tecnológico, pregrado, posgrado, maestría o doctorado, asegúrate de contar con la certificación correspondiente en formato PDF para ser <strong>adjuntado en el formulario.</strong>
                     </p>
                 </div>
 
                 {/* Caja para iconos y botón */}
                 <div className="contenedor">
                     {/* Iconos sociales */}
-                    
+
                     <div className="iconos-sociales">
                         {[
                             { nombre: 'Web', url: 'https://esumer.edu.co/' },
@@ -125,6 +127,7 @@ const VistaHomeUsuarioNuevo = () => {
                         </button>
                         <button
                             style={{
+                                fontFamily: "Poppins",
                                 padding: '10px 20px',
                                 fontSize: '16px',
                                 backgroundColor: '#1b263b',
