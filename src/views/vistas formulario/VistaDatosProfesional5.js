@@ -127,15 +127,15 @@ const VistaDatosProfesional5 = () => {
     });
   };
 
-    useEffect(() => {
-        const fetchEstructuraOrganizacional = async () => {
-            try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/api/estructuraOrganizacional');
-                setEstructuraOrganizacional(response.data);
-            } catch (error) {
-                console.error('Error al obtener las áreas:', error);
-            }
-        };
+  useEffect(() => {
+    const fetchEstructuraOrganizacional = async () => {
+      try {
+        const response = await axios.get('https://evaluacion.esumer.edu.co/api/estructuraOrganizacional');
+        setEstructuraOrganizacional(response.data);
+      } catch (error) {
+        console.error('Error al obtener las áreas:', error);
+      }
+    };
 
     if (afiliado === "si") {
       fetchEstructuraOrganizacional();
@@ -163,42 +163,54 @@ const VistaDatosProfesional5 = () => {
     if (name === "afiliado") {
       setAfiliado(value);
 
-            if (value === "no") {
-                // Establecer todos los campos como "N/A" si la respuesta es "no"
-                const areaNA = estructuraOrganizacional.find(area => area.var_nombreArea === "N/A");
-                if (areaNA) {
-                    const areaId = Number(areaNA.id_areaPk); // Convertir el id a un número
-                    setAreaSeleccionada(areaId);
-                    localStorage.setItem('area', areaId.toString()); // Guardar como string pero asegurándonos que es un número
-                }
-                setFechaIngreso("2024-11-03T00:00:00.000Z");
-                setTipoContrato("N/A");
-                setSalario("N/A");
-                setAntiguedadInstitucion("N/A");
-                setJefeInmediato("N/A");
-                setSede("N/A");
-                setVar_correoElectronicoInstitucional("N/A");
-                setCargo("N/A")
+      if (value === "no") {
+        // Establecer todos los campos como "N/A" si la respuesta es "no"
+        const areaNA = estructuraOrganizacional.find(area => area.var_nombreArea === "N/A");
+        if (areaNA) {
+          const areaId = Number(areaNA.id_areaPk); // Convertir el id a un número
+          setAreaSeleccionada(areaId);
+          localStorage.setItem('area', areaId.toString()); // Guardar como string pero asegurándonos que es un número
+        }
+        setFechaIngreso("2024-11-03T00:00:00.000Z");
+        setTipoContrato("N/A");
+        setSalario("N/A");
+        setAntiguedadInstitucion("N/A");
+        setJefeInmediato("N/A");
+        setSede("N/A");
+        setVar_correoElectronicoInstitucional("N/A");
+        setCargo("N/A")
 
-                // Almacenar en localStorage
-                localStorage.setItem('date_fechaIngresoInstitucion', "2024-11-03T00:00:00.000Z");
-                localStorage.setItem('var_tipoContrato', "N/A");
-                localStorage.setItem('var_salario', "N/A");
-                localStorage.setItem('var_antiguedadInstitucion', "N/A");
-                localStorage.setItem('var_jefeInmediato', "N/A");
-                localStorage.setItem('var_sede', "N/A");
-                localStorage.setItem('var_correoElectronicoInstitucional', "N/A");
-                localStorage.setItem('var_cargo', "N/A")
-            }
-        } else if (name === "tipoContrato") {
-            setTipoContrato(value);
-            localStorage.setItem('var_tipoContrato', value);
-        } else if (name === "var_salario") {
-            setSalario(value);
-            localStorage.setItem('var_salario', value);
-        } else if (name === "date_fechaIngresoInstitucion") {
-            setFechaIngreso(value);
-            localStorage.setItem('date_fechaIngresoInstitucion', value);
+        // Almacenar en localStorage
+        localStorage.setItem('date_fechaIngresoInstitucion', "2024-11-03T00:00:00.000Z");
+        localStorage.setItem('var_tipoContrato', "N/A");
+        localStorage.setItem('var_salario', "N/A");
+        localStorage.setItem('var_antiguedadInstitucion', "N/A");
+        localStorage.setItem('var_jefeInmediato', "N/A");
+        localStorage.setItem('var_sede', "N/A");
+        localStorage.setItem('var_correoElectronicoInstitucional', "N/A");
+        localStorage.setItem('var_cargo', "N/A")
+      }
+    } else if (name === "tipoContrato") {
+      setTipoContrato(value);
+      localStorage.setItem('var_tipoContrato', value);
+
+    } else if (name === "var_salario") {
+      // Elimina los puntos para trabajar con el valor numérico puro
+      const rawValue = value.replace(/\./g, "");
+
+      // Verifica si el valor ingresado es un número
+      if (!isNaN(rawValue)) {
+        // Aplica el formato con puntos como separadores de miles
+        const formattedValue = new Intl.NumberFormat("de-DE").format(rawValue);
+
+        // Actualiza el estado y guarda en localStorage
+        setSalario(formattedValue);
+        localStorage.setItem("var_salario", formattedValue);
+      }
+
+    } else if (name === "date_fechaIngresoInstitucion") {
+      setFechaIngreso(value);
+      localStorage.setItem('date_fechaIngresoInstitucion', value);
 
       const fechaIngresoDate = new Date(value);
       const fechaActual = new Date();
@@ -234,6 +246,11 @@ const VistaDatosProfesional5 = () => {
       localStorage.setItem("var_correoElectronicoInstitucional", value);
     }
   };
+
+ 
+
+  
+
 
   const manejarSiguiente = () => {
     const nuevosErrores = {};
@@ -296,14 +313,18 @@ const VistaDatosProfesional5 = () => {
       regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/;
     }
     else if (fieldName === "var_cargo") {
-        // Solo permitimos letras (incluyendo acentos y ñ) y espacios
-        regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/;
-      }
+      // Solo permitimos letras (incluyendo acentos y ñ) y espacios
+      regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/;
+    }
 
     if (regex && !regex.test(event.key)) {
       event.preventDefault(); // Evita la entrada de caracteres no válidos
     }
   };
+
+  const manejarAtras = () => {
+    navigate('/InformacionBancaria')
+  }
 
   return (
     <div
@@ -474,19 +495,10 @@ const VistaDatosProfesional5 = () => {
                 )}
               </FormControl>
 
-              <Typography
-                variant="h6"
-                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
-              >
-                Salario:
-              </Typography>
-              <TextField
-                variant="outlined"
-                fullWidth
-                name="var_salario"
-                value={salario}
+              <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} > Salario: </Typography>
+              <TextField variant="outlined" fullWidth name="var_salario" value={salario}
                 onChange={manejarCambio}
-                onKeyPress={(event) => handleKeyPress(event, "var_salario")} // Condicional basado en el nombre del campo
+                onKeyPress={(event) => handleKeyPress(event, "var_salario")} 
                 sx={{ mb: 2 }}
                 onBlur={handleBlur}
                 error={!!errors.salario}
@@ -501,7 +513,7 @@ const VistaDatosProfesional5 = () => {
                     height: "40px",
                     fontFamily: "Roboto Condensed",
                     fontSize: "16px",
-                  },
+                  }, inputProps: { maxLength: 11 }
                 }}
               />
 
@@ -614,9 +626,16 @@ const VistaDatosProfesional5 = () => {
                 variant="outlined"
                 fullWidth
                 name="var_cargo"
-                onKeyPress={(event) => handleKeyPress(event, "var_cargo")} // Condicional basado en el nombre del campo
+                onKeyPress={(event) => handleKeyPress(event, "var_cargo")}
                 value={cargo}
-                onChange={manejarCambio}
+                onChange={(event) =>
+                  manejarCambio({
+                    target: {
+                      name: "var_cargo",
+                      value: event.target.value.toUpperCase(),
+                    },
+                  })
+                }
                 sx={{ mb: 2 }}
                 onBlur={handleBlur}
                 error={!!errors.cargo}
@@ -646,7 +665,14 @@ const VistaDatosProfesional5 = () => {
                 fullWidth
                 name="var_jefeInmediato"
                 value={jefeInmediato}
-                onChange={manejarCambio}
+                onChange={(event) =>
+                  manejarCambio({
+                    target: {
+                      name: "var_jefeInmediato",
+                      value: event.target.value.toUpperCase(), // Convierte a mayúsculas
+                    },
+                  })
+                }
                 sx={{ mb: 2 }}
                 onBlur={handleBlur}
                 onKeyPress={(event) =>
@@ -746,6 +772,23 @@ const VistaDatosProfesional5 = () => {
           </div>
 
           <div style={{ display: "flex", justifyContent: "flex-end" }}>
+            <button
+              style={{
+                fontFamily: 'poppins',
+                padding: '10px 20px',
+                fontSize: '16px',
+                backgroundColor: '#202B52',
+                color: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                cursor: 'pointer',
+                marginRight: '8px'
+
+              }}
+              onClick={manejarAtras}
+            >
+              Atras
+            </button>
             <Button
               sx={{ backgroundColor: "#202B52", fontFamily: 'Poppins' }}
               onClick={manejarSiguiente}

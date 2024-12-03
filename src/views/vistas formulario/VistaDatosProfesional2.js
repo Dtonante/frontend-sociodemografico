@@ -178,7 +178,7 @@ const VistaDatosProfesional2 = () => {
 
         if (!set_tipoMascotas || set_tipoMascotas.length === 0) {
             nuevosErrores.set_tipoMascotas = "Los tipos de mascotas es obligatorio";
-        } 
+        }
 
         if (!set_personasConLasQueVive || set_personasConLasQueVive.length === 0) {
             nuevosErrores.set_personasConLasQueVive = "Las personas con las que vive son obligatorios";
@@ -197,6 +197,10 @@ const VistaDatosProfesional2 = () => {
 
         navigate('/SeguridadSocial');
     };
+
+    const manejarAtras = () => {
+        navigate('/DatosProfesionales')
+    }
 
     return (
         <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', paddingBottom: '3%', height: '100%' }}>
@@ -465,6 +469,23 @@ const VistaDatosProfesional2 = () => {
                         </div>
 
                         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <button
+                                style={{
+                                    fontFamily: 'poppins',
+                                    padding: '10px 20px',
+                                    fontSize: '16px',
+                                    backgroundColor: '#202B52',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '5px',
+                                    cursor: 'pointer',
+                                    marginRight: '8px'
+
+                                }}
+                                onClick={manejarAtras}
+                            >
+                                Atras
+                            </button>
                             <Button sx={{ backgroundColor: '#202B52', fontFamily: 'Poppins' }} onClick={manejarSiguiente} variant="contained" type="submit"> Siguiente </Button>
                         </div>
 

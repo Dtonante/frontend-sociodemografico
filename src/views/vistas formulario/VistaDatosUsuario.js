@@ -218,7 +218,7 @@ const VistaDatosUsuario = () => {
       nuevosErrores.var_contrasena = "La contraseña es obligatoria";
     } else if (formData.var_contrasena && formData.var_contrasena.length < 8) {
       nuevosErrores.var_contrasena =
-        "La contraseña debe tener al menos 8 caracteres y minumo un numero, una minuscula y una mayuscula";
+        "La contraseña debe tener al menos 8 carácteres y mínimo un número, una minúscula y una mayúscula";
     } else if (formData.var_contrasena && !/[a-z]/.test(formData.var_contrasena)) {
       nuevosErrores.var_contrasena = "La contraseña debe contener al menos una letra minúscula";
     } else if (formData.var_contrasena && !/[A-Z]/.test(formData.var_contrasena)) {
@@ -643,6 +643,10 @@ const VistaDatosUsuario = () => {
     };
   }, []);
 
+  const manejarAtras = () => {
+    navigate('/proteccionDatos')
+  }
+
   return (
     <div
       style={{
@@ -657,8 +661,10 @@ const VistaDatosUsuario = () => {
         <img
           src="public/logo_form.png"
           alt="Descripción de la imagen"
-          style={{ width: windowWidth < 1000 ? "50%" : "20%", 
-            height: "auto", }}
+          style={{
+            width: windowWidth < 1000 ? "50%" : "20%",
+            height: "auto",
+          }}
         />
       </div>
       <Card
@@ -706,11 +712,18 @@ const VistaDatosUsuario = () => {
               name="var_nombreCompleto"
               variant="outlined"
               value={formData.var_nombreCompleto}
-              onChange={handleInputChange}
+              onChange={(event) =>
+                handleInputChange({
+                  target: {
+                    name: "var_nombreCompleto",
+                    value: event.target.value.toUpperCase()
+                  }
+                })}
               onKeyPress={(event) =>
                 handleKeyPress(event, "var_nombreCompleto")
               }
               fullWidth
+
               sx={{ mb: 2 }}
               onBlur={handleBlur}
               error={!!errors.var_nombreCompleto}
@@ -820,15 +833,15 @@ const VistaDatosUsuario = () => {
             >
               Género:
             </Typography>
-            <FormControl className="genero"  component="fieldset"  sx={{ mb: 2}} error={!!errors.var_genero} >
-              <RadioGroup className="genero" name="var_genero" value={formData.var_genero} onChange={handleInputChange}  row onBlur={handleBlur} sx={{  height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px", }} >
-                <FormControlLabel  value="Masculino"  control={<Radio />} label="Masculino" />
-                <FormControlLabel value="Femenino"  control={<Radio />}  label="Femenino" />
+            <FormControl className="genero" component="fieldset" sx={{ mb: 2 }} error={!!errors.var_genero} >
+              <RadioGroup className="genero" name="var_genero" value={formData.var_genero} onChange={handleInputChange} row onBlur={handleBlur} sx={{ height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px", }} >
+                <FormControlLabel value="Masculino" control={<Radio />} label="Masculino" />
+                <FormControlLabel value="Femenino" control={<Radio />} label="Femenino" />
                 <FormControlLabel value="Otro" control={<Radio />} label="Otro" />
-                <FormControlLabel value="Prefiero no decirlo"  control={<Radio />} label="Prefiero no decirlo"  />
+                <FormControlLabel value="Prefiero no decirlo" control={<Radio />} label="Prefiero no decirlo" />
               </RadioGroup>
               {errors.var_genero && (
-                <Typography variant="caption" color="error"> {errors.var_genero} </Typography> )}
+                <Typography variant="caption" color="error"> {errors.var_genero} </Typography>)}
             </FormControl>
 
             <Typography
@@ -1118,6 +1131,23 @@ const VistaDatosUsuario = () => {
             </div>
 
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <button
+                style={{
+                  fontFamily: 'poppins',
+                  padding: '10px 20px',
+                  fontSize: '16px',
+                  backgroundColor: '#202B52',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '5px',
+                  cursor: 'pointer',
+                  marginRight: '8px'
+
+                }}
+                onClick={manejarAtras}
+              >
+                Atras
+              </button>
               <Button
                 sx={{ backgroundColor: "#202B52", fontFamily: 'poppins' }}
                 variant="contained"

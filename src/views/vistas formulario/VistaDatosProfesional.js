@@ -226,6 +226,10 @@ const VistaDatosProfesional = () => {
         navigate('/DatosAdicionales');
     };
 
+    const manejarAtras = () => {
+        navigate('/InfoUsuario')
+    }
+
     return (
         <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', paddingBottom: '3%' }}>
             <div style={{ textAlign: 'center', marginBottom: '1%', marginTop: '-1%' }}>
@@ -627,6 +631,24 @@ const VistaDatosProfesional = () => {
 
 
                         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                            <button
+                                style={{
+                                    fontFamily: 'poppins',
+                                    padding: '10px 20px',
+                                    fontSize: '16px',
+                                    backgroundColor: '#202B52',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '5px',
+                                    cursor: 'pointer',
+                                    marginRight: '8px'
+
+                                }}
+                                onClick={manejarAtras}
+                            >
+                                Atras
+                            </button>
+
                             <Button sx={{ backgroundColor: '#202B52', fontFamily: 'Poppins' }} variant="contained" onClick={manejarSiguiente} type="submit">
                                 Siguiente
                             </Button>

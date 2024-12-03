@@ -46,12 +46,51 @@ const Login = lazy(()=> import("../views/vistas login/login.js"))
 
 
 
-//ruta de eps
+//ruta eps
 const CompShowEps = lazy(() => import("../views/eps/ShowEps.js"));
 //fin ruta eps
+//inicio ruta estructura organizacional
+const CompShowEstructuraOrganizacional = lazy(() => import("../views/estructuraOrganizacional/ShowEstructuraOrganizacional.js"));
+//fin ruta estructura organizacional
+//inicio ruta factores de riesgo
+const CompShowFactoresDeRiesgo = lazy(() => import("../views/factoresDeRiesgo/ShowFactoresDeRiesgo.js"));
+//fin ruta factores de riesgo
+//inicio ruta antecedentes medicos
+const CompShowAntecedentesMedicos = lazy(() => import("../views/antecedentesMedicos/ShowAntecedentesMedicos.js"));
+//fin ruta antecedentes medicos
+//inicio ruta cuentas bancarias
+const CompShowCuentasBancarias = lazy(() => import("../views/cuentasBancarias/ShowCuentasBancarias.js"));
+//fin ruta cuentas bancarias
+//inicio ruta fondo de pension
+const CompShowFondoDePension = lazy(() => import("../views/fondoDePension/ShowFondoDePension.js"));
+//fin ruta fondo de pension
+//inicio ruta tipo documento
+const CompShowTipoDocumento = lazy(() => import("../views/tipoDocumento/ShowTipoDocumento.js"));
+//fin ruta tipo documento
+//inicio ruta transporte propio
+const CompShowTransportePropio = lazy(() => import("../views/transportePropio/ShowTransportePropio.js"));
+//fin ruta transporte propio
+//inicio ruta servicios que no cuentan
+const CompShowServiciosQueNoCuentan = lazy(() => import("../views/serviciosQueNoCuentan/ShowServiciosQueNoCuentan.js"));
+//fin ruta servicios que no cuentan
+//inicio ruta servicios de salud adicional
+const CompShowServicioDeSaludAdicional = lazy(() => import("../views/servicioSaludAdicional/ShowServicioSaludAdicional.js"));
+//fin ruta servicios de salud adicional
+//inicio ruta usuarios
+const CompShowUsuarios = lazy(() => import("../views/usuarios/ShowUsuarios.js"));
+//fin ruta usuarios
+//inicio ruta roles
+const CompShowrol = lazy(() => import("../views/roles/ShowRoles.js"));
+//fin ruta roles
+//inicio ruta roles
+const CompShowProfesional = lazy(() => import("../views/profesional/ShowProfesional.js"));
+//fin ruta roles
+
+
 
 const ThemeRoutes = [
   { path: "/", element: <VistaHomeUsuarioNuevo/>,},
+  { path: "/login", element: <Login/>,},
   { path: "/proteccionDatos", element: <VistaProteccionDatos />,},
   { path: "/InfoUsuario",  element: <VistaDatosUsuario /> },
   { path: "/DatosProfesionales",  element: <VistaDatosProfesional /> },
@@ -68,7 +107,19 @@ const ThemeRoutes = [
     path: "/app",
     element: <FullLayout />,
     children: [
-      { path: "eps", exact: true, element: <CompShowEps /> }
+      { path: "eps", exact: true, element: <CompShowEps /> },
+      { path: "estructuraOrganizacional", exact: true, element: <CompShowEstructuraOrganizacional /> },
+      { path: "factoresRiesgo", exact: true, element: <CompShowFactoresDeRiesgo /> },
+      { path: "antecedentesMedicos", exact: true, element: <CompShowAntecedentesMedicos /> },
+      { path: "cuentasBancarias", exact: true, element: <CompShowCuentasBancarias /> },
+      { path: "fondoPension", exact: true, element: <CompShowFondoDePension /> },
+      { path: "tipoDocumento", exact: true, element: <CompShowTipoDocumento /> },
+      { path: "transportePropio", exact: true, element: <CompShowTransportePropio /> },
+      { path: "serviciosQueNoCuentan", exact: true, element: <CompShowServiciosQueNoCuentan /> },
+      { path: "serviciosSaludAdicional", exact: true, element: <CompShowServicioDeSaludAdicional /> },
+      { path: "usuarios", exact: true, element: <CompShowUsuarios /> },
+      { path: "roles", exact: true, element: <CompShowrol /> },
+      { path: "profesional", exact: true, element: <CompShowProfesional /> },
       // { path: "/app/dashboards/dashboard1", exact: true, element: <Dashboard1 /> },
       // { path: "tables/basic-table", element: <BasicTable /> },
       // { path: "form-layouts/form-layouts", element: <FormLayouts /> },
