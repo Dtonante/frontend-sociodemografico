@@ -29,7 +29,10 @@ const CompShowProfesional = () => {
         setModalOpen(true);
     };
 
-    const handleClose = () => setModalOpen(false);
+    const handleClose = () => {
+        setModalOpen(false);
+        setSelectedProfesional(null); // Limpia el estado seleccionado
+    };
 
     return (
         <Box sx={{ padding: "20px" }}>
