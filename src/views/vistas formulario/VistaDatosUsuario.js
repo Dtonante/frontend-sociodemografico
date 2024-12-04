@@ -1034,7 +1034,7 @@ const VistaDatosUsuario = () => {
             <Typography
               variant="h6"
               sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
-            >Crear contraseña:
+            >Crear contraseña (Esta contraseña te servirá para actualizar la información aquí suministrada en una próxima versión):
             </Typography>
             <TextField
               name="var_contrasena"

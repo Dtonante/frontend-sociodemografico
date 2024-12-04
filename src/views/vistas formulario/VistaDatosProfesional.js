@@ -123,7 +123,7 @@ const VistaDatosProfesional = () => {
     // Generar las letras de la A a la Z dinámicamente
     const letras = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
     // Generar los números del 1 al 200
-    const numeros = Array.from({ length: 300 }, (_, i) => i + 1);
+    const numeros = Array.from({ length: 999 }, (_, i) => i + 1);
 
     const manejarCambioInput = (event, campo) => {
         const { name, value } = event.target;

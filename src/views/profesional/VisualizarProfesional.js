@@ -6,11 +6,19 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 const URI_PROFESIONAL = 'http://localhost:3001/profesional/';
 const URI_PROFESIONAL_SERVICIOS_QUE_NO_CUENTAN = 'http://localhost:3001/profesionalServiciosQueNoCuentan/';
 const URI_PROFESIONAL_FACTORES_RIESGO = 'http://localhost:3001/profesionalFactoresRiesgo/';
+const URI_PROFESIONAL_SERVICIOS_ADICIONALES = 'http://localhost:3001/profesionalServicioSaludAdicional/';
+const URI_PROFESIONAL_ANTECEDENTES_MEDICOS = 'http://localhost:3001/profesionalAntecedenteMedico/';
+const URI_PROFESIONAL_TIEMPO_LIBRE = 'http://localhost:3001/profesionalTiempoLibre/';
+const URI_PROFESIONAL_TRANSPORTE_PROPIO = 'http://localhost:3001/profesionalTransportePropio/';
 
 const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
     const [datosProfesional, setDatosProfesional] = useState(null);
     const [serviciosNoContados, setServiciosNoContados] = useState(null);
     const [factoresRiesgo, setFactoresRiesgo] = useState(null);
+    const [serviciosSaludAdicional, setServiciosSaludAdicional] = useState(null);
+    const [antecedentesMedicos, setAntecedentesMedicos] = useState(null);
+    const [tiempoLibreMap, setTiempoLibre] = useState(null);
+    const [transportesPropios, setTransportePropio] = useState(null);
 
 
     useEffect(() => {
@@ -54,6 +62,66 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                 }
             };
             fetchFactoresRiesgo();
+        }
+    }, [open, profesional]);
+
+    // Fetch salud adicional
+    useEffect(() => {
+        if (open && profesional?.id_profesionalPK) {
+            const fetchServiciosSaludAdicional = async () => {
+                try {
+                    const res = await axios.get(`${URI_PROFESIONAL_SERVICIOS_ADICIONALES}${profesional.id_profesionalPK}`);
+                    setServiciosSaludAdicional(res.data);
+                } catch (error) {
+                    console.error("Error al obtener los servicios de salud adicional:", error);
+                }
+            };
+            fetchServiciosSaludAdicional();
+        }
+    }, [open, profesional]);
+
+    // Fetch antecedentes medicos
+    useEffect(() => {
+        if (open && profesional?.id_profesionalPK) {
+            const fetchAntecedentesMedicos = async () => {
+                try {
+                    const res = await axios.get(`${URI_PROFESIONAL_ANTECEDENTES_MEDICOS}${profesional.id_profesionalPK}`);
+                    setAntecedentesMedicos(res.data);
+                } catch (error) {
+                    console.error("Error al obtener los servicios de salud adicional:", error);
+                }
+            };
+            fetchAntecedentesMedicos();
+        }
+    }, [open, profesional]);
+
+    // Fetch actividades tiempo libre
+    useEffect(() => {
+        if (open && profesional?.id_profesionalPK) {
+            const fetchTiempoLibre = async () => {
+                try {
+                    const res = await axios.get(`${URI_PROFESIONAL_TIEMPO_LIBRE}${profesional.id_profesionalPK}`);
+                    setTiempoLibre(res.data);
+                } catch (error) {
+                    console.error("Error al obtener los servicios de salud adicional:", error);
+                }
+            };
+            fetchTiempoLibre();
+        }
+    }, [open, profesional]);
+
+    // Fetch transporte propio
+    useEffect(() => {
+        if (open && profesional?.id_profesionalPK) {
+            const fetchTransportePropio = async () => {
+                try {
+                    const res = await axios.get(`${URI_PROFESIONAL_TRANSPORTE_PROPIO}${profesional.id_profesionalPK}`);
+                    setTransportePropio(res.data);
+                } catch (error) {
+                    console.error("Error al obtener los servicios de salud adicional:", error);
+                }
+            };
+            fetchTransportePropio();
         }
     }, [open, profesional]);
 
@@ -178,7 +246,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                 flexDirection: 'column',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                width: '96.3%', 
+                                width: '96.3%',
                             }}>
                                 <Typography variant="h6" sx={{ mb: 2 }}>
                                     <strong>Servicios con los que no cuentan:</strong>
@@ -195,11 +263,11 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                                     fontWeight: "bold",
                                                     borderRadius: 2,
                                                     padding: 0.5,
-                                                    minWidth: '250px', 
-                                                    maxWidth: '100%', 
-                                                    whiteSpace: "normal", 
-                                                    wordWrap: "break-word", 
-                                                    display: 'inline-flex', 
+                                                    minWidth: '250px',
+                                                    maxWidth: '100%',
+                                                    whiteSpace: "normal",
+                                                    wordWrap: "break-word",
+                                                    display: 'inline-flex',
                                                 }}
                                             />
                                         </Grid>
@@ -221,7 +289,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                 flexDirection: 'column',
                                 justifyContent: 'center',
                                 alignItems: 'center',
-                                width: '96.3%', 
+                                width: '96.3%',
                             }}>
                                 <Typography variant="h6" sx={{ mb: 2 }}>
                                     <strong>Factores de riesgo:</strong>
@@ -238,11 +306,11 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                                     fontWeight: "bold",
                                                     borderRadius: 2,
                                                     padding: 0.5,
-                                                    minWidth: '250px', 
-                                                    maxWidth: '100%', 
-                                                    whiteSpace: "normal", 
-                                                    wordWrap: "break-word", 
-                                                    display: 'inline-flex', 
+                                                    minWidth: '250px',
+                                                    maxWidth: '100%',
+                                                    whiteSpace: "normal",
+                                                    wordWrap: "break-word",
+                                                    display: 'inline-flex',
                                                 }}
                                             />
                                         </Grid>
@@ -253,6 +321,8 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                     </Grid>
 
                 </Paper>
+
+
 
 
 
@@ -331,6 +401,92 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                 </Paper>
                             </Grid>
                         ))}
+                    </Grid>
+
+                    {/* Campo de "Servicios adicionales" fuera del map principal */}
+                    <Grid container spacing={3} sx={{ mt: 2, justifyContent: "center" }}>
+                        <Grid item xs={12}>
+                            <Paper sx={{
+                                p: 3,
+                                bgcolor: "#F2F2F2",
+                                borderRadius: 2,
+                                boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.25)",
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                width: '96.3%',
+                            }}>
+                                <Typography variant="h6" sx={{ mb: 2 }}>
+                                    <strong>Servicios con los que no cuentan:</strong>
+                                </Typography>
+                                <Grid container spacing={1} sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
+                                    {serviciosSaludAdicional?.map((saludAdicional, idx) => (
+                                        <Grid item key={idx}>
+                                            <Chip
+                                                icon={<CheckCircleOutlineIcon sx={{ color: "#4CAF50" }} />}
+                                                label={saludAdicional.saludAdicional?.var_nombreServicioDeSaludAdicional || 'Sin nombre'}
+                                                sx={{
+                                                    bgcolor: "#F2F2F2",
+                                                    color: "#000",
+                                                    fontWeight: "bold",
+                                                    borderRadius: 2,
+                                                    padding: 0.5,
+                                                    minWidth: '250px',
+                                                    maxWidth: '100%',
+                                                    whiteSpace: "normal",
+                                                    wordWrap: "break-word",
+                                                    display: 'inline-flex',
+                                                }}
+                                            />
+                                        </Grid>
+                                    ))}
+                                </Grid>
+                            </Paper>
+                        </Grid>
+                    </Grid>
+
+                    {/* Campo de "antecedentes Medicos" fuera del map principal */}
+                    <Grid container spacing={3} sx={{ mt: 2, justifyContent: "center" }}>
+                        <Grid item xs={12}>
+                            <Paper sx={{
+                                p: 3,
+                                bgcolor: "#F2F2F2",
+                                borderRadius: 2,
+                                boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.25)",
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                width: '96.3%',
+                            }}>
+                                <Typography variant="h6" sx={{ mb: 2 }}>
+                                    <strong>Antecedentes medicos:</strong>
+                                </Typography>
+                                <Grid container spacing={1} sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
+                                    {antecedentesMedicos?.map((antecedentes, idx) => (
+                                        <Grid item key={idx}>
+                                            <Chip
+                                                icon={<CheckCircleOutlineIcon sx={{ color: "#4CAF50" }} />}
+                                                label={antecedentes.antecedentesMedicos?.var_nombreAntecedenteMedico || 'Sin nombre'}
+                                                sx={{
+                                                    bgcolor: "#F2F2F2",
+                                                    color: "#000",
+                                                    fontWeight: "bold",
+                                                    borderRadius: 2,
+                                                    padding: 0.5,
+                                                    minWidth: '250px',
+                                                    maxWidth: '100%',
+                                                    whiteSpace: "normal",
+                                                    wordWrap: "break-word",
+                                                    display: 'inline-flex',
+                                                }}
+                                            />
+                                        </Grid>
+                                    ))}
+                                </Grid>
+                            </Paper>
+                        </Grid>
                     </Grid>
                 </Paper>
 
@@ -451,6 +607,10 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                     {/* Divider estilizado */}
                     <Divider sx={{ mb: 3, borderBottomWidth: 2, borderRadius: 2, borderColor: "#202B53" }} />
 
+
+                     
+
+
                     <Grid container spacing={3}>
                         {[
                             { label: 'Con quien pasa la mayor parte de su tiempo libre', value: datosProfesional?.set_pasoMayorTiempoLibre },
@@ -484,6 +644,49 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                             </Grid>
                         ))}
                     </Grid>
+
+                    {/* Campo de "actividades tiempo libre" fuera del map principal */}
+                    <Grid container spacing={3} sx={{ mt: 2, justifyContent: "center" }}>
+                        <Grid item xs={12}>
+                            <Paper sx={{
+                                p: 3,
+                                bgcolor: "#F2F2F2",
+                                borderRadius: 2,
+                                boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.25)",
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                width: '96.3%',
+                            }}>
+                                <Typography variant="h6" sx={{ mb: 2 }}>
+                                    <strong>Actividades que realiza en su tiempo libre:</strong>
+                                </Typography>
+                                <Grid container spacing={1} sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
+                                    {tiempoLibreMap?.map((tiempo, idx) => (
+                                        <Grid item key={idx}>
+                                            <Chip
+                                                icon={<CheckCircleOutlineIcon sx={{ color: "#4CAF50" }} />}
+                                                label={tiempo.tiempoLibre?.var_nombreOcuapacionTiempoLibre || 'Sin nombre'}
+                                                sx={{
+                                                    bgcolor: "#F2F2F2",
+                                                    color: "#000",
+                                                    fontWeight: "bold",
+                                                    borderRadius: 2,
+                                                    padding: 0.5,
+                                                    minWidth: '250px',
+                                                    maxWidth: '100%',
+                                                    whiteSpace: "normal",
+                                                    wordWrap: "break-word",
+                                                    display: 'inline-flex',
+                                                }}
+                                            />
+                                        </Grid>
+                                    ))}
+                                </Grid>
+                            </Paper>
+                        </Grid>
+                    </Grid>
                 </Paper>
 
                 {/* Grupo 9: Medios de transporte utilizado */}
@@ -498,6 +701,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                     <Grid container spacing={3}>
                         {[
                             { label: 'medio de transporte con el que se desplaza a la u', value: datosProfesional?.set_mediosTransportePublico },
+                            { label: 'placa', value: transportesPropios?.var_numeroPlaca || 'N/A'},
                         ].map((item, index) => (
                             <Grid item xs={12} sm={4} key={index}>
                                 <Paper sx={{
@@ -514,6 +718,49 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                 </Paper>
                             </Grid>
                         ))}
+                    </Grid>
+
+                     {/* Campo de "transporte propio" fuera del map principal */}
+                     <Grid container spacing={3} sx={{ mt: 2, justifyContent: "center" }}>
+                        <Grid item xs={12}>
+                            <Paper sx={{
+                                p: 3,
+                                bgcolor: "#F2F2F2",
+                                borderRadius: 2,
+                                boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.25)",
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                width: '96.3%',
+                            }}>
+                                <Typography variant="h6" sx={{ mb: 2 }}>
+                                    <strong>Antecedentes medicos:</strong>
+                                </Typography>
+                                <Grid container spacing={1} sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
+                                    {transportesPropios?.map((transporte, idx) => (
+                                        <Grid item key={idx}>
+                                            <Chip
+                                                icon={<CheckCircleOutlineIcon sx={{ color: "#4CAF50" }} />}
+                                                label={transporte.transportePropio?.var_nombreTransporte || 'Sin nombre'}
+                                                sx={{
+                                                    bgcolor: "#F2F2F2",
+                                                    color: "#000",
+                                                    fontWeight: "bold",
+                                                    borderRadius: 2,
+                                                    padding: 0.5,
+                                                    minWidth: '250px',
+                                                    maxWidth: '100%',
+                                                    whiteSpace: "normal",
+                                                    wordWrap: "break-word",
+                                                    display: 'inline-flex',
+                                                }}
+                                            />
+                                        </Grid>
+                                    ))}
+                                </Grid>
+                            </Paper>
+                        </Grid>
                     </Grid>
                 </Paper>
 
