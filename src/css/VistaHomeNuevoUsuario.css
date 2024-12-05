@@ -34,6 +34,7 @@
     width: 60%;
     height: 85%;
     object-fit: cover;
+    border-radius: 10px;
 }
 
 
@@ -314,6 +315,8 @@
     width: 60%;
     height: 85%;
     object-fit: cover;
+    border-radius: 10px;
+
 }
 
 @media (max-width: 1065px) {

@@ -1,5 +1,7 @@
 import { lazy } from "react";
 import { Navigate } from "react-router-dom";
+import ProtectedRoute from "../middleware/ProtectedRoute.js"; 
+import AutoLogout from "../middleware/AutoLogout.js";
 
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout/FullLayout.js"));
@@ -43,6 +45,13 @@ const VistaHomeUsuarioNuevo = lazy(()=> import("../views/vistas formulario/Vista
 //fin vista home
 //inicio vista login
 const Login = lazy(()=> import("../views/vistas login/login.js"))
+//fin ruta login
+//inicio ruta recuperar contraseña
+const RecuperarContrasena = lazy(() => import("../views/vistas login/recuperarContrasena.js"));
+//fin ruta recuperar contraseña
+//inicio ruta cambiar contraseña
+const CambiarContrasena = lazy(() => import("../views/vistas login/cambiarContrasena.js"));
+//fin ruta cambiar contraseña
 
 
 
@@ -88,6 +97,7 @@ const CompShowProfesional = lazy(() => import("../views/profesional/ShowProfesio
 
 
 
+
 const ThemeRoutes = [
   { path: "/", element: <VistaHomeUsuarioNuevo/>,},
   { path: "/login", element: <Login/>,},
@@ -102,10 +112,19 @@ const ThemeRoutes = [
   { path: "/SaludFisica",  element: <VistaDatosProfesional7 /> },
   { path: "/Transporte",  element: <VistaDatosProfesional8 /> },
   { path: "/Agradecimiento",  element: <VistaAgradecimientos /> },
+  { path: "/RecuperarContrasena",  element: <RecuperarContrasena /> },
+  { path: "/CambiarContrasena",  element: <CambiarContrasena /> },
 
   {
     path: "/app",
-    element: <FullLayout />,
+    element: (
+      <>
+        <AutoLogout />
+        <ProtectedRoute>
+          <FullLayout />
+        </ProtectedRoute>
+      </>
+    ),
     children: [
       { path: "eps", exact: true, element: <CompShowEps /> },
       { path: "estructuraOrganizacional", exact: true, element: <CompShowEstructuraOrganizacional /> },
@@ -120,18 +139,12 @@ const ThemeRoutes = [
       { path: "usuarios", exact: true, element: <CompShowUsuarios /> },
       { path: "roles", exact: true, element: <CompShowrol /> },
       { path: "profesional", exact: true, element: <CompShowProfesional /> },
-      // { path: "/app/dashboards/dashboard1", exact: true, element: <Dashboard1 /> },
-      // { path: "tables/basic-table", element: <BasicTable /> },
-      // { path: "form-layouts/form-layouts", element: <FormLayouts /> },
-      // { path: "form-elements/autocomplete", element: <ExAutoComplete /> },
-      // { path: "form-elements/button", element: <ExButton /> },
-      // { path: "form-elements/checkbox", element: <ExCheckbox /> },
-      // { path: "form-elements/radio", element: <ExRadio /> },
-      // { path: "form-elements/slider", element: <ExSlider /> },
-      // { path: "form-elements/switch", element: <ExSwitch /> },
+      
     ],
   },
 ];
+
+
 
 
 export default ThemeRoutes;

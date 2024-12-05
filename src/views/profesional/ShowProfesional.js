@@ -126,11 +126,11 @@ const CompShowProfesional = () => {
                                         <TableCell>{prof.var_correoElectronicoInstitucional}</TableCell>
                                         <TableCell>{prof.var_celular}</TableCell>
                                         <TableCell>
-                                            <Link to={`/editar/${prof.id_profesionalPK}`}>
+                                            {/* <Link to={`/editar/${prof.id_profesionalPK}`}>
                                                 <IconButton color="info">
                                                     <EditIcon />
                                                 </IconButton>
-                                            </Link>
+                                            </Link> */}
                                             <IconButton color="black" onClick={() => visualizar(prof)}>
                                                 <VisibilityIcon />
                                             </IconButton>

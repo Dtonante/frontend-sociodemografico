@@ -20,6 +20,8 @@
     "axios": "^1.7.7",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
     "lodash": "^4.17.21",
     "luxon": "^3.5.0",
     "pdfjs-dist": "^4.8.69",

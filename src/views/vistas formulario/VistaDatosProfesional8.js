@@ -225,13 +225,14 @@ const VistaDatosProfesional8 = () => {
 
     return (
         <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', paddingBottom: '3%', height: '100vh', overflow: 'auto' }}>
-            <div style={{ textAlign: 'center', marginBottom: '1%', marginTop: '-1%' }}>
+            <div style={{ textAlign: 'center', marginBottom: '1%', marginTop: '-1%', borderRadius: "10px" }}>
                 <img
                     src="public/logo_form.png"
                     alt="Descripción de la imagen"
                     style={{
                         width: '20%',
                         height: 'auto',
+                        
                     }}
                 />
             </div>

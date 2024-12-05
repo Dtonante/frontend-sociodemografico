@@ -29,7 +29,7 @@ const VistaHomeUsuarioNuevo = () => {
             }}
         >
             {/* Imagen de fondo */}
-            <div style={{ width: '100%', height: '31.2%', position: 'relative', textAlign: 'center', }}>
+            <div style={{ width: '100%', height: '31.2%', position: 'relative', textAlign: 'center', borderRadius: "10px" }}>
 
                 <img
                     className="imagen-fondo"

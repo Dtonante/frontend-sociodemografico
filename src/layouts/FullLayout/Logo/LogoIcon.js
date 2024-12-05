@@ -13,12 +13,3 @@ const LogoIcon = (props) => {
 
 export default LogoIcon;
 
-
-
-// import React from "react";
-// import logoicn from "../../../../public/logoo_admin.png";
-// const LogoIcon = (props) => {
-//   return <img alt="Logo" style={{ width: '70px', height: 'auto' }} src={logoicn} {...props} />;
-// };
-
-// export default LogoIcon;
