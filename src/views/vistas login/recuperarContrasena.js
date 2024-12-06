@@ -63,38 +63,12 @@ const RecuperarContrasena = () => {
   return (
     <Grid container direction="column" style={{ minHeight: "100vh", backgroundColor: "#F2F2F2" }}>
       <Grid item xs={12} style={{ textAlign: "center", marginBottom: "20px" }}>
-        <Box
-          style={{
-            backgroundImage: `url('public/fondo_login.jpg')`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            width: "60%",
-            height: "34.5vh",
-            margin: "0 auto",
-            borderRadius: "10px",
-          }}
-        />
+        <Box style={{  backgroundImage: `url('public/fondo_login.jpg')`,  backgroundSize: "cover", backgroundPosition: "center",  width: "60%",  height: "34.5vh",  margin: "0 auto", borderRadius: "10px", }} />
         <Box mt={3}>
-          <img
-            src="public/logo_form.png"
-            alt="Logo Esumer"
-            style={{
-              width: "20%",
-              height: "auto",
-            }}
-          />
+          <img src="public/logo_form.png" alt="Logo Esumer" style={{ width: "20%",  height: "auto", }}  />
         </Box>
       </Grid>
-      <Grid
-        item
-        xs={12}
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexGrow: 1,
-        }}
-      >
+      <Grid item  xs={12} style={{ display: "flex", justifyContent: "center", alignItems: "center", flexGrow: 1, }} >
         <Grid item xs={10} sm={8} md={4}>
           <Card variant="outlined" style={{ backgroundColor: "#F2F2F2", borderColor: "#202B52" }}>
             <CardContent>
@@ -102,16 +76,7 @@ const RecuperarContrasena = () => {
                 <Typography variant="h5" align="center" color="primary" gutterBottom>
                   Recuperar Contraseña
                 </Typography>
-                <TextField
-                  label="Correo Electrónico"
-                  name="var_correoElectronicoPersonal"
-                  variant="outlined"
-                  fullWidth
-                  margin="normal"
-                  value={formData.var_correoElectronicoPersonal}
-                  onChange={handleChange}
-                  style={{ backgroundColor: "#F2F2F2" }}
-                />
+                <TextField label="Correo Electrónico" name="var_correoElectronicoPersonal" variant="outlined" fullWidth margin="normal"  value={formData.var_correoElectronicoPersonal} onChange={handleChange} style={{ backgroundColor: "#F2F2F2" }} />
                 {error && (
                   <Typography color="error" variant="body2" align="center" sx={{ mt: 1 }}>
                     {error}
@@ -122,25 +87,12 @@ const RecuperarContrasena = () => {
                     {mensaje}
                   </Typography>
                 )}
+                {/* botones */}
                 <Box mt={2}>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    style={{ backgroundColor: "#202B52" }}
-                    fullWidth
-                  >
-                    Recuperar Contraseña
-                  </Button>
+                  <Button type="submit" variant="contained" style={{ backgroundColor: "#202B52" }} fullWidth > Recuperar Contraseña </Button>
                 </Box>
                 <Box mt={2}>
-                  <Button
-                    variant="contained"
-                    style={{ backgroundColor: "#00A5CE" }}
-                    fullWidth
-                    onClick={handleBack}
-                  >
-                    Atrás
-                  </Button>
+                  <Button variant="contained"  style={{ backgroundColor: "#00A5CE" }}  fullWidth  onClick={handleBack} >  Atrás </Button>
                 </Box>
               </form>
             </CardContent>
