@@ -90,7 +90,7 @@ const CambiarContrasena = () => {
         hasErrors = true;
       } else {
         validateField(field, value); // Validar cada campo
-      }
+      } 
     });
 
     setErrors(newErrors); // Actualizar el estado de errores
