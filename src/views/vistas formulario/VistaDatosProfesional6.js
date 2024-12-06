@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { Card, Box, Typography, Divider, CardContent, Button, TextField, FormControl, RadioGroup, FormHelperText, FormControlLabel, Radio, InputLabel, Select, MenuItem } from "@mui/material";
 import axios from "axios";
 import show_alert from "../../components/showAlert/alertFuntion";
-import "../../css/CardStyles.css";
 
 const VistaDatosProfesional6 = () => {
     const [nivelEscolaridad, setNivelEscolaridad] = useState('');
@@ -184,8 +183,8 @@ const VistaDatosProfesional6 = () => {
                     }}
                 />
             </div>
-            <Card variant="outlined" className="card-outlined">
-                   <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
+            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: " auto", backgroundColor: '#F2F2F2', borderColor: '#202B52' }}>
+                <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
                         <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}>Formación académica</Typography>
                     </Box>

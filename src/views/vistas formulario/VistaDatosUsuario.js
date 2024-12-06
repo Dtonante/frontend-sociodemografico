@@ -16,7 +16,6 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import "../../css/CardStyles.css";
 import { useNavigate } from "react-router-dom";
 import { DateTime } from "luxon"; // Para manejar y validar fechas
 import show_alert from "../../components/showAlert/alertFuntion";
@@ -596,7 +595,17 @@ const VistaDatosUsuario = () => {
           style={{ width: "20%", height: "auto" }}
         />
       </div>
-      <Card variant="outlined" className="card-outlined">
+      <Card
+        variant="outlined"
+        sx={{
+          p: 0,
+          width: "100%",
+          maxWidth: 800,
+          margin: "auto",
+          backgroundColor: "#F2F2F2",
+          borderColor: "#202B52",
+        }}
+      >
         <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
           <Box flexGrow={1}>
             <Typography
@@ -914,8 +923,7 @@ const VistaDatosUsuario = () => {
               helperText={errors.var_celular}
               FormHelperTextProps={{ sx: { marginLeft: 0 } }}
               InputProps={{
-                sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" },
-                inputProps: { maxLength: 12 },
+                sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" }, inputProps: { maxLength: 12, }
               }}
             />
             <Typography
@@ -937,8 +945,7 @@ const VistaDatosUsuario = () => {
               helperText={errors.var_telefonoFijo}
               FormHelperTextProps={{ sx: { marginLeft: 0 } }}
               InputProps={{
-                sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" },
-                inputProps: { maxLength: 7 },
+                sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" }, inputProps: { maxLength: 7, }
               }}
             />
             <Typography

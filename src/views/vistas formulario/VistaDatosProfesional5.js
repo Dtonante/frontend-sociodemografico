@@ -15,7 +15,6 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../../css/CardStyles.css";
 
 const VistaDatosProfesional5 = () => {
   const [afiliado, setAfiliado] = useState("");
@@ -328,7 +327,17 @@ const VistaDatosProfesional5 = () => {
           }}
         />
       </div>
-      <Card variant="outlined" className="card-outlined">
+      <Card
+        variant="outlined"
+        sx={{
+          p: 0,
+          width: "100%",
+          maxWidth: 800,
+          margin: "auto",
+          backgroundColor: "#F2F2F2",
+          borderColor: "#202B52",
+        }}
+      >
         <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
           <Box flexGrow={1}>
             <Typography

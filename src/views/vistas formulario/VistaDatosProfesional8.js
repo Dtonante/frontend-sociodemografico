@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Checkbox, TextField, ListItemText, MenuItem, Typography, Button, Card, CardContent, Box, Divider, FormControl, Select, InputLabel } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import "../../css/CardStyles.css";
 
 const VistaDatosProfesional8 = () => {
     // Estado para almacenar los medios de transporte público seleccionados
@@ -172,7 +171,8 @@ const VistaDatosProfesional8 = () => {
                     }}
                 />
             </div>
-            <Card variant="outlined" className="card-outlined">   <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
+            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: '#F2F2F2', borderColor: '#202B52' }}>
+                <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
                         <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}> Medios de transporte utilizado :</Typography>
                     </Box>
