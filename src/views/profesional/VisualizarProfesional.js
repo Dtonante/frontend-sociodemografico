@@ -152,7 +152,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                 }}
             >
                 <Paper sx={{ p: 3, mb: 2, textAlign: 'center', bgcolor: "#202B53", color: '#F2F2F2' }}>
-                    <Typography id="modal-title" variant="h4" component="h2" sx={{ fontWeight: 'bold' }}>
+                    <Typography id="modal-title" variant="h4" component="h2" sx={{ fontWeight: 'bold', fontFamily: 'Roboto Condensed' }}>
                         Detalles del Profesional
                     </Typography>
                 </Paper>
@@ -161,7 +161,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
 
                 {/* Grupo 1: Datos personales */}
                 <Paper sx={{ p: 3, mb: 2, bgcolor: "#F2F2F2", borderRadius: 2, border: "1px solid #202B53", boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.25)" }}>
-                    <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold" }}>
+                    <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold", fontFamily: 'Roboto Condensed' }}>
                         Datos Personales
                     </Typography>
 
@@ -193,7 +193,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     justifyContent: "center",
                                     alignItems: "flex-start",
                                 }}>
-                                    <Typography><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
+                                    <Typography sx={{fontFamily: 'Roboto Condensed'}}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
                                 </Paper>
                             </Grid>
                         ))}
@@ -202,11 +202,8 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
 
 
                 {/* Grupo 2: Datos personales */}
-
-
-
                 <Paper sx={{ p: 3, mb: 2, bgcolor: "#F2F2F2", borderRadius: 2, border: "1px solid #202B53", boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.25)" }}>
-                    <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold" }}>
+                    <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold", fontFamily: 'Roboto Condensed' }}>
                         Datos Personales
                     </Typography>
 
@@ -233,7 +230,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     justifyContent: "center",
                                     alignItems: "flex-start",
                                 }}>
-                                    <Typography><strong>{item.label}:</strong></Typography>
+                                    <Typography sx={{fontFamily: 'Roboto Condensed'}}><strong>{item.label}:</strong></Typography>
                                     {item.value || 'No disponible'}
                                 </Paper>
                             </Grid>
@@ -256,7 +253,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     alignItems: 'center',
                                     width: '96.3%',
                                 }}>
-                                    <Typography variant="h6" sx={{ mb: 2 }}>
+                                    <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Roboto Condensed', fontSize:'18px' }}>
                                         <strong>Servicios con los que no cuentan:</strong>
                                     </Typography>
                                     <Grid container spacing={1} sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -268,7 +265,6 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                                     sx={{
                                                         bgcolor: "#F2F2F2",
                                                         color: "#000",
-                                                        fontWeight: "bold",
                                                         borderRadius: 2,
                                                         padding: 0.5,
                                                         minWidth: '250px',
@@ -276,6 +272,8 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                                         whiteSpace: "normal",
                                                         wordWrap: "break-word",
                                                         display: 'inline-flex',
+                                                        fontFamily: 'Roboto Condensed',
+                                                        fontSize: '16px'
                                                     }}
                                                 />
                                             </Grid>
@@ -303,7 +301,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     alignItems: 'center',
                                     width: '96.3%',
                                 }}>
-                                    <Typography variant="h6" sx={{ mb: 2 }}>
+                                    <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Roboto Condensed', fontSize:'18px' }}>
                                         <strong>Factores de riesgo:</strong>
                                     </Typography>
                                     <Grid container spacing={1} sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -315,7 +313,6 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                                     sx={{
                                                         bgcolor: "#F2F2F2",
                                                         color: "#000",
-                                                        fontWeight: "bold",
                                                         borderRadius: 2,
                                                         padding: 0.5,
                                                         minWidth: '250px',
@@ -323,6 +320,8 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                                         whiteSpace: "normal",
                                                         wordWrap: "break-word",
                                                         display: 'inline-flex',
+                                                        fontFamily: 'Roboto Condensed',
+                                                        fontSize:'16px' 
                                                     }}
                                                 />
                                             </Grid>
@@ -343,7 +342,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
 
                 {/* Grupo 3: Datos adicionales*/}
                 <Paper sx={{ p: 3, mb: 2, bgcolor: "#F2F2F2", borderRadius: 2, border: "1px solid #202B53", boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.25)" }}>
-                    <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold" }}>
+                    <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold", fontFamily: 'Roboto Condensed' }}>
                         Datos adicionales
                     </Typography>
 
@@ -373,7 +372,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                         justifyContent: "center",
                                         alignItems: "flex-start",
                                     }}>
-                                        <Typography><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
+                                        <Typography sx={{fontFamily: 'Roboto Condensed'}}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
                                     </Paper>
                                 </Grid>
                             )
@@ -384,7 +383,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
 
                 {/* Grupo 4: Seguridad social */}
                 <Paper sx={{ p: 3, mb: 2, bgcolor: "#F2F2F2", borderRadius: 2, border: "1px solid #202B53", boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.25)" }}>
-                    <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold" }}>
+                    <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold", fontFamily: 'Roboto Condensed' }}>
                         Seguridad social
                     </Typography>
 
@@ -412,7 +411,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     justifyContent: "center",
                                     alignItems: "flex-start",
                                 }}>
-                                    <Typography><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
+                                    <Typography sx={{fontFamily: 'Roboto Condensed'}}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
                                 </Paper>
                             </Grid>
                         ))}
@@ -434,7 +433,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     alignItems: 'center',
                                     width: '96.3%',
                                 }}>
-                                    <Typography variant="h6" sx={{ mb: 2 }}>
+                                    <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Roboto Condensed', fontSize:'18px'  }}>
                                         <strong>Servicios con los que no cuentan:</strong>
                                     </Typography>
                                     <Grid container spacing={1} sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -446,7 +445,6 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                                     sx={{
                                                         bgcolor: "#F2F2F2",
                                                         color: "#000",
-                                                        fontWeight: "bold",
                                                         borderRadius: 2,
                                                         padding: 0.5,
                                                         minWidth: '250px',
@@ -454,6 +452,8 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                                         whiteSpace: "normal",
                                                         wordWrap: "break-word",
                                                         display: 'inline-flex',
+                                                        fontFamily: 'Roboto Condensed',
+                                                        fontSize:'16px' 
                                                     }}
                                                 />
                                             </Grid>
@@ -479,7 +479,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     alignItems: 'center',
                                     width: '96.3%',
                                 }}>
-                                    <Typography variant="h6" sx={{ mb: 2 }}>
+                                    <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Roboto Condensed', fontSize:'18px'  }}>
                                         <strong>Antecedentes medicos:</strong>
                                     </Typography>
                                     <Grid container spacing={1} sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -491,7 +491,6 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                                     sx={{
                                                         bgcolor: "#F2F2F2",
                                                         color: "#000",
-                                                        fontWeight: "bold",
                                                         borderRadius: 2,
                                                         padding: 0.5,
                                                         minWidth: '250px',
@@ -499,6 +498,8 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                                         whiteSpace: "normal",
                                                         wordWrap: "break-word",
                                                         display: 'inline-flex',
+                                                        fontFamily: 'Roboto Condensed',
+                                                        fontSize:'16px' 
                                                     }}
                                                 />
                                             </Grid>
@@ -513,7 +514,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
 
                 {/* Grupo 5:Información bancaria */}
                 <Paper sx={{ p: 3, mb: 2, bgcolor: "#F2F2F2", borderRadius: 2, border: "1px solid #202B53", boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.25)" }}>
-                    <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold" }}>
+                    <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold", fontFamily: 'Roboto Condensed' }}>
                         Información bancaria
                     </Typography>
 
@@ -537,7 +538,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     justifyContent: "center",
                                     alignItems: "flex-start",
                                 }}>
-                                    <Typography><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
+                                    <Typography sx={{fontFamily: 'Roboto Condensed'}}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
                                 </Paper>
                             </Grid>
                         ))}
@@ -547,7 +548,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
 
                 {/* Grupo 6: Información laboral */}
                 <Paper sx={{ p: 3, mb: 2, bgcolor: "#F2F2F2", borderRadius: 2, border: "1px solid #202B53", boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.25)" }}>
-                    <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold" }}>
+                    <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold", fontFamily: 'Roboto Condensed'  }}>
                         Información laboral
                     </Typography>
 
@@ -577,8 +578,11 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     flexDirection: "column",
                                     justifyContent: "center",
                                     alignItems: "flex-start",
+                                    fontFamily: "Roboto Condensed",
+                                    fontSize:'16px' 
+
                                 }}>
-                                    <Typography><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
+                                    <Typography sx={{fontFamily: 'Roboto Condensed'}}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
                                 </Paper>
                             </Grid>
                         ))}
@@ -587,7 +591,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
 
                 {/* Grupo 7: Formación académica */}
                 <Paper sx={{ p: 3, mb: 2, bgcolor: "#F2F2F2", borderRadius: 2, border: "1px solid #202B53", boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.25)" }}>
-                    <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold" }}>
+                    <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold", fontFamily: 'Roboto Condensed' }}>
                         Formación académica
                     </Typography>
 
@@ -611,7 +615,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     justifyContent: "center",
                                     alignItems: "flex-start",
                                 }}>
-                                    <Typography><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
+                                    <Typography sx={{fontFamily: 'Roboto Condensed'}}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
                                 </Paper>
                             </Grid>
                         ))}
@@ -621,7 +625,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                 {!isHiddenForUser && (
                     // {/* Grupo 8: Salud física */}
                     <Paper sx={{ p: 3, mb: 2, bgcolor: "#F2F2F2", borderRadius: 2, border: "1px solid #202B53", boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.25)" }}>
-                        <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold" }}>
+                        <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold", fontFamily: 'Roboto Condensed'  }}>
                             Salud física
                         </Typography>
 
@@ -660,7 +664,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                         justifyContent: "center",
                                         alignItems: "flex-start",
                                     }}>
-                                        <Typography><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
+                                        <Typography sx={{fontFamily: 'Roboto Condensed'}}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
                                     </Paper>
                                 </Grid>
                             ))}
@@ -680,7 +684,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     alignItems: 'center',
                                     width: '96.3%',
                                 }}>
-                                    <Typography variant="h6" sx={{ mb: 2 }}>
+                                    <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Roboto Condensed', fontSize:'18px'  }}>
                                         <strong>Actividades que realiza en su tiempo libre:</strong>
                                     </Typography>
                                     <Grid container spacing={1} sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -692,7 +696,6 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                                     sx={{
                                                         bgcolor: "#F2F2F2",
                                                         color: "#000",
-                                                        fontWeight: "bold",
                                                         borderRadius: 2,
                                                         padding: 0.5,
                                                         minWidth: '250px',
@@ -700,6 +703,8 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                                         whiteSpace: "normal",
                                                         wordWrap: "break-word",
                                                         display: 'inline-flex',
+                                                        fontFamily: 'Roboto Condensed',
+                                                        fontSize:'16px' 
                                                     }}
                                                 />
                                             </Grid>
@@ -714,7 +719,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                 {!isHiddenForUser && (
                     // {/* Grupo 9: Medios de transporte utilizado */}
                     <Paper sx={{ p: 3, mb: 2, bgcolor: "#F2F2F2", borderRadius: 2, border: "1px solid #202B53", boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.25)" }}>
-                        <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold" }}>
+                        <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold", fontFamily: 'Roboto Condensed' }}>
                             Medios de transporte utilizado
                         </Typography>
 
@@ -737,7 +742,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                         justifyContent: "center",
                                         alignItems: "flex-start",
                                     }}>
-                                        <Typography><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
+                                        <Typography sx={{fontFamily: 'Roboto Condensed'}}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
                                     </Paper>
                                 </Grid>
                             ))}
@@ -757,7 +762,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     alignItems: 'center',
                                     width: '96.3%',
                                 }}>
-                                    <Typography variant="h6" sx={{ mb: 2 }}>
+                                    <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Roboto Condensed', fontSize:'18px'  }}>
                                         <strong>Antecedentes medicos:</strong>
                                     </Typography>
                                     <Grid container spacing={1} sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -769,7 +774,6 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                                     sx={{
                                                         bgcolor: "#F2F2F2",
                                                         color: "#000",
-                                                        fontWeight: "bold",
                                                         borderRadius: 2,
                                                         padding: 0.5,
                                                         minWidth: '250px',
@@ -777,6 +781,8 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                                         whiteSpace: "normal",
                                                         wordWrap: "break-word",
                                                         display: 'inline-flex',
+                                                        fontFamily: 'Roboto Condensed',
+                                                        fontSize:'16px' 
                                                     }}
                                                 />
                                             </Grid>

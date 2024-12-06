@@ -77,12 +77,12 @@ const CompShowProfesional = () => {
     const currentData = filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
     return (
-        <Box sx={{ padding: "20px", backgroundColor: "#F2F2F2" }}>
+        <Box sx={{ backgroundColor: "#F2F2F2" }}>
             <Card variant="outlined" sx={{ borderColor: '#202B53', backgroundColor: "#F2F2F2"  }}>
                 <Box display="flex" justifyContent="space-between" alignItems="center" padding="16px 24px">
                     {/* Espacio para centrar el título */}
                     <Box flex="1" display="flex">
-                        <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+                        <Typography variant="h5" sx={{ fontWeight: "bold", fontFamily: "Roboto Condensed", fontSize: '20px' }}>
                             Lista de Profesionales
                         </Typography>
                     </Box>
@@ -106,25 +106,25 @@ const CompShowProfesional = () => {
                         <Table>
                             <TableHead>
                                 <TableRow sx={{ backgroundColor: "#202B53" }}>
-                                    <TableCell sx={{ color: "#F2F2F2", fontWeight: "bold" }}>Nombre Completo</TableCell>
-                                    <TableCell sx={{ color: "#F2F2F2", fontWeight: "bold" }}>Número Documento</TableCell>
-                                    <TableCell sx={{ color: "#F2F2F2", fontWeight: "bold" }}>Estado</TableCell>
-                                    <TableCell sx={{ color: "#F2F2F2", fontWeight: "bold" }}>Correo Personal</TableCell>
-                                    <TableCell sx={{ color: "#F2F2F2", fontWeight: "bold" }}>Correo Institucional</TableCell>
-                                    <TableCell sx={{ color: "#F2F2F2", fontWeight: "bold" }}>Celular</TableCell>
-                                    <TableCell sx={{ color: "#F2F2F2", fontWeight: "bold" }}>Acciones</TableCell>
+                                    <TableCell sx={{ color: "#F2F2F2", fontWeight: "bold", fontFamily: "Roboto Condensed", fontSize:'18px' }}>Nombre Completo</TableCell>
+                                    <TableCell sx={{ color: "#F2F2F2", fontWeight: "bold", fontFamily: "Roboto Condensed", fontSize:'18px' }}>Número Documento</TableCell>
+                                    <TableCell sx={{ color: "#F2F2F2", fontWeight: "bold", fontFamily: "Roboto Condensed", fontSize:'18px' }}>Estado</TableCell>
+                                    <TableCell sx={{ color: "#F2F2F2", fontWeight: "bold", fontFamily: "Roboto Condensed", fontSize:'18px' }}>Correo Personal</TableCell>
+                                    <TableCell sx={{ color: "#F2F2F2", fontWeight: "bold", fontFamily: "Roboto Condensed", fontSize:'18px' }}>Correo Institucional</TableCell>
+                                    <TableCell sx={{ color: "#F2F2F2", fontWeight: "bold", fontFamily: "Roboto Condensed", fontSize:'18px' }}>Celular</TableCell>
+                                    <TableCell sx={{ color: "#F2F2F2", fontWeight: "bold", fontFamily: "Roboto Condensed", fontSize:'18px' }}>Acciones</TableCell>
                                 </TableRow>
                             </TableHead>
 
                             <TableBody>
                                 {currentData.map((prof) => (
                                     <TableRow key={prof.id_profesionalPK}>
-                                        <TableCell>{prof.Usuario.var_nombreCompleto}</TableCell>
-                                        <TableCell>{prof.Usuario.var_numeroDocumento}</TableCell>
-                                        <TableCell>{prof.Usuario.boolean_estado ? "Activo" : "Inactivo"}</TableCell>
-                                        <TableCell>{prof.Usuario.var_correoElectronicoPersonal}</TableCell>
-                                        <TableCell>{prof.var_correoElectronicoInstitucional}</TableCell>
-                                        <TableCell>{prof.var_celular}</TableCell>
+                                        <TableCell sx={{ fontFamily: "Roboto Condensed", fontSize:'17px'}}>{prof.Usuario.var_nombreCompleto}</TableCell>
+                                        <TableCell sx={{ fontFamily: "Roboto Condensed", fontSize:'17px'}}>{prof.Usuario.var_numeroDocumento}</TableCell>
+                                        <TableCell sx={{ fontFamily: "Roboto Condensed", fontSize:'17px'}}>{prof.Usuario.boolean_estado ? "Activo" : "Inactivo"}</TableCell>
+                                        <TableCell sx={{ fontFamily: "Roboto Condensed", fontSize:'17px'}}>{prof.Usuario.var_correoElectronicoPersonal}</TableCell>
+                                        <TableCell sx={{ fontFamily: "Roboto Condensed", fontSize:'17px'}}>{prof.var_correoElectronicoInstitucional}</TableCell>
+                                        <TableCell sx={{ fontFamily: "Roboto Condensed", fontSize:'17px'}}>{prof.var_celular}</TableCell>
                                         <TableCell>
                                             {/* <Link to={`/editar/${prof.id_profesionalPK}`}>
                                                 <IconButton color="info">
@@ -158,20 +158,29 @@ const CompShowProfesional = () => {
                             "& .MuiTablePagination-root": { color: "black" },
                             "& .MuiTablePagination-actions button": {
                                 color: "black",
+                                fontFamily: "Roboto Condensed"
                             },
                             "& .MuiTablePagination-selectLabel, & .MuiTablePagination-caption": {
                                 fontWeight: "bold",
                                 color: "black",
+                                fontFamily: "Roboto Condensed"
+
                             },
                             "& .MuiIconButton-root": {
                                 color: "black",
+                                fontFamily: "Roboto Condensed"
+
                             },
                             "& .MuiTablePagination-toolbar": {
                                 color: "black",
                                 fontWeight: "bold",
+                                fontFamily: "Roboto Condensed"
+
                             },
                             "& .MuiSvgIcon-root": {
                                 color: "black",
+                                fontFamily: "Roboto Condensed"
+
                             },
                         }}
                     />

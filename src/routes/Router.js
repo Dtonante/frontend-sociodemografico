@@ -2,6 +2,7 @@ import { lazy } from "react";
 import { Navigate } from "react-router-dom";
 import ProtectedRoute from "../middleware/ProtectedRoute.js";
 import AutoLogout from "../middleware/AutoLogout.js";
+import RolProtectedRoute from '../middleware/rolProtectedRoute.js';
 
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout/FullLayout.js"));
@@ -142,11 +143,15 @@ const ThemeRoutes = [
       { path: "usuarios", exact: true, element: <CompShowUsuarios /> },
       { path: "roles", exact: true, element: <CompShowrol /> },
       { path: "profesional", exact: true, element: <CompShowProfesional /> },
-
-      // Ruta condicional: solo se incluye si el rol es 'Administrativo'
-      ...(localStorage.getItem('rol') === 'Administrativo' ? [
-        { path: "/app", exact: true, element: <VistaProvisional /> },
-      ] : []), // Si no es 'Administrativo', no se incluye nada
+      {
+        path: "/app",
+        exact: true,
+        element: (
+          <RolProtectedRoute allowedRole="Administrativo">
+            <VistaProvisional />
+          </RolProtectedRoute>
+        ),
+      },
     ],
   }
 
@@ -156,3 +161,5 @@ const ThemeRoutes = [
 
 
 export default ThemeRoutes;
+
+
