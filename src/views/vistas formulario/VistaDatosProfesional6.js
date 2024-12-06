@@ -12,7 +12,7 @@ const VistaDatosProfesional6 = () => {
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [touchedFields, setTouchedFields] = useState({});
-    const porcentajeProgreso = 60;
+    const porcentajeProgreso = 80;
     const [graduacion, setGraduacion] = useState();
 
     // Validaciones basadas en los campos tocados
@@ -67,9 +67,9 @@ const VistaDatosProfesional6 = () => {
             setNombreCarrera(value);
             localStorage.setItem('nombreCarrera', value);
         } else if (name === "graduacion") {
-            const gradua=value=== "true"
+            const gradua = value === "true"
             setGraduacion(gradua)
-            if (!gradua){
+            if (!gradua) {
                 setCertificadoPdf("N/A")
             }
         }
@@ -104,19 +104,19 @@ const VistaDatosProfesional6 = () => {
 
     const manejarSiguiente = async () => {
         const formData = new FormData();
-    
+
         // Verificar si la variable graduacion es true
         if (graduacion) {
             // Solo se adjunta el certificado si graduacion es true
             if (certificadoPdf) {
                 formData.append("file", certificadoPdf);  // Adjunta el archivo PDF
-            } 
+            }
             // else {
             //     show_alert("Por favor, sube un archivo PDF antes de continuar." , 'info');
             //     return; 
             // }
         }
-    
+
         try {
             // Enviar el formulario con el archivo PDF al backend si graduacion es true
             if (graduacion && certificadoPdf) {
@@ -125,27 +125,27 @@ const VistaDatosProfesional6 = () => {
                         "Content-Type": "multipart/form-data",
                     },
                 });
-    
+
                 // Si la respuesta es exitosa, obtenemos la URL del certificado y la guardamos en localStorage
-                const {  file_patch } = response.data;
+                const { file_patch } = response.data;
                 console.log("Archivo PDF enviado correctamente");
                 console.log("var_certificado del certificado:", file_patch);
-    
+
                 // Guardamos la URL en el localStorage si es necesario
                 localStorage.setItem('certificadoUrl', file_patch);
-            }else {
+            } else {
                 localStorage.setItem('certificadoUrl', "N/A");
             }
 
-            
-    
+
+
             // Validaciones de otros campos (por ejemplo, nivelEscolaridad, actualmenteEstudia)
             const nuevosErrores = {};
-    
+
             if (!nivelEscolaridad) {
                 nuevosErrores.nivelEscolaridad = "El nivel de escolaridad es obligatorio.";
             }
-    
+
             if (actualmenteEstudia === undefined) {
                 nuevosErrores.actualmenteEstudia = "Este campo es obligatorio.";
             }
@@ -153,25 +153,29 @@ const VistaDatosProfesional6 = () => {
             if (graduacion === undefined) {
                 nuevosErrores.graduacion = "Este campo es obligatorio.";
             }
-    
+
             if (Object.keys(nuevosErrores).length > 0) {
                 setErrors(nuevosErrores);
                 return;
             }
-    
+
             // Navegar a la siguiente vista
-            navigate("/datosProfesional7");
+            navigate("/SaludFisica");
         } catch (error) {
             console.error("Error al enviar el archivo:", error);
             show_alert("Hubo un error al enviar el archivo. Inténtalo nuevamente.", 'error');
         }
     };
-    
+
+    const manejarAtras = () => {
+        navigate('/InformacionLaboral')
+    }
+
 
 
 
     return (
-        <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', boxSizing: 'border-box', height: '100vh', overflow: 'hidden' }}>
+        <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', boxSizing: 'border-box', height: '150vh', overflow: 'hidden' }}>
 
             <div style={{ textAlign: 'center', marginBottom: '1%', marginTop: '-1%' }}>
                 <img
@@ -186,26 +190,27 @@ const VistaDatosProfesional6 = () => {
             <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: " auto", backgroundColor: '#F2F2F2', borderColor: '#202B52' }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}>Formación académica</Typography>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}><strong>Formación académica</strong> </Typography>
                     </Box>
                 </Box>
                 <Divider style={{ marginLeft: '5%', marginRight: '5%', borderColor: '#202B52' }} />
 
                 <CardContent sx={{ padding: "30px" }}>
                     <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.nivelEscolaridad}>
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Nivel de Escolaridad : </Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >Nivel de Escolaridad: </Typography>
                         <Select onBlur={handleBlur} labelId="nivelEscolar-label" name="nivelEscolaridad" value={nivelEscolaridad} onChange={manejarCambio}
                             sx={{
                                 height: "40px",
-                                fontFamily: "Poppins",
+                                fontFamily: "Roboto Condensed",
                                 fontSize: "16px"
                             }} >
                             <MenuItem value="bachicher">Bachiller </MenuItem>
                             <MenuItem value="tecnico">Técnico </MenuItem>
                             <MenuItem value="tecnologo">Tecnólogo </MenuItem>
-                            <MenuItem value="universitario">Universitario </MenuItem>
+                            <MenuItem value="pregrado">Pregrado </MenuItem>
                             <MenuItem value="posgrado">Posgrado </MenuItem>
                             <MenuItem value="doctorado">Doctorado </MenuItem>
+                            <MenuItem value="maestria">Maestría </MenuItem>
                         </Select>
                         {errors.nivelEscolaridad && (
                             <FormHelperText
@@ -215,11 +220,11 @@ const VistaDatosProfesional6 = () => {
                     </FormControl>
 
                     <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} error={!!errors.graduacion} >
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Te has graduado en los ultimos dos años? :</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >¿Te has graduado en los ultimos dos años?:</Typography>
                         <RadioGroup name="graduacion" value={graduacion} onChange={manejarCambio} row onBlur={handleBlur}
                             sx={{
                                 height: "40px",
-                                fontFamily: "Poppins",
+                                fontFamily: "Roboto Condensed",
                                 fontSize: "16px"
                             }}>
                             <FormControlLabel value="true" control={<Radio />} label="Sí" />
@@ -232,13 +237,13 @@ const VistaDatosProfesional6 = () => {
 
                     {graduacion && (
                         <FormControl fullWidth sx={{ mb: 2 }}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Anexar certificado :</Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Anexar certificado:</Typography>
                             <input id="certificado-pdf" name="certificadoPdf" type="file" accept="application/pdf" onChange={manejarCambioPdf}
                                 style={{
                                     border: "1px solid #202B52",
                                     borderRadius: "4px",
                                     padding: "10px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "14px",
                                     color: "#202B52",
                                     cursor: "pointer",
@@ -263,11 +268,11 @@ const VistaDatosProfesional6 = () => {
 
 
                     <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} error={!!errors.actualmenteEstudia} >
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >¿Actualmente Estudia? :</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >¿Actualmente Estudia?:</Typography>
                         <RadioGroup name="boolean_actualmenteEstudia" value={actualmenteEstudia} onChange={manejarCambio} row onBlur={handleBlur}
                             sx={{
                                 height: "40px",
-                                fontFamily: "Poppins",
+                                fontFamily: "Roboto Condensed",
                                 fontSize: "16px"
                             }}>
                             <FormControlLabel value="true" control={<Radio />} label="Sí" />
@@ -280,12 +285,12 @@ const VistaDatosProfesional6 = () => {
 
                     {actualmenteEstudia && (
                         <FormControl fullWidth sx={{ mb: 2 }}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }} >Nombre del programa : </Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >Nombre del programa: </Typography>
                             <TextField name="nombreCarrera" value={nombreCarrera} onChange={manejarCambio} variant="outlined"
                                 InputProps={{
                                     sx: {
                                         height: "40px",
-                                        fontFamily: "Poppins",
+                                        fontFamily: "Roboto Condensed",
                                         fontSize: "16px"
                                     },
                                 }} />
@@ -294,6 +299,7 @@ const VistaDatosProfesional6 = () => {
 
                     <div
                         style={{
+                            fontFamily: 'Poppins',
                             display: 'flex',
                             alignItems: 'center',
                             backgroundColor: '#F2F2F2',
@@ -304,6 +310,7 @@ const VistaDatosProfesional6 = () => {
                     >
                         <div
                             style={{
+                                fontFamily: 'Poppins',
                                 height: '10px',
                                 width: '90%',
                                 backgroundColor: '#F2F2F2',
@@ -315,6 +322,7 @@ const VistaDatosProfesional6 = () => {
                         >
                             <div
                                 style={{
+                                    fontFamily: 'Poppins',
                                     width: `${porcentajeProgreso}%`,
                                     height: '100%',
                                     backgroundColor: '#202B52',
@@ -326,7 +334,24 @@ const VistaDatosProfesional6 = () => {
                     </div>
 
                     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                        <Button sx={{ backgroundColor: '#202B52' }} variant="contained" onClick={manejarSiguiente} type="submit">
+                        <button
+                            style={{
+                                fontFamily: 'poppins',
+                                padding: '10px 20px',
+                                fontSize: '16px',
+                                backgroundColor: '#202B52',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '5px',
+                                cursor: 'pointer',
+                                marginRight: '8px'
+
+                            }}
+                            onClick={manejarAtras}
+                        >
+                            Atras
+                        </button>
+                        <Button sx={{ backgroundColor: '#202B52', fontFamily: 'Poppins' }} variant="contained" onClick={manejarSiguiente} type="submit">
                             Siguiente
                         </Button>
                     </div>

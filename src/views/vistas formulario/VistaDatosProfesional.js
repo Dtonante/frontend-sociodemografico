@@ -22,7 +22,7 @@ const VistaDatosProfesional = () => {
     });
     const [errors, setErrors] = useState({});
     const [touchedFields, setTouchedFields] = useState({});
-    const porcentajeProgreso = 23;
+    const porcentajeProgreso = 30;
 
     // Validaciones basadas en los campos tocados
     useEffect(() => {
@@ -62,7 +62,7 @@ const VistaDatosProfesional = () => {
     useEffect(() => {
         const fetchServiciosQueNoCuentan = async () => {
             try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/serviciosQueNoCuentan/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/api/serviciosQueNoCuentan/');
                 setServiciosQueNoCuentan(response.data);
             } catch (error) {
                 console.error('Error al obtener los servicios que no cuentan:', error);
@@ -77,7 +77,7 @@ const VistaDatosProfesional = () => {
     useEffect(() => {
         const fetchFactoresRiesgo = async () => {
             try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/factoresRiesgo/');
+                const response = await axios.get('https://evaluacion.esumer.edu.co/api/factoresRiesgo/');
                 setFactoresRiesgoOptions(response.data);
             } catch (error) {
                 console.error('Error al obtener los factores de riesgo:', error);
@@ -123,7 +123,7 @@ const VistaDatosProfesional = () => {
     // Generar las letras de la A a la Z dinámicamente
     const letras = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
     // Generar los números del 1 al 200
-    const numeros = Array.from({ length: 300 }, (_, i) => i + 1);
+    const numeros = Array.from({ length: 999 }, (_, i) => i + 1);
 
     const manejarCambioInput = (event, campo) => {
         const { name, value } = event.target;
@@ -223,8 +223,12 @@ const VistaDatosProfesional = () => {
         localStorage.setItem('datosProfesional', JSON.stringify(formData));
         localStorage.setItem('direccion', JSON.stringify(direccion));
 
-        navigate('/datosProfesional2');
+        navigate('/DatosAdicionales');
     };
+
+    const manejarAtras = () => {
+        navigate('/InfoUsuario')
+    }
 
     return (
         <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', paddingBottom: '3%' }}>
@@ -241,13 +245,13 @@ const VistaDatosProfesional = () => {
             <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: '#F2F2F2', borderColor: '#202B52' }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}> Datos personales </Typography>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}> <strong>Datos personales</strong> </Typography>
                     </Box>
                 </Box>
                 <Divider style={{ marginLeft: '5%', marginRight: '5%', borderColor: '#202B52' }} />
                 <CardContent sx={{ padding: "30px" }}>
                     <form onSubmit={manejarSiguiente}>
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Departamento:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Departamento:</Typography>
                         <TextField select name="var_departamentoResidencia" variant="outlined" value={formData.var_departamentoResidencia} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur}
                             error={!!errors.var_departamentoResidencia}
                             helperText={errors.var_departamentoResidencia} FormHelperTextProps={{
@@ -258,13 +262,13 @@ const VistaDatosProfesional = () => {
                             InputProps={{
                                 sx: {
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 },
                             }}>
                             {departamentos.map(departamento => (<MenuItem key={departamento.nombre} value={departamento.nombre}> {departamento.nombre} </MenuItem>))}
                         </TextField>
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Ciudad:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Ciudad:</Typography>
                         <TextField select name="var_ciudadResidencia" variant="outlined" value={formData.var_ciudadResidencia} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_ciudadResidencia}
                             helperText={errors.var_ciudadResidencia} FormHelperTextProps={{
                                 sx: {
@@ -273,7 +277,7 @@ const VistaDatosProfesional = () => {
                             }} InputProps={{
                                 sx: {
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 },
                             }}  >
@@ -283,11 +287,11 @@ const VistaDatosProfesional = () => {
 
                         <Grid container spacing={2} sx={{ mb: 2 }}>
                             <Grid item xs={3}>
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Tipo de Vía:</Typography>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Tipo de Vía:</Typography>
                                 <TextField select name="tipoVia" value={direccion.tipoVia} onChange={manejarCambioDireccion} fullWidth InputProps={{
                                     sx: {
                                         height: "40px",
-                                        fontFamily: "Poppins",
+                                        fontFamily: "Roboto Condensed",
                                         fontSize: "16px"
                                     },
                                 }}>
@@ -297,11 +301,11 @@ const VistaDatosProfesional = () => {
                                 </TextField>
                             </Grid>
                             <Grid item xs={3}>
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Número Principal:</Typography>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Número Principal:</Typography>
                                 <TextField select name="numeroPrincipal" value={direccion.numeroPrincipal} onChange={manejarCambioDireccion} fullWidth InputProps={{
                                     sx: {
                                         height: "40px",
-                                        fontFamily: "Poppins",
+                                        fontFamily: "Roboto Condensed",
                                         fontSize: "16px"
                                     },
                                 }}>
@@ -311,11 +315,11 @@ const VistaDatosProfesional = () => {
                                 </TextField>
                             </Grid>
                             <Grid item xs={2}>
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Letra:</Typography>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Letra:</Typography>
                                 <TextField select name="letraPrincipal" value={direccion.letraPrincipal} onChange={manejarCambioDireccion} fullWidth InputProps={{
                                     sx: {
                                         height: "40px",
-                                        fontFamily: "Poppins",
+                                        fontFamily: "Roboto Condensed",
                                         fontSize: "16px"
                                     },
                                 }}>
@@ -325,11 +329,11 @@ const VistaDatosProfesional = () => {
                                 </TextField>
                             </Grid>
                             <Grid item xs={2}>
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Bis:</Typography>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Bis:</Typography>
                                 <TextField select name="bisGuion" value={direccion.bisGuion} onChange={manejarCambioDireccion} fullWidth InputProps={{
                                     sx: {
                                         height: "40px",
-                                        fontFamily: "Poppins",
+                                        fontFamily: "Roboto Condensed",
                                         fontSize: "16px"
                                     },
                                 }}>
@@ -339,11 +343,11 @@ const VistaDatosProfesional = () => {
                                 </TextField>
                             </Grid>
                             <Grid item xs={2}>
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Letra Secundaria:</Typography>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Letra Secundaria:</Typography>
                                 <TextField select name="letraSecundaria" value={direccion.letraSecundaria} onChange={manejarCambioDireccion} fullWidth InputProps={{
                                     sx: {
                                         height: "40px",
-                                        fontFamily: "Poppins",
+                                        fontFamily: "Roboto Condensed",
                                         fontSize: "16px"
                                     },
                                 }}>
@@ -353,11 +357,11 @@ const VistaDatosProfesional = () => {
                                 </TextField>
                             </Grid>
                             <Grid item xs={2}>
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Orientación:</Typography>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Orientación:</Typography>
                                 <TextField select name="orientacion" value={direccion.orientacion} onChange={manejarCambioDireccion} fullWidth InputProps={{
                                     sx: {
                                         height: "40px",
-                                        fontFamily: "Poppins",
+                                        fontFamily: "Roboto Condensed",
                                         fontSize: "16px"
                                     },
                                 }}>
@@ -367,11 +371,11 @@ const VistaDatosProfesional = () => {
                                 </TextField>
                             </Grid>
                             <Grid item xs={3}>
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Número Secundario:</Typography>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Número Secundario:</Typography>
                                 <TextField select name="numeroSecundario" value={direccion.numeroSecundario} onChange={manejarCambioDireccion} fullWidth InputProps={{
                                     sx: {
                                         height: "40px",
-                                        fontFamily: "Poppins",
+                                        fontFamily: "Roboto Condensed",
                                         fontSize: "16px"
                                     },
                                 }}>
@@ -381,11 +385,11 @@ const VistaDatosProfesional = () => {
                                 </TextField>
                             </Grid>
                             <Grid item xs={2}>
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Letra Adicional:</Typography>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Letra Adicional:</Typography>
                                 <TextField select name="letraAdicional" value={direccion.letraAdicional} onChange={manejarCambioDireccion} fullWidth InputProps={{
                                     sx: {
                                         height: "40px",
-                                        fontFamily: "Poppins",
+                                        fontFamily: "Roboto Condensed",
                                         fontSize: "16px"
                                     },
                                 }}>
@@ -395,11 +399,11 @@ const VistaDatosProfesional = () => {
                                 </TextField>
                             </Grid>
                             <Grid item xs={3}>
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Número Final:</Typography>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Número Final:</Typography>
                                 <TextField select name="numeroFinal" value={direccion.numeroFinal} onChange={manejarCambioDireccion} fullWidth InputProps={{
                                     sx: {
                                         height: "40px",
-                                        fontFamily: "Poppins",
+                                        fontFamily: "Roboto Condensed",
                                         fontSize: "16px"
                                     },
                                 }} >
@@ -409,11 +413,11 @@ const VistaDatosProfesional = () => {
                                 </TextField>
                             </Grid>
                             <Grid item xs={2}>
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Orientación Final:</Typography>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Orientación Final:</Typography>
                                 <TextField select name="orientacionFinal" value={direccion.orientacionFinal} onChange={manejarCambioDireccion} fullWidth InputProps={{
                                     sx: {
                                         height: "40px",
-                                        fontFamily: "Poppins",
+                                        fontFamily: "Roboto Condensed",
                                         fontSize: "16px"
                                     },
                                 }}>
@@ -423,18 +427,18 @@ const VistaDatosProfesional = () => {
                                 </TextField>
                             </Grid>
                             <Grid item xs={12}>
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Detalle de la Dirección (Ej. Edificio, Apartamento):</Typography>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Detalle de la Dirección (Ej. Edificio, Apartamento):</Typography>
                                 <TextField name="detalle" value={direccion.detalle} onChange={manejarCambioDireccion} fullWidth InputProps={{
                                     sx: {
                                         height: "40px",
-                                        fontFamily: "Poppins",
+                                        fontFamily: "Roboto Condensed",
                                         fontSize: "16px"
                                     },
                                 }} />
                             </Grid>
                         </Grid>
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Zona de la vivienda :</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Zona de la vivienda:</Typography>
                         <TextField select name="var_zonaVivienda" value={formData.var_zonaVivienda} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_zonaVivienda}
                             helperText={errors.var_zonaVivienda} FormHelperTextProps={{
                                 sx: {
@@ -443,7 +447,7 @@ const VistaDatosProfesional = () => {
                             }} InputProps={{
                                 sx: {
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 },
                             }} >
@@ -453,7 +457,7 @@ const VistaDatosProfesional = () => {
                         </TextField>
 
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Tipo de Vivienda:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Tipo de Vivienda:</Typography>
                         <TextField select name="var_tipoVivienda" value={formData.var_tipoVivienda} onChange={manejarCambioInput} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_tipoVivienda}
                             helperText={errors.var_tipoVivienda} FormHelperTextProps={{
                                 sx: {
@@ -462,7 +466,7 @@ const VistaDatosProfesional = () => {
                             }} InputProps={{
                                 sx: {
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 },
                             }} >
@@ -479,7 +483,7 @@ const VistaDatosProfesional = () => {
                             }} InputProps={{
                                 sx: {
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 },
                             }} >
@@ -490,7 +494,7 @@ const VistaDatosProfesional = () => {
 
                         {/* servicios con los que no cuentan */}
                         <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.selectedServiciosQueNoCuentan} >
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Seleccione los servicios con los que NO cuenta la vivienda: </Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione los servicios con los que <strong>NO</strong> cuenta la vivienda (se pueden seleccionar varias opciones): </Typography>
                             <Select
                                 multiple
                                 onBlur={handleBlur}
@@ -517,7 +521,7 @@ const VistaDatosProfesional = () => {
                                 variant="outlined"
                                 MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }} sx={{
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 }}
                             >
@@ -539,7 +543,7 @@ const VistaDatosProfesional = () => {
 
 
                         <FormControl fullWidth sx={{ mb: 2 }} error={!!errors.selectedFactoresRiesgo}>
-                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Seleccione factores de riesgo que tiene la vivienda: </Typography>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione los factores de riesgo que tiene la vivienda (se pueden seleccionar varias opciones): </Typography>
                             <Select
                                 multiple
                                 onBlur={handleBlur}
@@ -567,7 +571,7 @@ const VistaDatosProfesional = () => {
                                 MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }}
                                 sx={{
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 }}
 
@@ -590,6 +594,7 @@ const VistaDatosProfesional = () => {
 
                         <div
                             style={{
+                                fontFamily: 'Poppins',
                                 display: 'flex',
                                 alignItems: 'center',
                                 backgroundColor: '#F2F2F2',
@@ -600,6 +605,7 @@ const VistaDatosProfesional = () => {
                         >
                             <div
                                 style={{
+                                    fontFamily: 'Poppins',
                                     height: '10px',
                                     width: '90%',
                                     backgroundColor: '#F2F2F2',
@@ -611,6 +617,7 @@ const VistaDatosProfesional = () => {
                             >
                                 <div
                                     style={{
+                                        fontFamily: 'Poppins',
                                         width: `${porcentajeProgreso}%`,
                                         height: '100%',
                                         backgroundColor: '#202B52',
@@ -624,7 +631,25 @@ const VistaDatosProfesional = () => {
 
 
                         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                            <Button sx={{ backgroundColor: '#202B52' }} variant="contained" onClick={manejarSiguiente} type="submit">
+                            <button
+                                style={{
+                                    fontFamily: 'poppins',
+                                    padding: '10px 20px',
+                                    fontSize: '16px',
+                                    backgroundColor: '#202B52',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '5px',
+                                    cursor: 'pointer',
+                                    marginRight: '8px'
+
+                                }}
+                                onClick={manejarAtras}
+                            >
+                                Atras
+                            </button>
+
+                            <Button sx={{ backgroundColor: '#202B52', fontFamily: 'Poppins' }} variant="contained" onClick={manejarSiguiente} type="submit">
                                 Siguiente
                             </Button>
                         </div>

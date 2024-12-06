@@ -37,7 +37,7 @@ const VistaDatosProfesional3 = () => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [touchedFields, setTouchedFields] = useState({});
-  const porcentajeProgreso = 38;
+  const porcentajeProgreso = 50;
 
   // Validaciones basadas en los campos tocados
   useEffect(() => {
@@ -89,59 +89,59 @@ const VistaDatosProfesional3 = () => {
     });
   };
 
-    // Hacer la solicitud para obtener los servicios de salud adicional
-    useEffect(() => {
-        const fetchServiciosSaludAdicional = async () => {
-            try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/servicioSaludAdicional/');
-                setServiciosSaludAdicionalOptions(response.data);
-            } catch (error) {
-                console.error('Error al obtener los servicios de salud adicional:', error);
-            }
-        };
-        fetchServiciosSaludAdicional();
-    }, []);
+  // Hacer la solicitud para obtener los servicios de salud adicional
+  useEffect(() => {
+    const fetchServiciosSaludAdicional = async () => {
+      try {
+        const response = await axios.get('https://evaluacion.esumer.edu.co/api/servicioSaludAdicional/');
+        setServiciosSaludAdicionalOptions(response.data);
+      } catch (error) {
+        console.error('Error al obtener los servicios de salud adicional:', error);
+      }
+    };
+    fetchServiciosSaludAdicional();
+  }, []);
 
-    // Hacer la solicitud para obtener las EPS al cargar el componente
-    useEffect(() => {
-        const fetchEps = async () => {
-            try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/eps/');
-                setEpsOptions(response.data);
-            } catch (error) {
-                console.error('Error al obtener las EPS:', error);
-            }
-        };
+  // Hacer la solicitud para obtener las EPS al cargar el componente
+  useEffect(() => {
+    const fetchEps = async () => {
+      try {
+        const response = await axios.get('https://evaluacion.esumer.edu.co/api/eps/');
+        setEpsOptions(response.data);
+      } catch (error) {
+        console.error('Error al obtener las EPS:', error);
+      }
+    };
 
     fetchEps();
   }, []);
 
-    // Hacer la solicitud para obtener los antecedentes médicos
-    useEffect(() => {
-        const fetchAntecedentes = async () => {
-            try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/antecedentesMedicos/');
-                setAntecedentesOptions(response.data);
-            } catch (error) {
-                console.error('Error al obtener los antecedentes médicos:', error);
-            }
-        };
+  // Hacer la solicitud para obtener los antecedentes médicos
+  useEffect(() => {
+    const fetchAntecedentes = async () => {
+      try {
+        const response = await axios.get('https://evaluacion.esumer.edu.co/api/antecedentesMedicos/');
+        setAntecedentesOptions(response.data);
+      } catch (error) {
+        console.error('Error al obtener los antecedentes médicos:', error);
+      }
+    };
 
     fetchAntecedentes();
   }, []);
 
-    // Hacer la solicitud para obtener los fondos de pensión
-    useEffect(() => {
-        const fetchFondosPension = async () => {
-            try {
-                const response = await axios.get('https://evaluacion.esumer.edu.co/fondoPension/');
-                setFondoPensionOptions(response.data); // Guardamos las opciones en el estado
-            } catch (error) {
-                console.error('Error al obtener los fondos de pensión:', error);
-            }
-        };
-        fetchFondosPension();
-    }, []);
+  // Hacer la solicitud para obtener los fondos de pensión
+  useEffect(() => {
+    const fetchFondosPension = async () => {
+      try {
+        const response = await axios.get('https://evaluacion.esumer.edu.co/api/fondoPension/');
+        setFondoPensionOptions(response.data); // Guardamos las opciones en el estado
+      } catch (error) {
+        console.error('Error al obtener los fondos de pensión:', error);
+      }
+    };
+    fetchFondosPension();
+  }, []);
 
   // Guardar los datos en el localStorage al cambiar alguna selección
   const manejarCambio = (event, campo) => {
@@ -214,8 +214,12 @@ const VistaDatosProfesional3 = () => {
     localStorage.setItem("formDataProfesional", JSON.stringify(formData)); // Guardar todos los datos
 
     // Redirigir a la siguiente vista (ajustar el nombre de la ruta según tu configuración)
-    navigate("/datosProfesional4");
+    navigate("/InformacionBancaria");
   };
+
+  const manejarAtras = () => {
+    navigate('/DatosAdicionales')
+  }
 
   return (
     <div
@@ -260,7 +264,7 @@ const VistaDatosProfesional3 = () => {
                 fontFamily: "Roboto Condensed",
               }}
             >
-              Seguridad social
+              <strong>Seguridad social</strong>
             </Typography>
           </Box>
         </Box>
@@ -276,9 +280,9 @@ const VistaDatosProfesional3 = () => {
             <FormControl sx={{ mb: 2 }} error={!!errors.cambioEpsOArl}>
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
-                ¿Ha cambiado de EPS o AFP?
+                ¿Ha cambiado de EPS o AFP?:
               </Typography>
               <RadioGroup
                 row
@@ -294,19 +298,19 @@ const VistaDatosProfesional3 = () => {
                       "Si tu respuesta es sí, envía el soporte a los siguientes correos:\n\nnomina@esumer.edu.co\naux.nomina@esumer.edu.co",
                       'info'
                     );
-                    
-                  
+
+
                     // Llamar a setTimeout para cerrar la alerta después de 5 segundos (5000 ms)
                     setTimeout(() => {
                       hide_alert(); // Aquí deberías tener una función que cierre la alerta
                     }, 10000); // 5000 ms = 5 segundos
                   }
-                  
+
                 }}
                 onBlur={handleBlur}
                 sx={{
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 }}
               >
@@ -326,9 +330,9 @@ const VistaDatosProfesional3 = () => {
             </FormControl>
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
-              Seleccione EPS:{" "}
+              Seleccione EPS <strong>ACTUAL</strong>:
             </Typography>
             <TextField
               select
@@ -349,7 +353,7 @@ const VistaDatosProfesional3 = () => {
               InputProps={{
                 sx: {
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 },
               }}
@@ -368,9 +372,9 @@ const VistaDatosProfesional3 = () => {
             >
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
-                Seleccione Fondo de Pensión:{" "}
+                Seleccione Fondo de Pensión:
               </Typography>
               <Select
                 name="selectedFondoPension"
@@ -379,7 +383,7 @@ const VistaDatosProfesional3 = () => {
                 onBlur={handleBlur}
                 sx={{
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 }}
               >
@@ -410,9 +414,9 @@ const VistaDatosProfesional3 = () => {
             >
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
-                Seleccione los servicios de salud adicional:
+                Seleccione los servicios de salud adicional (se pueden seleccionar varias opciones):
               </Typography>
               <Select
                 name="selectedServiciosSaludAdicional"
@@ -439,7 +443,7 @@ const VistaDatosProfesional3 = () => {
                 }}
                 sx={{
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 }}
               >
@@ -479,9 +483,9 @@ const VistaDatosProfesional3 = () => {
             >
               <Typography
                 variant="h6"
-                sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
               >
-                Seleccione Antecedentes Médicos:
+                Seleccione Antecedentes Médicos (se pueden seleccionar varias opciones):
               </Typography>
 
               <Select
@@ -514,7 +518,7 @@ const VistaDatosProfesional3 = () => {
                 }}
                 sx={{
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 }}
               >
@@ -549,6 +553,7 @@ const VistaDatosProfesional3 = () => {
 
             <div
               style={{
+                fontFamily: 'Poppins',
                 display: "flex",
                 alignItems: "center",
                 backgroundColor: "#F2F2F2",
@@ -559,6 +564,7 @@ const VistaDatosProfesional3 = () => {
             >
               <div
                 style={{
+                  fontFamily: 'Poppins',
                   height: "10px",
                   width: "90%",
                   backgroundColor: "#F2F2F2",
@@ -570,6 +576,7 @@ const VistaDatosProfesional3 = () => {
               >
                 <div
                   style={{
+                    fontFamily: 'Poppins',
                     width: `${porcentajeProgreso}%`,
                     height: "100%",
                     backgroundColor: "#202B52",
@@ -583,8 +590,25 @@ const VistaDatosProfesional3 = () => {
             </div>
 
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <button
+                style={{
+                  fontFamily: 'poppins',
+                  padding: '10px 20px',
+                  fontSize: '16px',
+                  backgroundColor: '#202B52',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '5px',
+                  cursor: 'pointer',
+                  marginRight: '8px'
+
+                }}
+                onClick={manejarAtras}
+              >
+                Atras
+              </button>
               <Button
-                sx={{ backgroundColor: "#202B52" }}
+                sx={{ backgroundColor: "#202B52", fontFamily: 'Poppins' }}
                 variant="contained"
                 onClick={manejarSiguiente}
                 type="submit"

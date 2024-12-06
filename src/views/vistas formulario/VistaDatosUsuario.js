@@ -19,6 +19,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { DateTime } from "luxon"; // Para manejar y validar fechas
 import show_alert from "../../components/showAlert/alertFuntion";
+import '../../css/VistaHomeNuevoUsuario.css'
+
 
 const VistaDatosUsuario = () => {
   const minDate = DateTime.now().minus({ years: 18 }).toISODate(); // Fecha mínima: 18 años atrás
@@ -34,9 +36,11 @@ const VistaDatosUsuario = () => {
     var_grupoEtnico: "",
     date_fechaNacimiento: minDate,
     var_celular: "",
-    var_telefonoFijo: "",
+    var_telefonoEmergencia: "",
     var_contrasena: "",
-    confirmar_contrasena: "",
+    var_contactoEmergencia: "",
+    confirmar_contrasena: ""
+
   });
   const [tiposDocumento, setTiposDocumento] = useState([]);
   const navigate = useNavigate();
@@ -44,19 +48,26 @@ const VistaDatosUsuario = () => {
     date_fechaNacimiento: "",
   });
   const [touchedFields, setTouchedFields] = useState({});
-  const porcentajeProgreso = 15;
+  const porcentajeProgreso = 20;
 
   // Validaciones basadas en los campos tocados
   useEffect(() => {
     const nuevosErrores = {};
 
-    // Establecemos el valor mínimo de la fecha si es necesario
-    if (!formData.date_fechaNacimiento) {
-      setFormData((prevState) => ({
-        ...prevState,
-        date_fechaNacimiento: minDate, // Solo si no hay valor de fecha
-      }));
-    }
+    if (touchedFields.var_contactoEmergencia && !formData.var_contactoEmergencia) {
+      nuevosErrores.var_contactoEmergencia = "El nombre del contacto de emergencia es obligatorio";
+    } else if (
+      formData.var_contactoEmergencia &&
+      !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(formData.var_contactoEmergencia)
+    )
+
+      // Establecemos el valor mínimo de la fecha si es necesario
+      if (!formData.date_fechaNacimiento) {
+        setFormData((prevState) => ({
+          ...prevState,
+          date_fechaNacimiento: minDate, // Solo si no hay valor de fecha
+        }));
+      }
 
     // Validación nombre completo
     if (
@@ -180,28 +191,42 @@ const VistaDatosUsuario = () => {
     }
 
     // Validación teléfono fijo (campo tipo String)
-    if (touchedFields.var_telefonoFijo) {
-      if (!formData.var_telefonoFijo.trim()) {
-        nuevosErrores.var_telefonoFijo = "El teléfono fijo es obligatorio";
-      } else if (!/^\d+$/.test(formData.var_telefonoFijo)) {
-        nuevosErrores.var_telefonoFijo =
-          "El teléfono fijo solo puede contener números";
-      } else if (formData.var_telefonoFijo.length < 7) {
-        nuevosErrores.var_telefonoFijo =
-          "El teléfono fijo debe tener al menos 7 dígitos";
-      } else if (formData.var_telefonoFijo.length > 10) {
-        nuevosErrores.var_telefonoFijo =
-          "El teléfono fijo no puede exceder los 10 dígitos";
+    if (touchedFields.var_telefonoEmergencia) {
+      if (!formData.var_telefonoEmergencia.trim()) {
+        nuevosErrores.var_telefonoEmergencia = "El numero del contacto de emergencia es obligatorio";
+      } else if (!/^\d+$/.test(formData.var_telefonoEmergencia)) {
+        nuevosErrores.var_telefonoEmergencia =
+          "El numero del contacto de emergencia solo puede contener números";
+      } else if (formData.var_telefonoEmergencia.length < 10) {
+        nuevosErrores.var_telefonoEmergencia =
+          "El numero del contacto de emergencia debe tener al menos 10 dígitos";
+      } else if (formData.var_telefonoEmergencia.length > 12) {
+        nuevosErrores.var_telefonoEmergencia =
+          "El numero del contacto de emergencia no puede exceder los 12 dígitos";
       }
     }
 
     // Validación contraseña
+    // if (touchedFields.var_contrasena && !formData.var_contrasena.trim() ) {
+    //   nuevosErrores.var_contrasena = "La contraseña es obligatoria";
+    // } else if (formData.var_contrasena && formData.var_contrasena.length < 6) {
+    //   nuevosErrores.var_contrasena =
+    //     "La contraseña debe tener al menos 6 caracteres";
+    // }
+
     if (touchedFields.var_contrasena && !formData.var_contrasena.trim()) {
       nuevosErrores.var_contrasena = "La contraseña es obligatoria";
-    } else if (formData.var_contrasena && formData.var_contrasena.length < 6) {
+    } else if (formData.var_contrasena && formData.var_contrasena.length < 8) {
       nuevosErrores.var_contrasena =
-        "La contraseña debe tener al menos 6 caracteres";
+        "La contraseña debe tener al menos 8 carácteres y mínimo un número, una minúscula y una mayúscula";
+    } else if (formData.var_contrasena && !/[a-z]/.test(formData.var_contrasena)) {
+      nuevosErrores.var_contrasena = "La contraseña debe contener al menos una letra minúscula";
+    } else if (formData.var_contrasena && !/[A-Z]/.test(formData.var_contrasena)) {
+      nuevosErrores.var_contrasena = "La contraseña debe contener al menos una letra mayúscula";
+    } else if (formData.var_contrasena && !/\d/.test(formData.var_contrasena)) {
+      nuevosErrores.var_contrasena = "La contraseña debe contener al menos un número";
     }
+
 
     // Validación confirmar contraseña
     if (
@@ -212,6 +237,8 @@ const VistaDatosUsuario = () => {
     } else if (formData.confirmar_contrasena !== formData.var_contrasena) {
       nuevosErrores.confirmar_contrasena = "Las contraseñas no coinciden";
     }
+
+
 
     // Actualizar los errores
     setErrors(nuevosErrores);
@@ -267,6 +294,22 @@ const VistaDatosUsuario = () => {
         [name]: value, // Actualizamos otros campos normalmente
       });
     }
+
+    if (name === "var_contactoEmergencia" || name === "var_contactoEmergencia") {
+      setFormData({
+        ...formData,
+        [name]: value.toUpperCase(), // Convertimos el valor a mayúsculas
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value, // Actualizamos otros campos normalmente
+      });
+    }
+
+
+
+
   };
 
   const handleKeyPress = (event, fieldName) => {
@@ -274,13 +317,13 @@ const VistaDatosUsuario = () => {
 
     // Validación para campos como teléfono y número de documento (solo números)
     if (
-      fieldName === "var_telefonoFijo" ||
+      fieldName === "var_telefonoEmergencia" ||
       fieldName === "var_celular" ||
       fieldName === "var_numeroDocumento"
     ) {
       // Solo permitimos números
       regex = /^[0-9]*$/;
-    } else if (fieldName === "var_nombreCompleto") {
+    } else if (fieldName === "var_nombreCompleto" || fieldName === "var_contactoEmergencia") {
       // Solo permitimos letras (incluyendo acentos y ñ) y espacios
       regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/;
     }
@@ -334,11 +377,12 @@ const VistaDatosUsuario = () => {
     // Definir expresiones regulares para cada tipo de campo
     const validationRules = {
       // Para campos que solo permiten números
-      var_telefonoFijo: /^[0-9]*$/,
+      var_telefonoEmergencia: /^[0-9]*$/,
       var_celular: /^[0-9]*$/,
       var_numeroDocumento: /^[0-9]*$/,
       // Para campos que solo permiten letras (incluyendo acentos y ñ) y espacios
       var_nombreCompleto: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/,
+      var_contactoEmergencia: /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/,
       // Reglas específicas para el tipo de documento
       documento: {
         "Cédula de Ciudadanía (CC)": /^[0-9]*$/,
@@ -447,7 +491,7 @@ const VistaDatosUsuario = () => {
     const fetchTiposDocumento = async () => {
       try {
         const response = await axios.get(
-          "https://evaluacion.esumer.edu.co/tipodocumentos/"
+          "https://evaluacion.esumer.edu.co/api/tipodocumentos/"
         );
         setTiposDocumento(response.data);
       } catch (error) {
@@ -518,8 +562,8 @@ const VistaDatosUsuario = () => {
       nuevosErrores.var_celular = "El celular es obligatorio";
     }
 
-    if (!formData.var_telefonoFijo.trim()) {
-      nuevosErrores.var_telefonoFijo = "El teléfono fijo es obligatorio";
+    if (!formData.var_telefonoEmergencia.trim()) {
+      nuevosErrores.var_telefonoEmergencia = "El numero del contacto de emergencia es obligatorio";
     }
 
     if (!formData.var_contrasena.trim()) {
@@ -530,6 +574,12 @@ const VistaDatosUsuario = () => {
       nuevosErrores.confirmar_contrasena = "Debe confirmar la contraseña";
     }
 
+    if (!formData.var_contactoEmergencia) {
+      nuevosErrores.var_contactoEmergencia = "El contacto de emergencia es obligatorio";
+    }
+
+
+
     if (Object.keys(nuevosErrores).length > 0) {
       setErrors(nuevosErrores);
       return;
@@ -537,7 +587,7 @@ const VistaDatosUsuario = () => {
 
     try {
       const response = await axios.post(
-        "https://evaluacion.esumer.edu.co/usuarios/",
+        "https://evaluacion.esumer.edu.co/api/usuarios/",
         formData
       );
       console.log("Usuario creado:", response.data);
@@ -554,9 +604,9 @@ const VistaDatosUsuario = () => {
         formData.date_fechaNacimiento
       );
       localStorage.setItem("var_celular", formData.var_celular);
-      localStorage.setItem("var_telefonoFijo", formData.var_telefonoFijo);
+      localStorage.setItem("var_telefonoEmergencia", formData.var_telefonoEmergencia);
 
-      navigate("/datosProfesional");
+      navigate("/DatosProfesionales");
     } catch (error) {
       console.error("Error al crear el usuario:", error);
     }
@@ -578,6 +628,25 @@ const VistaDatosUsuario = () => {
     });
   };
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth); // Actualiza el ancho de la ventana
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Limpieza del listener al desmontar el componente
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const manejarAtras = () => {
+    navigate('/proteccionDatos')
+  }
+
   return (
     <div
       style={{
@@ -592,7 +661,10 @@ const VistaDatosUsuario = () => {
         <img
           src="public/logo_form.png"
           alt="Descripción de la imagen"
-          style={{ width: "20%", height: "auto" }}
+          style={{
+            width: windowWidth < 1000 ? "50%" : "20%",
+            height: "auto",
+          }}
         />
       </div>
       <Card
@@ -617,8 +689,7 @@ const VistaDatosUsuario = () => {
                 fontFamily: "Roboto Condensed",
               }}
             >
-              {" "}
-              Datos personales{" "}
+              <strong>Datos personales</strong>
             </Typography>
           </Box>
         </Box>
@@ -633,7 +704,7 @@ const VistaDatosUsuario = () => {
           <form onSubmit={manejarEnvio}>
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Nombre Completo:
             </Typography>
@@ -641,23 +712,30 @@ const VistaDatosUsuario = () => {
               name="var_nombreCompleto"
               variant="outlined"
               value={formData.var_nombreCompleto}
-              onChange={handleInputChange}
+              onChange={(event) =>
+                handleInputChange({
+                  target: {
+                    name: "var_nombreCompleto",
+                    value: event.target.value.toUpperCase()
+                  }
+                })}
               onKeyPress={(event) =>
                 handleKeyPress(event, "var_nombreCompleto")
-              } // Condicional basado en el nombre del campo
+              }
               fullWidth
+
               sx={{ mb: 2 }}
               onBlur={handleBlur}
               error={!!errors.var_nombreCompleto}
               helperText={errors.var_nombreCompleto}
               FormHelperTextProps={{ sx: { marginLeft: 0 } }}
               InputProps={{
-                sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" },
+                sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" },
               }}
             />
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Tipo de Documento:
             </Typography>
@@ -675,7 +753,7 @@ const VistaDatosUsuario = () => {
               helperText={errors.int_tipoDocumentoFK}
               FormHelperTextProps={{ sx: { marginLeft: 0 } }}
               InputProps={{
-                sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" },
+                sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" },
               }}
             >
               {tiposDocumento.map((option) => (
@@ -690,7 +768,7 @@ const VistaDatosUsuario = () => {
             </TextField>
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Número de Documento:
             </Typography>
@@ -709,12 +787,12 @@ const VistaDatosUsuario = () => {
               helperText={errors.var_numeroDocumento}
               FormHelperTextProps={{ sx: { marginLeft: 0 } }}
               InputProps={{
-                sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" },
+                sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" },
               }}
             />
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Fecha de Nacimiento:
             </Typography>
@@ -740,7 +818,7 @@ const VistaDatosUsuario = () => {
               InputProps={{
                 sx: {
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 },
               }}
@@ -751,57 +829,24 @@ const VistaDatosUsuario = () => {
 
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Género:
             </Typography>
-            <FormControl
-              component="fieldset"
-              sx={{ mb: 2 }}
-              error={!!errors.var_genero}
-            >
-              <RadioGroup
-                name="var_genero"
-                value={formData.var_genero}
-                onChange={handleInputChange}
-                row
-                onBlur={handleBlur}
-                sx={{
-                  height: "40px",
-                  fontFamily: "Poppins",
-                  fontSize: "16px",
-                }}
-              >
-                <FormControlLabel
-                  value="Masculino"
-                  control={<Radio />}
-                  label="Masculino"
-                />
-                <FormControlLabel
-                  value="Femenino"
-                  control={<Radio />}
-                  label="Femenino"
-                />
-                <FormControlLabel
-                  value="Otro"
-                  control={<Radio />}
-                  label="Otro"
-                />
-                <FormControlLabel
-                  value="Prefiero no decirlo"
-                  control={<Radio />}
-                  label="Prefiero no decirlo"
-                />
+            <FormControl className="genero" component="fieldset" sx={{ mb: 2 }} error={!!errors.var_genero} >
+              <RadioGroup className="genero" name="var_genero" value={formData.var_genero} onChange={handleInputChange} row onBlur={handleBlur} sx={{ height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px", }} >
+                <FormControlLabel value="Masculino" control={<Radio />} label="Masculino" />
+                <FormControlLabel value="Femenino" control={<Radio />} label="Femenino" />
+                <FormControlLabel value="Otro" control={<Radio />} label="Otro" />
+                <FormControlLabel value="Prefiero no decirlo" control={<Radio />} label="Prefiero no decirlo" />
               </RadioGroup>
               {errors.var_genero && (
-                <Typography variant="caption" color="error">
-                  {errors.var_genero}
-                </Typography>
-              )}
+                <Typography variant="caption" color="error"> {errors.var_genero} </Typography>)}
             </FormControl>
+
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Grupo Sanguíneo:
             </Typography>
@@ -824,7 +869,7 @@ const VistaDatosUsuario = () => {
               InputProps={{
                 sx: {
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 },
               }}
@@ -840,7 +885,7 @@ const VistaDatosUsuario = () => {
             </TextField>
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Grupo Étnico:
             </Typography>
@@ -862,7 +907,7 @@ const VistaDatosUsuario = () => {
               InputProps={{
                 sx: {
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 },
               }}
@@ -875,7 +920,7 @@ const VistaDatosUsuario = () => {
             </TextField>
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Correo Electrónico Personal:
             </Typography>
@@ -898,7 +943,7 @@ const VistaDatosUsuario = () => {
               InputProps={{
                 sx: {
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 },
               }}
@@ -906,7 +951,7 @@ const VistaDatosUsuario = () => {
 
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Celular:
             </Typography>
@@ -915,7 +960,7 @@ const VistaDatosUsuario = () => {
               variant="outlined"
               value={formData.var_celular}
               onChange={handleInputChange}
-              onKeyPress={(event) => handleKeyPress(event, "var_celular")} // Condicional basado en el nombre del campo
+              onKeyPress={(event) => handleKeyPress(event, "var_celular")}
               fullWidth
               sx={{ mb: 2 }}
               onBlur={handleBlur}
@@ -923,36 +968,73 @@ const VistaDatosUsuario = () => {
               helperText={errors.var_celular}
               FormHelperTextProps={{ sx: { marginLeft: 0 } }}
               InputProps={{
-                sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" }, inputProps: { maxLength: 12, }
+                sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" }, inputProps: { maxLength: 12, }
               }}
             />
+
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
-              Telefono fijo:
+              Nombre del contacto de emergencia
             </Typography>
             <TextField
-              name="var_telefonoFijo"
+              name="var_contactoEmergencia"
+              type="text"
               variant="outlined"
-              value={formData.var_telefonoFijo}
+              value={formData.var_contactoEmergencia}
               onChange={handleInputChange}
-              onKeyPress={(event) => handleKeyPress(event, "var_telefonoFijo")} // Condicional basado en el nombre del campo
+              onKeyPress={(event) =>
+                handleKeyPress(event, "var_contactoEmergencia")
+              }
               fullWidth
               sx={{ mb: 2 }}
               onBlur={handleBlur}
-              error={!!errors.var_telefonoFijo}
-              helperText={errors.var_telefonoFijo}
+              error={!!errors.var_contactoEmergencia}
+              helperText={errors.var_contactoEmergencia}
+              FormHelperTextProps={{
+                sx: {
+                  marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+                },
+              }}
+              InputProps={{
+                sx: {
+                  height: "40px",
+                  fontFamily: "Roboto Condensed",
+                  fontSize: "16px",
+                },
+              }}
+            />
+
+
+
+
+            <Typography
+              variant="h6"
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
+            >
+              Teléfono fijo o celular del contacto de emergencia:
+            </Typography>
+            <TextField
+              name="var_telefonoEmergencia"
+              variant="outlined"
+              value={formData.var_telefonoEmergencia}
+              onChange={handleInputChange}
+              onKeyPress={(event) => handleKeyPress(event, "var_telefonoEmergencia")} // Condicional basado en el nombre del campo
+              fullWidth
+              sx={{ mb: 2 }}
+              onBlur={handleBlur}
+              error={!!errors.var_telefonoEmergencia}
+              helperText={errors.var_telefonoEmergencia}
               FormHelperTextProps={{ sx: { marginLeft: 0 } }}
               InputProps={{
-                sx: { height: "40px", fontFamily: "Poppins", fontSize: "16px" }, inputProps: { maxLength: 7, }
+                sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" }, inputProps: { maxLength: 10, }
               }}
             />
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
-            >
-              Crear contraseña:
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
+            >Crear contraseña (Esta contraseña te servirá para actualizar la información aquí suministrada en una próxima versión):
             </Typography>
             <TextField
               name="var_contrasena"
@@ -973,14 +1055,15 @@ const VistaDatosUsuario = () => {
               InputProps={{
                 sx: {
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 },
               }}
             />
+
             <Typography
               variant="h6"
-              sx={{ fontFamily: "Roboto Condensed", color: "#202B52" }}
+              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
             >
               Confirmar creacion de contraseña:
             </Typography>
@@ -1003,7 +1086,7 @@ const VistaDatosUsuario = () => {
               InputProps={{
                 sx: {
                   height: "40px",
-                  fontFamily: "Poppins",
+                  fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 },
               }}
@@ -1011,6 +1094,7 @@ const VistaDatosUsuario = () => {
 
             <div
               style={{
+                fontFamily: 'Poppins',
                 display: "flex",
                 alignItems: "center",
                 backgroundColor: "#F2F2F2",
@@ -1021,6 +1105,7 @@ const VistaDatosUsuario = () => {
             >
               <div
                 style={{
+                  fontFamily: 'Poppins',
                   height: "10px",
                   width: "90%",
                   backgroundColor: "#F2F2F2",
@@ -1032,6 +1117,7 @@ const VistaDatosUsuario = () => {
               >
                 <div
                   style={{
+                    fontFamily: 'Poppins',
                     width: `${porcentajeProgreso}%`,
                     height: "100%",
                     backgroundColor: "#202B52",
@@ -1045,8 +1131,25 @@ const VistaDatosUsuario = () => {
             </div>
 
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
+              <button
+                style={{
+                  fontFamily: 'poppins',
+                  padding: '10px 20px',
+                  fontSize: '16px',
+                  backgroundColor: '#202B52',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '5px',
+                  cursor: 'pointer',
+                  marginRight: '8px'
+
+                }}
+                onClick={manejarAtras}
+              >
+                Atras
+              </button>
               <Button
-                sx={{ backgroundColor: "#202B52" }}
+                sx={{ backgroundColor: "#202B52", fontFamily: 'poppins' }}
                 variant="contained"
                 type="submit"
               >

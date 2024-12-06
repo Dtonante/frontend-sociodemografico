@@ -7,6 +7,8 @@ import AddToPhotosOutlinedIcon from '@mui/icons-material/AddToPhotosOutlined';
 import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import { useNavigate } from "react-router-dom";
+
 
 import {
   AppBar,
@@ -21,18 +23,14 @@ import {
   ListItemIcon,
 } from "@mui/material";
 
-import userimg from "../../../assets/images/users/user.jpg";
+import userimg from "../../../assets/images/users/usuario.png";
 
 const Header = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate();
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  
 
   // 4
   const [anchorEl4, setAnchorEl4] = React.useState(null);
@@ -55,6 +53,17 @@ const Header = (props) => {
   const handleClose5 = () => {
     setAnchorEl5(null);
   };
+
+  const handleLogout = () => {
+    // Eliminar el token de localStorage
+    localStorage.removeItem("token");
+  
+    navigate("/");
+    
+    // Cierra el menú
+    handleClose4();
+  };
+  
 
   return (
     <AppBar sx={props.sx} elevation={0} className={props.customClass}>
@@ -79,108 +88,12 @@ const Header = (props) => {
           aria-haspopup="true"
           onClick={handleClick5}
         >
-          <AddToPhotosOutlinedIcon />
+          
         </IconButton>
-        <Menu
-          id="dd-menu"
-          anchorEl={anchorEl5}
-          keepMounted
-          open={Boolean(anchorEl5)}
-          onClose={handleClose5}
-          anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
-          transformOrigin={{ horizontal: "left", vertical: "top" }}
-          sx={{
-            "& .MuiMenu-paper": {
-              width: "250px",
-              right: 0,
-              top: "70px !important",
-            },
-          }}
-        >
-          <MenuItem onClick={handleClose5}>
-            <Avatar
-              sx={{
-                width: "35px",
-                height: "35px",
-              }}
-            />
-            <Box
-              sx={{
-                ml: 2,
-              }}
-            >
-              New account
-            </Box>
-          </MenuItem>
-          <Divider />
-          <MenuItem onClick={handleClose5}>
-            <Avatar
-              sx={{
-                width: "35px",
-                height: "35px",
-              }}
-            />
-            <Box
-              sx={{
-                ml: 2,
-              }}
-            >
-              New Page
-            </Box>
-          </MenuItem>
-          <MenuItem onClick={handleClose5}>
-            <Avatar
-              sx={{
-                width: "35px",
-                height: "35px",
-              }}
-            />
-            <Box
-              sx={{
-                ml: 2,
-              }}
-            >
-              New Component
-            </Box>
-          </MenuItem>
-        </Menu>
+       
         <Box flexGrow={1} />
 
-        {/* ------------------------------------------- */}
-        {/* Notifications Dropdown */}
-        {/* ------------------------------------------- */}
-        <IconButton
-          aria-label="menu"
-          color="inherit"
-          aria-controls="notification-menu"
-          aria-haspopup="true"
-          onClick={handleClick}
-        >
-          <NotificationsNoneOutlinedIcon width="20" height="20" />
-        </IconButton>
-        <Menu
-          id="notification-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-          transformOrigin={{ horizontal: "right", vertical: "top" }}
-          sx={{
-            "& .MuiMenu-paper": {
-              width: "200px",
-              right: 0,
-              top: "70px !important",
-            },
-          }}
-        >
-          <MenuItem onClick={handleClose}>Action</MenuItem>
-          <MenuItem onClick={handleClose}>Action Else</MenuItem>
-          <MenuItem onClick={handleClose}>Another Action</MenuItem>
-        </Menu>
-        {/* ------------------------------------------- */}
-        {/* End Notifications Dropdown */}
-        {/* ------------------------------------------- */}
+        
         {/* ------------------------------------------- */}
         {/* Profile Dropdown */}
         {/* ------------------------------------------- */}
@@ -228,42 +141,16 @@ const Header = (props) => {
               width: "250px",
               right: 0,
               top: "70px !important",
+              backgroundColor: "#F2F2F2"
             },
           }}
         >
-          <MenuItem onClick={handleClose4}>
-            <Avatar
-              sx={{
-                width: "35px",
-                height: "35px",
-              }}
-            />
-            <Box
-              sx={{
-                ml: 2,
-              }}
-            >
-              My account
-            </Box>
-          </MenuItem>
-          <Divider />
-          <MenuItem onClick={handleClose4}>
-            <ListItemIcon>
-              <PersonAddOutlinedIcon fontSize="small" />
-            </ListItemIcon>
-            Add another account
-          </MenuItem>
-          <MenuItem onClick={handleClose4}>
-            <ListItemIcon>
-              <SettingsOutlinedIcon fontSize="small" />
-            </ListItemIcon>
-            Settings
-          </MenuItem>
-          <MenuItem onClick={handleClose4}>
+          
+          <MenuItem onClick={handleLogout}>
             <ListItemIcon>
               <LogoutOutlinedIcon fontSize="small" />
             </ListItemIcon>
-            Logout
+            Salir
           </MenuItem>
         </Menu>
       </Toolbar>

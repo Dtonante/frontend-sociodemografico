@@ -16,18 +16,22 @@ const MainWrapper = experimentalStyled("div")(({ theme }) => ({
   minHeight: "100vh",
   overflow: "hidden",
   width: "100%",
+  backgroundColor: "#F2F2F2"
 }));
 const PageWrapper = experimentalStyled("div")(({ theme }) => ({
   display: "flex",
   flex: "1 1 auto",
   overflow: "hidden",
+  
 
   backgroundColor: theme.palette.background.default,
   [theme.breakpoints.up("lg")]: {
     paddingTop: TopbarHeight,
+    backgroundColor: "#F2F2F2"
   },
   [theme.breakpoints.down("lg")]: {
     paddingTop: "64px",
+    backgroundColor: "#F2F2F2"
   },
 }));
 
@@ -41,7 +45,7 @@ const FullLayout = () => {
       <Header
         sx={{
           paddingLeft: isSidebarOpen && lgUp ? "265px" : "",
-          backgroundColor: "#ffffff",
+          backgroundColor: "#F2F2F2",
         }}
         toggleSidebar={() => setSidebarOpen(!isSidebarOpen)}
         toggleMobileSidebar={() => setMobileSidebarOpen(true)}

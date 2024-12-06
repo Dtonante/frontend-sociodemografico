@@ -17,40 +17,40 @@ const VistaDatosProfesional2 = () => {
     const [set_personasConLasQueVive, setSet_personasConLasQueVive] = useState(["N/A"])
     const [errors, setErrors] = useState({});
     const [touchedFields, setTouchedFields] = useState({});
-    const porcentajeProgreso = 30;
+    const porcentajeProgreso = 40;
 
     // Validaciones basadas en los campos tocados
     useEffect(() => {
         const nuevosErrores = {};
 
         if (touchedFields.var_estadoCivil && !var_estadoCivil) {
-            nuevosErrores.var_estadoCivil = "El nombre completo es";
+            nuevosErrores.var_estadoCivil = "El Estado civil es obligatorio";
         }
 
         if (touchedFields.boolean_viveSolo && boolean_viveSolo == null) {
-            nuevosErrores.boolean_viveSolo = "El nombre completo es";
+            nuevosErrores.boolean_viveSolo = "El campo de vive solo es obligatorio";
         }
         if (boolean_viveSolo == true && var_numeroPersonasConLasQueVive == null) {
-            nuevosErrores.var_numeroPersonasConLasQueVive = "El nombre completo es";
+            nuevosErrores.var_numeroPersonasConLasQueVive = "El número de personas con los que vive es obligatorio";
         }
 
         if (touchedFields.var_personasDependeciaEconimica && !var_personasDependeciaEconimica) {
-            nuevosErrores.var_personasDependeciaEconimica = "El nombre completo es";
+            nuevosErrores.var_personasDependeciaEconimica = "El número de personas que dependen economicamente de usted es obligatorio";
         }
 
         if (touchedFields.var_totalIngresosPropiosYGrupoFamiliar && !var_totalIngresosPropiosYGrupoFamiliar) {
-            nuevosErrores.var_totalIngresosPropiosYGrupoFamiliar = "El nombre completo es";
+            nuevosErrores.var_totalIngresosPropiosYGrupoFamiliar = "El total de ingresos son obligatorios";
         }
 
         if (touchedFields.boolean_viveConMascotas && boolean_viveConMascotas == null) {
-            nuevosErrores.boolean_viveConMascotas = "El nombre completo es";
+            nuevosErrores.boolean_viveConMascotas = "El campo si tiene mascotas obligatorio";
         }
 
         if (touchedFields.set_tipoMascotas && (!set_tipoMascotas || set_tipoMascotas.length === 0)) {
-            nuevosErrores.set_tipoMascotas = "El nombre completo es obligatorio";
+            nuevosErrores.set_tipoMascotas = "Los tipos de mascotas es obligatorio";
         }
         if (touchedFields.set_personasConLasQueVive && (!set_personasConLasQueVive || set_personasConLasQueVive.length === 0)) {
-            nuevosErrores.set_personasConLasQueVive = "El nombre completo es obligatorio";
+            nuevosErrores.set_personasConLasQueVive = "Las personas con las que vive son obligatorios";
         }
 
 
@@ -153,35 +153,35 @@ const VistaDatosProfesional2 = () => {
         const nuevosErrores = {};
 
         if (!var_estadoCivil) {
-            nuevosErrores.var_estadoCivil = "Selecionar una eps es obligatorio.";
+            nuevosErrores.var_estadoCivil = "El Estado civil es obligatorio";
         }
 
         if (boolean_viveSolo == null) {
-            nuevosErrores.boolean_viveSolo = "Selecionar una eps es obligatorio.";
+            nuevosErrores.boolean_viveSolo = "El campo de vive solo es obligatorio";
         }
 
         if (!var_personasDependeciaEconimica) {
-            nuevosErrores.var_personasDependeciaEconimica = "Selecionar una eps es obligatorio.";
+            nuevosErrores.var_personasDependeciaEconimica = "El número de personas que dependen economicamente de usted es obligatorio";
         }
 
         if (!var_totalIngresosPropiosYGrupoFamiliar) {
-            nuevosErrores.var_totalIngresosPropiosYGrupoFamiliar = "Selecionar una eps es obligatorio.";
+            nuevosErrores.var_totalIngresosPropiosYGrupoFamiliar = "El total de ingresos son obligatorios";
         }
 
         if (boolean_viveConMascotas == null) {
-            nuevosErrores.boolean_viveConMascotas = "Selecionar una eps es obligatorio.";
+            nuevosErrores.boolean_viveConMascotas = "El campo si tiene mascotas obligatorio";
         }
 
         if (boolean_viveSolo === false && !var_numeroPersonasConLasQueVive) {
-            nuevosErrores.var_numeroPersonasConLasQueVive = "Selecionar una eps es obligatorio.";
+            nuevosErrores.var_numeroPersonasConLasQueVive = "El campo de vive solo es obligatorio";
         }
 
         if (!set_tipoMascotas || set_tipoMascotas.length === 0) {
-            nuevosErrores.set_tipoMascotas = "Seleccionar los antecedentes médicos es obligatorio.";
-        } set_personasConLasQueVive
+            nuevosErrores.set_tipoMascotas = "Los tipos de mascotas es obligatorio";
+        }
 
         if (!set_personasConLasQueVive || set_personasConLasQueVive.length === 0) {
-            nuevosErrores.set_personasConLasQueVive = "Seleccionar los antecedentes médicos es obligatorio.";
+            nuevosErrores.set_personasConLasQueVive = "Las personas con las que vive son obligatorios";
         }
 
 
@@ -195,8 +195,12 @@ const VistaDatosProfesional2 = () => {
 
 
 
-        navigate('/datosProfesional3');
+        navigate('/SeguridadSocial');
     };
+
+    const manejarAtras = () => {
+        navigate('/DatosProfesionales')
+    }
 
     return (
         <div style={{ backgroundColor: '#F2F2F2', paddingTop: '3%', paddingBottom: '3%', height: '100vh' }}>
@@ -213,7 +217,7 @@ const VistaDatosProfesional2 = () => {
             <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: '#F2F2F2', borderColor: '#202B52' }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}>Datos adicionales</Typography>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}><strong>Datos adicionales</strong></Typography>
                     </Box>
                 </Box>
                 <Divider style={{ marginLeft: '5%', marginRight: '5%', borderColor: '#202B52' }} />
@@ -221,7 +225,7 @@ const VistaDatosProfesional2 = () => {
                     <form onSubmit={(event) => {
                         event.preventDefault();
                     }}>
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Estado Civil:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Estado Civil:</Typography>
                         <TextField select name="var_estadoCivil" variant="outlined" value={var_estadoCivil} onChange={manejoCambiosInputs} fullWidth sx={{ mb: 2 }} onBlur={handleBlur}
                             error={!!errors.var_estadoCivil}
                             helperText={errors.var_estadoCivil} FormHelperTextProps={{
@@ -231,7 +235,7 @@ const VistaDatosProfesional2 = () => {
                             }} InputProps={{
                                 sx: {
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 },
                             }}  >
@@ -241,7 +245,7 @@ const VistaDatosProfesional2 = () => {
                             <MenuItem value="Viudo">Viudo</MenuItem>
                             <MenuItem value="Union libre">Unión libre</MenuItem>
                         </TextField>
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>¿Vive Solo?:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>¿Vive Solo?:</Typography>
                         <TextField select name="boolean_viveSolo" variant="outlined" value={boolean_viveSolo} onChange={manejoCambiosInputs} fullWidth sx={{ mb: 2 }} onBlur={handleBlur}
                             error={!!errors.boolean_viveSolo}
                             helperText={errors.boolean_viveSolo} FormHelperTextProps={{
@@ -251,7 +255,7 @@ const VistaDatosProfesional2 = () => {
                             }} InputProps={{
                                 sx: {
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 },
                             }}  >
@@ -262,7 +266,7 @@ const VistaDatosProfesional2 = () => {
                         {boolean_viveSolo === false && (
                             <>
 
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Con cuantas personas vive:</Typography>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Con cuantas personas vive:</Typography>
                                 <TextField select name="var_numeroPersonasConLasQueVive" variant="outlined" value={var_numeroPersonasConLasQueVive} onChange={manejoCambiosInputs} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_numeroPersonasConLasQueVive}
                                     helperText={errors.var_numeroPersonasConLasQueVive} FormHelperTextProps={{
                                         sx: {
@@ -271,7 +275,7 @@ const VistaDatosProfesional2 = () => {
                                     }} InputProps={{
                                         sx: {
                                             height: "40px",
-                                            fontFamily: "Poppins",
+                                            fontFamily: "Roboto Condensed",
                                             fontSize: "16px"
                                         },
                                     }}
@@ -285,7 +289,7 @@ const VistaDatosProfesional2 = () => {
                                 </TextField>
 
                                 <FormControl sx={{ mb: 2 }} fullWidth error={!!errors.set_personasConLasQueVive}>
-                                    <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>¿Vive con? (Selecciona todas las personas con las que habita):</Typography>
+                                    <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>¿Vive con? (Selecciona todas las personas con las que habita):</Typography>
                                     <Select
                                         name="set_personasConLasQueVive"
                                         multiple
@@ -297,7 +301,7 @@ const VistaDatosProfesional2 = () => {
                                         variant="outlined"
                                         sx={{
                                             height: "40px",
-                                            fontFamily: "Poppins",
+                                            fontFamily: "Roboto Condensed",
                                             fontSize: "16px"
                                         }}
 
@@ -323,7 +327,7 @@ const VistaDatosProfesional2 = () => {
                                 </FormControl>
                             </>
                         )}
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>¿Tiene mascotas? :</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>¿Tiene mascotas?:</Typography>
                         <TextField select name="boolean_viveConMascotas" variant="outlined" value={boolean_viveConMascotas} onChange={manejoCambiosInputs} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.boolean_viveConMascotas}
                             helperText={errors.boolean_viveConMascotas} FormHelperTextProps={{
                                 sx: {
@@ -332,7 +336,7 @@ const VistaDatosProfesional2 = () => {
                             }} InputProps={{
                                 sx: {
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 },
                             }}
@@ -345,7 +349,7 @@ const VistaDatosProfesional2 = () => {
                             <>
 
                                 <FormControl sx={{ mb: 2 }} fullWidth error={!!errors.set_tipoMascotas} >
-                                    <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Indica qué tipos de mascotas tienes en casa :</Typography>
+                                    <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Indica qué tipos de mascotas tienes en casa (se pueden seleccionar varias opciones):</Typography>
                                     <Select
                                         name="set_tipoMascotas"
                                         multiple
@@ -357,7 +361,7 @@ const VistaDatosProfesional2 = () => {
                                         variant="outlined"
                                         sx={{
                                             height: "40px",
-                                            fontFamily: "Poppins",
+                                            fontFamily: "Roboto Condensed",
                                             fontSize: "16px"
                                         }}
 
@@ -384,7 +388,7 @@ const VistaDatosProfesional2 = () => {
                             </>
                         )}
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Cantidad de personas con las que NO vive pero dependen económicamente de usted :</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Cantidad de personas con las que <strong>NO</strong> vive pero dependen económicamente de usted:</Typography>
                         <TextField select name="var_personasDependeciaEconimica" variant="outlined" value={var_personasDependeciaEconimica} onChange={manejoCambiosInputs} onBlur={handleBlur} error={!!errors.var_personasDependeciaEconimica}
                             helperText={errors.var_personasDependeciaEconimica} fullWidth sx={{ mb: 2 }} FormHelperTextProps={{
                                 sx: {
@@ -393,7 +397,7 @@ const VistaDatosProfesional2 = () => {
                             }} InputProps={{
                                 sx: {
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 },
                             }}
@@ -407,7 +411,7 @@ const VistaDatosProfesional2 = () => {
                             <MenuItem value="N/A">No aplica</MenuItem>
                         </TextField>
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52' }}>Total ingresos propios y grupo familiar:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Total ingresos propios y grupo familiar:</Typography>
                         <TextField select name="var_totalIngresosPropiosYGrupoFamiliar" variant="outlined" value={var_totalIngresosPropiosYGrupoFamiliar} onChange={manejoCambiosInputs} fullWidth sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_totalIngresosPropiosYGrupoFamiliar}
                             helperText={errors.var_totalIngresosPropiosYGrupoFamiliar} FormHelperTextProps={{
                                 sx: {
@@ -416,7 +420,7 @@ const VistaDatosProfesional2 = () => {
                             }} InputProps={{
                                 sx: {
                                     height: "40px",
-                                    fontFamily: "Poppins",
+                                    fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 },
                             }}
@@ -430,6 +434,7 @@ const VistaDatosProfesional2 = () => {
 
                         <div
                             style={{
+                                fontFamily: 'Poppins',
                                 display: 'flex',
                                 alignItems: 'center',
                                 backgroundColor: '#F2F2F2',
@@ -440,6 +445,7 @@ const VistaDatosProfesional2 = () => {
                         >
                             <div
                                 style={{
+                                    fontFamily: 'Poppins',
                                     height: '10px',
                                     width: '90%',
                                     backgroundColor: '#F2F2F2',
@@ -451,6 +457,7 @@ const VistaDatosProfesional2 = () => {
                             >
                                 <div
                                     style={{
+                                        fontFamily: 'Poppins',
                                         width: `${porcentajeProgreso}%`,
                                         height: '100%',
                                         backgroundColor: '#202B52',
@@ -462,7 +469,24 @@ const VistaDatosProfesional2 = () => {
                         </div>
 
                         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                            <Button sx={{ backgroundColor: '#202B52' }} onClick={manejarSiguiente} variant="contained" type="submit"> Siguiente </Button>
+                            <button
+                                style={{
+                                    fontFamily: 'poppins',
+                                    padding: '10px 20px',
+                                    fontSize: '16px',
+                                    backgroundColor: '#202B52',
+                                    color: 'white',
+                                    border: 'none',
+                                    borderRadius: '5px',
+                                    cursor: 'pointer',
+                                    marginRight: '8px'
+
+                                }}
+                                onClick={manejarAtras}
+                            >
+                                Atras
+                            </button>
+                            <Button sx={{ backgroundColor: '#202B52', fontFamily: 'Poppins' }} onClick={manejarSiguiente} variant="contained" type="submit"> Siguiente </Button>
                         </div>
 
 
