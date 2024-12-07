@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const URI_ESTRUCTURA_ORGANIZACIONAL = 'http://localhost:3001/estructuraOrganizacional/'
+const URI_ESTRUCTURA_ORGANIZACIONAL = 'https://evaluacion.esumer.edu.co/api/estructuraOrganizacional/'
 
 const CompShowEstructuraOrganizacional = () => {
     const [estructuraOrganizacional, setEstructuraOrganizacional] = useState([])

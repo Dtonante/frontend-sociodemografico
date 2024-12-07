@@ -121,7 +121,7 @@ const VistaHomeUsuarioNuevo = () => {
                             }}
                             onClick={manejarLogin}
                         >
-                            log in
+                            Iniciar sesión
                         </button>
                         <button
                             style={{

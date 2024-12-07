@@ -8,7 +8,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import CompVisualizarProfesional from './VisualizarProfesional';
 
-const URI_PROFESIONAL = 'http://localhost:3001/profesional/';
+const URI_PROFESIONAL = 'https://evaluacion.esumer.edu.co/api/profesional/';
 
 const CompShowProfesional = () => {
     const [profesional, setProfesional] = useState([]);

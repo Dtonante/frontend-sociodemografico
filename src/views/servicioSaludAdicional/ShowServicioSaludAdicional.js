@@ -6,7 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const URI_SERVICIO_SALUD_ADICIONAL = 'http://localhost:3001/servicioSaludAdicional/'
+const URI_SERVICIO_SALUD_ADICIONAL = 'https://evaluacion.esumer.edu.co/api/servicioSaludAdicional/'
 
 const CompShowServicioDeSaludAdicional = () => {
     const [servicioSaludAdicional, setServicioSaludAdicional] = useState([])

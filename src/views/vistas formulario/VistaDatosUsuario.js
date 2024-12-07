@@ -1,25 +1,13 @@
-import {
-  Card,
-  CardContent,
-  Divider,
-  Box,
-  Typography,
-  TextField,
-  FormControlLabel,
-  Checkbox,
-  Button,
-  Grid,
-  RadioGroup,
-  Radio,
-  FormControl,
-  MenuItem,
-} from "@mui/material";
+import { Card, CardContent, Divider, Box, Typography, TextField, FormControlLabel,  Checkbox, Button, Grid, RadioGroup, Radio, FormControl, MenuItem} from "@mui/material";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { DateTime } from "luxon"; // Para manejar y validar fechas
 import show_alert from "../../components/showAlert/alertFuntion";
 import '../../css/VistaHomeNuevoUsuario.css'
+
+const URI_TIPO_DOCUMENTO = 'https://evaluacion.esumer.edu.co/api/tipodocumentos/'
+const URI_CREAR_USUARIO = 'https://evaluacion.esumer.edu.co/api/usuarios/'
 
 
 const VistaDatosUsuario = () => {
@@ -205,14 +193,6 @@ const VistaDatosUsuario = () => {
           "El numero del contacto de emergencia no puede exceder los 12 dígitos";
       }
     }
-
-    // Validación contraseña
-    // if (touchedFields.var_contrasena && !formData.var_contrasena.trim() ) {
-    //   nuevosErrores.var_contrasena = "La contraseña es obligatoria";
-    // } else if (formData.var_contrasena && formData.var_contrasena.length < 6) {
-    //   nuevosErrores.var_contrasena =
-    //     "La contraseña debe tener al menos 6 caracteres";
-    // }
 
     if (touchedFields.var_contrasena && !formData.var_contrasena.trim()) {
       nuevosErrores.var_contrasena = "La contraseña es obligatoria";
@@ -491,7 +471,7 @@ const VistaDatosUsuario = () => {
     const fetchTiposDocumento = async () => {
       try {
         const response = await axios.get(
-          "https://evaluacion.esumer.edu.co/api/tipodocumentos/"
+          `${URI_TIPO_DOCUMENTO}`
         );
         setTiposDocumento(response.data);
       } catch (error) {
@@ -587,7 +567,7 @@ const VistaDatosUsuario = () => {
 
     try {
       const response = await axios.post(
-        "https://evaluacion.esumer.edu.co/api/usuarios/",
+        `${URI_CREAR_USUARIO}`,
         formData
       );
       console.log("Usuario creado:", response.data);

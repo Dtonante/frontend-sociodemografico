@@ -6,7 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const URI_USUARIOS = 'http://localhost:3001/usuarios/'
+const URI_USUARIOS = 'https://evaluacion.esumer.edu.co/api/usuarios/'
 
 const CompShowUsuarios = () => {
     const [usuarios, setUsuarios] = useState([])

@@ -6,7 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const URI_TIPO_DOCUMENTO = 'http://localhost:3001/tipodocumentos/'
+const URI_TIPO_DOCUMENTO = 'https://evaluacion.esumer.edu.co/api/tipodocumentos/'
 
 const CompShowTipoDocumento = () => {
     const [tipoDocumento, setTipoDocumento] = useState([])

@@ -6,7 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const URI_ROL = 'http://localhost:3001/roles/'
+const URI_ROL = 'https://evaluacion.esumer.edu.co/api/roles/'
 
 const CompShowrol = () => {
     const [rol, setRol] = useState([])

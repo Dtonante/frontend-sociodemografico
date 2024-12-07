@@ -3,6 +3,8 @@ import {  Grid, Card, CardContent, Typography,  TextField,  Button, Box, Link, }
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const URI_LOGEO = 'https://evaluacion.esumer.edu.co/api/login/'
+
 const Login = () => {
   const [formData, setFormData] = useState({ var_correoElectronicoPersonal: "", var_contrasena: "" });
   const [error, setError] = useState("");
@@ -18,7 +20,7 @@ const Login = () => {
     setError("");
     try {
       // Enviar datos de inicio de sesión al backend
-      const response = await axios.post("http://localhost:3001/login/", formData);
+      const response = await axios.post(`${URI_LOGEO}`, formData);
       // Guardar el token y el rol en localStorage
       const token = response.data.token; // Asegúrate que el backend envíe el token con esta clave
       const rol = response.data.rol;

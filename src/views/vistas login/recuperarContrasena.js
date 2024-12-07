@@ -5,6 +5,8 @@ import { Grid, Box, Typography, Card, CardContent, TextField, Button } from "@mu
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+const URI_ENVIAR_CORREO = 'https://evaluacion.esumer.edu.co/api/usuarios/buscar/'
+
 const RecuperarContrasena = () => {
   const [formData, setFormData] = useState({ var_correoElectronicoPersonal: "" });
   const [error, setError] = useState("");
@@ -29,7 +31,7 @@ const RecuperarContrasena = () => {
     try {
       // Realiza la petición GET con axios
       const response = await axios.get(
-        `http://localhost:3001/usuarios/buscar/${var_correoElectronicoPersonal}`
+        `${URI_ENVIAR_CORREO}${var_correoElectronicoPersonal}`
       );
       
       console.log(response.data); // Verifica la respuesta completa

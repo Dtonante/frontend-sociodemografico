@@ -5,7 +5,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-const URI_PROFESIONAL = 'http://localhost:3001/profesional/'
+const URI_PROFESIONAL = 'https://evaluacion.esumer.edu.co/api/profesional/'
 
 const CompEditarProfesional = () => {
     const [id_usuarioFK, setId_usuarioFK] = useState('')

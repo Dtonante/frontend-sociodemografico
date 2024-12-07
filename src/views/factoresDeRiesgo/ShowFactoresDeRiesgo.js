@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const URI_FACTORES_RIESGO = 'http://localhost:3001/factoresRiesgo/'
+const URI_FACTORES_RIESGO = 'https://evaluacion.esumer.edu.co/api/factoresRiesgo/'
 
 const CompShowFactoresDeRiesgo = () => {
     const [factoresDeRiesgo, setFactoresDeRiesgo] = useState([])

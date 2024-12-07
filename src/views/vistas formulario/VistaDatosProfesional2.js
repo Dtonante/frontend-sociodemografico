@@ -214,7 +214,7 @@ const VistaDatosProfesional2 = () => {
                     }}
                 />
             </div>
-            <Card variant="outlined" className="contenedor-borde" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: '#F2F2F2', borderColor: '#202B52' }}>
+            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: '#F2F2F2', borderColor: '#202B52' }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
                         <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: 'center', color: '#202B52', fontFamily: 'Roboto Condensed' }}><strong>Datos adicionales</strong></Typography>

@@ -20,7 +20,7 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const URI_EPS = "http://localhost:3001/eps/";
+const URI_EPS = "https://evaluacion.esumer.edu.co/api/eps/";
 
 const CompShowEps = () => {
   const [eps, setEps] = useState([]);

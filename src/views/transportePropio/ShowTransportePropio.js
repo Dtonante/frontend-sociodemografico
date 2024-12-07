@@ -6,7 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const URI_TRANSPORTE_PROPIO = 'http://localhost:3001/transportePropio/'
+const URI_TRANSPORTE_PROPIO = 'https://evaluacion.esumer.edu.co/api/transportePropio/'
 
 const CompShowTransportePropio = () => {
     const [transportePropio, setTransportePropio] = useState([])

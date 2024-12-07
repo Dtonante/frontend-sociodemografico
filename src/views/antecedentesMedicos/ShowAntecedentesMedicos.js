@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const URI_ANTECEDENTE_MEDICO = 'http://localhost:3001/antecedentesMedicos/'
+const URI_ANTECEDENTE_MEDICO = 'https://evaluacion.esumer.edu.co/api/antecedentesMedicos/'
 
 const CompShowAntecedentesMedicos = () => {
     const [antecedenteMedico, setAntecedentesMedicos] = useState([])

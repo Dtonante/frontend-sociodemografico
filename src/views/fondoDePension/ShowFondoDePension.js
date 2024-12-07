@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const URI_FONDO_PENSION = 'http://localhost:3001/fondoPension/'
+const URI_FONDO_PENSION = 'https://evaluacion.esumer.edu.co/api/fondoPension/'
 
 const CompShowFondoDePension = () => {
     const [fondoDePension, setFondoDePension] = useState([])
