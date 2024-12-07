@@ -25,16 +25,16 @@ const VistaProvisional = () => {
                     borderRadius: 2,
                 }}
             >
-                <Typography variant="h4" component="h1" sx={{ mb: 3, fontWeight: "bold" }}>
+                <Typography variant="h4" component="h1" sx={{ mb: 3, fontWeight: "bold", fontFamily: 'Roboto Condensed' }}>
                     Importante
                 </Typography>
-                <Typography variant="body1" sx={{ mb: 2 }}>
+                <Typography variant="body1" sx={{ mb: 2, fontFamily: 'Roboto Condensed' }}>
                     Por el momento, para el rol de **Administrativo de Esumer**, no está habilitada la opción para poder editar los campos de la información ya solicitada. 
                 </Typography>
-                <Typography variant="body1" sx={{ mb: 2 }}>
+                <Typography variant="body1" sx={{ mb: 2, fontFamily: 'Roboto Condensed' }}>
                     En próximos días, esta opción se habilitará. 
                 </Typography>
-                <Typography variant="body1" sx={{ fontStyle: "italic" }}>
+                <Typography variant="body1" sx={{  fontFamily: 'Roboto Condensed' }}>
                     Muchas gracias y mil disculpas. Gracias por ser Esumer.
                 </Typography>
             </Paper>

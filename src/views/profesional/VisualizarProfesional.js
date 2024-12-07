@@ -193,7 +193,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     justifyContent: "center",
                                     alignItems: "flex-start",
                                 }}>
-                                    <Typography sx={{fontFamily: 'Roboto Condensed'}}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
+                                    <Typography sx={{ fontFamily: 'Roboto Condensed' }}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
                                 </Paper>
                             </Grid>
                         ))}
@@ -230,7 +230,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     justifyContent: "center",
                                     alignItems: "flex-start",
                                 }}>
-                                    <Typography sx={{fontFamily: 'Roboto Condensed'}}><strong>{item.label}:</strong></Typography>
+                                    <Typography sx={{ fontFamily: 'Roboto Condensed' }}><strong>{item.label}:</strong></Typography>
                                     {item.value || 'No disponible'}
                                 </Paper>
                             </Grid>
@@ -253,7 +253,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     alignItems: 'center',
                                     width: '96.3%',
                                 }}>
-                                    <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Roboto Condensed', fontSize:'18px' }}>
+                                    <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Roboto Condensed', fontSize: '18px' }}>
                                         <strong>Servicios con los que no cuentan:</strong>
                                     </Typography>
                                     <Grid container spacing={1} sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -301,7 +301,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     alignItems: 'center',
                                     width: '96.3%',
                                 }}>
-                                    <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Roboto Condensed', fontSize:'18px' }}>
+                                    <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Roboto Condensed', fontSize: '18px' }}>
                                         <strong>Factores de riesgo:</strong>
                                     </Typography>
                                     <Grid container spacing={1} sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -321,7 +321,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                                         wordWrap: "break-word",
                                                         display: 'inline-flex',
                                                         fontFamily: 'Roboto Condensed',
-                                                        fontSize:'16px' 
+                                                        fontSize: '16px'
                                                     }}
                                                 />
                                             </Grid>
@@ -372,7 +372,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                         justifyContent: "center",
                                         alignItems: "flex-start",
                                     }}>
-                                        <Typography sx={{fontFamily: 'Roboto Condensed'}}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
+                                        <Typography sx={{ fontFamily: 'Roboto Condensed' }}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
                                     </Paper>
                                 </Grid>
                             )
@@ -411,7 +411,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     justifyContent: "center",
                                     alignItems: "flex-start",
                                 }}>
-                                    <Typography sx={{fontFamily: 'Roboto Condensed'}}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
+                                    <Typography sx={{ fontFamily: 'Roboto Condensed' }}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
                                 </Paper>
                             </Grid>
                         ))}
@@ -433,7 +433,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     alignItems: 'center',
                                     width: '96.3%',
                                 }}>
-                                    <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Roboto Condensed', fontSize:'18px'  }}>
+                                    <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Roboto Condensed', fontSize: '18px' }}>
                                         <strong>Servicios con los que no cuentan:</strong>
                                     </Typography>
                                     <Grid container spacing={1} sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -453,7 +453,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                                         wordWrap: "break-word",
                                                         display: 'inline-flex',
                                                         fontFamily: 'Roboto Condensed',
-                                                        fontSize:'16px' 
+                                                        fontSize: '16px'
                                                     }}
                                                 />
                                             </Grid>
@@ -479,7 +479,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     alignItems: 'center',
                                     width: '96.3%',
                                 }}>
-                                    <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Roboto Condensed', fontSize:'18px'  }}>
+                                    <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Roboto Condensed', fontSize: '18px' }}>
                                         <strong>Antecedentes medicos:</strong>
                                     </Typography>
                                     <Grid container spacing={1} sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -499,7 +499,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                                         wordWrap: "break-word",
                                                         display: 'inline-flex',
                                                         fontFamily: 'Roboto Condensed',
-                                                        fontSize:'16px' 
+                                                        fontSize: '16px'
                                                     }}
                                                 />
                                             </Grid>
@@ -538,7 +538,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     justifyContent: "center",
                                     alignItems: "flex-start",
                                 }}>
-                                    <Typography sx={{fontFamily: 'Roboto Condensed'}}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
+                                    <Typography sx={{ fontFamily: 'Roboto Condensed' }}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
                                 </Paper>
                             </Grid>
                         ))}
@@ -548,7 +548,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
 
                 {/* Grupo 6: Información laboral */}
                 <Paper sx={{ p: 3, mb: 2, bgcolor: "#F2F2F2", borderRadius: 2, border: "1px solid #202B53", boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.25)" }}>
-                    <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold", fontFamily: 'Roboto Condensed'  }}>
+                    <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold", fontFamily: 'Roboto Condensed' }}>
                         Información laboral
                     </Typography>
 
@@ -579,10 +579,10 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     justifyContent: "center",
                                     alignItems: "flex-start",
                                     fontFamily: "Roboto Condensed",
-                                    fontSize:'16px' 
+                                    fontSize: '16px'
 
                                 }}>
-                                    <Typography sx={{fontFamily: 'Roboto Condensed'}}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
+                                    <Typography sx={{ fontFamily: 'Roboto Condensed' }}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
                                 </Paper>
                             </Grid>
                         ))}
@@ -615,7 +615,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     justifyContent: "center",
                                     alignItems: "flex-start",
                                 }}>
-                                    <Typography sx={{fontFamily: 'Roboto Condensed'}}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
+                                    <Typography sx={{ fontFamily: 'Roboto Condensed' }}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
                                 </Paper>
                             </Grid>
                         ))}
@@ -625,7 +625,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                 {!isHiddenForUser && (
                     // {/* Grupo 8: Salud física */}
                     <Paper sx={{ p: 3, mb: 2, bgcolor: "#F2F2F2", borderRadius: 2, border: "1px solid #202B53", boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.25)" }}>
-                        <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold", fontFamily: 'Roboto Condensed'  }}>
+                        <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold", fontFamily: 'Roboto Condensed' }}>
                             Salud física
                         </Typography>
 
@@ -664,7 +664,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                         justifyContent: "center",
                                         alignItems: "flex-start",
                                     }}>
-                                        <Typography sx={{fontFamily: 'Roboto Condensed'}}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
+                                        <Typography sx={{ fontFamily: 'Roboto Condensed' }}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
                                     </Paper>
                                 </Grid>
                             ))}
@@ -684,7 +684,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     alignItems: 'center',
                                     width: '96.3%',
                                 }}>
-                                    <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Roboto Condensed', fontSize:'18px'  }}>
+                                    <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Roboto Condensed', fontSize: '18px' }}>
                                         <strong>Actividades que realiza en su tiempo libre:</strong>
                                     </Typography>
                                     <Grid container spacing={1} sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -704,7 +704,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                                         wordWrap: "break-word",
                                                         display: 'inline-flex',
                                                         fontFamily: 'Roboto Condensed',
-                                                        fontSize:'16px' 
+                                                        fontSize: '16px'
                                                     }}
                                                 />
                                             </Grid>
@@ -742,7 +742,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                         justifyContent: "center",
                                         alignItems: "flex-start",
                                     }}>
-                                        <Typography sx={{fontFamily: 'Roboto Condensed'}}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
+                                        <Typography sx={{ fontFamily: 'Roboto Condensed' }}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
                                     </Paper>
                                 </Grid>
                             ))}
@@ -762,7 +762,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     alignItems: 'center',
                                     width: '96.3%',
                                 }}>
-                                    <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Roboto Condensed', fontSize:'18px'  }}>
+                                    <Typography variant="h6" sx={{ mb: 2, fontFamily: 'Roboto Condensed', fontSize: '18px' }}>
                                         <strong>Antecedentes medicos:</strong>
                                     </Typography>
                                     <Grid container spacing={1} sx={{ flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -782,7 +782,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                                         wordWrap: "break-word",
                                                         display: 'inline-flex',
                                                         fontFamily: 'Roboto Condensed',
-                                                        fontSize:'16px' 
+                                                        fontSize: '16px'
                                                     }}
                                                 />
                                             </Grid>
@@ -793,9 +793,16 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                         </Grid>
                     </Paper>
                 )}
-                <Button sx={{ mt: 3 }} variant="contained" color="primary" onClick={handleClose}>
-                    Cerrar
-                </Button>
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 3, fontFamily: 'Roboto Condensed'}}>
+                    <Button
+                        variant="contained"
+                        sx={{ backgroundColor: '#202B52' }}
+                        onClick={handleClose}
+                    >
+                        Cerrar
+                    </Button>
+                </Box>
+
             </Box>
         </Modal>
     );
