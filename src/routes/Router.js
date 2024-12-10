@@ -96,8 +96,13 @@ const CompShowrol = lazy(() => import("../views/roles/ShowRoles.js"));
 const CompShowProfesional = lazy(() => import("../views/profesional/ShowProfesional.js"));
 //fin ruta roles
 
-//inicio vista provisional
+//inicio ruta provisional
 const VistaProvisional = lazy(() => import("../views/vistaProvisional/vistaProvisional.js"));
+//fin ruta provisional
+
+//inicio ruta provisional
+const CompEditarUsuario = lazy(() => import("../views/usuarios/EditUsuario.js"));
+//fin ruta provisional
 
 
 
@@ -143,15 +148,8 @@ const ThemeRoutes = [
       { path: "usuarios", exact: true, element: <CompShowUsuarios /> },
       { path: "roles", exact: true, element: <CompShowrol /> },
       { path: "profesional", exact: true, element: <CompShowProfesional /> },
-      {
-        path: "/app",
-        exact: true,
-        element: (
-          <RolProtectedRoute allowedRole="Administrativo">
-            <VistaProvisional />
-          </RolProtectedRoute>
-        ),
-      },
+      { path: "editarUsuario", exact: true, element: <CompEditarUsuario /> },
+      { path: "/app",  exact: true, element: ( <RolProtectedRoute allowedRole="Administrativo"> <VistaProvisional /> </RolProtectedRoute> ), },
     ],
   }
 

@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { Card, CardContent, Divider, Box, Typography, TextField, FormControlLabel,  Checkbox, Button, Grid, RadioGroup, Radio, FormControl, MenuItem} from "@mui/material";
+
 
 const URI_USUARIOS = 'http://localhost:3001/usuarios/'
 
@@ -53,59 +55,115 @@ const CompEditarUsuario = () => {
 
 
     }
+    
     return (
-        <div>
-            <h3>editar usuario</h3>
-            <form onSubmit={actualizar}>
-                <div className="mb-3">
-                    <laber className="form-label" >rol</laber>
-                    <input value={id_rolFK} onChange={(e) => setId_rolFK(e.target.value)} className="form-control" />
+        <div style={{ backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%" }}>
+            <div style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }}>
+                <img src="public/fondo_form.png" alt="Descripción de la imagen" style={{ width: "20%", height: "auto" }} />
+            </div>
+            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: "#F2F2F2", borderColor: "#202B52" }}>
+                <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
+                    <Box flexGrow={1}>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: "center", color: "#202B52", fontFamily: "Roboto Condensed" }}>
+                            <strong>Editar Usuario</strong>
+                        </Typography>
+                    </Box>
+                </Box>
+                <Divider style={{ marginLeft: "5%", marginRight: "5%", borderColor: "#202B52" }} />
+                <CardContent sx={{ padding: "30px" }}>
+                    <form onSubmit={actualizar}>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Rol:</Typography>
+                        <TextField
+                            value={id_rolFK}
+                            onChange={(e) => setId_rolFK(e.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
+                        />
 
-                </div>
-                <div className="mb-3">
-                    <laber className="form-label" >estado</laber>
-                    <input value={boolean_estado} onChange={(e) => setBoolean_estado(e.target.value)} className="form-control" />
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Estado:</Typography>
+                        <TextField
+                            value={boolean_estado}
+                            onChange={(e) => setBoolean_estado(e.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
+                        />
 
-                </div>
-                <div className="mb-3">
-                    <laber className="form-label" >nombre usuario</laber>
-                    <input value={var_nombreCompleto} onChange={(e) => setVar_nombreCompleto(e.target.value)} className="form-control" />
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Nombre Usuario:</Typography>
+                        <TextField
+                            value={var_nombreCompleto}
+                            onChange={(e) => setVar_nombreCompleto(e.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
+                        />
 
-                </div>
-                <div className="mb-3">
-                    <laber className="form-label" >tipo documento</laber>
-                    <input value={int_tipoDocumentoFK} onChange={(e) => setInt_tipoDocumentoFK(e.target.value)} className="form-control" />
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Tipo Documento:</Typography>
+                        <TextField
+                            value={int_tipoDocumentoFK}
+                            onChange={(e) => setInt_tipoDocumentoFK(e.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
+                        />
 
-                </div>
-                <div className="mb-3">
-                    <laber className="form-label" >numero documento</laber>
-                    <input value={var_numeroDocumento} onChange={(e) => setVar_numeroDocumento(e.target.value)} className="form-control" />
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Número Documento:</Typography>
+                        <TextField
+                            value={var_numeroDocumento}
+                            onChange={(e) => setVar_numeroDocumento(e.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
+                        />
 
-                </div>
-                <div className="mb-3">
-                    <laber className="form-label" >genero</laber>
-                    <input value={var_genero} onChange={(e) => setVar_genero(e.target.value)} className="form-control" />
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Género:</Typography>
+                        <TextField
+                            value={var_genero}
+                            onChange={(e) => setVar_genero(e.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
+                        />
 
-                </div>
-                <div className="mb-3">
-                    <laber className="form-label" >Correo electronico personal</laber>
-                    <input value={var_correoElectronicoPersonal} onChange={(e) => setVar_correoElectronicoPersonal(e.target.value)} className="form-control" />
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Correo Electrónico Personal:</Typography>
+                        <TextField
+                            value={var_correoElectronicoPersonal}
+                            onChange={(e) => setVar_correoElectronicoPersonal(e.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
+                        />
 
-                </div>
-                <div className="mb-3">
-                    <laber className="form-label" >contacto de emergencia</laber>
-                    <input value={var_contactoEmergencia} onChange={(e) => setVar_contactoEmergencia(e.target.value)} className="form-control" />
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Contacto de Emergencia:</Typography>
+                        <TextField
+                            value={var_contactoEmergencia}
+                            onChange={(e) => setVar_contactoEmergencia(e.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
+                        />
 
-                </div>
-                <div className="mb-3">
-                    <laber className="form-label" >contraseña</laber>
-                    <input value={var_contrasena} onChange={(e) => setVar_contrasena(e.target.value)} className="form-control" />
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Contraseña:</Typography>
+                        <TextField
+                            value={var_contrasena}
+                            onChange={(e) => setVar_contrasena(e.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
+                        />
 
-                </div>
-                <button type="submit" className="btn btn-primary" >guardar</button>
-            </form>
+                        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                            <Button sx={{ backgroundColor: "#202B52", fontFamily: 'poppins' }} variant="contained" type="submit">
+                                Guardar
+                            </Button>
+                        </div>
+                    </form>
+                </CardContent>
+            </Card>
         </div>
-    )
+    );
+
 
 }
 
