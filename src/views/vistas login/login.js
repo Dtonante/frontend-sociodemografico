@@ -3,7 +3,7 @@ import {  Grid, Card, CardContent, Typography,  TextField,  Button, Box, Link, }
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const URI_LOGEO = 'https://evaluacion.esumer.edu.co/api/login/'
+const URI_LOGEO = 'http://localhost:3001/login/'
 
 const Login = () => {
   const [formData, setFormData] = useState({ var_correoElectronicoPersonal: "", var_contrasena: "" });
@@ -65,11 +65,11 @@ const Login = () => {
                   </Typography>
                 )}
                 {/* botones y link */}
-                <Box mt={2}>
-                  <Button type="submit" variant="contained" style={{backgroundColor:'#202B52'}} fullWidth > Iniciar sesión </Button>
-                </Box>
                 <Box mt={2} textAlign="center">
                   <Link onClick={olvideContrasena} underline="hover" variant="body2" > ¿Olvidaste tu usuario o contraseña? </Link>
+                </Box>
+                <Box mt={2}>
+                  <Button type="submit" variant="contained" style={{backgroundColor:'#202B52'}} fullWidth > Iniciar sesión </Button>
                 </Box>
                 <Box mt={2}>
                   <Button variant="contained" style={{backgroundColor:'#00A5CE'}} fullWidth onClick={atras} > Atras </Button>

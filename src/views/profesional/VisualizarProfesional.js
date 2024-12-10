@@ -4,13 +4,13 @@ import axios from "axios";
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { format } from "date-fns";
 
-const URI_PROFESIONAL = 'https://evaluacion.esumer.edu.co/api/profesional/';
-const URI_PROFESIONAL_SERVICIOS_QUE_NO_CUENTAN = 'https://evaluacion.esumer.edu.co/api/profesionalServiciosQueNoCuentan/';
-const URI_PROFESIONAL_FACTORES_RIESGO = 'https://evaluacion.esumer.edu.co/api/profesionalFactoresRiesgo/';
-const URI_PROFESIONAL_SERVICIOS_ADICIONALES = 'https://evaluacion.esumer.edu.co/api/profesionalServicioSaludAdicional/';
-const URI_PROFESIONAL_ANTECEDENTES_MEDICOS = 'https://evaluacion.esumer.edu.co/api/profesionalAntecedenteMedico/';
-const URI_PROFESIONAL_TIEMPO_LIBRE = 'https://evaluacion.esumer.edu.co/api/profesionalTiempoLibre/';
-const URI_PROFESIONAL_TRANSPORTE_PROPIO = 'https://evaluacion.esumer.edu.co/api/profesionalTransportePropio/';
+const URI_PROFESIONAL = 'http://localhost:3001/profesional/';
+const URI_PROFESIONAL_SERVICIOS_QUE_NO_CUENTAN = 'http://localhost:3001/profesionalServiciosQueNoCuentan/';
+const URI_PROFESIONAL_FACTORES_RIESGO = 'http://localhost:3001/profesionalFactoresRiesgo/';
+const URI_PROFESIONAL_SERVICIOS_ADICIONALES = 'http://localhost:3001/profesionalServicioSaludAdicional/';
+const URI_PROFESIONAL_ANTECEDENTES_MEDICOS = 'http://localhost:3001/profesionalAntecedenteMedico/';
+const URI_PROFESIONAL_TIEMPO_LIBRE = 'http://localhost:3001/profesionalTiempoLibre/';
+const URI_PROFESIONAL_TRANSPORTE_PROPIO = 'http://localhost:3001/profesionalTransportePropio/';
 
 const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
     const [datosProfesional, setDatosProfesional] = useState(null);
