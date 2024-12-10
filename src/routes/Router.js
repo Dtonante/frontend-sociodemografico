@@ -103,6 +103,9 @@ const VistaProvisional = lazy(() => import("../views/vistaProvisional/vistaProvi
 //inicio ruta provisional
 const CompEditarUsuario = lazy(() => import("../views/usuarios/EditUsuario.js"));
 //fin ruta provisional
+//inicio ruta provisional
+const EditarDatosProfesional = lazy(() => import("../views/vistasEditarProfesional/EditarVistaDatosProfesional.js"));
+//fin ruta provisional
 
 
 
@@ -148,7 +151,8 @@ const ThemeRoutes = [
       { path: "usuarios", exact: true, element: <CompShowUsuarios /> },
       { path: "roles", exact: true, element: <CompShowrol /> },
       { path: "profesional", exact: true, element: <CompShowProfesional /> },
-      { path: "editarUsuario", exact: true, element: <CompEditarUsuario /> },
+      { path: "editarUsuario", exact: true, element: ( <RolProtectedRoute allowedRole="Administrativo"> <CompEditarUsuario />  </RolProtectedRoute> ),},
+      { path: "editarDatosProfesional", exact: true, element:( <RolProtectedRoute allowedRole="Administrativo"> <EditarDatosProfesional />  </RolProtectedRoute> ),  },
       { path: "/app",  exact: true, element: ( <RolProtectedRoute allowedRole="Administrativo"> <VistaProvisional /> </RolProtectedRoute> ), },
     ],
   }

@@ -1,28 +1,28 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { Card, CardContent, Divider, Box, Typography, TextField, FormControlLabel,  Checkbox, Button, Grid, RadioGroup, Radio, FormControl, MenuItem} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { Card, CardContent, Divider, Box, Typography, TextField, Button } from "@mui/material";
 
-
-const URI_USUARIOS = 'http://localhost:3001/usuarios/'
-
+const URI_USUARIOS = 'http://localhost:3001/usuarios/';
 
 const CompEditarUsuario = () => {
-    const [id_rolFK, setId_rolFK] = useState('')
-    const [boolean_estado, setBoolean_estado] = useState('')
-    const [var_nombreCompleto, setVar_nombreCompleto] = useState('')
-    const [int_tipoDocumentoFK, setInt_tipoDocumentoFK] = useState('')
-    const [var_numeroDocumento, setVar_numeroDocumento] = useState('')
-    const [var_genero, setVar_genero] = useState('')
-    const [var_correoElectronicoPersonal, setVar_correoElectronicoPersonal] = useState('')
-    const [var_contactoEmergencia, setVar_contactoEmergencia] = useState('')
-    const [var_contrasena, setVar_contrasena] = useState('')
-    const navigate = useNavigate()
-    const { id_usuarioPK } = useParams()
+    const [id_rolFK, setId_rolFK] = useState('');
+    const [boolean_estado, setBoolean_estado] = useState('');
+    const [var_nombreCompleto, setVar_nombreCompleto] = useState('');
+    const [int_tipoDocumentoFK, setInt_tipoDocumentoFK] = useState('');
+    const [var_numeroDocumento, setVar_numeroDocumento] = useState('');
+    const [var_genero, setVar_genero] = useState('');
+    const [var_correoElectronicoPersonal, setVar_correoElectronicoPersonal] = useState('');
+    const [var_contactoEmergencia, setVar_contactoEmergencia] = useState('');
+    const [var_contrasena, setVar_contrasena] = useState('');
+    const navigate = useNavigate();
 
-    //procedimiento para actualizar
+    // Obtener el ID desde localStorage
+    const id_usuarioPK = localStorage.getItem('id_usuario');
+
+    // Procedimiento para actualizar
     const actualizar = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         await axios.put(URI_USUARIOS + id_usuarioPK, {
             id_rolFK: id_rolFK,
             boolean_estado: boolean_estado,
@@ -33,28 +33,26 @@ const CompEditarUsuario = () => {
             var_correoElectronicoPersonal: var_correoElectronicoPersonal,
             var_contrasena: var_contrasena,
             var_contactoEmergencia: var_contactoEmergencia,
-        })
-        navigate('/')
-    }
+        });
+        navigate('/');
+    };
 
     useEffect(() => {
-        getUsuarios()
-    }, [])
+        getUsuarios();
+    }, []);
 
     const getUsuarios = async () => {
-        const res = await axios.get(URI_USUARIOS + id_usuarioPK)
-        setId_rolFK(res.data.id_rolFK)
-        setBoolean_estado(res.data.boolean_estado)
-        setVar_nombreCompleto(res.data.var_nombreCompleto)
-        setInt_tipoDocumentoFK(res.data.int_tipoDocumentoFK)
-        setVar_numeroDocumento(res.data.var_numeroDocumento)
-        setVar_genero(res.data.var_genero)
-        setVar_correoElectronicoPersonal(res.data.var_correoElectronicoPersonal)
-        setVar_contrasena(res.data.var_contrasena)
-        setVar_contactoEmergencia(res.data.var_contactoEmergencia)
-
-
-    }
+        const res = await axios.get(URI_USUARIOS + id_usuarioPK);
+        setId_rolFK(res.data.id_rolFK);
+        setBoolean_estado(res.data.boolean_estado);
+        setVar_nombreCompleto(res.data.var_nombreCompleto);
+        setInt_tipoDocumentoFK(res.data.int_tipoDocumentoFK);
+        setVar_numeroDocumento(res.data.var_numeroDocumento);
+        setVar_genero(res.data.var_genero);
+        setVar_correoElectronicoPersonal(res.data.var_correoElectronicoPersonal);
+        setVar_contrasena(res.data.var_contrasena);
+        setVar_contactoEmergencia(res.data.var_contactoEmergencia);
+    };
     
     return (
         <div style={{ backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%" }}>
@@ -72,24 +70,7 @@ const CompEditarUsuario = () => {
                 <Divider style={{ marginLeft: "5%", marginRight: "5%", borderColor: "#202B52" }} />
                 <CardContent sx={{ padding: "30px" }}>
                     <form onSubmit={actualizar}>
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Rol:</Typography>
-                        <TextField
-                            value={id_rolFK}
-                            onChange={(e) => setId_rolFK(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Estado:</Typography>
-                        <TextField
-                            value={boolean_estado}
-                            onChange={(e) => setBoolean_estado(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
+                    
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Nombre Usuario:</Typography>
                         <TextField
                             value={var_nombreCompleto}

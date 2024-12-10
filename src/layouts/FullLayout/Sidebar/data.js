@@ -20,6 +20,18 @@ const Menuitems = [
     rolesAllowed: ["Contabilidad", "Gestion Humana", "SuperAdmin"], 
   },
   {
+    title: "datos de usuario",
+    icon: RecentActorsIcon,
+    href: "editarUsuario",
+    rolesAllowed: ["Administrativo"], 
+  },
+  {
+    title: "datos profesional",
+    icon: RecentActorsIcon,
+    href: "editarDatosProfesional",
+    rolesAllowed: ["Administrativo"], 
+  },
+  {
     title: "roles",
     icon: SupervisedUserCircleIcon,
     href: "roles",
