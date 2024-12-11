@@ -14,12 +14,14 @@ const AutoLogout = () => {
       if (remainingTime > 0) {
         const timer = setTimeout(() => {
           localStorage.removeItem("token");
+          localStorage.removeItem("rol");
           navigate("/");
         }, remainingTime);
 
         return () => clearTimeout(timer);
       } else {
         localStorage.removeItem("token");
+        localStorage.removeItem("rol");
         navigate("/");
       }
     }

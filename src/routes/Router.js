@@ -100,12 +100,34 @@ const CompShowProfesional = lazy(() => import("../views/profesional/ShowProfesio
 const VistaProvisional = lazy(() => import("../views/vistaProvisional/vistaProvisional.js"));
 //fin ruta provisional
 
-//inicio ruta provisional
-const CompEditarUsuario = lazy(() => import("../views/usuarios/EditUsuario.js"));
-//fin ruta provisional
-//inicio ruta provisional
+//inicio ruta editar usuario
+const CompEditarUsuario = lazy(() => import("../views/vistasEditarProfesional/EditarVistaDatosUsurio.js"));
+//fin ruta editar usuario
+//inicio ruta editar profecional
 const EditarDatosProfesional = lazy(() => import("../views/vistasEditarProfesional/EditarVistaDatosProfesional.js"));
-//fin ruta provisional
+//fin ruta editar profecional
+//inicio ruta editar profesional2
+const EditarDatosProfesional2 = lazy(() => import("../views/vistasEditarProfesional/EditarVistaDatosProfesional2.js"));
+//fin ruta editar profesional2
+//inicio ruta editar profesional3
+const EditarDatosProfesional3 = lazy(() => import("../views/vistasEditarProfesional/EditarVistaDatosProfesional3.js"));
+//fin ruta editar profesional3
+//inicio ruta editar profesional4
+const EditarDatosProfesional4 = lazy(() => import("../views/vistasEditarProfesional/EditarVistaDatosProfesional4.js"));
+//fin ruta editar profesional4
+//inicio ruta editar profesional5
+const EditarDatosProfesional5 = lazy(() => import("../views/vistasEditarProfesional/EditarVistaDatosProfesional5.js"));
+//fin ruta editar profesional5
+//inicio ruta editar profesional6
+const EditarDatosProfesional6 = lazy(() => import("../views/vistasEditarProfesional/EditarVistaDatosProfesional6.js"));
+//fin ruta editar profesional6
+//inicio ruta editar profesional7
+const EditarDatosProfesional7 = lazy(() => import("../views/vistasEditarProfesional/EditarVistaDatosProfesional7.js"));
+//fin ruta editar profesional7
+
+
+//tablero gestion humana
+const TableroGestionHumana = lazy(() => import("../views/tablerosPerfinSociodemogafico/tableroGestionHumana.js"));
 
 
 
@@ -151,9 +173,34 @@ const ThemeRoutes = [
       { path: "usuarios", exact: true, element: <CompShowUsuarios /> },
       { path: "roles", exact: true, element: <CompShowrol /> },
       { path: "profesional", exact: true, element: <CompShowProfesional /> },
-      { path: "editarUsuario", exact: true, element: ( <RolProtectedRoute allowedRole="Administrativo"> <CompEditarUsuario />  </RolProtectedRoute> ),},
-      { path: "editarDatosProfesional", exact: true, element:( <RolProtectedRoute allowedRole="Administrativo"> <EditarDatosProfesional />  </RolProtectedRoute> ),  },
-      { path: "/app",  exact: true, element: ( <RolProtectedRoute allowedRole="Administrativo"> <VistaProvisional /> </RolProtectedRoute> ), },
+      { path: "editarUsuario", exact: true, element: <CompEditarUsuario />   },
+      { path: "editarDatosProfesional", exact: true, element: <EditarDatosProfesional /> },
+      { path: "editarDatosProfesional2", exact: true, element: <EditarDatosProfesional2 /> },
+      { path: "editarDatosProfesional3", exact: true, element: <EditarDatosProfesional3 /> },
+      { path: "editarDatosProfesional4", exact: true, element: <EditarDatosProfesional4 /> },
+      { path: "editarDatosProfesional5", exact: true, element: <EditarDatosProfesional5 /> },
+      { path: "editarDatosProfesional6", exact: true, element: <EditarDatosProfesional6 /> },
+      { path: "editarDatosProfesional7", exact: true, element: <EditarDatosProfesional7 /> },
+      // { path: "/app",  exact: false, element: ( <RolProtectedRoute allowedRole="Administrativo"> <VistaProvisional /> </RolProtectedRoute> ), },
+      // { path: "/app", exact: false, element: ( <RolProtectedRoute allowedRole="Gestion Humana">  <TableroGestionHumana /> </RolProtectedRoute> ),  },
+      {
+        path: "/app",
+        element: (
+          <RolProtectedRoute>
+            {({ rol }) => {
+              // Según el rol, renderiza la vista correspondiente
+              if (rol === "Administrativo") {
+                return <VistaProvisional />;
+              } else if (rol === "Gestion Humana") {
+                return <TableroGestionHumana />;
+              } else {
+                // Redirigir si el rol no es uno de los esperados
+                return <Navigate to="/app" />;
+              }
+            }}
+          </RolProtectedRoute>
+        ),
+      },
     ],
   }
 

@@ -620,6 +620,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                             </Grid>
                         ))}
                     </Grid>
+                    
                 </Paper>
 
                 {!isHiddenForUser && (

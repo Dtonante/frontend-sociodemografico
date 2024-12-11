@@ -13,6 +13,7 @@ const EditarDatosProfesional = () => {
     const [var_direccionResidencia, setVar_direccionResidencia] = useState('');
     const [var_estratoVivienda, setVar_estratoVivienda] = useState('');
     const [var_tipoVivienda, setVar_tipoVivienda] = useState('');
+    const [var_zonaVivienda, setVar_zonaVivienda] = useState('');
     const navigate = useNavigate();
 
     // Obtener el ID desde localStorage
@@ -29,7 +30,7 @@ const EditarDatosProfesional = () => {
             var_tipoVivienda: var_tipoVivienda,
 
         });
-        navigate('/');
+        navigate('/app/editarDatosProfesional2');
     };
 
     useEffect(() => {
@@ -44,6 +45,8 @@ const EditarDatosProfesional = () => {
         setVar_direccionResidencia(res.data.var_direccionResidencia);
         setVar_estratoVivienda(res.data.var_estratoVivienda);
         setVar_tipoVivienda(res.data.var_tipoVivienda);
+        setVar_zonaVivienda(res.data.var_zonaVivienda);
+        
 
     };
     
@@ -95,6 +98,15 @@ const EditarDatosProfesional = () => {
                         <TextField
                             value={var_direccionResidencia}
                             onChange={(e) => setVar_direccionResidencia(e.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
+                        />
+                        
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>zona vivienda:</Typography>
+                        <TextField
+                            value={var_zonaVivienda}
+                            onChange={(e) => setVar_zonaVivienda(e.target.value)}
                             fullWidth
                             sx={{ mb: 2 }}
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}

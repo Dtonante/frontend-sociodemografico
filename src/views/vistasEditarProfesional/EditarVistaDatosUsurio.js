@@ -1,203 +1,202 @@
-import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Card, CardContent, Divider, Box, Typography, TextField, FormControlLabel,  Checkbox, Button, Grid, RadioGroup, Radio, FormControl, MenuItem} from "@mui/material";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Card, CardContent, Divider, Box, Typography, TextField, Button } from "@mui/material";
 
-const EditarDatosUsuario = () => {
-    // Estado para los datos del usuario
-    const [usuarioData, setUsuarioData] = useState(null);
+const URI_USUARIOS = 'http://localhost:3001/usuarios/';
+const URI_PROFESIONAL = 'http://localhost:3001/profesional/';
+const URI_PROFESIONAL_POR_ID_USUARIO = 'http://localhost:3001/profesional/porUsuario/';
+const URI_TIPO_DOCUMENTO = 'http://localhost:3001/tipodocumentos/'
+
+
+const CompEditarUsuario = () => {
+    const [id_profesionalPK, setId_profesionalPK] = useState()
+    const [id_rolFK, setId_rolFK] = useState('');
+    const [boolean_estado, setBoolean_estado] = useState('');
     const [var_nombreCompleto, setVar_nombreCompleto] = useState('');
     const [int_tipoDocumentoFK, setInt_tipoDocumentoFK] = useState('');
     const [var_numeroDocumento, setVar_numeroDocumento] = useState('');
-    const [date_fechaNacimiento, setDate_fechaNacimiento] = useState('');
     const [var_genero, setVar_genero] = useState('');
-    const [var_rh, setVar_rh] = useState('');
     const [var_correoElectronicoPersonal, setVar_correoElectronicoPersonal] = useState('');
-    const [var_celular, setVar_celular] = useState('');
     const [var_contactoEmergencia, setVar_contactoEmergencia] = useState('');
+    const [var_contrasena, setVar_contrasena] = useState('');
+    const [var_grupoEtnico, setVar_grupoEtnico] = useState('');
+    const [var_rh, setVar_rh] = useState('');
     const [var_telefonoEmergencia, setVar_telefonoEmergencia] = useState('');
-    const [tiposDocumento, setTiposDocumento] = useState([]);
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const navigate = useNavigate();
 
-    // useEffect para actualizar el tamaño de la ventana
-    useEffect(() => {
-        const handleResize = () => setWindowWidth(window.innerWidth);
-        window.addEventListener("resize", handleResize);
+    // Obtener el ID desde localStorage
+    const id_usuarioPK = localStorage.getItem('id_usuario');
+
+    // Procedimiento para actualizar
+    const actualizar = async (e) => {
+        e.preventDefault();
+        await axios.put(URI_USUARIOS + id_usuarioPK, {
+            id_rolFK: id_rolFK,
+            boolean_estado: boolean_estado,
+            var_nombreCompleto: var_nombreCompleto,
+            int_tipoDocumentoFK: int_tipoDocumentoFK,
+            var_numeroDocumento: var_numeroDocumento,
+            var_genero: var_genero,
+            var_correoElectronicoPersonal: var_correoElectronicoPersonal,
+            var_contactoEmergencia: var_contactoEmergencia,
+        });
+
         
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
 
-    // useEffect para obtener los datos del usuario desde la API
+        await axios.put(URI_PROFESIONAL + id_profesionalPK, {
+            var_grupoEtnico: var_grupoEtnico,
+            var_rh: var_rh,
+            var_telefonoEmergencia: var_telefonoEmergencia,
+
+        });
+
+
+        navigate('/app/editarUsuario');
+    };
+
     useEffect(() => {
-        const idUsuario = localStorage.getItem("id_usuario");
-        console.log("ya veremos",idUsuario)
-
-        if (idUsuario) {
-            const obtenerDatosUsuario = async () => {
-                try {
-                    const response = await axios.get(`https://evaluacion.esumer.edu.co/api/usuarios/${idUsuario}`);
-                    setUsuarioData(response.data);
-                    setVar_nombreCompleto(response.data.var_nombreCompleto);
-                    setInt_tipoDocumentoFK(response.data.int_tipoDocumentoFK);
-                    setVar_numeroDocumento(response.data.var_numeroDocumento);
-                    setDate_fechaNacimiento(response.data.date_fechaNacimiento);
-                    setVar_genero(response.data.var_genero);
-                    setVar_rh(response.data.var_rh);
-                    setVar_correoElectronicoPersonal(response.data.var_correoElectronicoPersonal);
-                    setVar_celular(response.data.var_celular);
-                    setVar_contactoEmergencia(response.data.var_contactoEmergencia);
-                    setVar_telefonoEmergencia(response.data.var_telefonoEmergencia);
-
-                    const tiposDocumentoResponse = await axios.get('https://evaluacion.esumer.edu.co/api/tiposDocumento');
-                    setTiposDocumento(tiposDocumentoResponse.data);
-                } catch (error) {
-                    console.error("Error al cargar los datos del usuario.", error);
-                }
-            };
-
-            obtenerDatosUsuario();
-        }
+        getUsuarios();
     }, []);
 
+    const getUsuarios = async () => {
+        const res = await axios.get(URI_USUARIOS + id_usuarioPK);
+        setId_rolFK(res.data.id_rolFK);
+        setBoolean_estado(res.data.boolean_estado);
+        setVar_nombreCompleto(res.data.var_nombreCompleto);
+        setInt_tipoDocumentoFK(res.data.int_tipoDocumentoFK);
+        setVar_numeroDocumento(res.data.var_numeroDocumento);
+        setVar_genero(res.data.var_genero);
+        setVar_correoElectronicoPersonal(res.data.var_correoElectronicoPersonal);
+        setVar_contactoEmergencia(res.data.var_contactoEmergencia);
+    };
+
+    useEffect(() => {
+        getProfesional();
+    }, []);
+
+    const getProfesional = async () => {
+        const res = await axios.get(URI_PROFESIONAL_POR_ID_USUARIO + id_usuarioPK);
+        setVar_grupoEtnico(res.data.var_grupoEtnico);
+        setVar_rh(res.data.var_rh);
+        setVar_telefonoEmergencia(res.data.var_telefonoEmergencia);
+
+
+    };
+
+    const getTiposDocumentos = async () => {
+        const res = await axios.get(URI_TIPO_DOCUMENTO);
+      
+    };
+    
+    useEffect(() => {
+        getTiposDocumentos();
+    }, []);
+
+    
 
     return (
-        <div style={{ backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%" }} >
-            <div style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }} >
-                <img src="public/logo_form.png" alt="Descripción de la imagen" style={{ width: windowWidth < 1000 ? "50%" : "20%", height: "auto" }} />
+        <div style={{ backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%" }}>
+            <div style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }}>
+                <img src="public/fondo_form.png" alt="Descripción de la imagen" style={{ width: "20%", height: "auto" }} />
             </div>
             <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: "#F2F2F2", borderColor: "#202B52" }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
                         <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: "center", color: "#202B52", fontFamily: "Roboto Condensed" }}>
-                            <strong>Datos personales</strong>
+                            <strong>Editar Usuario</strong>
                         </Typography>
                     </Box>
                 </Box>
                 <Divider style={{ marginLeft: "5%", marginRight: "5%", borderColor: "#202B52" }} />
                 <CardContent sx={{ padding: "30px" }}>
-                    <form>
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Nombre Completo:</Typography>
+                    <form onSubmit={actualizar}>
+
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Nombre Usuario:</Typography>
                         <TextField
-                            name="var_nombreCompleto"
-                            variant="outlined"
-                            value={var_nombreCompleto}  // Datos obtenidos de la consulta Axios
+                            value={var_nombreCompleto}
+                            onChange={(e) => setVar_nombreCompleto(e.target.value)}
                             fullWidth
                             sx={{ mb: 2 }}
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Tipo de Documento:</Typography>
+
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Tipo Documento:</Typography>
                         <TextField
-                            select
-                            name="int_tipoDocumentoFK"
-                            variant="outlined"
-                            value={int_tipoDocumentoFK}  // Datos obtenidos de la consulta Axios
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        >
-                            {tiposDocumento.map((option) => (
-                                <MenuItem key={option.id_tipoDocumentoPK} value={option.id_tipoDocumentoPK}>
-                                    {option.var_nombreDocumento}
-                                </MenuItem>
-                            ))}
-                        </TextField>
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Número de Documento:</Typography>
-                        <TextField
-                            name="var_numeroDocumento"
-                            variant="outlined"
-                            value={var_numeroDocumento}  // Datos obtenidos de la consulta Axios
+                            value={int_tipoDocumentoFK}
+                            onChange={(e) => setInt_tipoDocumentoFK(e.target.value)}
                             fullWidth
                             sx={{ mb: 2 }}
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Fecha de Nacimiento:</Typography>
+
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Número Documento:</Typography>
                         <TextField
-                            name="date_fechaNacimiento"
-                            type="date"
-                            variant="outlined"
-                            value={date_fechaNacimiento}  // Datos obtenidos de la consulta Axios
+                            value={var_numeroDocumento}
+                            onChange={(e) => setVar_numeroDocumento(e.target.value)}
                             fullWidth
                             sx={{ mb: 2 }}
-                            InputLabelProps={{ shrink: true }}
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
+
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Género:</Typography>
-                        <FormControl className="genero" component="fieldset" sx={{ mb: 2 }}>
-                            <RadioGroup
-                                name="var_genero"
-                                value={var_genero}  // Datos obtenidos de la consulta Axios
-                                row
-                                sx={{ height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" }}
-                            >
-                                <FormControlLabel value="Masculino" control={<Radio />} label="Masculino" />
-                                <FormControlLabel value="Femenino" control={<Radio />} label="Femenino" />
-                                <FormControlLabel value="Otro" control={<Radio />} label="Otro" />
-                                <FormControlLabel value="Prefiero no decirlo" control={<Radio />} label="Prefiero no decirlo" />
-                            </RadioGroup>
-                        </FormControl>
-    
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Grupo Sanguíneo:</Typography>
                         <TextField
-                            select
-                            name="var_rh"
-                            variant="outlined"
-                            value={var_rh}  // Datos obtenidos de la consulta Axios
+                            value={var_genero}
+                            onChange={(e) => setVar_genero(e.target.value)}
                             fullWidth
                             sx={{ mb: 2 }}
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        >
-                            <MenuItem value="A+">A+</MenuItem>
-                            <MenuItem value="A-">A-</MenuItem>
-                            <MenuItem value="B+">B+</MenuItem>
-                            <MenuItem value="B-">B-</MenuItem>
-                            <MenuItem value="O+">O+</MenuItem>
-                            <MenuItem value="O-">O-</MenuItem>
-                            <MenuItem value="AB+">AB+</MenuItem>
-                            <MenuItem value="AB-">AB-</MenuItem>
-                        </TextField>
-    
+                        />
+
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Género:</Typography>
+                        <TextField
+                            value={var_grupoEtnico}
+                            onChange={(e) => setVar_grupoEtnico(e.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
+                        />
+
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Género:</Typography>
+                        <TextField
+                            value={var_rh}
+                            onChange={(e) => setVar_rh(e.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
+                        />
+
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Correo Electrónico Personal:</Typography>
                         <TextField
-                            name="var_correoElectronicoPersonal"
-                            type="email"
-                            variant="outlined"
-                            value={var_correoElectronicoPersonal}  // Datos obtenidos de la consulta Axios
+                            value={var_correoElectronicoPersonal}
+                            onChange={(e) => setVar_correoElectronicoPersonal(e.target.value)}
                             fullWidth
                             sx={{ mb: 2 }}
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
-    
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Celular:</Typography>
+
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Contacto de Emergencia:</Typography>
                         <TextField
-                            name="var_celular"
-                            variant="outlined"
-                            value={var_celular}  // Datos obtenidos de la consulta Axios
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" }, inputProps: { maxLength: 12 } }}
-                        />
-    
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Nombre del contacto de emergencia</Typography>
-                        <TextField
-                            name="var_contactoEmergencia"
-                            variant="outlined"
-                            value={var_contactoEmergencia}  // Datos obtenidos de la consulta Axios
+                            value={var_contactoEmergencia}
+                            onChange={(e) => setVar_contactoEmergencia(e.target.value)}
                             fullWidth
                             sx={{ mb: 2 }}
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
-    
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Teléfono fijo o celular del contacto de emergencia:</Typography>
+
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>telefono de contacto de emergencia:</Typography>
                         <TextField
-                            name="var_telefonoEmergencia"
-                            variant="outlined"
-                            value={var_telefonoEmergencia}  // Datos obtenidos de la consulta Axios
-                            fullWidth sx={{ mb: 2 }} InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" }, inputProps: { maxLength: 10 } }} />
-    
+                            value={var_telefonoEmergencia}
+                            onChange={(e) => setVar_telefonoEmergencia(e.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
+                        />
+
+
                         <div style={{ display: "flex", justifyContent: "flex-end" }}>
                             <Button sx={{ backgroundColor: "#202B52", fontFamily: 'poppins' }} variant="contained" type="submit">
-                                Siguiente
+                                Guardar
                             </Button>
                         </div>
                     </form>
@@ -205,6 +204,8 @@ const EditarDatosUsuario = () => {
             </Card>
         </div>
     );
-    
+
+
 }
-export default EditarDatosUsuario
+
+export default CompEditarUsuario

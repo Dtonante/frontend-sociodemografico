@@ -204,7 +204,7 @@ const VistaDatosProfesional6 = () => {
                                 fontFamily: "Roboto Condensed",
                                 fontSize: "16px"
                             }} >
-                            <MenuItem value="bachicher">Bachiller </MenuItem>
+                            <MenuItem value="bachiller">Bachiller </MenuItem>
                             <MenuItem value="tecnico">Técnico </MenuItem>
                             <MenuItem value="tecnologo">Tecnólogo </MenuItem>
                             <MenuItem value="pregrado">Pregrado </MenuItem>

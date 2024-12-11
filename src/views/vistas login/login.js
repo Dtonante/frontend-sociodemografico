@@ -19,6 +19,8 @@ const Login = () => {
     event.preventDefault();
     setError("");
     try {
+      // Eliminar el rol anterior en caso de que exista
+      localStorage.removeItem("rol");
       // Enviar datos de inicio de sesión al backend
       const response = await axios.post(`${URI_LOGEO}`, formData);
       // Guardar el token y el rol en localStorage

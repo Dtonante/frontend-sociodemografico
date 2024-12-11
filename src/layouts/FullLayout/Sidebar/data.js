@@ -32,6 +32,42 @@ const Menuitems = [
     rolesAllowed: ["Administrativo"], 
   },
   {
+    title: "datos adicionales",
+    icon: RecentActorsIcon,
+    href: "editarDatosProfesional2",
+    rolesAllowed: ["Administrativo"], 
+  },
+  {
+    title: "seguridad social",
+    icon: RecentActorsIcon,
+    href: "editarDatosProfesional3",
+    rolesAllowed: ["Administrativo"], 
+  },
+  {
+    title: "Información bancaria",
+    icon: RecentActorsIcon,
+    href: "editarDatosProfesional4",
+    rolesAllowed: ["Administrativo"], 
+  },
+  {
+    title: "Información laboral",
+    icon: RecentActorsIcon,
+    href: "editarDatosProfesional5",
+    rolesAllowed: ["Administrativo"], 
+  },
+  {
+    title: "Formación académica",
+    icon: RecentActorsIcon,
+    href: "editarDatosProfesional6",
+    rolesAllowed: ["Administrativo"], 
+  },
+  {
+    title: "SaludFisica",
+    icon: RecentActorsIcon,
+    href: "editarDatosProfesional7",
+    rolesAllowed: ["Administrativo"], 
+  },
+  {
     title: "roles",
     icon: SupervisedUserCircleIcon,
     href: "roles",
