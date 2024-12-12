@@ -6,11 +6,9 @@ import { Card, CardContent, Divider, Box, Typography, TextField, Button } from "
 const URI_PROFESIONAL = 'http://localhost:3001/profesional/';
 const URI_PROFESIONAL_POR_ID_USUARIO = 'http://localhost:3001/profesional/porUsuario/';
 
-const EditarDatosProfesional3 = () => {
+const editarDatosProfesional8 = () => {
     const [id_profesionalPK, setId_profesionalPK]= useState()
-    const [id_epsFK, setId_epsFK]= useState()
-    const [id_fondoPensionFK, setId_fondoPensionFK] = useState('');
-    const [boolean_cambioEpsOArl, setBoolean_cambioEpsOArl] = useState('');
+    const [set_mediosTransportePublico, setSet_mediosTransportePublico]= useState()
    
     const navigate = useNavigate();
 
@@ -21,12 +19,11 @@ const EditarDatosProfesional3 = () => {
     const actualizar = async (e) => {
         e.preventDefault();
         await axios.put(URI_PROFESIONAL + id_profesionalPK, {
-            id_epsFK: id_epsFK,
-            id_fondoPensionFK: id_fondoPensionFK,
-            boolean_cambioEpsOArl: boolean_cambioEpsOArl,
+            set_mediosTransportePublico: set_mediosTransportePublico,
+         
 
         });
-        navigate('/app/editarDatosProfesional3');
+        navigate('/app/editarDatosProfesional8');
     };
 
     useEffect(() => {
@@ -36,9 +33,8 @@ const EditarDatosProfesional3 = () => {
     const getUsuarios = async () => {
         const res = await axios.get(URI_PROFESIONAL_POR_ID_USUARIO + id_usuarioPK);
         setId_profesionalPK(res.data.id_profesionalPK);
-        setId_epsFK(res.data.id_epsFK);
-        setId_fondoPensionFK(res.data.id_fondoPensionFK);
-        setBoolean_cambioEpsOArl(res.data.boolean_cambioEpsOArl);
+        setSet_mediosTransportePublico(res.data.set_mediosTransportePublico);
+      
        
 
     };
@@ -62,30 +58,13 @@ const EditarDatosProfesional3 = () => {
 
                     <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>¿Ha cambiado de EPS o AFP?:</Typography>
                         <TextField
-                            value={boolean_cambioEpsOArl}
-                            onChange={(e) => setBoolean_cambioEpsOArl(e.target.value)}
+                            value={set_mediosTransportePublico}
+                            onChange={(e) => setSet_mediosTransportePublico(e.target.value)}
                             fullWidth
                             sx={{ mb: 2 }}
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
                     
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione EPS ACTUAL:</Typography>
-                        <TextField
-                            value={id_epsFK}
-                            onChange={(e) => setId_epsFK(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione Fondo de Pensión:</Typography>
-                        <TextField
-                            value={id_fondoPensionFK}
-                            onChange={(e) => setId_fondoPensionFK(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
 
                         
 
@@ -104,4 +83,4 @@ const EditarDatosProfesional3 = () => {
 
 }
 
-export default EditarDatosProfesional3
+export default editarDatosProfesional8

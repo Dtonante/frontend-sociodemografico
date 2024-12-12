@@ -124,6 +124,9 @@ const EditarDatosProfesional6 = lazy(() => import("../views/vistasEditarProfesio
 //inicio ruta editar profesional7
 const EditarDatosProfesional7 = lazy(() => import("../views/vistasEditarProfesional/EditarVistaDatosProfesional7.js"));
 //fin ruta editar profesional7
+//inicio ruta editar profesional8
+const EditarDatosProfesional8 = lazy(() => import("../views/vistasEditarProfesional/EditarVistaDatosProfesional8.js"));
+//fin ruta editar profesional8
 
 
 //tablero gestion humana
@@ -181,6 +184,7 @@ const ThemeRoutes = [
       { path: "editarDatosProfesional5", exact: true, element: <EditarDatosProfesional5 /> },
       { path: "editarDatosProfesional6", exact: true, element: <EditarDatosProfesional6 /> },
       { path: "editarDatosProfesional7", exact: true, element: <EditarDatosProfesional7 /> },
+      { path: "editarDatosProfesional8", exact: true, element: <EditarDatosProfesional8 /> },
       // { path: "/app",  exact: false, element: ( <RolProtectedRoute allowedRole="Administrativo"> <VistaProvisional /> </RolProtectedRoute> ), },
       // { path: "/app", exact: false, element: ( <RolProtectedRoute allowedRole="Gestion Humana">  <TableroGestionHumana /> </RolProtectedRoute> ),  },
       {

@@ -26,7 +26,7 @@ const EditarDatosProfesional4 = () => {
             var_numeroCuenta: var_numeroCuenta,
 
         });
-        navigate('/app/editarDatosProfesional5');
+        navigate('/app/editarDatosProfesional4');
     };
 
     useEffect(() => {

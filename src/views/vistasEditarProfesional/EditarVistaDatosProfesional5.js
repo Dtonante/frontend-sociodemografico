@@ -38,7 +38,7 @@ const EditarDatosProfesional5 = () => {
             var_correoElectronicoInstitucional: var_correoElectronicoInstitucional,
 
         });
-        navigate('/app/editarDatosProfesional6');
+        navigate('/app/editarDatosProfesional5');
     };
 
     useEffect(() => {

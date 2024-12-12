@@ -48,7 +48,7 @@ const EditarDatosProfesional7 = () => {
             var_frecuenciaBebidasEnergeticas: var_frecuenciaBebidasEnergeticas,
 
         });
-        navigate('/app/editarDatosProfesional6');
+        navigate('/app/editarDatosProfesional7');
     };
 
     useEffect(() => {

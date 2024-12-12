@@ -34,7 +34,7 @@ const EditarDatosProfesional2 = () => {
             var_personasDependeciaEconimica: var_personasDependeciaEconimica,
             var_totalIngresosPropiosYGrupoFamiliar: var_totalIngresosPropiosYGrupoFamiliar,
         });
-        navigate('/app/editarDatosProfesional3');
+        navigate('/app/editarDatosProfesional2');
     };
 
     useEffect(() => {

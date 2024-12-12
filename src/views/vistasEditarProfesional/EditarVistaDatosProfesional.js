@@ -30,7 +30,7 @@ const EditarDatosProfesional = () => {
             var_tipoVivienda: var_tipoVivienda,
 
         });
-        navigate('/app/editarDatosProfesional2');
+        navigate('/app/editarDatosProfesional');
     };
 
     useEffect(() => {

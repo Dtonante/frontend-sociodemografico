@@ -62,9 +62,15 @@ const Menuitems = [
     rolesAllowed: ["Administrativo"], 
   },
   {
-    title: "SaludFisica",
+    title: "Salud Fisica",
     icon: RecentActorsIcon,
     href: "editarDatosProfesional7",
+    rolesAllowed: ["Administrativo"], 
+  },
+  {
+    title: "Medios de transporte utilizado",
+    icon: RecentActorsIcon,
+    href: "editarDatosProfesional8",
     rolesAllowed: ["Administrativo"], 
   },
   {
