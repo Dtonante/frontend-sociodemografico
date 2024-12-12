@@ -77,6 +77,7 @@ const CompEditarUsuario = () => {
 
     const getProfesional = async () => {
         const res = await axios.get(URI_PROFESIONAL_POR_ID_USUARIO + id_usuarioPK);
+        setId_profesionalPK(res.data.id_profesionalPK);
         setVar_grupoEtnico(res.data.var_grupoEtnico);
         setVar_rh(res.data.var_rh);
         setVar_telefonoEmergencia(res.data.var_telefonoEmergencia);
