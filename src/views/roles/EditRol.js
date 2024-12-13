@@ -36,8 +36,8 @@ const CompEditarRol = () => {
             <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: "#F2F2F2", borderColor: "#202B52" }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: "center", color: "#202B52", fontFamily: "Roboto Condensed" }}>
-                            <strong>Editar Transporte</strong>
+                        <Typography sx={{ fontSize: "30px", fontWeight: "500", textAlign: "center", color: "#202B52", fontFamily: "poppins" }}>
+                            <strong>Editar Rol</strong>
                         </Typography>
                     </Box>
                 </Box>
@@ -45,7 +45,7 @@ const CompEditarRol = () => {
                 <CardContent sx={{ padding: "30px" }}>
                     <form onSubmit={actualizar}>
     
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Nombre del Transporte:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Nombre del Rol:</Typography>
                         <TextField
                             value={var_nombreRol}
                             onChange={(e) => setVar_nombreRol(e.target.value)}
