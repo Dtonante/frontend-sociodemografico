@@ -1,0 +1,61 @@
+/* Importación de la fuente Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Estilo para el popup */
+.swal-custom-popup {
+  font-family: 'Poppins', sans-serif;
+  border: 2px solid #ffffff; /* Color de borde */
+  border-radius: 10px; /* Redondeo */
+}
+
+/* Título personalizado */
+.swal-custom-title {
+  font-family: 'Poppins', sans-serif;
+  color: #202B52; /* Color del texto */
+}
+
+/* Íconos personalizados */
+.swal-custom-icon {
+  background-color: #202B52 !important;
+  border: 2px solid #ff0000;
+  border-radius: 50%;
+}
+
+/* Ícono de éxito */
+.swal-custom-icon-success {
+  background-color: #ffffff !important;
+  border: 2px solid #202B52;
+}
+
+/* Ícono de error */
+.swal-custom-icon-error {
+  background-color: #202B52 !important;
+  border: 2px solid #d32f2f;
+}
+
+/* Botones */
+.swal-button-confirm {
+  background-color: #202B52; /* Color de fondo para el botón de confirmación */
+  color: white;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+}
+
+.swal-button-cancel {
+  background-color: #f44336; /* Rojo para el botón de cancelación */
+  color: white;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+}
+
+/* Fondo y bordes personalizados para el ícono */
+.swal-icon-custom {
+  background-color: #ffd700 !important;
+  border: 2px solid #ffa500;
+  border-radius: 50%;
+}
+
