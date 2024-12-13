@@ -28,6 +28,10 @@ const CompEditarServiciosDeSaludAdicional = () => {
         const res = await axios.get(URI_SERVICIO_SALUD_ADICIONAL+id_servicioDeSaludAdicionalPK)
         setVar_nombreServicioDeSaludAdicional(res.data.var_nombreServicioDeSaludAdicional)
     }
+
+    const handleGoBack = () => {
+    navigate("/app/serviciosSaludAdicional");
+    };
    
     return (
         <div style={{ backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%" }}>
@@ -55,11 +59,19 @@ const CompEditarServiciosDeSaludAdicional = () => {
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
     
-                        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                        <div style={{ display: "flex", justifyContent: "flex-end", gap:"10px" }}>
                             <Button sx={{ backgroundColor: "#202B52", fontFamily: 'poppins' }} variant="contained" type="submit">
                                 Guardar
                             </Button>
+                            <Button
+                                sx={{ backgroundColor: "#ff0000", fontFamily: "poppins" }}
+                                variant="contained"
+                                onClick={handleGoBack}
+                            >
+                                Volver
+                            </Button>
                         </div>
+
                     </form>
                 </CardContent>
             </Card>

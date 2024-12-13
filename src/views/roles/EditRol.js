@@ -24,6 +24,11 @@ const CompEditarRol = () => {
         getRol()
     }, [])
 
+
+    const handleGoBack = () => {
+        navigate("/app/roles");
+    };
+
     const getRol = async ()=> {
         const res = await axios.get(URI_ROL+id_rolPK)
         setVar_nombreRol(res.data.var_nombreRol)
@@ -54,10 +59,19 @@ const CompEditarRol = () => {
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
     
-                        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                        <div style={{ display: "flex", justifyContent: "flex-end", gap:"10px" }}>
                             <Button sx={{ backgroundColor: "#202B52", fontFamily: 'poppins' }} variant="contained" type="submit">
                                 Guardar
                             </Button>
+                            <Button
+                            sx={{ backgroundColor: "#ff0000", fontFamily: "poppins" }}
+                            variant="contained"
+                            onClick={handleGoBack}
+                            >
+                            Volver
+                            </Button>
+
+
                         </div>
                     </form>
                 </CardContent>
