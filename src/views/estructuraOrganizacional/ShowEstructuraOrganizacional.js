@@ -213,7 +213,7 @@ const CompShowEstructuraOrganizacional = () => {
                       {estructura.var_nombreArea}
                     </TableCell>
                     <TableCell align="center" sx={cellStyle}>
-                      <Link to={`/editar/${estructura.id_areaPk}`}>
+                      <Link to={`/app/editarEstructuraOrganizacional/${estructura.id_areaPk}`}>
                         <IconButton color="info">
                           <EditIcon />
                         </IconButton>

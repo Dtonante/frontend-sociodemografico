@@ -15,7 +15,7 @@ const CompEditarEstructuraOrganizacional = () => {
         await axios.put(URI_ESTRUCTURA_ORGANIZACIONAL+id_areaPk, {
             var_nombreArea: var_nombreArea
         })
-        navigate('/')
+        navigate('/app/estructuraOrganizacional')
     }
 
     useEffect( ()=>{
