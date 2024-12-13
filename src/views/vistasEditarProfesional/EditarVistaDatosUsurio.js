@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, CardContent, Divider, Box, Typography, TextField, Button } from "@mui/material";
+import { Card, CardContent, Divider, Box, Typography, TextField, Button, MenuItem } from "@mui/material";
 
 const URI_USUARIOS = 'http://localhost:3001/usuarios/';
 const URI_PROFESIONAL = 'http://localhost:3001/profesional/';
@@ -22,8 +22,11 @@ const CompEditarUsuario = () => {
     const [var_contrasena, setVar_contrasena] = useState('');
     const [var_grupoEtnico, setVar_grupoEtnico] = useState('');
     const [var_rh, setVar_rh] = useState('');
+    const [date_fechaNacimiento, setDate_fechaNacimiento] = useState('');
     const [var_telefonoEmergencia, setVar_telefonoEmergencia] = useState('');
     const navigate = useNavigate();
+    const [tiposDocumento, setTiposDocumento] = useState([]);
+
 
     // Obtener el ID desde localStorage
     const id_usuarioPK = localStorage.getItem('id_usuario');
@@ -42,9 +45,10 @@ const CompEditarUsuario = () => {
             var_contactoEmergencia: var_contactoEmergencia,
         });
 
-        
+
 
         await axios.put(URI_PROFESIONAL + id_profesionalPK, {
+            date_fechaNacimiento: date_fechaNacimiento,
             var_grupoEtnico: var_grupoEtnico,
             var_rh: var_rh,
             var_telefonoEmergencia: var_telefonoEmergencia,
@@ -77,23 +81,48 @@ const CompEditarUsuario = () => {
 
     const getProfesional = async () => {
         const res = await axios.get(URI_PROFESIONAL_POR_ID_USUARIO + id_usuarioPK);
+        setId_profesionalPK(res.data.id_profesionalPK);
+        setDate_fechaNacimiento(res.data.date_fechaNacimiento);
         setVar_grupoEtnico(res.data.var_grupoEtnico);
         setVar_rh(res.data.var_rh);
         setVar_telefonoEmergencia(res.data.var_telefonoEmergencia);
 
+        const fetchedDate = res.data.date_fechaNacimiento;
+        const formattedDate = fetchedDate.split('T')[0]; // Convierte al formato 'YYYY-MM-DD'
+        setDate_fechaNacimiento(formattedDate);
+
 
     };
 
-    const getTiposDocumentos = async () => {
-        const res = await axios.get(URI_TIPO_DOCUMENTO);
-      
-    };
-    
+
+
+
+
     useEffect(() => {
-        getTiposDocumentos();
+        const fetchTiposDocumento = async () => {
+            try {
+                const response = await axios.get(URI_TIPO_DOCUMENTO);
+                setTiposDocumento(response.data);
+            } catch (error) {
+                console.error("Error al cargar los tipos de documento", error);
+            }
+        };
+
+        fetchTiposDocumento();
     }, []);
 
-    
+    // Definición de los grupos étnicos
+    const gruposEtnicos = [
+        "Indígena",
+        "Afrocolombiano",
+        "Raizal del Archipiélago de San Andrés",
+        "Palenquero",
+        "Rom",
+        "Mestizo",
+        "Ninguno",
+    ];
+
+
 
     return (
         <div style={{ backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%" }}>
@@ -121,14 +150,34 @@ const CompEditarUsuario = () => {
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Tipo Documento:</Typography>
+                        <Typography
+                            variant="h6"
+                            sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
+                        >
+                            Tipo de Documento:
+                        </Typography>
                         <TextField
+                            select
+                            name="int_tipoDocumentoFK"
+                            label=""
+                            variant="outlined"
                             value={int_tipoDocumentoFK}
                             onChange={(e) => setInt_tipoDocumentoFK(e.target.value)}
                             fullWidth
                             sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
+
+                            FormHelperTextProps={{ sx: { marginLeft: 0 } }}
+                            InputProps={{
+                                sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" },
+                            }}
+                        >
+                            {tiposDocumento.map((option) => (
+                                <MenuItem key={option.id_tipoDocumentoPK} value={option.id_tipoDocumentoPK}>
+                                    {option.var_nombreDocumento}
+                                </MenuItem>
+                            ))}
+                        </TextField>
+
 
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Número Documento:</Typography>
                         <TextField
@@ -139,6 +188,25 @@ const CompEditarUsuario = () => {
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
 
+                        <Typography
+                            variant="h6"
+                            sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
+                        >
+                            Fecha de Nacimiento:
+                        </Typography>
+                        <TextField
+                            type="date"
+                            value={date_fechaNacimiento}
+                            onChange={(e) => setDate_fechaNacimiento(e.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                            InputLabelProps={{ shrink: true }} // Esto asegura que la etiqueta no se superponga
+                            InputProps={{
+                                sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" },
+                            }}
+                        />
+
+
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Género:</Typography>
                         <TextField
                             value={var_genero}
@@ -148,23 +216,31 @@ const CompEditarUsuario = () => {
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Género:</Typography>
-                        <TextField
-                            value={var_grupoEtnico}
-                            onChange={(e) => setVar_grupoEtnico(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
+                        <Typography
+                            variant="h6"
+                            sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
+                        >
+                            Grupo Étnico:
+                        </Typography>
+                        <TextField select name="var_grupoEtnico" value={var_grupoEtnico} onChange={(e) => setVar_grupoEtnico(e.target.value)} fullWidth sx={{ mb: 2 }} FormHelperTextProps={{ sx: { marginLeft: 0 }, }} InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px", }, }} >
+                            {gruposEtnicos.map((grupo) => (
+                                <MenuItem key={grupo} value={grupo}>
+                                    {grupo}
+                                </MenuItem>
+                            ))}
+                        </TextField>
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Género:</Typography>
-                        <TextField
-                            value={var_rh}
-                            onChange={(e) => setVar_rh(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} > Grupo Sanguíneo: </Typography>
+                        <TextField select name="var_rh" variant="outlined" value={var_rh} onChange={(e) => setVar_rh(e.target.value)} fullWidth sx={{ mb: 2 }} FormHelperTextProps={{ sx: { marginLeft: 0, }, }} InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px", }, }} >
+                            <MenuItem value="A+">A+</MenuItem>
+                            <MenuItem value="A-">A-</MenuItem>
+                            <MenuItem value="B+">B+</MenuItem>
+                            <MenuItem value="B-">B-</MenuItem>
+                            <MenuItem value="O+">O+</MenuItem>
+                            <MenuItem value="O-">O-</MenuItem>
+                            <MenuItem value="AB+">AB+</MenuItem>
+                            <MenuItem value="AB-">AB-</MenuItem>
+                        </TextField>
 
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Correo Electrónico Personal:</Typography>
                         <TextField

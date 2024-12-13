@@ -713,14 +713,8 @@ const VistaDatosUsuario = () => {
                 sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" },
               }}
             />
-            <Typography
-              variant="h6"
-              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
-            >
-              Tipo de Documento:
-            </Typography>
-            <TextField
-              select
+            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >  Tipo de Documento:  </Typography>
+            <TextField select
               name="int_tipoDocumentoFK"
               label=""
               variant="outlined"
@@ -730,11 +724,7 @@ const VistaDatosUsuario = () => {
               sx={{ mb: 2 }}
               onBlur={handleBlur}
               error={!!errors.int_tipoDocumentoFK}
-              helperText={errors.int_tipoDocumentoFK}
-              FormHelperTextProps={{ sx: { marginLeft: 0 } }}
-              InputProps={{
-                sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" },
-              }}
+              helperText={errors.int_tipoDocumentoFK}  FormHelperTextProps={{ sx: { marginLeft: 0 } }} InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" }, }}
             >
               {tiposDocumento.map((option) => (
                 <MenuItem
@@ -745,7 +735,7 @@ const VistaDatosUsuario = () => {
                   {option.var_nombreDocumento}{" "}
                 </MenuItem>
               ))}
-            </TextField>
+            </TextField> 
             <Typography
               variant="h6"
               sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
@@ -824,36 +814,8 @@ const VistaDatosUsuario = () => {
                 <Typography variant="caption" color="error"> {errors.var_genero} </Typography>)}
             </FormControl>
 
-            <Typography
-              variant="h6"
-              sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
-            >
-              Grupo Sanguíneo:
-            </Typography>
-            <TextField
-              select
-              name="var_rh"
-              variant="outlined"
-              value={formData.var_rh}
-              onChange={handleInputChange}
-              fullWidth
-              sx={{ mb: 2 }}
-              onBlur={handleBlur}
-              error={!!errors.var_rh}
-              helperText={errors.var_rh}
-              FormHelperTextProps={{
-                sx: {
-                  marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
-                },
-              }}
-              InputProps={{
-                sx: {
-                  height: "40px",
-                  fontFamily: "Roboto Condensed",
-                  fontSize: "16px",
-                },
-              }}
-            >
+            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} > Grupo Sanguíneo: </Typography>
+            <TextField select name="var_rh" variant="outlined"  value={formData.var_rh} onChange={handleInputChange}  fullWidth  sx={{ mb: 2 }} onBlur={handleBlur} error={!!errors.var_rh} helperText={errors.var_rh} FormHelperTextProps={{sx: {marginLeft: 0, }, }} InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px",  }, }} >
               <MenuItem value="A+">A+</MenuItem>
               <MenuItem value="A-">A-</MenuItem>
               <MenuItem value="B+">B+</MenuItem>
