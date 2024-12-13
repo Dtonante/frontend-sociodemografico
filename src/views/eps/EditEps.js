@@ -15,7 +15,7 @@ const CompEditarEps = () => {
         await axios.put(URI_EPS+id_epsPK, {
             var_nombreEps: var_nombreEps
         })
-        navigate('/')
+        navigate('/app/eps')
     }
 
     useEffect( ()=>{
