@@ -159,8 +159,8 @@ const TableroGestionHumana = lazy(() => import("../views/tablerosPerfinSociodemo
 
 
 const ThemeRoutes = [
+  //Vistas formulario sociodemografico para el publico
   { path: "/", element: <VistaHomeUsuarioNuevo />, },
-  { path: "/login", element: <Login />, },
   { path: "/proteccionDatos", element: <VistaProteccionDatos />, },
   { path: "/InfoUsuario", element: <VistaDatosUsuario /> },
   { path: "/DatosProfesionales", element: <VistaDatosProfesional /> },
@@ -172,8 +172,11 @@ const ThemeRoutes = [
   { path: "/SaludFisica", element: <VistaDatosProfesional7 /> },
   { path: "/Transporte", element: <VistaDatosProfesional8 /> },
   { path: "/Agradecimiento", element: <VistaAgradecimientos /> },
+  //Vistas de login y recuperar contraseña
   { path: "/RecuperarContrasena", element: <RecuperarContrasena /> },
   { path: "/CambiarContrasena", element: <CambiarContrasena /> },
+  { path: "/login", element: <Login />, },
+
 
   {
     path: "/app",
@@ -223,7 +226,6 @@ const ThemeRoutes = [
       { path: "profesional", exact: true, element: <CompShowProfesional /> },
       //ruta de la tabla usuarios
       { path: "usuarios", exact: true, element: <CompShowUsuarios /> },
-
       //Vistas de los formularios para editar la informacion de un administrativo
       { path: "editarUsuario", exact: true, element: <CompEditarUsuario /> },
       { path: "editarDatosProfesional", exact: true, element: <EditarDatosProfesional /> },
