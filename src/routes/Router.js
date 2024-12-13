@@ -62,14 +62,16 @@ const CambiarContrasena = lazy(() => import("../views/vistas login/cambiarContra
 //fin ruta cambiar contraseña
 
 //--------------------------------------------- fin vistas login y recuperar contraseña-----------------------!
-//--------------------------------------------- inicio vitas del administrador --------------------------!
+//--------------------------------------------- inicio vitas del para el administrador (todas las tablas con su crud) --------------------------!
 
 
 //ruta eps
 const CompShowEps = lazy(() => import("../views/eps/ShowEps.js"));
+const CompEditarEps = lazy(() => import("../views/eps/EditEps.js"));
 //fin ruta eps
 //inicio ruta estructura organizacional
 const CompShowEstructuraOrganizacional = lazy(() => import("../views/estructuraOrganizacional/ShowEstructuraOrganizacional.js"));
+const CompEditarEstructuraOrganizacional = lazy(() => import("../views/estructuraOrganizacional/EditEstructuraOrganizacional.js"));
 //fin ruta estructura organizacional
 //inicio ruta factores de riesgo
 const CompShowFactoresDeRiesgo = lazy(() => import("../views/factoresDeRiesgo/ShowFactoresDeRiesgo.js"));
@@ -106,20 +108,15 @@ const CompEditarServiciosDeSaludAdicional  = lazy(() => import("../views/servici
 //inicio ruta usuarios
 const CompShowUsuarios = lazy(() => import("../views/usuarios/ShowUsuarios.js"));
 //fin ruta usuarios
-
-
 //inicio ruta roles
 const CompShowrol = lazy(() => import("../views/roles/ShowRoles.js"));
 const CompEditarRol = lazy(() => import("../views/roles/EditRol.js"));
 //fin ruta roles
-
-
-
-
 //inicio ruta roles
 const CompShowProfesional = lazy(() => import("../views/profesional/ShowProfesional.js"));
 //fin ruta roles
 
+//-----------------------------------------vistas editar un profesional (vistas de rol administrativo)
 //inicio ruta provisional
 const VistaProvisional = lazy(() => import("../views/vistaProvisional/vistaProvisional.js"));
 //fin ruta provisional
@@ -152,7 +149,7 @@ const EditarDatosProfesional7 = lazy(() => import("../views/vistasEditarProfesio
 const EditarDatosProfesional8 = lazy(() => import("../views/vistasEditarProfesional/EditarVistaDatosProfesional8.js"));
 //fin ruta editar profesional8
 
-
+//---------------------------------graficas gestion humana-------------------------!
 //tablero gestion humana
 const TableroGestionHumana = lazy(() => import("../views/tablerosPerfinSociodemogafico/tableroGestionHumana.js"));
 
@@ -188,7 +185,10 @@ const ThemeRoutes = [
     ),
     children: [
       { path: "eps", exact: true, element: <CompShowEps /> },
+      { path: "editarEps", exact: true, element: <CompEditarEps /> },
+      //CRUD estructura organizacional
       { path: "estructuraOrganizacional", exact: true, element: <CompShowEstructuraOrganizacional /> },
+      { path: "editarEstructuraOrganizacional/:id_areaPk", exact: true, element: <CompEditarEstructuraOrganizacional /> },
       //CRUD factores de riesgo
       { path: "factoresRiesgo", exact: true, element: <CompShowFactoresDeRiesgo /> },
       { path: "editarFactorRiesgo/:id_factoresRiesgoPK", exact: true, element: <CompEditarFactorRiesgo /> },
