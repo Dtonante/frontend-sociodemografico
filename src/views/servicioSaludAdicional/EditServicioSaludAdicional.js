@@ -15,7 +15,7 @@ const CompEditarServiciosDeSaludAdicional = () => {
         await axios.put(URI_SERVICIO_SALUD_ADICIONAL+id_servicioDeSaludAdicionalPK, {
             var_nombreServicioDeSaludAdicional: var_nombreServicioDeSaludAdicional
         })
-        navigate('/')
+        navigate('/app/serviciosSaludAdicional')
     }
 
     useEffect( ()=>{

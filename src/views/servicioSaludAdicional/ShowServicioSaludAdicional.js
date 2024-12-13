@@ -223,7 +223,7 @@ const CompShowServicioDeSaludAdicional = () => {
                     </TableCell>
                     <TableCell>
                       <Link
-                        to={`/editar/${servicio.id_servicioDeSaludAdicionalPK}`}
+                        to={`/app/editarServiciosSaludAdicional/${servicio.id_servicioDeSaludAdicionalPK}`}
                       >
                         <IconButton color="info">
                           <EditIcon />

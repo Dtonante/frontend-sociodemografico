@@ -8,6 +8,9 @@ import RolProtectedRoute from '../middleware/rolProtectedRoute.js';
 const FullLayout = lazy(() => import("../layouts/FullLayout/FullLayout.js"));
 /****End Layouts*****/
 
+
+//-------------------------------- vistas del formulario ---------------------------------------!
+
 //vista proteccion datos
 const VistaProteccionDatos = lazy(() => import("../views/vistas formulario/VistaProteccionDatos.js"));
 // fin vista proteccion de datos
@@ -44,6 +47,10 @@ const VistaAgradecimientos = lazy(() => import("../views/vistas formulario/Vista
 //inicio vista home
 const VistaHomeUsuarioNuevo = lazy(() => import("../views/vistas formulario/VistaHomeNuevoUsuario.js"))
 //fin vista home
+
+//--------------------------------------------- fin vistas formulario-----------------------!
+//--------------------------------------------- inicio vistas login y recuperar contraseña------------!
+
 //inicio vista login
 const Login = lazy(() => import("../views/vistas login/login.js"))
 //fin ruta login
@@ -54,6 +61,8 @@ const RecuperarContrasena = lazy(() => import("../views/vistas login/recuperarCo
 const CambiarContrasena = lazy(() => import("../views/vistas login/cambiarContrasena.js"));
 //fin ruta cambiar contraseña
 
+//--------------------------------------------- fin vistas login y recuperar contraseña-----------------------!
+//--------------------------------------------- inicio vitas del administrador --------------------------!
 
 
 //ruta eps
@@ -85,13 +94,21 @@ const CompShowServiciosQueNoCuentan = lazy(() => import("../views/serviciosQueNo
 //fin ruta servicios que no cuentan
 //inicio ruta servicios de salud adicional
 const CompShowServicioDeSaludAdicional = lazy(() => import("../views/servicioSaludAdicional/ShowServicioSaludAdicional.js"));
+const CompEditarServiciosDeSaludAdicional  = lazy(() => import("../views/servicioSaludAdicional/EditServicioSaludAdicional.js"));
 //fin ruta servicios de salud adicional
 //inicio ruta usuarios
 const CompShowUsuarios = lazy(() => import("../views/usuarios/ShowUsuarios.js"));
 //fin ruta usuarios
+
+
 //inicio ruta roles
 const CompShowrol = lazy(() => import("../views/roles/ShowRoles.js"));
+const CompEditarRol = lazy(() => import("../views/roles/EditRol.js"));
 //fin ruta roles
+
+
+
+
 //inicio ruta roles
 const CompShowProfesional = lazy(() => import("../views/profesional/ShowProfesional.js"));
 //fin ruta roles
@@ -172,9 +189,15 @@ const ThemeRoutes = [
       { path: "tipoDocumento", exact: true, element: <CompShowTipoDocumento /> },
       { path: "transportePropio", exact: true, element: <CompShowTransportePropio /> },
       { path: "serviciosQueNoCuentan", exact: true, element: <CompShowServiciosQueNoCuentan /> },
+      //CRUD servicios salud adicional
       { path: "serviciosSaludAdicional", exact: true, element: <CompShowServicioDeSaludAdicional /> },
+      { path: "editarServiciosSaludAdicional/:id_servicioDeSaludAdicionalPK", exact: true, element: <CompEditarServiciosDeSaludAdicional /> },
+      
       { path: "usuarios", exact: true, element: <CompShowUsuarios /> },
+      //CRUD roles
       { path: "roles", exact: true, element: <CompShowrol /> },
+      { path: "editarRol/:id_rolPK", exact: true, element: <CompEditarRol /> },
+
       { path: "profesional", exact: true, element: <CompShowProfesional /> },
       { path: "editarUsuario", exact: true, element: <CompEditarUsuario />   },
       { path: "editarDatosProfesional", exact: true, element: <EditarDatosProfesional /> },
@@ -185,8 +208,6 @@ const ThemeRoutes = [
       { path: "editarDatosProfesional6", exact: true, element: <EditarDatosProfesional6 /> },
       { path: "editarDatosProfesional7", exact: true, element: <EditarDatosProfesional7 /> },
       { path: "editarDatosProfesional8", exact: true, element: <EditarDatosProfesional8 /> },
-      // { path: "/app",  exact: false, element: ( <RolProtectedRoute allowedRole="Administrativo"> <VistaProvisional /> </RolProtectedRoute> ), },
-      // { path: "/app", exact: false, element: ( <RolProtectedRoute allowedRole="Gestion Humana">  <TableroGestionHumana /> </RolProtectedRoute> ),  },
       {
         path: "/app",
         element: (

@@ -224,7 +224,7 @@ const CompShowrol = () => {
                       {rol.var_nombreRol}
                     </TableCell>
                     <TableCell align="center" sx={cellStyle}>
-                      <Link to={`/editar/${rol.id_rolPK}`}>
+                      <Link to={`/app/editarRol/${rol.id_rolPK}`}>
                         <IconButton color="info">
                           <EditIcon />
                         </IconButton>
