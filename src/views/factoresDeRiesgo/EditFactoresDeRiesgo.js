@@ -15,7 +15,7 @@ const CompEditarFactorRiesgo = () => {
         await axios.put(URI_FACTORES_RIESGO+id_factoresRiesgoPK, {
             var_nombreRiesgo: var_nombreRiesgo
         })
-        navigate('/')
+        navigate('/app/factoresRiesgo')
     }
 
     useEffect( ()=>{

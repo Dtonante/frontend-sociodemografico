@@ -216,7 +216,7 @@ const CompShowAntecedentesMedicos = () => {
                     </TableCell>
                     <TableCell align="center" sx={cellStyle}>
                       <Link
-                        to={`/editar/${antecedente.id_antecedenteMedicoPK}`}
+                        to={`/app/editarAntecedentesMedicos/${antecedente.id_antecedenteMedicoPK}`}
                       >
                         <IconButton color="info">
                           <EditIcon />

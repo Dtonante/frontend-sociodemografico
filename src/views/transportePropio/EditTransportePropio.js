@@ -15,7 +15,7 @@ const CompEditarTransportePropio = () => {
         await axios.put(URI_TRANSPORTE_PROPIO+id_transportePropioPK, {
             var_nombreTransporte: var_nombreTransporte
         })
-        navigate('/')
+        navigate('/app/transportePropio')
     }
 
     useEffect( ()=>{

@@ -213,7 +213,7 @@ const CompShowTransportePropio = () => {
                       {transporte.var_nombreTransporte}
                     </TableCell>
                     <TableCell align="center" sx={cellStyle}>
-                      <Link to={`/editar/${transporte.id_transportePropioPK}`}>
+                      <Link to={`/app/editarTransportePropio/${transporte.id_transportePropioPK}`}>
                         <IconButton color="info">
                           <EditIcon />
                         </IconButton>

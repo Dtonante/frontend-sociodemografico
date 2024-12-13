@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const URI_TIPO_DOCUMENTO = 'http://localhost:3001/tipodocumentos/'
 
-const CompEditarEps = () => {
+const CompEditarTipoDocumento = () => {
     const [var_nombreDocumento, setVar_nombreDocumento] = useState('')
     const navigate = useNavigate()
     const {id_tipoDocumentoPK} = useParams()
@@ -15,14 +15,14 @@ const CompEditarEps = () => {
         await axios.put(URI_TIPO_DOCUMENTO+id_tipoDocumentoPK, {
             var_nombreDocumento: var_nombreDocumento
         })
-        navigate('/')
+        navigate('/app/transportePropio')
     }
 
     useEffect( ()=>{
-        getEpsPorId()
+        getTipoDocumentoPorId()
     }, [])
 
-    const getEpsPorId = async ()=> {
+    const getTipoDocumentoPorId = async ()=> {
         const res = await axios.get(URI_TIPO_DOCUMENTO+id_tipoDocumentoPK)
         setVar_nombreDocumento(res.data.var_nombreDocumento)
     }
@@ -42,4 +42,4 @@ const CompEditarEps = () => {
 
 }
 
-export default CompEditarEps
+export default CompEditarTipoDocumento

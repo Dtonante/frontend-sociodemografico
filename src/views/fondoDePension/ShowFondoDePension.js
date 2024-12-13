@@ -213,7 +213,7 @@ const CompShowFondoDePension = () => {
                       {fondo.var_nombreFondoPension}
                     </TableCell>
                     <TableCell align="center" sx={cellStyle}>
-                      <Link to={`/editar/${fondo.id_fondoPensionPK}`}>
+                      <Link to={`/app/editarFondoPension/${fondo.id_fondoPensionPK}`}>
                         <IconButton color="info">
                           <EditIcon />
                         </IconButton>

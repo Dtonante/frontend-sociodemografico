@@ -216,7 +216,7 @@ const CompShowTipoDocumento = () => {
                       {tipo.var_nombreDocumento}
                     </TableCell>
                     <TableCell align="center" sx={cellStyle}>
-                      <Link to={`/editar/${tipo.id_tipoDocumentoPK}`}>
+                      <Link to={`/app/editarTipoDocumento/${tipo.id_tipoDocumentoPK}`}>
                         <IconButton color="info">
                           <EditIcon />
                         </IconButton>

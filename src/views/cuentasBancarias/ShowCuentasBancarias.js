@@ -210,7 +210,7 @@ const CompShowCuentasBancarias = () => {
                       {cuenta.var_nombreCuentaBancaria}
                     </TableCell>
                     <TableCell align="center" sx={cellStyle}>
-                      <Link to={`/editar/${cuenta.id_cuentaBancariaPK}`}>
+                      <Link to={`/app/editarCuentaBancaria/${cuenta.id_cuentaBancariaPK}`}>
                         <IconButton color="info">
                           <EditIcon />
                         </IconButton>

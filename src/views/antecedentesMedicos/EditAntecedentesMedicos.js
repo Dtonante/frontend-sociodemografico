@@ -15,7 +15,7 @@ const CompEditarAntecedentesMedicos = () => {
         await axios.put(URI_ANTECEDENTE_MEDICO+id_antecedenteMedicoPK, {
             var_nombreAntecedenteMedico: var_nombreAntecedenteMedico
         })
-        navigate('/')
+        navigate('/app/antecedentesMedicos')
     }
 
     useEffect( ()=>{
