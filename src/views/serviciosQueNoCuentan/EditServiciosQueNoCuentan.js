@@ -16,7 +16,7 @@ const CompEditarServiciosQueNoCuentan = () => {
         await axios.put(URI_SERVICIO_QUE_NO_CUENTAN+id_servicioQueNoCuentaPK, {
             var_nombreServicioQueNoCuenta: var_nombreServicioQueNoCuenta
         })
-        navigate('/')
+        navigate('/app/serviciosQueNoCuentan')
     }
 
     useEffect( ()=>{

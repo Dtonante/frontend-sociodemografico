@@ -15,7 +15,7 @@ const CompEditarCuentaBancaria = () => {
         await axios.put(URI_CUENTAS_BANCARIAS+id_cuentaBancariaPK, {
             var_nombreCuentaBancaria: var_nombreCuentaBancaria
         })
-        navigate('/')
+        navigate('/app/cuentasBancarias')
     }
 
     useEffect( ()=>{

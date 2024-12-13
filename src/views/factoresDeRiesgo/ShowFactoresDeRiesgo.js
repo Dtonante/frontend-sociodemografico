@@ -212,7 +212,7 @@ const CompShowFactoresDeRiesgo = () => {
                       {factorRiesgo.var_nombreRiesgo}
                     </TableCell>
                     <TableCell align="center" sx={cellStyle}>
-                      <Link to={`/editar/${factorRiesgo.id_factoresRiesgoPK}`}>
+                      <Link to={`/app/editarFactorRiesgo/${factorRiesgo.id_factoresRiesgoPK}`}>
                         <IconButton color="info">
                           <EditIcon />
                         </IconButton>

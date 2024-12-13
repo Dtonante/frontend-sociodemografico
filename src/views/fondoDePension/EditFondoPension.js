@@ -15,7 +15,7 @@ const CompEditarFondoPension = () => {
         await axios.put(URI_FONDO_PENSION+id_fondoPensionPK, {
             var_nombreFondoPension: var_nombreFondoPension
         })
-        navigate('/')
+        navigate('/app/fondoPension')
     }
 
     useEffect( ()=>{

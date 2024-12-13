@@ -212,7 +212,7 @@ const CompShowServiciosQueNoCuentan = () => {
                       {servicio.var_nombreServicioQueNoCuenta}
                     </TableCell>
                     <TableCell>
-                      <Link to={`/editar/${servicio.id_servicioQueNoCuentaPK}`}>
+                      <Link to={`/app/editarServiciosQueNoCuentan/${servicio.id_servicioQueNoCuentaPK}`}>
                         <IconButton color="info">
                           <EditIcon />
                         </IconButton>

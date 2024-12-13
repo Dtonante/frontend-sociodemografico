@@ -73,24 +73,31 @@ const CompShowEstructuraOrganizacional = lazy(() => import("../views/estructuraO
 //fin ruta estructura organizacional
 //inicio ruta factores de riesgo
 const CompShowFactoresDeRiesgo = lazy(() => import("../views/factoresDeRiesgo/ShowFactoresDeRiesgo.js"));
+const CompEditarFactorRiesgo = lazy(() => import("../views/factoresDeRiesgo/EditFactoresDeRiesgo.js"));
 //fin ruta factores de riesgo
 //inicio ruta antecedentes medicos
 const CompShowAntecedentesMedicos = lazy(() => import("../views/antecedentesMedicos/ShowAntecedentesMedicos.js"));
+const CompEditarAntecedentesMedicos = lazy(() => import("../views/antecedentesMedicos/EditAntecedentesMedicos.js"));
 //fin ruta antecedentes medicos
 //inicio ruta cuentas bancarias
 const CompShowCuentasBancarias = lazy(() => import("../views/cuentasBancarias/ShowCuentasBancarias.js"));
+const CompEditarCuentaBancaria = lazy(() => import("../views/cuentasBancarias/EditCuentasBancarias.js"));
 //fin ruta cuentas bancarias
 //inicio ruta fondo de pension
 const CompShowFondoDePension = lazy(() => import("../views/fondoDePension/ShowFondoDePension.js"));
+const CompEditarFondoPension = lazy(() => import("../views/fondoDePension/EditFondoPension.js"));
 //fin ruta fondo de pension
 //inicio ruta tipo documento
 const CompShowTipoDocumento = lazy(() => import("../views/tipoDocumento/ShowTipoDocumento.js"));
+const CompEditarTipoDocumento = lazy(() => import("../views/tipoDocumento/EditTipoDocumento.js"));
 //fin ruta tipo documento
 //inicio ruta transporte propio
 const CompShowTransportePropio = lazy(() => import("../views/transportePropio/ShowTransportePropio.js"));
+const CompEditarTransportePropio = lazy(() => import("../views/transportePropio/EditTransportePropio.js"));
 //fin ruta transporte propio
 //inicio ruta servicios que no cuentan
 const CompShowServiciosQueNoCuentan = lazy(() => import("../views/serviciosQueNoCuentan/ShowServiciosQueNoCuentan.js"));
+const CompEditarServiciosQueNoCuentan = lazy(() => import("../views/serviciosQueNoCuentan/EditServiciosQueNoCuentan.js"));
 //fin ruta servicios que no cuentan
 //inicio ruta servicios de salud adicional
 const CompShowServicioDeSaludAdicional = lazy(() => import("../views/servicioSaludAdicional/ShowServicioSaludAdicional.js"));
@@ -182,13 +189,27 @@ const ThemeRoutes = [
     children: [
       { path: "eps", exact: true, element: <CompShowEps /> },
       { path: "estructuraOrganizacional", exact: true, element: <CompShowEstructuraOrganizacional /> },
+      //CRUD factores de riesgo
       { path: "factoresRiesgo", exact: true, element: <CompShowFactoresDeRiesgo /> },
+      { path: "editarFactorRiesgo/:id_factoresRiesgoPK", exact: true, element: <CompEditarFactorRiesgo /> },
+      //CRUD antecedentes medicos
       { path: "antecedentesMedicos", exact: true, element: <CompShowAntecedentesMedicos /> },
+      { path: "editarAntecedentesMedicos/:id_antecedenteMedicoPK", exact: true, element: <CompEditarAntecedentesMedicos /> },
+      //CRUD cuentas bancarias
       { path: "cuentasBancarias", exact: true, element: <CompShowCuentasBancarias /> },
+      { path: "editarCuentaBancaria/:id_cuentaBancariaPK", exact: true, element: <CompEditarCuentaBancaria /> },
+      //CRUD fondo de pension
       { path: "fondoPension", exact: true, element: <CompShowFondoDePension /> },
+      { path: "editarFondoPension/:id_fondoPensionPK", exact: true, element: <CompEditarFondoPension /> },
+      //CRUD tipo documento
       { path: "tipoDocumento", exact: true, element: <CompShowTipoDocumento /> },
+      { path: "editarTipoDocumento/:id_tipoDocumentoPK", exact: true, element: <CompEditarTipoDocumento /> },
+      //CRUD transporte propio
       { path: "transportePropio", exact: true, element: <CompShowTransportePropio /> },
+      { path: "editarTransportePropio/:id_transportePropioPK", exact: true, element: <CompEditarTransportePropio /> },
+      //CRUD servicios que no cuentan
       { path: "serviciosQueNoCuentan", exact: true, element: <CompShowServiciosQueNoCuentan /> },
+      { path: "editarServiciosQueNoCuentan/:id_servicioQueNoCuentaPK", exact: true, element: <CompEditarServiciosQueNoCuentan /> },
       //CRUD servicios salud adicional
       { path: "serviciosSaludAdicional", exact: true, element: <CompShowServicioDeSaludAdicional /> },
       { path: "editarServiciosSaludAdicional/:id_servicioDeSaludAdicionalPK", exact: true, element: <CompEditarServiciosDeSaludAdicional /> },
