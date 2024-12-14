@@ -28,6 +28,10 @@ const CompEditarServiciosDeSaludAdicional = () => {
         const res = await axios.get(URI_SERVICIO_SALUD_ADICIONAL+id_servicioDeSaludAdicionalPK)
         setVar_nombreServicioDeSaludAdicional(res.data.var_nombreServicioDeSaludAdicional)
     }
+
+    const handleGoBack = () => {
+    navigate("/app/serviciosSaludAdicional");
+    };
    
     return (
         <div style={{ backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%" }}>
@@ -37,8 +41,8 @@ const CompEditarServiciosDeSaludAdicional = () => {
             <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: "#F2F2F2", borderColor: "#202B52" }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: "center", color: "#202B52", fontFamily: "Roboto Condensed" }}>
-                            <strong>editar transporte</strong>
+                        <Typography sx={{ fontSize: "30px", fontWeight: "500", textAlign: "center", color: "#202B52", fontFamily: "Roboto Condensed" }}>
+                            <strong>Editar servicio adicional</strong>
                         </Typography>
                     </Box>
                 </Box>
@@ -46,7 +50,7 @@ const CompEditarServiciosDeSaludAdicional = () => {
                 <CardContent sx={{ padding: "30px" }}>
                     <form onSubmit={actualizar}>
     
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Nombre del Transporte:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Nombre del servicio adicional:</Typography>
                         <TextField
                             value={var_nombreServicioDeSaludAdicional}
                             onChange={(e) => setVar_nombreServicioDeSaludAdicional(e.target.value)}
@@ -55,11 +59,19 @@ const CompEditarServiciosDeSaludAdicional = () => {
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
     
-                        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                        <div style={{ display: "flex", justifyContent: "flex-end", gap:"10px" }}>
                             <Button sx={{ backgroundColor: "#202B52", fontFamily: 'poppins' }} variant="contained" type="submit">
                                 Guardar
                             </Button>
+                            <Button
+                                sx={{ backgroundColor: "#ff0000", fontFamily: "poppins" }}
+                                variant="contained"
+                                onClick={handleGoBack}
+                            >
+                                Volver
+                            </Button>
                         </div>
+
                     </form>
                 </CardContent>
             </Card>

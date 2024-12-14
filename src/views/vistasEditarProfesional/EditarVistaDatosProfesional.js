@@ -50,9 +50,30 @@ const EditarDatosProfesional = () => {
         setVar_estratoVivienda(res.data.var_estratoVivienda);
         setVar_tipoVivienda(res.data.var_tipoVivienda);
         setVar_zonaVivienda(res.data.var_zonaVivienda);
-
-
     };
+
+    useEffect(() => {
+        const departamentoSeleccionado = departamentos.find(dep => dep.nombre === var_departamentoResidencia);
+        if (departamentoSeleccionado) {
+            setCiudades(departamentoSeleccionado.ciudades);
+        } else {
+            setCiudades([]);
+        }
+    }, [var_departamentoResidencia]);
+
+    //Definicion de las zonas de vivienda
+    const zonas = ["Urbana", "Rural"];
+    //Definicion de campo para el estrato
+    const estratos = ["0", "1", "2", "3", "4", "5", "6"];
+    //Definicion de campos para los tipos de vivienda
+    const tiposVivienda = [
+        "Casa",
+        "Apartamento",
+        "Condominio",
+        "Vivienda de interés social",
+        "Vivienda familiar"
+
+    ];
 
     return (
         <div style={{ backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%" }}>
@@ -70,26 +91,6 @@ const EditarDatosProfesional = () => {
                 <Divider style={{ marginLeft: "5%", marginRight: "5%", borderColor: "#202B52" }} />
                 <CardContent sx={{ padding: "30px" }}>
                     <form onSubmit={actualizar}>
-
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>id:</Typography>
-                        <TextField
-                            value={id_profesionalPK}
-                            onChange={(e) => setId_profesionalPK(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Departamento:</Typography>
-                        <TextField
-                            value={var_departamentoResidencia}
-                            onChange={(e) => setVar_departamentoResidencia(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
-                        
 
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Departamento:</Typography>
                         <TextField select name="var_departamentoResidencia" variant="outlined" value={var_departamentoResidencia} onChange={(e) => setVar_departamentoResidencia(e.target.value)}
@@ -109,14 +110,7 @@ const EditarDatosProfesional = () => {
                             {departamentos.map(departamento => (<MenuItem key={departamento.nombre} value={departamento.nombre}> {departamento.nombre} </MenuItem>))}
                         </TextField>
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Ciudad:</Typography>
-                        <TextField
-                            value={var_ciudadResidencia}
-                            onChange={(e) => setVar_ciudadResidencia(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
+
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Ciudad:</Typography>
                         <TextField select name="var_ciudadResidencia" variant="outlined" value={var_ciudadResidencia} onChange={(e) => setVar_ciudadResidencia(e.target.value)}
                             fullWidth sx={{ mb: 2 }} FormHelperTextProps={{
@@ -168,6 +162,57 @@ const EditarDatosProfesional = () => {
                             sx={{ mb: 2 }}
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
+
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Zona de la vivienda:</Typography>
+                        <TextField select name="var_zonaVivienda" value={var_zonaVivienda} onChange={(e) => setVar_zonaVivienda(e.target.value)} fullWidth sx={{ mb: 2 }} FormHelperTextProps={{
+                                sx: {
+                                    marginLeft: 0,
+                                },
+                            }} InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Roboto Condensed",
+                                    fontSize: "16px"
+                                },
+                            }} >
+                            {zonas.map(zona => (
+                                <MenuItem key={zona} value={zona}>{zona}</MenuItem>
+                            ))}
+                        </TextField>
+
+
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Tipo de Vivienda:</Typography>
+                        <TextField select name="var_tipoVivienda" value={var_tipoVivienda} onChange={(e) => setVar_tipoVivienda(e.target.value)} fullWidth sx={{ mb: 2 }}  FormHelperTextProps={{
+                                sx: {
+                                    marginLeft: 0,
+                                },
+                            }} InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Roboto Condensed",
+                                    fontSize: "16px"
+                                },
+                            }} >
+                            {tiposVivienda.map(tipo => (
+                                <MenuItem key={tipo} value={tipo}>{tipo}</MenuItem>
+                            ))}
+                        </TextField>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed' }}>Estrato de Vivienda:</Typography>
+                        <TextField select name="var_estratoVivienda" value={var_estratoVivienda} onChange={(e) => setVar_estratoVivienda(e.target.value)} sx={{ mb: 2 }} fullWidth  FormHelperTextProps={{
+                                sx: {
+                                    marginLeft: 0,
+                                },
+                            }} InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Roboto Condensed",
+                                    fontSize: "16px"
+                                },
+                            }} >
+                            {estratos.map(estrato => (
+                                <MenuItem key={estrato} value={estrato}>{estrato}</MenuItem>
+                            ))}
+                        </TextField>
 
 
                         <div style={{ display: "flex", justifyContent: "flex-end" }}>

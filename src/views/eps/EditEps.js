@@ -33,7 +33,6 @@ const CompEditarEps = () => {
                 <div className="mb-3">
                     <laber className="form-label" >nombre e la eps</laber>
                     <input value={var_nombreEps} onChange={ (e)=> setVar_nombreEps(e.target.value)} className="form-control" />
-
                 </div>
                 <button type="submit" className="btn btn-primary" >guardar</button>
             </form>

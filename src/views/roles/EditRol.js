@@ -24,6 +24,11 @@ const CompEditarRol = () => {
         getRol()
     }, [])
 
+
+    const handleGoBack = () => {
+        navigate("/app/roles");
+    };
+
     const getRol = async ()=> {
         const res = await axios.get(URI_ROL+id_rolPK)
         setVar_nombreRol(res.data.var_nombreRol)
@@ -36,8 +41,8 @@ const CompEditarRol = () => {
             <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: "#F2F2F2", borderColor: "#202B52" }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
                     <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: "center", color: "#202B52", fontFamily: "Roboto Condensed" }}>
-                            <strong>Editar Transporte</strong>
+                        <Typography sx={{ fontSize: "30px", fontWeight: "500", textAlign: "center", color: "#202B52", fontFamily: "poppins" }}>
+                            <strong>Editar Rol</strong>
                         </Typography>
                     </Box>
                 </Box>
@@ -45,7 +50,7 @@ const CompEditarRol = () => {
                 <CardContent sx={{ padding: "30px" }}>
                     <form onSubmit={actualizar}>
     
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Nombre del Transporte:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Nombre del Rol:</Typography>
                         <TextField
                             value={var_nombreRol}
                             onChange={(e) => setVar_nombreRol(e.target.value)}
@@ -54,10 +59,19 @@ const CompEditarRol = () => {
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
     
-                        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                        <div style={{ display: "flex", justifyContent: "flex-end", gap:"10px" }}>
                             <Button sx={{ backgroundColor: "#202B52", fontFamily: 'poppins' }} variant="contained" type="submit">
                                 Guardar
                             </Button>
+                            <Button
+                            sx={{ backgroundColor: "#ff0000", fontFamily: "poppins" }}
+                            variant="contained"
+                            onClick={handleGoBack}
+                            >
+                            Volver
+                            </Button>
+
+
                         </div>
                     </form>
                 </CardContent>
