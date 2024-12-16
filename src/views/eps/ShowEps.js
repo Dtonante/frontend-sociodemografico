@@ -201,7 +201,7 @@ const CompShowEps = () => {
                     <TableCell align="center" sx={cellStyle}>{epsItem.id_epsPK}</TableCell>
                     <TableCell align="center" sx={cellStyle}>{epsItem.var_nombreEps}</TableCell>
                     <TableCell align="center" sx={cellStyle}>
-                      <Link to={`/editar/${epsItem.id_epsPK}`}>
+                      <Link to={`/app/editarEps/${epsItem.id_epsPK}`}>
                         <IconButton color="info">
                           <EditIcon />
                         </IconButton>

@@ -103,7 +103,7 @@ const CompEditarServiciosQueNoCuentan = lazy(() => import("../views/serviciosQue
 //fin ruta servicios que no cuentan
 //inicio ruta servicios de salud adicional
 const CompShowServicioDeSaludAdicional = lazy(() => import("../views/servicioSaludAdicional/ShowServicioSaludAdicional.js"));
-const CompEditarServiciosDeSaludAdicional  = lazy(() => import("../views/servicioSaludAdicional/EditServicioSaludAdicional.js"));
+const CompEditarServiciosDeSaludAdicional = lazy(() => import("../views/servicioSaludAdicional/EditServicioSaludAdicional.js"));
 //fin ruta servicios de salud adicional
 //inicio ruta usuarios
 const CompShowUsuarios = lazy(() => import("../views/usuarios/ShowUsuarios.js"));
@@ -112,6 +112,8 @@ const CompShowUsuarios = lazy(() => import("../views/usuarios/ShowUsuarios.js"))
 const CompShowrol = lazy(() => import("../views/roles/ShowRoles.js"));
 const CompEditarRol = lazy(() => import("../views/roles/EditRol.js"));
 //fin ruta roles
+
+//----------------------------- vista de la tabla profesionales
 //inicio ruta roles
 const CompShowProfesional = lazy(() => import("../views/profesional/ShowProfesional.js"));
 //fin ruta roles
@@ -157,8 +159,8 @@ const TableroGestionHumana = lazy(() => import("../views/tablerosPerfinSociodemo
 
 
 const ThemeRoutes = [
+  //Vistas formulario sociodemografico para el publico
   { path: "/", element: <VistaHomeUsuarioNuevo />, },
-  { path: "/login", element: <Login />, },
   { path: "/proteccionDatos", element: <VistaProteccionDatos />, },
   { path: "/InfoUsuario", element: <VistaDatosUsuario /> },
   { path: "/DatosProfesionales", element: <VistaDatosProfesional /> },
@@ -170,8 +172,11 @@ const ThemeRoutes = [
   { path: "/SaludFisica", element: <VistaDatosProfesional7 /> },
   { path: "/Transporte", element: <VistaDatosProfesional8 /> },
   { path: "/Agradecimiento", element: <VistaAgradecimientos /> },
+  //Vistas de login y recuperar contraseña
   { path: "/RecuperarContrasena", element: <RecuperarContrasena /> },
   { path: "/CambiarContrasena", element: <CambiarContrasena /> },
+  { path: "/login", element: <Login />, },
+
 
   {
     path: "/app",
@@ -184,8 +189,9 @@ const ThemeRoutes = [
       </>
     ),
     children: [
+      //CRUD eps
       { path: "eps", exact: true, element: <CompShowEps /> },
-      { path: "editarEps", exact: true, element: <CompEditarEps /> },
+      { path: "editarEps/:id_epsPK", exact: true, element: <CompEditarEps /> },
       //CRUD estructura organizacional
       { path: "estructuraOrganizacional", exact: true, element: <CompShowEstructuraOrganizacional /> },
       { path: "editarEstructuraOrganizacional/:id_areaPk", exact: true, element: <CompEditarEstructuraOrganizacional /> },
@@ -213,14 +219,15 @@ const ThemeRoutes = [
       //CRUD servicios salud adicional
       { path: "serviciosSaludAdicional", exact: true, element: <CompShowServicioDeSaludAdicional /> },
       { path: "editarServiciosSaludAdicional/:id_servicioDeSaludAdicionalPK", exact: true, element: <CompEditarServiciosDeSaludAdicional /> },
-      
-      { path: "usuarios", exact: true, element: <CompShowUsuarios /> },
       //CRUD roles
       { path: "roles", exact: true, element: <CompShowrol /> },
       { path: "editarRol/:id_rolPK", exact: true, element: <CompEditarRol /> },
-
+      //ruta de la tabla profesionales
       { path: "profesional", exact: true, element: <CompShowProfesional /> },
-      { path: "editarUsuario", exact: true, element: <CompEditarUsuario />   },
+      //ruta de la tabla usuarios
+      { path: "usuarios", exact: true, element: <CompShowUsuarios /> },
+      //Vistas de los formularios para editar la informacion de un administrativo
+      { path: "editarUsuario", exact: true, element: <CompEditarUsuario /> },
       { path: "editarDatosProfesional", exact: true, element: <EditarDatosProfesional /> },
       { path: "editarDatosProfesional2", exact: true, element: <EditarDatosProfesional2 /> },
       { path: "editarDatosProfesional3", exact: true, element: <EditarDatosProfesional3 /> },
