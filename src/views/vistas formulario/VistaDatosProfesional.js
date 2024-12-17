@@ -58,7 +58,7 @@ const VistaDatosProfesional = () => {
         setErrors(nuevosErrores);
     }, [formData, touchedFields]);
 
-    // fectch para los las actividades que realiza en su tiempo libre
+    // fectch para los las servicios que no cuentan
     useEffect(() => {
         const fetchServiciosQueNoCuentan = async () => {
             try {
