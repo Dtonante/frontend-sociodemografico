@@ -16,7 +16,6 @@ const TableroGestionHumana = () => {
                     allowFullScreen={true}
                     style={{ border: "1px solid #ccc", borderRadius: "8px" }}
                 ></iframe>
-                
             </div>
         </div>
     );

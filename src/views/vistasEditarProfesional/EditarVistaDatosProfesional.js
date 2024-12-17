@@ -162,34 +162,37 @@ const EditarDatosProfesional = () => {
 
     // Función para manejar la actualización de los servicios que el profesional no cuenta
     const actualizarServiciosQueNoCuentan = async () => {
-        // Primero eliminamos las relaciones para los servicios deseleccionados
-        for (let id_servicio of prevSelectedServicios) {
-            if (!selectedServiciosQueNoCuentan.includes(id_servicio)) {
-                try {
-                    await axios.delete(`http://localhost:3001/profesionalServiciosQueNoCuentan/${id_profesionalPK}/${id_servicio}`, {
-                        // No es necesario enviar datos adicionales aquí
-                    });
-
-                    console.log(`Relación eliminada: Profesional ID ${id_profesionalPK}, Servicio Que No Cuentan ID ${id_servicio}`);
-                } catch (error) {
-                    console.error(`Error al eliminar la relación para el servicio ID ${id_servicio}:`, error);
-                }
+        try {
+            // Eliminar servicios deseleccionados
+            const serviciosParaEliminar = prevSelectedServicios.filter(
+                (id_servicio) => !selectedServiciosQueNoCuentan.includes(id_servicio)
+            );
+    
+            for (let id_servicio of serviciosParaEliminar) {
+                await axios.delete(`http://localhost:3001/profesionalServiciosQueNoCuentan/${id_profesionalPK}/${id_servicio}`);
+                console.log(`Relación eliminada: Profesional ID ${id_profesionalPK}, Servicio Que No Cuentan ID ${id_servicio}`);
             }
-        }
-
-        // Ahora agregamos las relaciones para los nuevos servicios seleccionados
-        for (let id_servicio of selectedServiciosQueNoCuentan) {
-            try {
+    
+            // Agregar nuevos servicios seleccionados
+            const serviciosParaAgregar = selectedServiciosQueNoCuentan.filter(
+                (id_servicio) => !prevSelectedServicios.includes(id_servicio)
+            );
+    
+            for (let id_servicio of serviciosParaAgregar) {
                 await axios.post(`http://localhost:3001/profesionalServiciosQueNoCuentan/`, {
                     id_profesionalFK: id_profesionalPK,
                     id_servicioQueNoCuentaFK: id_servicio,
                 });
                 console.log(`Relación creada: Profesional ID ${id_profesionalPK}, Servicio Que No Cuentan ID ${id_servicio}`);
-            } catch (error) {
-                console.error(`Error al actualizar la relación para el servicio ID ${id_servicio}:`, error);
             }
+    
+            // Actualizar el estado previo
+            setPrevSelectedServicios([...selectedServiciosQueNoCuentan]);
+        } catch (error) {
+            console.error('Error al actualizar los servicios:', error);
         }
     };
+    
 
     // Función para manejar la actualización de los factores de riesgo del profesional
     const actualizarFactoresDeRiesgo = async () => {
@@ -222,6 +225,39 @@ const EditarDatosProfesional = () => {
         }
     };
 
+    // const actualizarFactoresDeRiesgo = async () => {
+    //     try {
+    //         // Eliminar factores de riesgo deseleccionados
+    //         const factoresParaEliminar = prevSelectedFactoresRiesgo.filter(
+    //             (id_factor) => !selectedFactoresRiesgo.includes(id_factor)
+    //         );
+    
+    //         for (let id_factor of factoresParaEliminar) {
+    //             await axios.delete(`http://localhost:3001/profesionalFactoresRiesgo/${id_profesionalPK}/${id_factor}`);
+    //             console.log(`Relación eliminada: Profesional ID ${id_profesionalPK}, Factor de Riesgo ID ${id_factor}`);
+    //         }
+    
+    //         // Agregar nuevos factores seleccionados
+    //         const factoresParaAgregar = selectedFactoresRiesgo.filter(
+    //             (id_factor) => !prevSelectedFactoresRiesgo.includes(id_factor)
+    //         );
+    
+    //         for (let id_factor of factoresParaAgregar) {
+    //             await axios.post(`http://localhost:3001/profesionalFactoresRiesgo/`, {
+    //                 id_profesionalFK: id_profesionalPK,
+    //                 id_factoresRiesgoFK: id_factor,
+    //             });
+    //             console.log(`Relación creada: Profesional ID ${id_profesionalPK}, Factor de Riesgo ID ${id_factor}`);
+    //         }
+    
+    //         // Actualizar el estado previo
+    //         setPrevSelectedFactoresRiesgo([...selectedFactoresRiesgo]);
+    //     } catch (error) {
+    //         console.error('Error al actualizar los factores de riesgo:', error);
+    //     }
+    // };
+    
+
 
     // fectch para los factores de riesgo
     useEffect(() => {
@@ -238,18 +274,33 @@ const EditarDatosProfesional = () => {
     }, []);
 
     useEffect(() => {
-        if (JSON.stringify(prevSelectedServicios) !== JSON.stringify(selectedServiciosQueNoCuentan)) {
-            actualizarServiciosQueNoCuentan(); // Actualiza la relación entre el profesional y los servicios seleccionados/deseleccionados
-            setPrevSelectedServicios(selectedServiciosQueNoCuentan); // Actualiza el valor previo
+        if (serviciosProfesional.length > 0) {
+            const serviciosSeleccionados = serviciosProfesional.map(servicio => servicio.id_servicioQueNoCuentaFK);
+            setSelectedServiciosQueNoCuentan(serviciosSeleccionados);
+            setPrevSelectedServicios(serviciosSeleccionados);
         }
-    }, [selectedServiciosQueNoCuentan]);
+    }, [serviciosProfesional]);
 
-    useEffect(() => {
-        if (JSON.stringify(prevSelectedFactoresRiesgo) !== JSON.stringify(selectedFactoresRiesgo)) {
-            actualizarFactoresDeRiesgo(); // Actualiza la relación entre el profesional y los factores de riesgo seleccionados/deseleccionados
-            setPrevSelectedFactoresRiesgo(selectedFactoresRiesgo); // Actualiza el valor previo
-        }
-    }, [selectedFactoresRiesgo]);
+ useEffect(() => {
+    if (factoresRiesgoOptions.length > 0) {
+        const factoresSeleccionados = factoresRiesgoOptions.map(factor => factor.id_factoresRiesgoFK);
+        setSelectedFactoresRiesgo(factoresSeleccionados);
+        setPrevSelectedFactoresRiesgo(factoresSeleccionados);
+    }
+}, [factoresRiesgoOptions]);
+// useEffect(() => {
+//     if (JSON.stringify(prevSelectedFactoresRiesgo) !== JSON.stringify(selectedFactoresRiesgo)) {
+//        // actualizarFactoresDeRiesgo(); // Actualiza la relación entre el profesional y los factores de riesgo seleccionados/deseleccionados
+//         setPrevSelectedFactoresRiesgo(selectedFactoresRiesgo); // Actualiza el valor previo
+//     }
+// }, [selectedFactoresRiesgo]);
+
+    const guardar = () => {
+
+        actualizarFactoresDeRiesgo();
+        actualizarServiciosQueNoCuentan(); 
+
+    }
 
 
 
@@ -482,7 +533,7 @@ const EditarDatosProfesional = () => {
 
 
                         <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                            <Button sx={{ backgroundColor: "#202B52", fontFamily: 'poppins' }} variant="contained" type="submit">
+                            <Button sx={{ backgroundColor: "#202B52", fontFamily: 'poppins' }} onClick={guardar} variant="contained" type="submit">
                                 Guardar
                             </Button>
                         </div>
