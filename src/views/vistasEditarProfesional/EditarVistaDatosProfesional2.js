@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, CardContent, Divider, Box, Typography, TextField, Button } from "@mui/material";
+import { Card, CardContent, Divider, Box, MenuItem, Typography, TextField, Button } from "@mui/material";
 
 const URI_PROFESIONAL = 'http://localhost:3001/profesional/';
 const URI_PROFESIONAL_POR_ID_USUARIO = 'http://localhost:3001/profesional/porUsuario/';
@@ -72,70 +72,64 @@ const EditarDatosProfesional2 = () => {
                 <CardContent sx={{ padding: "30px" }}>
                     <form onSubmit={actualizar}>
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Departamento:</Typography>
-                        <TextField
-                            value={var_estadoCivil}
-                            onChange={(e) => setVar_estadoCivil(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Estado Civil:</Typography>
+                        <TextField select name="var_estadoCivil" variant="outlined" value={var_estadoCivil} onChange={(e) => setVar_estadoCivil(e.target.value)} fullWidth sx={{ mb: 2 }} FormHelperTextProps={{
+                            sx: {
+                                marginLeft: 0,
+                            },
+                        }} InputProps={{
+                            sx: {
+                                height: "40px",
+                                fontFamily: "Roboto Condensed",
+                                fontSize: "16px"
+                            },
+                        }}  >
+                            <MenuItem value="Soltero">Soltero</MenuItem>
+                            <MenuItem value="Casado">Casado</MenuItem>
+                            <MenuItem value="Divorciado">Divorciado</MenuItem>
+                            <MenuItem value="Viudo">Viudo</MenuItem>
+                            <MenuItem value="Union libre">Unión libre</MenuItem>
+                        </TextField>
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Ciudad:</Typography>
-                        <TextField
-                            value={boolean_viveSolo}
-                            onChange={(e) => setBoolean_viveSolo(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>¿Vive Solo?:</Typography>
+                        <TextField select name="boolean_viveSolo" variant="outlined" value={boolean_viveSolo} onChange={(e) => setBoolean_viveSolo(e.target.value)}
+                            fullWidth sx={{ mb: 2 }} FormHelperTextProps={{
+                                sx: {
+                                    marginLeft: 0,
+                                },
+                            }} InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Roboto Condensed",
+                                    fontSize: "16px"
+                                },
+                            }}  >
+                            <MenuItem value="true">Sí</MenuItem>
+                            <MenuItem value="false">No</MenuItem>
+                        </TextField>
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>direccion residencia:</Typography>
-                        <TextField
-                            value={var_personasDependeciaEconimica}
-                            onChange={(e) => setVar_personasDependeciaEconimica(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Con cuantas personas vive:</Typography>
+                        <TextField select name="var_numeroPersonasConLasQueVive" variant="outlined" value={var_numeroPersonasConLasQueVive} onChange={(e) => setVar_numeroPersonasConLasQueVive(e.target.value)}
+                            fullWidth sx={{ mb: 2 }} FormHelperTextProps={{
+                                sx: {
+                                    marginLeft: 0,
+                                },
+                            }} InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Roboto Condensed",
+                                    fontSize: "16px"
+                                },
+                            }}
+                        >
+                            <MenuItem value="1">1</MenuItem>
+                            <MenuItem value="2">2</MenuItem>
+                            <MenuItem value="3">3</MenuItem>
+                            <MenuItem value="4">4</MenuItem>
+                            <MenuItem value="5 o mas">5 o mas</MenuItem>
+                        </TextField>
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>estrato vivienda:</Typography>
-                        <TextField
-                            value={var_totalIngresosPropiosYGrupoFamiliar}
-                            onChange={(e) => setVar_totalIngresosPropiosYGrupoFamiliar(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>tipo de vivienda:</Typography>
-                        <TextField
-                            value={var_numeroPersonasConLasQueVive}
-                            onChange={(e) => setVar_numeroPersonasConLasQueVive(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>tipo de vivienda:</Typography>
-                        <TextField
-                            value={set_tipoMascotas}
-                            onChange={(e) => setSet_tipoMascotas(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>tipo de vivienda:</Typography>
-                        <TextField
-                            value={boolean_viveConMascotas}
-                            onChange={(e) => setBoolean_viveConMascotas(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>tipo de vivienda:</Typography>
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>¿Vive con? (Selecciona todas las personas con las que habita):</Typography>
                         <TextField
                             value={set_personasConLasQueVive}
                             onChange={(e) => setSet_personasConLasQueVive(e.target.value)}
@@ -143,6 +137,68 @@ const EditarDatosProfesional2 = () => {
                             sx={{ mb: 2 }}
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
+
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>¿Tiene mascotas?:</Typography>
+                        <TextField
+                            select
+                            value={boolean_viveConMascotas}
+                            onChange={(e) => setBoolean_viveConMascotas(e.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}>
+                            <MenuItem value="true">Sí</MenuItem>
+                            <MenuItem value="false">No</MenuItem>
+                        </TextField>
+
+
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Indica qué tipos de mascotas tienes en casa (se pueden seleccionar varias opciones):</Typography>
+                        <TextField
+
+                            value={set_tipoMascotas}
+                            onChange={(e) => setSet_tipoMascotas(e.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}>
+
+                        </TextField>
+
+
+
+
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Cantidad de personas con las que NO vive pero dependen económicamente de usted:</Typography>
+                        <TextField
+                            select
+                            value={var_personasDependeciaEconimica}
+                            onChange={(e) => setVar_personasDependeciaEconimica(e.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}>
+                            <MenuItem value="0">0</MenuItem>
+                            <MenuItem value="1">1</MenuItem>
+                            <MenuItem value="2">2</MenuItem>
+                            <MenuItem value="3">3</MenuItem>
+                            <MenuItem value="4">4</MenuItem>
+                            <MenuItem value="5">5 o mas</MenuItem>
+                            <MenuItem value="N/A">No aplica</MenuItem>
+                        </TextField>
+
+
+
+
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Total ingresos propios y grupo familiar:</Typography>
+                        <TextField
+                            select
+                            value={var_totalIngresosPropiosYGrupoFamiliar}
+                            onChange={(e) => setVar_totalIngresosPropiosYGrupoFamiliar(e.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}>
+                            <MenuItem value="Menos de 1'000.000 de pesos">Menos de 1'000.000 de pesos</MenuItem>
+                            <MenuItem value="Entre 1'000.000 de pesos y 2'000.000 de pesos">Entre 1'000.000 de pesos y 2'000.000 de pesos</MenuItem>
+                            <MenuItem value="Entre 2'000.000 de pesos y 4'000.000 de pesos">Entre 2'000.000 de pesos y 4'000.000 de pesos</MenuItem>
+                            <MenuItem value="Entre 4'000.000 de pesos y 8'000.000 de pesos">Entre 4'000.000 de pesos y 8'000.000 de pesos</MenuItem>
+                            <MenuItem value="Mas de 8'000.000 de pesos">Mas de 8'000.000 de pesos</MenuItem>
+                        </TextField>
 
 
                         <div style={{ display: "flex", justifyContent: "flex-end" }}>
