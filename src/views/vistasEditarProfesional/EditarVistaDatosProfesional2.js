@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, CardContent, Divider, Box, MenuItem, Typography, TextField, Button } from "@mui/material";
+import { Card, CardContent, Divider, Box, Checkbox, ListItemText, Select, MenuItem, Typography, TextField, Button } from "@mui/material";
 
 const URI_PROFESIONAL = 'http://localhost:3001/profesional/';
 const URI_PROFESIONAL_POR_ID_USUARIO = 'http://localhost:3001/profesional/porUsuario/';
@@ -17,6 +17,62 @@ const EditarDatosProfesional2 = () => {
     const [boolean_viveConMascotas, setBoolean_viveConMascotas] = useState('')
     const [set_personasConLasQueVive, setSet_personasConLasQueVive] = useState('')
     const navigate = useNavigate();
+
+    // Convertir string a array al cargar el componente
+    const [mascotasArray, setMascotasArray] = useState([]);
+    // Convertir persolanas con las que vive de string a array
+    const [personasArray, setPersonasArray] = useState([]);
+
+    useEffect(() => {
+        if (set_tipoMascotas) {
+            //limpiar los ( [" "] ) de los animales
+            // const cleanedMascotas = set_tipoMascotas.replace(/[\[\]"]/g, '');
+            const cleanedMascotas = set_tipoMascotas.replace(/[\[\]"]/g, '') // Elimina corchetes y comillas
+
+
+            // Convertimos el string en array, manejando valores vacíos
+            setMascotasArray(cleanedMascotas.split(',').filter((item) => item.trim() !== '').filter(item => item !== 'N/A' && item !== ''));
+            //convertimos el string que entra a array
+            setPersonasArray(set_personasConLasQueVive.split(',').filter((item) => item.trim() !== '').filter(item => item !== 'N/A' && item !== ''));
+
+
+        } else {
+            setMascotasArray([]);
+            setPersonasArray([]);
+        }
+
+        
+    }, [set_tipoMascotas]);
+
+    useEffect(() => {
+        if (boolean_viveSolo == "true") {
+            setVar_numeroPersonasConLasQueVive();
+            setSet_personasConLasQueVive("N/A");
+        }
+    }, [boolean_viveSolo]);
+
+    useEffect(() => {
+        if (boolean_viveConMascotas == "false") {
+            setSet_tipoMascotas("N/A");
+        }
+    }, [boolean_viveConMascotas]);
+
+    const handleChange = (event) => {
+        const { value } = event.target;
+        // Actualizar tanto el array como el string original
+        setMascotasArray(typeof value === 'string' ? value.split(',') : value);
+        setSet_tipoMascotas(Array.isArray(value) ? value.join(',') : value);
+
+
+    };
+
+    const handleChangePersons = (event) => {
+        const { value } = event.target;
+
+        // Actualizar tanto el array como el string original
+        setPersonasArray(typeof value === 'string' ? value.split(',') : value);
+        setSet_personasConLasQueVive(Array.isArray(value) ? value.join(',') : value);
+    }
 
     // Obtener el ID desde localStorage
     const id_usuarioPK = localStorage.getItem('id_usuario');
@@ -45,12 +101,12 @@ const EditarDatosProfesional2 = () => {
         const res = await axios.get(URI_PROFESIONAL_POR_ID_USUARIO + id_usuarioPK);
         setId_profesionalPK(res.data.id_profesionalPK);
         setVar_estadoCivil(res.data.var_estadoCivil);
-        setBoolean_viveSolo(res.data.boolean_viveSolo);
+        setBoolean_viveSolo(res.data.boolean_viveSolo ? "true" : "false");
         setVar_personasDependeciaEconimica(res.data.var_personasDependeciaEconimica);
         setVar_totalIngresosPropiosYGrupoFamiliar(res.data.var_totalIngresosPropiosYGrupoFamiliar);
         setVar_numeroPersonasConLasQueVive(res.data.var_numeroPersonasConLasQueVive);
         setSet_tipoMascotas(res.data.set_tipoMascotas);
-        setBoolean_viveConMascotas(res.data.boolean_viveConMascotas);
+        setBoolean_viveConMascotas(res.data.boolean_viveConMascotas ? "true" : "false");
         setSet_personasConLasQueVive(res.data.set_personasConLasQueVive);
 
     };
@@ -108,35 +164,56 @@ const EditarDatosProfesional2 = () => {
                             <MenuItem value="false">No</MenuItem>
                         </TextField>
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Con cuantas personas vive:</Typography>
-                        <TextField select name="var_numeroPersonasConLasQueVive" variant="outlined" value={var_numeroPersonasConLasQueVive} onChange={(e) => setVar_numeroPersonasConLasQueVive(e.target.value)}
-                            fullWidth sx={{ mb: 2 }} FormHelperTextProps={{
-                                sx: {
-                                    marginLeft: 0,
-                                },
-                            }} InputProps={{
-                                sx: {
-                                    height: "40px",
-                                    fontFamily: "Roboto Condensed",
-                                    fontSize: "16px"
-                                },
-                            }}
-                        >
-                            <MenuItem value="1">1</MenuItem>
-                            <MenuItem value="2">2</MenuItem>
-                            <MenuItem value="3">3</MenuItem>
-                            <MenuItem value="4">4</MenuItem>
-                            <MenuItem value="5 o mas">5 o mas</MenuItem>
-                        </TextField>
+                        {boolean_viveSolo == "false" && (
+                            <>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Con cuantas personas vive:</Typography>
+                                <TextField select name="var_numeroPersonasConLasQueVive" variant="outlined" value={var_numeroPersonasConLasQueVive} onChange={(e) => setVar_numeroPersonasConLasQueVive(e.target.value)}
+                                    fullWidth sx={{ mb: 2 }} FormHelperTextProps={{
+                                        sx: {
+                                            marginLeft: 0,
+                                        },
+                                    }} InputProps={{
+                                        sx: {
+                                            height: "40px",
+                                            fontFamily: "Roboto Condensed",
+                                            fontSize: "16px"
+                                        },
+                                    }}
+                                >
+                                    <MenuItem value="1">1</MenuItem>
+                                    <MenuItem value="2">2</MenuItem>
+                                    <MenuItem value="3">3</MenuItem>
+                                    <MenuItem value="4">4</MenuItem>
+                                    <MenuItem value="5 o mas">5 o mas</MenuItem>
+                                </TextField>
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>¿Vive con? (Selecciona todas las personas con las que habita):</Typography>
-                        <TextField
-                            value={set_personasConLasQueVive}
-                            onChange={(e) => setSet_personasConLasQueVive(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
+                                
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>¿Vive con? (Selecciona todas las personas con las que habita):</Typography>
+                                <Select
+                                    name="set_personasConLasQueVive"
+                                    multiple
+                                    value={personasArray}
+                                    onChange={handleChangePersons}
+                                    renderValue={(selected) => Array.isArray(selected) ? selected.join(' - ') : ''}
+                                    fullWidth
+                                    variant="outlined"
+                                    sx={{
+                                        height: "40px",
+                                        fontFamily: "Roboto Condensed",
+                                        fontSize: "16px"
+                                    }}
+                                >
+                                    {["Pareja", "Hijos", "Madre", "Padre", "Hermanos", "Abuelos", "Tios", "Amigos", "Otros"].map((persona) => (
+                                        <MenuItem key={persona} value={persona}>
+                                            <Checkbox checked={set_personasConLasQueVive.indexOf(persona) > -1} />
+                                            <ListItemText primary={persona} />
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+
+
+                            </>
+                        )}
 
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>¿Tiene mascotas?:</Typography>
                         <TextField
@@ -150,19 +227,36 @@ const EditarDatosProfesional2 = () => {
                             <MenuItem value="false">No</MenuItem>
                         </TextField>
 
+                        {boolean_viveConMascotas == "true" && (
+                            <>
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Indica qué tipos de mascotas tienes en casa (se pueden seleccionar varias opciones):</Typography>
-                        <TextField
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Indica qué tipos de mascotas tienes en casa (se pueden seleccionar varias opciones):</Typography>
+                                <Select
+                                    name="set_tipoMascotas"
+                                    multiple
+                                    value={mascotasArray} // Usamos el array convertido
+                                    onChange={handleChange}
+                                    renderValue={(selected) => Array.isArray(selected) ? selected.join(' - ') : ''}
+                                    fullWidth
+                                    variant="outlined"
+                                    sx={{
+                                        height: "40px",
+                                        fontFamily: "Roboto Condensed",
+                                        fontSize: "16px"
+                                    }}
+                                >
+                                    {["Perro", "Gato", "Conejo", "Hamster", "Tortuga", "Huron", "Cobaya", "Chinchilla", "Pajaros", "Cerdo miniatura", "Peces", "Otro tipo"].map((mascotas) => (
+                                        <MenuItem key={mascotas} value={mascotas}>
+                                            <Checkbox checked={set_tipoMascotas.indexOf(mascotas) > -1} />
+                                            <ListItemText primary={mascotas} />
+                                        </MenuItem>
+                                    ))}
+                                </Select>
 
-                            value={set_tipoMascotas}
-                            onChange={(e) => setSet_tipoMascotas(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}>
-
-                        </TextField>
 
 
+                            </>
+                        )}
 
 
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Cantidad de personas con las que NO vive pero dependen económicamente de usted:</Typography>

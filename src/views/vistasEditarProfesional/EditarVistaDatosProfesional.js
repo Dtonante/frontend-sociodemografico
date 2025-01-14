@@ -326,34 +326,7 @@ const EditarDatosProfesional = () => {
                             sx={{ mb: 2 }}
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
-
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>zona vivienda:</Typography>
-                        <TextField
-                            value={var_zonaVivienda}
-                            onChange={(e) => setVar_zonaVivienda(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>estrato vivienda:</Typography>
-                        <TextField
-                            value={var_estratoVivienda}
-                            onChange={(e) => setVar_estratoVivienda(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>tipo de vivienda:</Typography>
-                        <TextField
-                            value={var_tipoVivienda}
-                            onChange={(e) => setVar_tipoVivienda(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
+                        
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Zona de la vivienda:</Typography>
                         <TextField select name="var_zonaVivienda" value={var_zonaVivienda} onChange={(e) => setVar_zonaVivienda(e.target.value)} fullWidth sx={{ mb: 2 }} FormHelperTextProps={{
                             sx: {
