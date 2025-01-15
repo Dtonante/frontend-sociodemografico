@@ -1,174 +1,3 @@
-// import axios from "axios";
-// import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { Card, CardContent, Divider, MenuItem, Box, Typography, TextField, Button } from "@mui/material";
-
-// const URI_PROFESIONAL = 'http://localhost:3001/profesional/';
-// const URI_PROFESIONAL_POR_ID_USUARIO = 'http://localhost:3001/profesional/porUsuario/';
-
-// const EditarDatosProfesional3 = () => {
-//     const [id_profesionalPK, setId_profesionalPK] = useState()
-//     const [id_epsFK, setId_epsFK] = useState()
-//     const [id_fondoPensionFK, setId_fondoPensionFK] = useState('');
-//     const [boolean_cambioEpsOArl, setBoolean_cambioEpsOArl] = useState('');
-//     const [epsOptions, setEpsOptions] = useState([]);
-//     const [selectedEps, setSelectedEps] = useState('');
-
-
-
-//     const navigate = useNavigate();
-
-//     // Obtener el ID desde localStorage
-//     const id_usuarioPK = localStorage.getItem('id_usuario');
-
-//     // Procedimiento para actualizar
-//     const actualizar = async (e) => {
-//         e.preventDefault();
-//         await axios.put(URI_PROFESIONAL + id_profesionalPK, {
-//             id_epsFK: id_epsFK,
-//             id_fondoPensionFK: id_fondoPensionFK,
-//             boolean_cambioEpsOArl: boolean_cambioEpsOArl,
-
-//         });
-//         navigate('/app/editarDatosProfesional3');
-//     };
-
-//     // Hacer la solicitud para obtener las EPS al cargar el componente
-//     useEffect(() => {
-//         const fetchEps = async () => {
-//             try {
-//                 const response = await axios.get('https://evaluacion.esumer.edu.co/api/eps/');
-//                 setEpsOptions(response.data);
-//             } catch (error) {
-//                 console.error('Error al obtener las EPS:', error);
-//             }
-//         };
-
-//         fetchEps();
-//     }, []);
-
-//     useEffect(() => {
-//         getUsuarios();
-//     }, []);
-
-//     const getUsuarios = async () => {
-//         try {
-//             const res = await axios.get(URI_PROFESIONAL_POR_ID_USUARIO + id_usuarioPK);
-//             setId_profesionalPK(res.data.id_profesionalPK);
-//             setId_epsFK(res.data.id_epsFK);
-//             setId_fondoPensionFK(res.data.id_fondoPensionFK);
-//             setBoolean_cambioEpsOArl(res.data.boolean_cambioEpsOArl);
-
-//             // Asignar el EPS seleccionado basado en el ID traído de la base de datos
-//             const selected = epsOptions.find((eps) => eps.id_epsPK === res.data.id_epsFK);
-//             if (selected) {
-//                 setSelectedEps(selected.id_epsPK);
-//             }
-//         } catch (error) {
-//             console.error('Error al obtener los datos del profesional:', error);
-//         }
-
-//     };
-
-//     return (
-//         <div style={{ backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%" }}>
-//             <div style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }}>
-//                 <img src="public/fondo_form.png" alt="Descripción de la imagen" style={{ width: "20%", height: "auto" }} />
-//             </div>
-//             <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: "#F2F2F2", borderColor: "#202B52" }}>
-//                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
-//                     <Box flexGrow={1}>
-//                         <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: "center", color: "#202B52", fontFamily: "Roboto Condensed" }}>
-//                             <strong>Datos personales</strong>
-//                         </Typography>
-//                     </Box>
-//                 </Box>
-//                 <Divider style={{ marginLeft: "5%", marginRight: "5%", borderColor: "#202B52" }} />
-//                 <CardContent sx={{ padding: "30px" }}>
-//                     <form onSubmit={actualizar}>
-
-//                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>¿Ha cambiado de EPS o AFP?:</Typography>
-//                         <TextField
-//                             value={boolean_cambioEpsOArl}
-//                             onChange={(e) => setBoolean_cambioEpsOArl(e.target.value)}
-//                             fullWidth
-//                             sx={{ mb: 2 }}
-//                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-//                         />
-
-//                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione EPS ACTUAL:</Typography>
-//                         <TextField
-//                             value={id_epsFK}
-//                             onChange={(e) => setId_epsFK(e.target.value)}
-//                             fullWidth
-//                             sx={{ mb: 2 }}
-//                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-//                         />
-
-//                         <Typography
-//                             variant="h6"
-//                             sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
-//                         >
-//                             Seleccione EPS <strong>ACTUAL</strong>:
-//                         </Typography>
-//                         <TextField
-//                             select
-//                             value={selectedEps} // Sincronizado con el estado
-//                             name="selectedEps"
-//                             onChange={(e) => {
-//                                 setSelectedEps(e.target.value);
-//                                 setId_epsFK(e.target.value); // También actualiza el id_epsFK
-//                             }}
-//                             fullWidth
-//                             variant="outlined"
-//                             sx={{ mb: 2 }}
-//                             InputProps={{
-//                                 sx: {
-//                                     height: "40px",
-//                                     fontFamily: "Roboto Condensed",
-//                                     fontSize: "16px",
-//                                 },
-//                             }}
-//                         >
-//                             {epsOptions.map((eps) => (
-//                                 <MenuItem key={eps.id_epsPK} value={eps.id_epsPK}>
-//                                     {eps.var_nombreEps}
-//                                 </MenuItem>
-//                             ))}
-//                         </TextField>
-
-
-
-//                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione Fondo de Pensión:</Typography>
-//                         <TextField
-//                             value={id_fondoPensionFK}
-//                             onChange={(e) => setId_fondoPensionFK(e.target.value)}
-//                             fullWidth
-//                             sx={{ mb: 2 }}
-//                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-//                         />
-
-
-
-
-//                         <div style={{ display: "flex", justifyContent: "flex-end" }}>
-//                             <Button sx={{ backgroundColor: "#202B52", fontFamily: 'poppins' }} variant="contained" type="submit">
-//                                 Guardar
-//                             </Button>
-//                         </div>
-//                     </form>
-//                 </CardContent>
-//             </Card>
-//         </div>
-//     );
-
-
-// }
-
-// export default EditarDatosProfesional3
-
-
-//////----------------------------------
 
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -251,12 +80,12 @@ const EditarDatosProfesional3 = () => {
     const manejarCambioServicios = async (event) => {
         const { value } = event.target; // Nuevas opciones seleccionadas
         setSelectedServiciosSaludAdicional(value);
-    
+
         // Eliminar servicios deseleccionados
         const serviciosParaEliminar = prevSelectedServiciosSaludAdicional.filter(
             (id_servicio) => !value.includes(id_servicio)
         );
-    
+
         for (let id_servicio of serviciosParaEliminar) {
             // Agregar log para revisar el valor de id_servicio
             console.log("Eliminando servicio con id:", id_servicio);
@@ -267,12 +96,12 @@ const EditarDatosProfesional3 = () => {
                 console.error('Error al eliminar servicio:', error);
             }
         }
-    
+
         // Agregar nuevos servicios seleccionados
         const serviciosParaAgregar = value.filter(
             (id_servicio) => !prevSelectedServiciosSaludAdicional.includes(id_servicio)
         );
-    
+
         for (let id_servicio of serviciosParaAgregar) {
             // Agregar log para revisar el valor de id_servicio
             console.log("Agregando servicio con id:", id_servicio);
@@ -287,11 +116,11 @@ const EditarDatosProfesional3 = () => {
                 console.error('Error al agregar servicio:', error);
             }
         }
-    
+
         // Actualizar el estado previo
         setPrevSelectedServiciosSaludAdicional(value);
     };
-    
+
 
     useEffect(() => {
         // Inicializar el estado previo con los servicios ya asociados al profesional
@@ -300,25 +129,37 @@ const EditarDatosProfesional3 = () => {
         }
     }, [id_profesionalPK]);
 
+    // Cuando los servicios asociados al profesional se obtienen correctamente
     const fetchServiciosProfesional = async () => {
         try {
             // Obtener los servicios asociados al profesional
             const response = await axios.get(
                 `https://evaluacion.esumer.edu.co/api/profesionalServicioSaludAdicional/${id_profesionalPK}`
             );
-
-            // Extraer solo los IDs de los servicios seleccionados
+                
+            // Extraer los IDs de los servicios asociados
             const serviciosIds = response.data.map(
-                (servicio) => servicio.id_servicioDeSaludAdicionalFK
+                (servicio) => servicio.id_ServicioDeSaludAdicionalFK
             );
-
+    
+            console.log("Servicios IDs extraídos:", serviciosIds); 
+    
             // Sincronizar el estado de los servicios seleccionados
             setSelectedServiciosSaludAdicional(serviciosIds);
-            setPrevSelectedServiciosSaludAdicional(serviciosIds); // Sincronizar también el estado previo
+            setPrevSelectedServiciosSaludAdicional(serviciosIds);
+    
+            // Sincronizar los nombres con los IDs
+            const selectedNames = serviciosSaludAdicionalOptions
+                .filter((servicio) => serviciosIds.includes(servicio.id_servicioDeSaludAdicionalPK))
+                .map((servicio) => servicio.var_nombreServicioDeSaludAdicional);
+    
+            console.log('Servicios seleccionados por nombre:', selectedNames); // Verifica los nombres
+    
         } catch (error) {
             console.error('Error al obtener los servicios de salud adicional del profesional:', error);
         }
     };
+    
 
 
 
@@ -514,6 +355,7 @@ const EditarDatosProfesional3 = () => {
                                 ))}
                             </Select>
 
+                           
                         </FormControl>
 
                         <div style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -531,5 +373,30 @@ const EditarDatosProfesional3 = () => {
 }
 
 export default EditarDatosProfesional3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
