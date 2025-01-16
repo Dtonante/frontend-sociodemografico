@@ -1,17 +1,21 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, CardContent, Divider, Box, Typography, TextField, Button } from "@mui/material";
+import { Card, CardContent, Divider, Select, MenuItem, FormControl, Box, Typography, TextField, Button } from "@mui/material";
 
 const URI_PROFESIONAL = 'http://localhost:3001/profesional/';
 const URI_PROFESIONAL_POR_ID_USUARIO = 'http://localhost:3001/profesional/porUsuario/';
 
 const EditarDatosProfesional4 = () => {
-    const [id_profesionalPK, setId_profesionalPK]= useState()
-    const [id_cuentaBancariaFK, setId_cuentaBancariaFK]= useState()
-    const [var_tipoCuenta, setVar_tipoCuenta]= useState()
+    const [id_profesionalPK, setId_profesionalPK] = useState()
+    const [id_cuentaBancariaFK, setId_cuentaBancariaFK] = useState()
+    const [var_tipoCuenta, setVar_tipoCuenta] = useState()
     const [var_numeroCuenta, setVar_numeroCuenta] = useState('');
-   
+    const [selectedBanco, setSelectedBanco] = useState("");
+    const [bancos, setBancos] = useState([]);
+
+
+
     const navigate = useNavigate();
 
     // Obtener el ID desde localStorage
@@ -21,7 +25,7 @@ const EditarDatosProfesional4 = () => {
     const actualizar = async (e) => {
         e.preventDefault();
         await axios.put(URI_PROFESIONAL + id_profesionalPK, {
-            id_cuentaBancariaFK: id_cuentaBancariaFK,
+            id_cuentaBancariaFK: selectedBanco,
             var_tipoCuenta: var_tipoCuenta,
             var_numeroCuenta: var_numeroCuenta,
 
@@ -39,10 +43,35 @@ const EditarDatosProfesional4 = () => {
         setId_cuentaBancariaFK(res.data.id_cuentaBancariaFK);
         setVar_tipoCuenta(res.data.var_tipoCuenta);
         setVar_numeroCuenta(res.data.var_numeroCuenta);
-       
+
 
     };
+
+    const manejarCambio = (event) => {
+        const { value } = event.target;
+        setSelectedBanco(value);  // Esto actualiza el estado de selectedBanco
+    };
     
+
+    // useEffect para obtener los bancos desde el servidor
+    useEffect(() => {
+        const fetchBancos = async () => {
+            try {
+                const response = await axios.get("https://evaluacion.esumer.edu.co/api/cuentasBancarias");
+                setBancos(response.data);
+                // Establecer el banco seleccionado si ya tienes el id_cuentaBancariaFK
+                if (id_cuentaBancariaFK) {
+                    setSelectedBanco(id_cuentaBancariaFK); // Esto hará que se seleccione el banco correcto en el Select
+                    
+                }
+            } catch (error) {
+                console.error("Error al obtener los bancos:", error);
+            }
+        };
+
+        fetchBancos();
+    }, [id_cuentaBancariaFK]);
+
     return (
         <div style={{ backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%" }}>
             <div style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }}>
@@ -60,15 +89,40 @@ const EditarDatosProfesional4 = () => {
                 <CardContent sx={{ padding: "30px" }}>
                     <form onSubmit={actualizar}>
 
-                    <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>banco:</Typography>
-                        <TextField
-                            value={id_cuentaBancariaFK}
-                            onChange={(e) => setId_cuentaBancariaFK(e.target.value)}
+                        <FormControl
                             fullWidth
                             sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-                    
+                        >
+                            <Typography
+                                variant="h6"
+                                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
+                            >
+                                Seleccione Banco:
+                            </Typography>
+
+                            <Select
+                                name="banco"
+                                value={selectedBanco}
+                                onChange={manejarCambio}
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Roboto Condensed",
+                                    fontSize: "16px",
+                                }}
+                            >
+                                {bancos.map((banco) => (
+                                    <MenuItem
+                                        key={banco.id_cuentaBancariaPK}
+                                        value={banco.id_cuentaBancariaPK}
+                                    >
+                                        {" "}
+                                        {banco.var_nombreCuentaBancaria}{" "}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+
+                        </FormControl>
+
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>tipo cuenta:</Typography>
                         <TextField
                             value={var_tipoCuenta}
@@ -87,7 +141,7 @@ const EditarDatosProfesional4 = () => {
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
 
-                        
+
 
 
                         <div style={{ display: "flex", justifyContent: "flex-end" }}>
