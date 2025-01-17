@@ -2,7 +2,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, CardContent, Divider, MenuItem, Checkbox, ListItemText, FormControl, Select, Box, Typography, TextField, Button } from "@mui/material";
+import { Card, CardContent, Divider, MenuItem, Checkbox, RadioGroup, Radio, FormControlLabel, ListItemText, FormControl, Select, Box, Typography, TextField, Button } from "@mui/material";
 
 const URI_PROFESIONAL = 'http://localhost:3001/profesional/';
 const URI_PROFESIONAL_POR_ID_USUARIO = 'http://localhost:3001/profesional/porUsuario/';
@@ -327,6 +327,35 @@ const EditarDatosProfesional3 = () => {
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
 
+                        <FormControl sx={{ mb: 2 }} >
+                            <Typography
+                                variant="h6"
+                                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
+                            >
+                                ¿Ha cambiado de EPS o AFP?:
+                            </Typography>
+                            <RadioGroup
+                                row
+                                value={boolean_cambioEpsOArl}
+                                onChange={(e) => setBoolean_cambioEpsOArl(e.target.value)}
+
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Roboto Condensed",
+                                    fontSize: "16px",
+                                }}
+                            >
+                                <FormControlLabel value={true} control={<Radio />} label="Sí" />
+                                <FormControlLabel
+                                    value={false}
+                                    control={<Radio />}
+                                    label="No"
+                                />
+                            </RadioGroup>
+
+                           
+                        </FormControl>
+
                         <Typography
                             variant="h6"
                             sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
@@ -495,7 +524,7 @@ const EditarDatosProfesional3 = () => {
                                         key={antecedente.id_antecedenteMedicoPK}
                                         value={antecedente.id_antecedenteMedicoPK}
                                     >
-                                        
+
                                         <Checkbox
                                             checked={selectedAntecedentes.indexOf(antecedente.id_antecedenteMedicoPK) > -1}
                                         />

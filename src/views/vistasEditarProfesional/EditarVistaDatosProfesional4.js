@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, CardContent, Divider, Select, MenuItem, FormControl, Box, Typography, TextField, Button } from "@mui/material";
+import { Card, CardContent, Divider, Select, MenuItem, RadioGroup, Radio, FormControlLabel, FormControl, Box, Typography, TextField, Button } from "@mui/material";
 
 const URI_PROFESIONAL = 'http://localhost:3001/profesional/';
 const URI_PROFESIONAL_POR_ID_USUARIO = 'http://localhost:3001/profesional/porUsuario/';
@@ -9,7 +9,7 @@ const URI_PROFESIONAL_POR_ID_USUARIO = 'http://localhost:3001/profesional/porUsu
 const EditarDatosProfesional4 = () => {
     const [id_profesionalPK, setId_profesionalPK] = useState()
     const [id_cuentaBancariaFK, setId_cuentaBancariaFK] = useState()
-    const [var_tipoCuenta, setVar_tipoCuenta] = useState()
+    const [var_tipoCuenta, setVar_tipoCuenta] = useState("")
     const [var_numeroCuenta, setVar_numeroCuenta] = useState('');
     const [selectedBanco, setSelectedBanco] = useState("");
     const [bancos, setBancos] = useState([]);
@@ -51,7 +51,7 @@ const EditarDatosProfesional4 = () => {
         const { value } = event.target;
         setSelectedBanco(value);  // Esto actualiza el estado de selectedBanco
     };
-    
+
 
     // useEffect para obtener los bancos desde el servidor
     useEffect(() => {
@@ -62,7 +62,7 @@ const EditarDatosProfesional4 = () => {
                 // Establecer el banco seleccionado si ya tienes el id_cuentaBancariaFK
                 if (id_cuentaBancariaFK) {
                     setSelectedBanco(id_cuentaBancariaFK); // Esto hará que se seleccione el banco correcto en el Select
-                    
+
                 }
             } catch (error) {
                 console.error("Error al obtener los bancos:", error);
@@ -131,6 +131,42 @@ const EditarDatosProfesional4 = () => {
                             sx={{ mb: 2 }}
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
+
+                        <FormControl
+                            component="fieldset"
+                            sx={{ mb: 2 }}
+                            
+                        >
+                            <Typography
+                                variant="h6"
+                                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
+                            >
+                                Tipo de Cuenta:
+                            </Typography>
+                            <RadioGroup
+                                name="tipoCuenta"
+                                value={var_tipoCuenta}
+                                onChange={(e) => setVar_tipoCuenta(e.target.value)}
+                                row
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Roboto Condensed",
+                                    fontSize: "16px",
+                                }}
+                            >
+                                <FormControlLabel
+                                    value="ahorro"
+                                    control={<Radio />}
+                                    label="Ahorro"
+                                />
+                                <FormControlLabel
+                                    value="corriente"
+                                    control={<Radio />}
+                                    label="Corriente"
+                                />
+                            </RadioGroup>
+                           
+                        </FormControl>
 
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>numero cuenta:</Typography>
                         <TextField

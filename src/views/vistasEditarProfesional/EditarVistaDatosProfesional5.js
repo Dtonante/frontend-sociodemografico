@@ -10,7 +10,7 @@ const EditarDatosProfesional5 = () => {
     const [afiliado, setAfiliado] = useState("si");
     const [id_profesionalPK, setId_profesionalPK] = useState()
     const [var_correoElectronicoInstitucional, setVar_correoElectronicoInstitucional] = useState()
-    const [var_tipoContrato, setVar_tipoContrato] = useState()
+    const [var_tipoContrato, setVar_tipoContrato] = useState("")
     const [var_salario, setVar_salario] = useState('');
     const [date_fechaIngresoInstitucion, setDate_fechaIngresoInstitucion] = useState('');
     const [var_antiguedadInstitucion, setVar_antiguedadInstitucion] = useState('');
@@ -25,9 +25,17 @@ const EditarDatosProfesional5 = () => {
     fechaMaxima.setDate(fechaHoy.getDate() + 5); // 5 días después de hoy
     const fechaMaximaISO = fechaMaxima.toISOString().split("T")[0];
 
-
-
     const navigate = useNavigate();
+
+    //tipos de contratos
+    const tipoContratoMap = {
+        indefinido: "Contrato a término indefinido",
+        fijo: "Contrato a término fijo",
+        prestacion_servicios: "Contrato por prestación de servicios",
+        medio_tiempo: "Medio tiempo",
+        docente_catedra: "Docente de cátedra",
+        obra_labor: "Obra/Labor",
+    };
 
     // Obtener el ID desde localStorage
     const id_usuarioPK = localStorage.getItem('id_usuario');
@@ -64,8 +72,8 @@ const EditarDatosProfesional5 = () => {
     useEffect(() => {
         setVar_antiguedadInstitucion(calcularDias(date_fechaIngresoInstitucion));
     }, [date_fechaIngresoInstitucion]);
-    
-    
+
+
 
     // Procedimiento para actualizar
     const actualizar = async (e) => {
@@ -182,14 +190,34 @@ const EditarDatosProfesional5 = () => {
                                     InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                                 />
 
-                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione EPS ACTUAL:</Typography>
-                                <TextField
-                                    value={var_tipoContrato}
-                                    onChange={(e) => setVar_tipoContrato(e.target.value)}
+                                <FormControl
                                     fullWidth
                                     sx={{ mb: 2 }}
-                                    InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                                />
+                                >
+                                    <Typography
+                                        variant="h6"
+                                        sx={{ fontFamily: "Roboto Condensed", color: "#202B52", fontSize: "16px" }}
+                                    >
+                                        Tipo de Contrato:
+                                    </Typography>
+                                    <Select
+                                        labelId="tipo-contrato-label"
+                                        name="tipoContrato"
+                                        value={var_tipoContrato}
+                                        onChange={(e) => setVar_tipoContrato(e.target.value)}
+                                        sx={{
+                                            height: "40px",
+                                            fontFamily: "Roboto Condensed",
+                                            fontSize: "16px",
+                                        }}
+                                    >
+                                        {Object.entries(tipoContratoMap).map(([value, label]) => (
+                                            <MenuItem key={value} value={value}>
+                                                {label}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
 
                                 <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione Fondo de Pensión:</Typography>
                                 <TextField
@@ -200,7 +228,7 @@ const EditarDatosProfesional5 = () => {
                                     InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                                 />
 
-                                
+
                                 <Typography
                                     variant="h6"
                                     sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}

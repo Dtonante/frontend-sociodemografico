@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, CardContent, Divider, Box, Typography, TextField, Button, MenuItem } from "@mui/material";
+import { Card, CardContent, Divider, Box, Typography, RadioGroup, FormControlLabel, Radio, FormControl, TextField, Button, MenuItem } from "@mui/material";
 
 const URI_USUARIOS = 'http://localhost:3001/usuarios/';
 const URI_PROFESIONAL = 'http://localhost:3001/profesional/';
@@ -215,6 +215,22 @@ const CompEditarUsuario = () => {
                             sx={{ mb: 2 }}
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
+
+                        <Typography
+                            variant="h6"
+                            sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
+                        >
+                            Género:
+                        </Typography>
+                        <FormControl className="genero" component="fieldset" sx={{ mb: 2 }} >
+                            <RadioGroup className="genero" name="var_genero" value={var_genero} onChange={(e) => setVar_genero(e.target.value)} row sx={{ height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px", }} >
+                                <FormControlLabel value="Masculino" control={<Radio />} label="Masculino" />
+                                <FormControlLabel value="Femenino" control={<Radio />} label="Femenino" />
+                                <FormControlLabel value="Otro" control={<Radio />} label="Otro" />
+                                <FormControlLabel value="Prefiero no decirlo" control={<Radio />} label="Prefiero no decirlo" />
+                            </RadioGroup>
+
+                        </FormControl>
 
                         <Typography
                             variant="h6"
