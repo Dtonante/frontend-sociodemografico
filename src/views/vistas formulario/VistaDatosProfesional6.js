@@ -204,13 +204,13 @@ const VistaDatosProfesional6 = () => {
                                 fontFamily: "Roboto Condensed",
                                 fontSize: "16px"
                             }} >
-                            <MenuItem value="bachiller">Bachiller </MenuItem>
-                            <MenuItem value="tecnico">Técnico </MenuItem>
-                            <MenuItem value="tecnologo">Tecnólogo </MenuItem>
-                            <MenuItem value="pregrado">Pregrado </MenuItem>
-                            <MenuItem value="posgrado">Posgrado </MenuItem>
-                            <MenuItem value="doctorado">Doctorado </MenuItem>
-                            <MenuItem value="maestria">Maestría </MenuItem>
+                            <MenuItem value="Bachiller">Bachiller </MenuItem>
+                            <MenuItem value="Técnico">Técnico </MenuItem>
+                            <MenuItem value="Tecnólogo">Tecnólogo </MenuItem>
+                            <MenuItem value="Pregrado">Pregrado </MenuItem>
+                            <MenuItem value="Posgrado">Posgrado </MenuItem>
+                            <MenuItem value="Doctorado">Doctorado </MenuItem>
+                            <MenuItem value="Maestría">Maestría </MenuItem>
                         </Select>
                         {errors.nivelEscolaridad && (
                             <FormHelperText

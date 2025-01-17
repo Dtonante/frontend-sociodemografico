@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { TextField, MenuItem, FormControl, FormHelperText, InputLabel,  Select, Card, Box, Typography, Button,  Divider,  CardContent, FormControlLabel, RadioGroup, Radio, } from "@mui/material";
+import { TextField, MenuItem, FormControl, FormHelperText, InputLabel, Select, Card, Box, Typography, Button, Divider, CardContent, FormControlLabel, RadioGroup, Radio, } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const VistaDatosProfesional4 = () => {
@@ -38,16 +38,16 @@ const VistaDatosProfesional4 = () => {
     });
   };
 
-    // useEffect para obtener los bancos desde el servidor
-    useEffect(() => {
-        const fetchBancos = async () => {
-            try {
-                const response = await axios.get("https://evaluacion.esumer.edu.co/api/cuentasBancarias");
-                setBancos(response.data);
-            } catch (error) {
-                console.error("Error al obtener los bancos:", error);
-            }
-        };
+  // useEffect para obtener los bancos desde el servidor
+  useEffect(() => {
+    const fetchBancos = async () => {
+      try {
+        const response = await axios.get("https://evaluacion.esumer.edu.co/api/cuentasBancarias");
+        setBancos(response.data);
+      } catch (error) {
+        console.error("Error al obtener los bancos:", error);
+      }
+    };
 
     fetchBancos();
   }, []);
@@ -114,7 +114,7 @@ const VistaDatosProfesional4 = () => {
   }
 
   return (
-    <div style={{  backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%",  height: "100vh", overflow: "auto", }}  >
+    <div style={{ backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%", height: "100vh", overflow: "auto", }}  >
       <div style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }} >
         <img
           src="public/logo_form.png"
@@ -138,7 +138,7 @@ const VistaDatosProfesional4 = () => {
       >
         <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
           <Box flexGrow={1}>
-            
+
             <Typography
               sx={{
                 fontSize: "18px",
@@ -250,7 +250,7 @@ const VistaDatosProfesional4 = () => {
             </FormControl>
 
             <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >Número de Cuenta: </Typography>
-            <TextField variant="outlined" fullWidth sx={{ mb: 2 }} name="numeroCuenta"  onKeyPress={(event) => handleKeyPress(event, "numeroCuenta") }  value={numeroCuenta} onChange={manejarCambio} onBlur={handleBlur}  error={!!errors.numeroCuenta} helperText={errors.numeroCuenta} FormHelperTextProps={{ sx: { marginLeft: 0, }, }} InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px", }, inputProps: { maxLength: 18, }, }}    />
+            <TextField variant="outlined" fullWidth sx={{ mb: 2 }} name="numeroCuenta" onKeyPress={(event) => handleKeyPress(event, "numeroCuenta")} value={numeroCuenta} onChange={manejarCambio} onBlur={handleBlur} error={!!errors.numeroCuenta} helperText={errors.numeroCuenta} FormHelperTextProps={{ sx: { marginLeft: 0, }, }} InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px", }, inputProps: { maxLength: 18, }, }} />
 
             <div
               style={{
@@ -291,7 +291,7 @@ const VistaDatosProfesional4 = () => {
             </div>
 
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
-            <button
+              <button
                 style={{
                   fontFamily: 'poppins',
                   padding: '10px 20px',

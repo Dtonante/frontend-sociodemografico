@@ -11,7 +11,7 @@ const TableroGestionHumana = () => {
                     title="Dashboard_PerfilSociodemografico"
                     width="100%"
                     height="750"
-                    src="https://app.powerbi.com/view?r=eyJrIjoiOTcwNjViZDMtZTNhNS00YjlhLWI1MjQtODk5YmQ2YTQ0OTQwIiwidCI6IjEwNzg1MmM2LTJmZjgtNGIyNi1iODk0LTczYTYwYWQxMTM1YSIsImMiOjR9&pageName=ReportSection"
+                    src="https://app.powerbi.com/view?r=eyJrIjoiNjc1ZGRiM2EtMDQzNy00ODdmLWI3M2QtNDFkMDhjNjExYTRjIiwidCI6IjEwNzg1MmM2LTJmZjgtNGIyNi1iODk0LTczYTYwYWQxMTM1YSIsImMiOjR9"
                     frameBorder="0"
                     allowFullScreen={true}
                     style={{ border: "1px solid #ccc", borderRadius: "8px" }}
