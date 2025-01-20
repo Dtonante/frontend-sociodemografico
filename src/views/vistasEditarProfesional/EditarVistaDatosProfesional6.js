@@ -26,9 +26,7 @@ const EditarDatosProfesional4 = () => {
             setBoolean_actualmenteEstudia("false")
         } else {
             setBoolean_actualmenteEstudia("true")
-        }
-
-        
+        } 
     };
 
     useEffect(() => {
@@ -56,10 +54,6 @@ const EditarDatosProfesional4 = () => {
         });
         navigate('/app/editarDatosProfesional6');
     };
-
-
-
-
 
     const getUsuarios = async () => {
         const res = await axios.get(URI_PROFESIONAL_POR_ID_USUARIO + id_usuarioPK);

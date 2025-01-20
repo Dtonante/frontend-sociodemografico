@@ -123,15 +123,6 @@ const EditarDatosProfesional4 = () => {
 
                         </FormControl>
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>tipo cuenta:</Typography>
-                        <TextField
-                            value={var_tipoCuenta}
-                            onChange={(e) => setVar_tipoCuenta(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
                         <FormControl
                             component="fieldset"
                             sx={{ mb: 2 }}
