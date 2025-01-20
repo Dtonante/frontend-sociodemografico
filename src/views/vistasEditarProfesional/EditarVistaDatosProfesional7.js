@@ -1,15 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, CardContent, Divider, Box, Typography, Select, RadioGroup, FormControlLabel, Radio, FormControl, MenuItem, TextField, Button } from "@mui/material";
+import { Card, CardContent, Divider, Box, Typography, Select, Checkbox, ListItemText, RadioGroup, FormControlLabel, Radio, FormControl, MenuItem, TextField, Button } from "@mui/material";
 
 const URI_PROFESIONAL = 'http://localhost:3001/profesional/';
 const URI_PROFESIONAL_POR_ID_USUARIO = 'http://localhost:3001/profesional/porUsuario/';
 
 const EditarDatosProfesional7 = () => {
     const [id_profesionalPK, setId_profesionalPK] = useState()
-    const [set_pasoMayorTiempoLibre, setSet_pasoMayorTiempoLibre] = useState()
-    const [boolean_usaLentes, setBoolean_usaLentes] = useState()
+    const [set_pasoMayorTiempoLibre, setSet_pasoMayorTiempoLibre] = useState("")
+    const [boolean_usaLentes, setBoolean_usaLentes] = useState("")
     const [var_altura, setVar_altura] = useState('');
     const [var_peso, setVar_peso] = useState('');
     const [boolean_bebidasEnergizantes, setBoolean_bebidasEnergizantes] = useState('');
@@ -22,7 +22,9 @@ const EditarDatosProfesional7 = () => {
     const [var_frecuenciaToma, setVar_frecuenciaToma] = useState('');
     const [boolean_sustanciasPsicoactivas, setBoolean_sustanciasPsicoactivas] = useState('');
     const [var_frecuenciaSustanciasPsicoactivas, setVar_frecuenciaSustanciasPsicoactivas] = useState('');
-
+    const [actividadTiempoLibreOptions, setActividadTiempoLibre] = useState([]);
+    const [selectedActividadTiempoLibre, setSelectedActividadTiempoLibre] = useState([]);
+    const [prevSelectedActividadTiempoLibre, setPrevSelectedActividadTiempoLibre] = useState([]);
     const navigate = useNavigate();
 
     // Obtener el ID desde localStorage
@@ -53,7 +55,53 @@ const EditarDatosProfesional7 = () => {
 
     useEffect(() => {
         getUsuarios();
+
     }, []);
+
+    // fectch para los las actividades que realiza en su tiempo libre
+    useEffect(() => {
+        const fetchActividadTiempoLibre = async () => {
+            try {
+                const response = await axios.get('https://evaluacion.esumer.edu.co/api/tiempoLibre/');
+                setActividadTiempoLibre(response.data);
+            } catch (error) {
+                console.error('Error al obtener las actividades de tiempo libre:', error);
+            }
+        };
+
+        fetchActividadTiempoLibre();
+    }, []);
+
+    useEffect(() => {
+    const fetchActividadTiempoLibreProfesional = async () => {
+        if (id_profesionalPK) {
+            console.log("id_profesionalPK:", id_profesionalPK);
+            try {
+                const response = await axios.get(`https://evaluacion.esumer.edu.co/api/profesionalTiempoLibre/${id_profesionalPK}`);
+
+                //Extraer los ids de los tiempos libres
+                const tiempoLibreIds = response.data.map(
+                    (tiempo) => tiempo.id_tiempoLibreFK
+                );
+
+                console.log("libre ids", tiempoLibreIds)
+
+                //sincronizar el estado de los tiempos seleccionados
+
+                setSelectedActividadTiempoLibre(tiempoLibreIds)
+                setPrevSelectedActividadTiempoLibre(tiempoLibreIds)
+
+                console.log("Datos obtenidos:", response.data);
+            } catch (error) {
+                console.error('Error al obtener las actividades de tiempo libre del profesional:', error);
+            }
+        } else {
+            console.log("No hay id_profesionalPK");
+        }
+    };
+
+    fetchActividadTiempoLibreProfesional();
+}, [id_profesionalPK]);
 
 
 
@@ -112,16 +160,26 @@ const EditarDatosProfesional7 = () => {
         cambiarValoresCuandoSeaFalse();
     }, [boolean_sustanciasPsicoactivas, boolean_toma, boolean_fuma, boolean_actividadFisica, boolean_bebidasEnergizantes]);
 
+    useEffect(() => {
+        if (set_pasoMayorTiempoLibre) { // Asegúrate de que tenga un valor
+            const resultado = set_pasoMayorTiempoLibre.replace(/"/g, '');
+            setSet_pasoMayorTiempoLibre(resultado)
+            console.log("lo tenemos", set_pasoMayorTiempoLibre)
+        } else {
+            console.log("set_pasoMayorTiempoLibre está indefinido o vacío");
+        }
+    }, [set_pasoMayorTiempoLibre]);
+
 
     const getUsuarios = async () => {
         const res = await axios.get(URI_PROFESIONAL_POR_ID_USUARIO + id_usuarioPK);
         setId_profesionalPK(res.data.id_profesionalPK);
         setSet_pasoMayorTiempoLibre(res.data.set_pasoMayorTiempoLibre);
-        setBoolean_usaLentes(res.data.boolean_usaLentes);
+        setBoolean_usaLentes(res.data.boolean_usaLentes ? "true" : "false");
         setVar_altura(res.data.var_altura);
         setVar_peso(res.data.var_peso);
-        setBoolean_bebidasEnergizantes(res.data.boolean_bebidasEnergizantes);
-        setVar_frecuenciaBebidasEnergeticas(res.data.var_frecuenciaBebidasEnergeticas ? "true" : "false");
+        setBoolean_bebidasEnergizantes(res.data.boolean_bebidasEnergizantes ? "true" : "false");
+        setVar_frecuenciaBebidasEnergeticas(res.data.var_frecuenciaBebidasEnergeticas);
         setBoolean_actividadFisica(res.data.boolean_actividadFisica ? "true" : "false");
         setVar_frecuenciaActividadFisica(res.data.var_frecuenciaActividadFisica);
         setBoolean_fuma(res.data.boolean_fuma ? "true" : "false");
@@ -132,10 +190,29 @@ const EditarDatosProfesional7 = () => {
         setVar_frecuenciaSustanciasPsicoactivas(res.data.var_frecuenciaSustanciasPsicoactivas);
 
 
-
-
     };
 
+
+
+    const generarOpciones = () => {
+        const opciones = [
+            { value: "Familia primaria", label: "Familia primaria" },
+            { value: "madre", label: "Madre" },
+            { value: "padre", label: "Padre" },
+            { value: "hermanos", label: "Hermanos" },
+            { value: "abuelos", label: "Abuelos" },
+            { value: "tios", label: "Tíos" },
+            { value: "mascotas", label: "Mascotas" },
+            { value: "Amigos", label: "Amigos" },
+            { value: "solo", label: "Solo" },
+            { value: "Otros", label: "Otros" },
+        ];
+        return opciones.map((opcion) => (
+            <MenuItem key={opcion.value} value={opcion.value}>
+                {opcion.label}
+            </MenuItem>
+        ));
+    };
     return (
         <div style={{ backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%" }}>
             <div style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }}>
@@ -153,40 +230,85 @@ const EditarDatosProfesional7 = () => {
                 <CardContent sx={{ padding: "30px" }}>
                     <form onSubmit={actualizar}>
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>¿Ha cambiado de EPS o AFP?:</Typography>
-                        <TextField
-                            value={set_pasoMayorTiempoLibre}
-                            onChange={(e) => setSet_pasoMayorTiempoLibre(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
+                        <FormControl fullWidth sx={{ mb: 2 }} >
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione las actividades que realiza en su tiempo libre (se pueden seleccionar varias opciones):</Typography>
+                            <Select name='actividadTiempoLibre'
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Roboto Condensed",
+                                    fontSize: "16px"
+                                }}
+                                multiple value={selectedActividadTiempoLibre} onChange={(event) => manejarCambio(event, 'actividadTiempoLibre')} renderValue={(selected) => {
+                                    // Obtener los nombres de los las actividades que realiza en su tiempo libre seleccionados
+                                    const selectedNames = actividadTiempoLibreOptions
+                                        .filter(actividad => selected.includes(actividad.id_tiempoLibrePK))
+                                        .map(actividad => {
+                                            const name = actividad.var_nombreOcuapacionTiempoLibre;
+                                            const index = name.indexOf('(');
+                                            // Si encuentra un paréntesis, extrae solo la parte antes del paréntesis
+                                            if (index !== -1) {
+                                                return name.substring(0, index).trim();
+                                            }
+                                            return name; // Si no hay paréntesis, devuelve el nombre completo
+                                        });
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione EPS ACTUAL:</Typography>
-                        <TextField
-                            value={boolean_usaLentes}
-                            onChange={(e) => setBoolean_usaLentes(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
+                                    return selectedNames.join(' - '); // Unir los nombres con un guion
+                                }} fullWidth variant="outlined" MenuProps={{ PaperProps: { style: { maxHeight: 224, width: 250 } } }}  >
+                                {actividadTiempoLibreOptions.map((actividad) => (
+                                    <MenuItem key={actividad.id_tiempoLibrePK} value={actividad.id_tiempoLibrePK}>
+                                        <Checkbox checked={selectedActividadTiempoLibre.indexOf(actividad.id_tiempoLibrePK) > -1} />
+                                        <ListItemText primary={actividad.var_nombreOcuapacionTiempoLibre} />
+                                    </MenuItem>
+                                ))}
+                            </Select>
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione Fondo de Pensión:</Typography>
-                        <TextField
-                            value={var_altura}
-                            onChange={(e) => setVar_altura(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
+                        </FormControl>
+
+                        <FormControl fullWidth sx={{ mb: 2 }} >
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>
+                                ¿Con quién pasa la mayor parte de su tiempo libre?:
+                            </Typography>
+                            <Select
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Roboto Condensed",
+                                    fontSize: "16px"
+                                }}
+                                name="set_pasoMayorTiempoLibre"
+                                value={set_pasoMayorTiempoLibre}
+                                onChange={(e) => setSet_pasoMayorTiempoLibre(e.target.value)}
+                                fullWidth
+                                variant="outlined"
+                                displayEmpty
+                            >
+                                {generarOpciones()}
+                            </Select>
+
+                        </FormControl>
+
+                        <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} >
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} > ¿Usa Lentes?:</Typography>
+                            <RadioGroup name="boolean_usaLentes" value={boolean_usaLentes}
+                                onChange={(e) => setBoolean_usaLentes(e.target.value)} row
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Roboto Condensed",
+                                    fontSize: "16px"
+                                }}  >
+                                <FormControlLabel value="true" control={<Radio />} label="Sí" />
+                                <FormControlLabel value="false" control={<Radio />} label="No" />
+                            </RadioGroup>
+
+                        </FormControl>
 
                         <FormControl fullWidth sx={{ mb: 2 }}>
                             <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >Altura (cm): </Typography>
-                            <TextField name="var_altura" placeholder="Ingrese su altura en cm" fullWidth  FormHelperTextProps={{
-                                sx: {
-                                    marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
-                                },
-                            }}
+                            <TextField name="var_altura" value={var_altura}
+                                onChange={(e) => setVar_altura(e.target.value)} placeholder="Ingrese su altura en cm" fullWidth FormHelperTextProps={{
+                                    sx: {
+                                        marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+                                    },
+                                }}
                                 InputProps={{
                                     sx: {
                                         height: "40px",
