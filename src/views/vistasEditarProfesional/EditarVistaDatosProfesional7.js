@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, CardContent, Divider, Box, Typography, TextField, Button } from "@mui/material";
+import { Card, CardContent, Divider, Box, Typography, Select, RadioGroup, FormControlLabel, Radio, FormControl, MenuItem, TextField, Button } from "@mui/material";
 
 const URI_PROFESIONAL = 'http://localhost:3001/profesional/';
 const URI_PROFESIONAL_POR_ID_USUARIO = 'http://localhost:3001/profesional/porUsuario/';
@@ -55,6 +55,64 @@ const EditarDatosProfesional7 = () => {
         getUsuarios();
     }, []);
 
+
+
+    const validarRadius = () => {
+        if (var_frecuenciaSustanciasPsicoactivas === "N/A") {
+            setBoolean_sustanciasPsicoactivas("false")
+        } else {
+            setBoolean_sustanciasPsicoactivas("true")
+        }
+        if (var_frecuenciaToma === "N/A") {
+            setBoolean_toma("false")
+        } else {
+            setBoolean_toma("true")
+        }
+        if (var_frecuenciaFuma === "N/A") {
+            setBoolean_fuma("false")
+        } else {
+            setBoolean_fuma("true")
+        }
+        if (var_frecuenciaActividadFisica === "N/A") {
+            setBoolean_actividadFisica("false")
+        } else {
+            setBoolean_actividadFisica("true")
+        }
+        if (var_frecuenciaBebidasEnergeticas === "N/A") {
+            setBoolean_bebidasEnergizantes("false")
+        } else {
+            setBoolean_bebidasEnergizantes("true")
+        }
+
+    }
+
+    useEffect(() => {
+        validarRadius();
+    }, []);
+
+    const cambiarValoresCuandoSeaFalse = () => {
+        if (boolean_sustanciasPsicoactivas == "false") {
+            setVar_frecuenciaSustanciasPsicoactivas("N/A")
+        }
+        if (boolean_toma == "false") {
+            setVar_frecuenciaToma("N/A")
+        }
+        if (boolean_fuma == "false") {
+            setVar_frecuenciaFuma("N/A")
+        }
+        if (boolean_actividadFisica == "false") {
+            setVar_frecuenciaActividadFisica("N/A")
+        }
+        if (boolean_bebidasEnergizantes == "false") {
+            setVar_frecuenciaBebidasEnergeticas("N/A")
+        }
+    }
+
+    useEffect(() => {
+        cambiarValoresCuandoSeaFalse();
+    }, [boolean_sustanciasPsicoactivas, boolean_toma, boolean_fuma, boolean_actividadFisica, boolean_bebidasEnergizantes]);
+
+
     const getUsuarios = async () => {
         const res = await axios.get(URI_PROFESIONAL_POR_ID_USUARIO + id_usuarioPK);
         setId_profesionalPK(res.data.id_profesionalPK);
@@ -63,14 +121,14 @@ const EditarDatosProfesional7 = () => {
         setVar_altura(res.data.var_altura);
         setVar_peso(res.data.var_peso);
         setBoolean_bebidasEnergizantes(res.data.boolean_bebidasEnergizantes);
-        setVar_frecuenciaBebidasEnergeticas(res.data.var_frecuenciaBebidasEnergeticas);
-        setBoolean_actividadFisica(res.data.boolean_actividadFisica);
+        setVar_frecuenciaBebidasEnergeticas(res.data.var_frecuenciaBebidasEnergeticas ? "true" : "false");
+        setBoolean_actividadFisica(res.data.boolean_actividadFisica ? "true" : "false");
         setVar_frecuenciaActividadFisica(res.data.var_frecuenciaActividadFisica);
-        setBoolean_fuma(res.data.boolean_fuma);
+        setBoolean_fuma(res.data.boolean_fuma ? "true" : "false");
         setVar_frecuenciaFuma(res.data.var_frecuenciaFuma);
-        setBoolean_toma(res.data.boolean_toma);
+        setBoolean_toma(res.data.boolean_toma ? "true" : "false");
         setVar_frecuenciaToma(res.data.var_frecuenciaToma);
-        setBoolean_sustanciasPsicoactivas(res.data.boolean_sustanciasPsicoactivas);
+        setBoolean_sustanciasPsicoactivas(res.data.boolean_sustanciasPsicoactivas ? "true" : "false");
         setVar_frecuenciaSustanciasPsicoactivas(res.data.var_frecuenciaSustanciasPsicoactivas);
 
 
@@ -81,7 +139,7 @@ const EditarDatosProfesional7 = () => {
     return (
         <div style={{ backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%" }}>
             <div style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }}>
-                <img src="public/fondo_form.png" alt="Descripción de la imagen" style={{ width: "20%", height: "auto" }} />
+                <img src="public/fondo_form.png" alt="Edita la información necesaria y al final del formulario pulsa el botón GUARDAR para conservar los cambios." style={{ width: "20%", height: "auto" }} />
             </div>
             <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: "#F2F2F2", borderColor: "#202B52" }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
@@ -122,108 +180,208 @@ const EditarDatosProfesional7 = () => {
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione Fondo de Pensión:</Typography>
-                        <TextField
-                            value={var_peso}
-                            onChange={(e) => setVar_peso(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione Fondo de Pensión:</Typography>
-                        <TextField
-                            value={boolean_bebidasEnergizantes}
-                            onChange={(e) => setBoolean_bebidasEnergizantes(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione Fondo de Pensión:</Typography>
-                        <TextField
-                            value={var_frecuenciaBebidasEnergeticas}
-                            onChange={(e) => setVar_frecuenciaBebidasEnergeticas(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione Fondo de Pensión:</Typography>
-                        <TextField
-                            value={boolean_actividadFisica}
-                            onChange={(e) => setBoolean_actividadFisica(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione Fondo de Pensión:</Typography>
-                        <TextField
-                            value={var_frecuenciaActividadFisica}
-                            onChange={(e) => setVar_frecuenciaActividadFisica(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione Fondo de Pensión:</Typography>
-                        <TextField
-                            value={boolean_fuma}
-                            onChange={(e) => setBoolean_fuma(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione Fondo de Pensión:</Typography>
-                        <TextField
-                            value={var_frecuenciaFuma}
-                            onChange={(e) => setVar_frecuenciaFuma(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione Fondo de Pensión:</Typography>
-                        <TextField
-                            value={boolean_toma}
-                            onChange={(e) => setBoolean_toma(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione Fondo de Pensión:</Typography>
-                        <TextField
-                            value={var_frecuenciaToma}
-                            onChange={(e) => setVar_frecuenciaToma(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione Fondo de Pensión:</Typography>
-                        <TextField
-                            value={boolean_sustanciasPsicoactivas}
-                            onChange={(e) => setBoolean_sustanciasPsicoactivas(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Seleccione Fondo de Pensión:</Typography>
-                        <TextField
-                            value={var_frecuenciaSustanciasPsicoactivas}
-                            onChange={(e) => setVar_frecuenciaSustanciasPsicoactivas(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
+                        <FormControl fullWidth sx={{ mb: 2 }}>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >Altura (cm): </Typography>
+                            <TextField name="var_altura" placeholder="Ingrese su altura en cm" fullWidth  FormHelperTextProps={{
+                                sx: {
+                                    marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+                                },
+                            }}
+                                InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Roboto Condensed",
+                                        fontSize: "16px"
+                                    },
+                                }} />
+                        </FormControl>
 
 
 
+                        <FormControl fullWidth sx={{ mb: 2 }}>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >Peso (kg): </Typography>
+                            <TextField name="var_peso" placeholder="Ingrese su peso en kg" fullWidth value={var_peso}
+                                onChange={(e) => setVar_peso(e.target.value)} FormHelperTextProps={{
+                                    sx: {
+                                        marginLeft: 0, // Ajusta el margen izquierdo para alinear el texto
+                                    },
+                                }}
+                                InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Roboto Condensed",
+                                        fontSize: "16px"
+                                    },
+                                }} />
+                        </FormControl>
 
+                        <FormControl component="fieldset" fullWidth sx={{ mb: 2 }}>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >¿Consume bebidas energizantes?:</Typography>
+                            <RadioGroup name="boolean_bebidasEnergizantes" value={boolean_bebidasEnergizantes}
+                                onChange={(e) => setBoolean_bebidasEnergizantes(e.target.value)} row
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Roboto Condensed",
+                                    fontSize: "16px"
+                                }} >
+                                <FormControlLabel value="true" control={<Radio />} label="Sí" />
+                                <FormControlLabel value="false" control={<Radio />} label="No" />
+                            </RadioGroup>
+                        </FormControl>
+
+                        {(boolean_bebidasEnergizantes == "true") && (
+                            <FormControl fullWidth sx={{ mb: 2 }}>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >Frecuencia:</Typography>
+                                <Select name="var_frecuenciaBebidasEnergeticas" value={var_frecuenciaBebidasEnergeticas}
+                                    onChange={(e) => setVar_frecuenciaBebidasEnergeticas(e.target.value)} displayEmpty
+                                    sx={{
+                                        height: "40px",
+                                        fontFamily: "Roboto Condensed",
+                                        fontSize: "16px"
+                                    }}  >
+                                    <MenuItem value="N/A">Seleccione una frecuencia</MenuItem>
+                                    <MenuItem value="diariamente">Diariamente</MenuItem>
+                                    <MenuItem value="Ocasionalmente">Ocasionalmente</MenuItem>
+                                    <MenuItem value="Mensualmente">Mensualmente</MenuItem>
+                                </Select>
+
+                            </FormControl>
+                        )}
+
+                        <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} >
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >¿Realiza actividad física?: </Typography>
+                            <RadioGroup name="boolean_actividadFisica" value={boolean_actividadFisica}
+                                onChange={(e) => setBoolean_actividadFisica(e.target.value)} row
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Roboto Condensed",
+                                    fontSize: "16px"
+                                }} >
+                                <FormControlLabel value={true} control={<Radio />} label="Sí" />
+                                <FormControlLabel value={false} control={<Radio />} label="No" />
+                            </RadioGroup>
+
+                        </FormControl>
+
+                        {(boolean_actividadFisica == "true") && (
+                            <FormControl fullWidth sx={{ mb: 2 }} >
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >Frecuencia:</Typography>
+                                <Select name="var_frecuenciaActividadFisica" value={var_frecuenciaActividadFisica}
+                                    onChange={(e) => setVar_frecuenciaActividadFisica(e.target.value)} displayEmpty
+                                    sx={{
+                                        height: "40px",
+                                        fontFamily: "Roboto Condensed",
+                                        fontSize: "16px"
+                                    }}  >
+                                    <MenuItem value="N/A">Seleccione una frecuencia</MenuItem>
+                                    <MenuItem value="diariamente">Diariamente</MenuItem>
+                                    <MenuItem value="Ocasionalmente">Ocasionalmente</MenuItem>
+                                    <MenuItem value="Mensualmente">Mensualmente</MenuItem>
+                                </Select>
+
+                            </FormControl>
+                        )}
+
+                        <FormControl component="fieldset" fullWidth sx={{ mb: 2 }}>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >¿Fuma o vapea?:</Typography>
+                            <RadioGroup name="boolean_fuma" value={boolean_fuma}
+                                onChange={(e) => setBoolean_fuma(e.target.value)} row
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Roboto Condensed",
+                                    fontSize: "16px"
+                                }}  >
+                                <FormControlLabel value={true} control={<Radio />} label="Sí" />
+                                <FormControlLabel value={false} control={<Radio />} label="No" />
+                            </RadioGroup>
+
+                        </FormControl>
+
+                        {(boolean_fuma == "true") && (
+                            <FormControl fullWidth sx={{ mb: 2 }}>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >Frecuencia:</Typography>
+                                <Select name="var_frecuenciaFuma" value={var_frecuenciaFuma}
+                                    onChange={(e) => setVar_frecuenciaFuma(e.target.value)} displayEmpty
+                                    sx={{
+                                        height: "40px",
+                                        fontFamily: "Roboto Condensed",
+                                        fontSize: "16px"
+                                    }}  >
+                                    <MenuItem value="N/A">Seleccione una frecuencia</MenuItem>
+                                    <MenuItem value="diariamente">Diariamente</MenuItem>
+                                    <MenuItem value="Ocasionalmente">Ocasionalmente</MenuItem>
+                                    <MenuItem value="Socialmente">Socialmente</MenuItem>
+                                </Select>
+
+                            </FormControl>
+                        )}
+
+                        <FormControl component="fieldset" fullWidth sx={{ mb: 2 }}>
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >¿Consume bebidas alcohólicas?:</Typography>
+                            <RadioGroup name="boolean_toma" value={boolean_toma}
+                                onChange={(e) => setBoolean_toma(e.target.value)} row
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Roboto Condensed",
+                                    fontSize: "16px"
+                                }}  >
+                                <FormControlLabel value={true} control={<Radio />} label="Sí" />
+                                <FormControlLabel value={false} control={<Radio />} label="No" />
+                            </RadioGroup>
+                        </FormControl>
+
+                        {(boolean_toma == "true") && (
+                            <FormControl fullWidth sx={{ mb: 2 }}>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >Frecuencia:</Typography>
+                                <Select name="var_frecuenciaToma" value={var_frecuenciaToma}
+                                    onChange={(e) => setVar_frecuenciaToma(e.target.value)} displayEmpty
+                                    sx={{
+                                        height: "40px",
+                                        fontFamily: "Roboto Condensed",
+                                        fontSize: "16px"
+                                    }} >
+                                    <MenuItem value="N/A">Seleccione una frecuencia</MenuItem>
+                                    <MenuItem value="diariamente">Diariamente</MenuItem>
+                                    <MenuItem value="Ocasionalmente">Ocasionalmente</MenuItem>
+                                    <MenuItem value="Socialmente">Socialmente</MenuItem>
+                                </Select>
+                            </FormControl>
+                        )}
+
+
+
+                        <FormControl component="fieldset" fullWidth sx={{ mb: 2 }} >
+                            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >¿Consume sustancias psicoactivas?:</Typography>
+                            <RadioGroup name="boolean_sustanciasPsicoactivas" value={boolean_sustanciasPsicoactivas}
+                                onChange={(e) => setBoolean_sustanciasPsicoactivas(e.target.value)} row
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Roboto Condensed",
+                                    fontSize: "16px"
+                                }} >
+                                <FormControlLabel value="true" control={<Radio />} label="Sí" />
+                                <FormControlLabel value="false" control={<Radio />} label="No" />
+                            </RadioGroup>
+
+                        </FormControl>
+
+                        {(boolean_sustanciasPsicoactivas == "true") && (
+                            <FormControl fullWidth sx={{ mb: 2 }}>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }} >Frecuencia:</Typography>
+                                <Select name="var_frecuenciaSustanciasPsicoactivas" value={var_frecuenciaSustanciasPsicoactivas}
+                                    onChange={(e) => setVar_frecuenciaSustanciasPsicoactivas(e.target.value)} displayEmpty
+                                    sx={{
+                                        height: "40px",
+                                        fontFamily: "Roboto Condensed",
+                                        fontSize: "16px"
+                                    }}  >
+                                    <MenuItem value="N/A">Seleccione una frecuencia</MenuItem>
+                                    <MenuItem value="diariamente">Diariamente</MenuItem>
+                                    <MenuItem value="Ocasionalmente">Ocasionalmente</MenuItem>
+                                    <MenuItem value="Socialmente">Socialmente</MenuItem>
+                                </Select>
+                            </FormControl>
+                        )}
 
                         <div style={{ display: "flex", justifyContent: "flex-end" }}>
                             <Button sx={{ backgroundColor: "#202B52", fontFamily: 'poppins' }} variant="contained" type="submit">
