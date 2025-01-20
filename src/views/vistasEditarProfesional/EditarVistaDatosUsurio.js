@@ -498,30 +498,7 @@ const CompEditarUsuario = () => {
                 },
               }}
             />
-
-            <Typography
-              variant="h6"
-              sx={{
-                fontFamily: "Roboto Condensed",
-                color: "#202B52",
-                fontSize: "16px",
-              }}
-            >
-              Género:
-            </Typography>
-            <TextField
-              value={var_genero}
-              onChange={(e) => setVar_genero(e.target.value)}
-              fullWidth
-              sx={{ mb: 2 }}
-              InputProps={{
-                sx: {
-                  height: "40px",
-                  fontFamily: "Roboto Condensed",
-                  fontSize: "16px",
-                },
-              }}
-            />
+           
 
             <Typography
               variant="h6"
