@@ -44,9 +44,9 @@ const CompEditarUsuario = () => {
   const [errorNombreCompleto, setErrorNombreCompleto] = useState(false);
   const [errorNumeroDocumento, setErrorNumeroDocumento] = useState(false);
   const [errorCorreoElectronico, setErrorCorreoElectronico] = useState(false);
-  const [errorNombreContactoEmergencia, setErrorNombreContactoEmergencia] = useState(false); 
-  const [errorTelefonoEmergencia, setErrorTelefonoEmergencia] = useState(false); 
-
+  const [errorNombreContactoEmergencia, setErrorNombreContactoEmergencia] =
+    useState(false);
+  const [errorTelefonoEmergencia, setErrorTelefonoEmergencia] = useState(false);
 
   // Obtener el ID desde localStorage
   const id_usuarioPK = localStorage.getItem("id_usuario");
@@ -55,19 +55,29 @@ const CompEditarUsuario = () => {
   const actualizar = async (e) => {
     e.preventDefault();
 
-    // Alerta de confirmación antes de proceder con la actualización
+    // Validación de fecha dentro de actualizar
+    const selectedDate = new Date(date_fechaNacimiento);
+    const today = new Date();
+    const minDate = new Date(today.setFullYear(today.getFullYear() - 18)); // Fecha mínima para 18 años
+
+    if (selectedDate > minDate) {
+      show_alert("Debes tener mínimo 18 años para el registro.", "info");
+      return;
+    }
+
+    // Alerta de confirmación
     showAlert(
       {
         title: "¿Estás seguro?",
         text: "¿Deseas guardar los cambios realizados?",
-        icon: "warning", // Icono válido para la alerta
+        icon: "warning",
         showCancelButton: true,
         confirmButtonText: "Sí, guardar",
         cancelButtonText: "Cancelar",
       },
       async () => {
         try {
-          // Si el usuario confirma, realiza las operaciones de actualización
+          // Operaciones de actualización
           await axios.put(URI_USUARIOS + id_usuarioPK, {
             id_rolFK: id_rolFK,
             boolean_estado: boolean_estado,
@@ -80,26 +90,22 @@ const CompEditarUsuario = () => {
           });
 
           await axios.put(URI_PROFESIONAL + id_profesionalPK, {
-            date_fechaNacimiento: date_fechaNacimiento,
+            date_fechaNacimiento: date_fechaNacimiento, // Pasamos la fecha del estado
             var_grupoEtnico: var_grupoEtnico,
             var_rh: var_rh,
             var_telefonoEmergencia: var_telefonoEmergencia,
           });
 
-          // Mostrar una alerta de éxito después de la actualización
           show_alert("Cambios guardados exitosamente", "success");
 
-          // Navegar después de un tiempo (para que el usuario vea la alerta)
           setTimeout(() => {
             navigate("/app/editarUsuario");
-          }, 1500); // Esperar 1.5 segundos antes de navegar
+          }, 1500);
         } catch (error) {
-          // Si ocurre un error, mostrar una alerta de fallo
           show_alert("Error al guardar los cambios", "error");
         }
       },
       () => {
-        // Acción en caso de cancelar (opcional)
         show_alert("Cambios cancelados", "info");
       }
     );
@@ -234,6 +240,22 @@ const CompEditarUsuario = () => {
       setError(false); // Si el campo tiene valor, quita el error
       return true;
     }
+  };
+
+  const handleDateChange = (event) => {
+    const { value } = event.target; // Obtenemos la fecha seleccionada por el usuario
+    const selectedDate = new Date(value); // Convertimos la fecha en un objeto Date
+    const today = new Date();
+    const minDate = new Date(today.setFullYear(today.getFullYear() - 18)); // Fecha mínima para 18 años
+  
+    // Validación en tiempo real
+    if (selectedDate > minDate) {
+      show_alert("Debes tener mínimo 18 años para el registro.", "info"); // Mostrar la alerta
+      return; // No actualizamos el estado si la fecha no es válida
+    }
+  
+    // Si la fecha es válida, la almacenamos en el estado
+    setDate_fechaNacimiento(value);
   };
 
   return (
@@ -410,11 +432,11 @@ const CompEditarUsuario = () => {
             </Typography>
             <TextField
               type="date"
-              value={date_fechaNacimiento}
-              onChange={(e) => setDate_fechaNacimiento(e.target.value)}
+              value={date_fechaNacimiento || ""} // El estado controlado
+              onChange={handleDateChange} // Llamamos a la función para manejar los cambios en tiempo real
               fullWidth
               sx={{ mb: 2 }}
-              InputLabelProps={{ shrink: true }} // Esto asegura que la etiqueta no se superponga
+              InputLabelProps={{ shrink: true }} // Mantiene la etiqueta arriba
               InputProps={{
                 sx: {
                   height: "40px",
@@ -423,6 +445,7 @@ const CompEditarUsuario = () => {
                 },
               }}
             />
+
             <Typography
               variant="h6"
               sx={{
@@ -610,8 +633,11 @@ const CompEditarUsuario = () => {
             </Typography>
             <TextField
               value={var_contactoEmergencia}
+              onKeyPress={(event) =>
+                handleKeyPress(event, "var_contactoEmergencia")
+              }
               onChange={(e) => {
-                const valor = e.target.value;
+                const valor = e.target.value.toUpperCase();
                 setVar_contactoEmergencia(valor);
 
                 // Validar si el campo está vacío al cambiar el valor

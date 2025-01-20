@@ -11,6 +11,19 @@ import Person4Icon from '@mui/icons-material/Person4';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import PlaylistRemoveIcon from '@mui/icons-material/PlaylistRemove';
 import RecentActorsIcon from '@mui/icons-material/RecentActors';
+import {
+  AccountCircle as AccountCircleIcon,
+  Work as WorkIcon,
+  Info as InfoIcon,
+  Security as SecurityIcon,
+  AccountBalance as AccountBalanceIcon,
+  BusinessCenter as BusinessCenterIcon,
+  School as SchoolIcon,
+  FitnessCenter as FitnessCenterIcon,
+  DirectionsCar as DirectionsCarIcon,
+} from '@mui/icons-material';
+
+
 
 const Menuitems = [
   {
@@ -21,55 +34,55 @@ const Menuitems = [
   },
   {
     title: "datos de usuario",
-    icon: RecentActorsIcon,
+    icon: AccountCircleIcon,
     href: "editarUsuario",
     rolesAllowed: ["Administrativo"], 
   },
   {
     title: "datos profesional",
-    icon: RecentActorsIcon,
+    icon: WorkIcon,
     href: "editarDatosProfesional",
     rolesAllowed: ["Administrativo"], 
   },
   {
     title: "datos adicionales",
-    icon: RecentActorsIcon,
+    icon: InfoIcon,
     href: "editarDatosProfesional2",
     rolesAllowed: ["Administrativo"], 
   },
   {
     title: "seguridad social",
-    icon: RecentActorsIcon,
+    icon: SecurityIcon,
     href: "editarDatosProfesional3",
     rolesAllowed: ["Administrativo"], 
   },
   {
     title: "Información bancaria",
-    icon: RecentActorsIcon,
+    icon: AccountBalanceIcon,
     href: "editarDatosProfesional4",
     rolesAllowed: ["Administrativo"], 
   },
   {
     title: "Información laboral",
-    icon: RecentActorsIcon,
+    icon: BusinessCenterIcon,
     href: "editarDatosProfesional5",
     rolesAllowed: ["Administrativo"], 
   },
   {
     title: "Formación académica",
-    icon: RecentActorsIcon,
+    icon: SchoolIcon,
     href: "editarDatosProfesional6",
     rolesAllowed: ["Administrativo"], 
   },
   {
     title: "Salud Fisica",
-    icon: RecentActorsIcon,
+    icon: FitnessCenterIcon,
     href: "editarDatosProfesional7",
     rolesAllowed: ["Administrativo"], 
   },
   {
     title: "Medios de transporte utilizado",
-    icon: RecentActorsIcon,
+    icon: DirectionsCarIcon,
     href: "editarDatosProfesional8",
     rolesAllowed: ["Administrativo"], 
   },

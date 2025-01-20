@@ -13,6 +13,7 @@ export function showAlert(options, onConfirm, onCancel) {
         showCancelButton: options.showCancelButton,
         confirmButtonText: options.confirmButtonText,
         cancelButtonText: options.cancelButtonText,
+        
         customClass: {
             popup: 'swal2-custom-popup'
         }
@@ -119,6 +120,14 @@ style.innerHTML = `
     .swal2-cancel:focus {
         box-shadow: none !important;
     }
+
+   div:where(.swal2-icon).swal2-warning {
+    border-color: #202B52;
+    color: #202B52;
+    }
+
+    
+}
 `;
 
 // Agregar los estilos personalizados al head del documento
