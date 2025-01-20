@@ -48,24 +48,69 @@ const CompEditarUsuario = () => {
     useState(false);
   const [errorTelefonoEmergencia, setErrorTelefonoEmergencia] = useState(false);
 
+  const [error,setError] = useState(false);
+
   // Obtener el ID desde localStorage
   const id_usuarioPK = localStorage.getItem("id_usuario");
 
   // Procedimiento para actualizar
   const actualizar = async (e) => {
     e.preventDefault();
-
-    // Validación de fecha dentro de actualizar
+  
+    // Definimos los campos obligatorios a validar
+    const camposObligatorios = [
+      { nombre: "fechaNacimiento", valor: date_fechaNacimiento },
+      { nombre: "nombreCompleto", valor: var_nombreCompleto },
+      { nombre: "correoElectronico", valor: var_correoElectronicoPersonal },
+      { nombre: "telefonoEmergencia", valor: var_telefonoEmergencia },
+      { nombre: "numeroDocumento", valor: var_numeroDocumento },
+      { nombre: "rol", valor: id_rolFK },
+      { nombre: "genero", valor: var_genero },
+      { nombre: "grupoEtnico", valor: var_grupoEtnico },
+      { nombre: "rh", valor: var_rh },
+    ];
+  
+    // Recorremos los campos para validar que no estén vacíos
+    let camposValidos = true;
+    camposObligatorios.forEach((campo) => {
+      // Verificamos si el valor no es nulo o indefinido y si es una cadena
+      if (typeof campo.valor === 'string' && campo.valor.trim() === "") {
+        setError((prevState) => ({
+          ...prevState,
+          [campo.nombre]: true, // Marcamos el error para el campo específico
+        }));
+        camposValidos = false;
+      } else if (campo.valor === null || campo.valor === undefined || campo.valor === "") {
+        setError((prevState) => ({
+          ...prevState,
+          [campo.nombre]: true, // Marcamos el error para el campo específico
+        }));
+        camposValidos = false;
+      } else {
+        setError((prevState) => ({
+          ...prevState,
+          [campo.nombre]: false, // Si el campo tiene valor, eliminamos el error
+        }));
+      }
+    });
+  
+    if (!camposValidos) {
+      // Si algún campo es inválido, mostramos la alerta y detenemos el proceso
+      show_alert("Por favor, completa todos los campos obligatorios.", "info");
+      return; // Detenemos el proceso si algún campo requerido está vacío
+    }
+  
+    // Validación de la fecha (mínimo 18 años)
     const selectedDate = new Date(date_fechaNacimiento);
     const today = new Date();
-    const minDate = new Date(today.setFullYear(today.getFullYear() - 18)); // Fecha mínima para 18 años
-
+    const minDate = new Date(today.setFullYear(today.getFullYear() - 18));
+  
     if (selectedDate > minDate) {
       show_alert("Debes tener mínimo 18 años para el registro.", "info");
-      return;
+      return; // Detener el proceso si la fecha es inválida
     }
-
-    // Alerta de confirmación
+  
+    // Si todos los campos son válidos, mostramos la alerta de confirmación
     showAlert(
       {
         title: "¿Estás seguro?",
@@ -88,16 +133,16 @@ const CompEditarUsuario = () => {
             var_correoElectronicoPersonal: var_correoElectronicoPersonal,
             var_contactoEmergencia: var_contactoEmergencia,
           });
-
+  
           await axios.put(URI_PROFESIONAL + id_profesionalPK, {
-            date_fechaNacimiento: date_fechaNacimiento, // Pasamos la fecha del estado
+            date_fechaNacimiento: date_fechaNacimiento,
             var_grupoEtnico: var_grupoEtnico,
             var_rh: var_rh,
             var_telefonoEmergencia: var_telefonoEmergencia,
           });
-
+  
           show_alert("Cambios guardados exitosamente", "success");
-
+  
           setTimeout(() => {
             navigate("/app/editarUsuario");
           }, 1500);
@@ -110,6 +155,9 @@ const CompEditarUsuario = () => {
       }
     );
   };
+  
+  
+  
 
   useEffect(() => {
     getUsuarios();
@@ -235,12 +283,15 @@ const CompEditarUsuario = () => {
   const validarCampoRequerido = (valor, setError) => {
     if (!valor || valor.trim() === "") {
       setError(true); // Establece el error si el campo está vacío
-      return false;
+      return false;  // Retorna false para indicar que la validación falló
     } else {
       setError(false); // Si el campo tiene valor, quita el error
-      return true;
+      return true;  // Retorna true si la validación pasa
     }
   };
+
+  
+  
 
   const handleDateChange = (event) => {
     const { value } = event.target; // Obtenemos la fecha seleccionada por el usuario
