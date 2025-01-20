@@ -103,6 +103,43 @@ const EditarDatosProfesional7 = () => {
     fetchActividadTiempoLibreProfesional();
 }, [id_profesionalPK]);
 
+// Guardar cambios en el servidor
+const guardarCambios = async () => {
+    const tiempoParaEliminar = prevSelectedActividadTiempoLibre.filter(
+        (tiempo) => !selectedActividadTiempoLibre.includes(tiempo)
+    );
+    const tiempoParaAgregar = selectedActividadTiempoLibre.filter(
+        (tiempo) => !prevSelectedActividadTiempoLibre.includes(tiempo)
+    );
+
+    try {
+        // Eliminar servicios deseleccionados
+        for (let id_tiempo of tiempoParaEliminar) {
+            await axios.delete(
+                `https://evaluacion.esumer.edu.co/api/profesionalTiempoLibre/${id_profesionalPK}/${id_tiempo}`
+            );
+            console.log(`Servicio eliminado: ${id_tiempo}`);
+        }
+
+        // Agregar nuevos servicios seleccionados
+        for (let id_tiempo of tiempoParaAgregar) {
+            await axios.post("http://localhost:3001/profesionalTiempoLibre/", {
+                id_profesionalFK: id_profesionalPK,
+                id_tiempoLibreFK: id_tiempo,
+            });
+            console.log(`Servicio agregado: ${id_tiempo}`);
+        }
+
+        // Actualizar el estado previo
+        setPrevSelectedActividadTiempoLibre(selectedActividadTiempoLibre);
+        console.log("Cambios guardados con éxito de tiempo");
+
+        
+    } catch (error) {
+        console.error("Error al guardar cambios de tiempo:", error);
+    }
+};
+
 
 
     const validarRadius = () => {
@@ -238,7 +275,7 @@ const EditarDatosProfesional7 = () => {
                                     fontFamily: "Roboto Condensed",
                                     fontSize: "16px"
                                 }}
-                                multiple value={selectedActividadTiempoLibre} onChange={(event) => manejarCambio(event, 'actividadTiempoLibre')} renderValue={(selected) => {
+                                multiple value={selectedActividadTiempoLibre} onChange={(e) => setSelectedActividadTiempoLibre(e.target.value)} renderValue={(selected) => {
                                     // Obtener los nombres de los las actividades que realiza en su tiempo libre seleccionados
                                     const selectedNames = actividadTiempoLibreOptions
                                         .filter(actividad => selected.includes(actividad.id_tiempoLibrePK))
@@ -506,7 +543,7 @@ const EditarDatosProfesional7 = () => {
                         )}
 
                         <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                            <Button sx={{ backgroundColor: "#202B52", fontFamily: 'poppins' }} variant="contained" type="submit">
+                            <Button sx={{ backgroundColor: "#202B52", fontFamily: 'poppins' }} variant="contained" type="submit" onClick={guardarCambios}>
                                 Guardar
                             </Button>
                         </div>
