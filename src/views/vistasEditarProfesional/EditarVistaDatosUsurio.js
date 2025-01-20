@@ -63,6 +63,8 @@ const CompEditarUsuario = () => {
       { nombre: "nombreCompleto", valor: var_nombreCompleto },
       { nombre: "correoElectronico", valor: var_correoElectronicoPersonal },
       { nombre: "telefonoEmergencia", valor: var_telefonoEmergencia },
+      { nombre: "contactoEmergencia", valor: var_contactoEmergencia },
+
       { nombre: "numeroDocumento", valor: var_numeroDocumento },
       { nombre: "rol", valor: id_rolFK },
       { nombre: "genero", valor: var_genero },
