@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, Divider, Box, Typography, RadioGroup, FormControlLabel, Radio, FormControl, TextField, Button, MenuItem } from "@mui/material";
+import { showAlert, show_alert } from '../../components/showAlert/alertFuntion'; // Asegúrate de importar las funciones
 
 const URI_USUARIOS = 'http://localhost:3001/usuarios/';
 const URI_PROFESIONAL = 'http://localhost:3001/profesional/';
@@ -28,35 +29,62 @@ const CompEditarUsuario = () => {
     const [tiposDocumento, setTiposDocumento] = useState([]);
 
 
+
     // Obtener el ID desde localStorage
     const id_usuarioPK = localStorage.getItem('id_usuario');
 
     // Procedimiento para actualizar
     const actualizar = async (e) => {
         e.preventDefault();
-        await axios.put(URI_USUARIOS + id_usuarioPK, {
-            id_rolFK: id_rolFK,
-            boolean_estado: boolean_estado,
-            var_nombreCompleto: var_nombreCompleto,
-            int_tipoDocumentoFK: int_tipoDocumentoFK,
-            var_numeroDocumento: var_numeroDocumento,
-            var_genero: var_genero,
-            var_correoElectronicoPersonal: var_correoElectronicoPersonal,
-            var_contactoEmergencia: var_contactoEmergencia,
-        });
-
-
-
-        await axios.put(URI_PROFESIONAL + id_profesionalPK, {
-            date_fechaNacimiento: date_fechaNacimiento,
-            var_grupoEtnico: var_grupoEtnico,
-            var_rh: var_rh,
-            var_telefonoEmergencia: var_telefonoEmergencia,
-
-        });
-
-
-        navigate('/app/editarUsuario');
+    
+        // Alerta de confirmación antes de proceder con la actualización
+        showAlert(
+            {
+                title: '¿Estás seguro?',
+                text: '¿Deseas guardar los cambios realizados?',
+                icon: 'warning', // Icono válido para la alerta
+                showCancelButton: true,
+                confirmButtonText: 'Sí, guardar',
+                cancelButtonText: 'Cancelar',
+            },
+            async () => {
+                try {
+                    // Si el usuario confirma, realiza las operaciones de actualización
+                    await axios.put(URI_USUARIOS + id_usuarioPK, {
+                        id_rolFK: id_rolFK,
+                        boolean_estado: boolean_estado,
+                        var_nombreCompleto: var_nombreCompleto,
+                        int_tipoDocumentoFK: int_tipoDocumentoFK,
+                        var_numeroDocumento: var_numeroDocumento,
+                        var_genero: var_genero,
+                        var_correoElectronicoPersonal: var_correoElectronicoPersonal,
+                        var_contactoEmergencia: var_contactoEmergencia,
+                    });
+    
+                    await axios.put(URI_PROFESIONAL + id_profesionalPK, {
+                        date_fechaNacimiento: date_fechaNacimiento,
+                        var_grupoEtnico: var_grupoEtnico,
+                        var_rh: var_rh,
+                        var_telefonoEmergencia: var_telefonoEmergencia,
+                    });
+    
+                    // Mostrar una alerta de éxito después de la actualización
+                    show_alert('Cambios guardados exitosamente', 'success');
+    
+                    // Navegar después de un tiempo (para que el usuario vea la alerta)
+                    setTimeout(() => {
+                        navigate('/app/editarUsuario');
+                    }, 1500); // Esperar 1.5 segundos antes de navegar
+                } catch (error) {
+                    // Si ocurre un error, mostrar una alerta de fallo
+                    show_alert('Error al guardar los cambios', 'error');
+                }
+            },
+            () => {
+                // Acción en caso de cancelar (opcional)
+                show_alert('Cambios cancelados', 'info');
+            }
+        );
     };
 
     useEffect(() => {
@@ -149,7 +177,6 @@ const CompEditarUsuario = () => {
                             sx={{ mb: 2 }}
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
-
                         <Typography
                             variant="h6"
                             sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
@@ -177,8 +204,6 @@ const CompEditarUsuario = () => {
                                 </MenuItem>
                             ))}
                         </TextField>
-
-
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Número Documento:</Typography>
                         <TextField
                             value={var_numeroDocumento}
@@ -187,7 +212,6 @@ const CompEditarUsuario = () => {
                             sx={{ mb: 2 }}
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
-
                         <Typography
                             variant="h6"
                             sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
@@ -205,8 +229,6 @@ const CompEditarUsuario = () => {
                                 sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" },
                             }}
                         />
-
-
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Género:</Typography>
                         <TextField
                             value={var_genero}
