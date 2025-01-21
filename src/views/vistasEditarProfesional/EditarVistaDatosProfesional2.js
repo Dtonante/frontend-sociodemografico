@@ -13,7 +13,7 @@ import {
   Typography,
   TextField,
   Button,
-  FormHelperText
+  FormHelperText,
 } from "@mui/material";
 import { showAlert, show_alert } from "../../components/showAlert/alertFuntion";
 
@@ -48,10 +48,8 @@ const EditarDatosProfesional2 = () => {
 
   const [error, setError] = useState(false);
 
-
-
   useEffect(() => {
-    if (set_tipoMascotas) {
+    if (set_tipoMascotas || set_personasConLasQueVive) {
       //limpiar los ( [" "] ) de los animales
       // const cleanedMascotas = set_tipoMascotas.replace(/[\[\]"]/g, '');
       const cleanedMascotas = set_tipoMascotas.replace(/[\[\]"]/g, ""); // Elimina corchetes y comillas
@@ -91,35 +89,33 @@ const EditarDatosProfesional2 = () => {
 
   const handleChange = (event) => {
     const { value } = event.target;
-  
+
     // Actualizar tanto el array como el string original
     const newValueArray = typeof value === "string" ? value.split(",") : value;
-  
+
     setMascotasArray(newValueArray); // Actualiza mascotasArray como un array
     setSet_tipoMascotas(newValueArray.join(",")); // Almacena como cadena de texto
-  
+
     // Validar si el campo está vacío al cambiar el valor
     validarCampoRequerido(newValueArray, (error) => {
       setErrorMascotas(error); // Almacenar el error en el estado
     });
   };
-  
 
   const handleChangePersons = (event) => {
     const { value } = event.target;
-  
+
     // Actualizar tanto el array como el string original
     const newValueArray = typeof value === "string" ? value.split(",") : value;
-    
+
     setPersonasArray(newValueArray); // Actualiza personasArray como un array
     setSet_personasConLasQueVive(newValueArray.join(",")); // Almacena como cadena de texto
-  
+
     // Validar si el campo está vacío al cambiar el valor
     validarCampoRequerido(newValueArray, (error) => {
       setErrorPersonas(error); // Almacenar el error en el estado
     });
   };
-  
 
   // Obtener el ID desde localStorage
   const id_usuarioPK = localStorage.getItem("id_usuario");
@@ -132,7 +128,6 @@ const EditarDatosProfesional2 = () => {
     const camposObligatorios = [
       { nombre: "personasArray", valor: personasArray },
       { nombre: "mascotasArray", valor: mascotasArray },
-
     ];
 
     // Recorremos los campos para validar que no estén vacíos

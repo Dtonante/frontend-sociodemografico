@@ -51,7 +51,8 @@ const EditarDatosProfesional = () => {
   const [errorDireccionResidencia, setErrorDireccionResidencia] =
     useState(false);
   const [errorFactoresRiesgo, setErrorFactoresRiesgo] = useState(false);
-  const [errorServiciosQueNoCuentan, setErrorServiciosQueNoCuentan] = useState(false);
+  const [errorServiciosQueNoCuentan, setErrorServiciosQueNoCuentan] =
+    useState(false);
 
   const [error, setError] = useState(false);
 
@@ -228,7 +229,8 @@ const EditarDatosProfesional = () => {
             selectedFactoresRiesgo: selectedFactoresRiesgo, // Enviar los factores de riesgo seleccionados
             selectedServiciosQueNoCuentan: selectedServiciosQueNoCuentan, // Enviar los servicios seleccionados
           });
-
+          actualizarServiciosQueNoCuentan();
+          actualizarFactoresRiesgo();
           show_alert("Cambios guardados exitosamente", "success");
           navigate("/app/editarDatosProfesional");
 
@@ -384,46 +386,78 @@ const EditarDatosProfesional = () => {
   };
 
   // Función para manejar la actualización de los servicios que el profesional no cuenta
-  const actualizarServiciosQueNoCuentan = async () => {
+//   const actualizarServiciosQueNoCuentan = async () => {
+//     try {
+//       // Eliminar servicios deseleccionados
+//       const serviciosParaEliminar = prevSelectedServicios.filter(
+//         (id_servicio) => !selectedServiciosQueNoCuentan.includes(id_servicio)
+//       );
+
+//       for (let id_servicio of serviciosParaEliminar) {
+//         await axios.delete(
+//           `http://localhost:3001/profesionalServiciosQueNoCuentan/${id_profesionalPK}/${id_servicio}`
+//         );
+//         console.log(
+//           `Relación eliminada: Profesional ID ${id_profesionalPK}, Servicio Que No Cuentan ID ${id_servicio}`
+//         );
+//       }
+
+//       // Agregar nuevos servicios seleccionados
+//       const serviciosParaAgregar = selectedServiciosQueNoCuentan.filter(
+//         (id_servicio) => !prevSelectedServicios.includes(id_servicio)
+//       );
+
+//       for (let id_servicio of serviciosParaAgregar) {
+//         await axios.post(
+//           `http://localhost:3001/profesionalServiciosQueNoCuentan/`,
+//           {
+//             id_profesionalFK: id_profesionalPK,
+//             id_servicioQueNoCuentaFK: id_servicio,
+//           }
+//         );
+//         console.log(
+//           `Relación creada: Profesional ID ${id_profesionalPK}, Servicio Que No Cuentan ID ${id_servicio}`
+//         );
+//       }
+
+//       // Actualizar el estado previo
+//       setPrevSelectedServicios([...selectedServiciosQueNoCuentan]);
+//     } catch (error) {
+//       console.error("Error al actualizar los servicios:", error);
+//     }
+//   };
+
+const actualizarServiciosQueNoCuentan = async () => {
     try {
-      // Eliminar servicios deseleccionados
-      const serviciosParaEliminar = prevSelectedServicios.filter(
-        (id_servicio) => !selectedServiciosQueNoCuentan.includes(id_servicio)
-      );
-
-      for (let id_servicio of serviciosParaEliminar) {
-        await axios.delete(
-          `http://localhost:3001/profesionalServiciosQueNoCuentan/${id_profesionalPK}/${id_servicio}`
+        // Eliminar servicios deseleccionados
+        const serviciosParaEliminar = prevSelectedServicios.filter(
+            (id_servicio) => !selectedServiciosQueNoCuentan.includes(id_servicio)
         );
-        console.log(
-          `Relación eliminada: Profesional ID ${id_profesionalPK}, Servicio Que No Cuentan ID ${id_servicio}`
-        );
-      }
 
-      // Agregar nuevos servicios seleccionados
-      const serviciosParaAgregar = selectedServiciosQueNoCuentan.filter(
-        (id_servicio) => !prevSelectedServicios.includes(id_servicio)
-      );
+        for (let id_servicio of serviciosParaEliminar) {
+            await axios.delete(`http://localhost:3001/profesionalServiciosQueNoCuentan/${id_profesionalPK}/${id_servicio}`);
+            console.log(`Relación eliminada: Profesional ID ${id_profesionalPK}, Servicio Que No Cuentan ID ${id_servicio}`);
+        }
 
-      for (let id_servicio of serviciosParaAgregar) {
-        await axios.post(
-          `http://localhost:3001/profesionalServiciosQueNoCuentan/`,
-          {
-            id_profesionalFK: id_profesionalPK,
-            id_servicioQueNoCuentaFK: id_servicio,
-          }
+        // Agregar nuevos servicios seleccionados
+        const serviciosParaAgregar = selectedServiciosQueNoCuentan.filter(
+            (id_servicio) => !prevSelectedServicios.includes(id_servicio)
         );
-        console.log(
-          `Relación creada: Profesional ID ${id_profesionalPK}, Servicio Que No Cuentan ID ${id_servicio}`
-        );
-      }
 
-      // Actualizar el estado previo
-      setPrevSelectedServicios([...selectedServiciosQueNoCuentan]);
+        for (let id_servicio of serviciosParaAgregar) {
+            await axios.post(`http://localhost:3001/profesionalServiciosQueNoCuentan/`, {
+                id_profesionalFK: id_profesionalPK,
+                id_servicioQueNoCuentaFK: id_servicio,
+            });
+            console.log(`Relación creada: Profesional ID ${id_profesionalPK}, Servicio Que No Cuentan ID ${id_servicio}`);
+        }
+
+        // Actualizar el estado previo
+        setPrevSelectedServicios([...selectedServiciosQueNoCuentan]);
     } catch (error) {
-      console.error("Error al actualizar los servicios:", error);
+        console.error('Error al actualizar los servicios:', error);
     }
-  };
+};
 
   // fectch para los factores de riesgo
   useEffect(() => {
@@ -451,10 +485,44 @@ const EditarDatosProfesional = () => {
     }
   }, [serviciosProfesional]);
 
-  const guardar = async () => {
-    // actualizarFactoresDeRiesgo();
-    actualizarServiciosQueNoCuentan();
+//   const guardar = async () => {
+//     // actualizarFactoresDeRiesgo();
+//     actualizarServiciosQueNoCuentan();
 
+//     const factoresParaEliminar = prevSelectedFactoresRiesgo.filter(
+//       (id_factor) => !selectedFactoresRiesgo.includes(id_factor)
+//     );
+//     const factoresParaAgregar = selectedFactoresRiesgo.filter(
+//       (id_factor) => !prevSelectedFactoresRiesgo.includes(id_factor)
+//     );
+
+//     try {
+//       // Eliminar servicios deseleccionados
+//       for (let id_factor of factoresParaEliminar) {
+//         await axios.delete(
+//           `https://evaluacion.esumer.edu.co/api/profesionalFactoresRiesgo/${id_profesionalPK}/${id_factor}`
+//         );
+//         console.log(`factor eliminado: ${id_factor}`);
+//       }
+
+//       // Agregar nuevos servicios seleccionados
+//       for (let id_factor of factoresParaAgregar) {
+//         await axios.post("http://localhost:3001/profesionalFactoresRiesgo/", {
+//           id_profesionalFK: id_profesionalPK,
+//           id_factoresRiesgoFK: id_factor,
+//         });
+//         console.log(`factor agregado: ${id_factor}`);
+//       }
+
+//       // Actualizar el estado previo
+//       setPrevSelectedFactoresRiesgo(selectedFactoresRiesgo);
+//       console.log("Cambios guardados con éxito");
+//     } catch (error) {
+//       console.error("Error al guardar cambios:", error);
+//     }
+//   };
+
+  const actualizarFactoresRiesgo = async () => {
     const factoresParaEliminar = prevSelectedFactoresRiesgo.filter(
       (id_factor) => !selectedFactoresRiesgo.includes(id_factor)
     );
@@ -655,7 +723,7 @@ const EditarDatosProfesional = () => {
               // onChange={(e) => setVar_direccionResidencia(e.target.value)}
               onChange={(e) => {
                 const valor = e.target.value;
-                setVar_direccionResidencia(valor);  
+                setVar_direccionResidencia(valor);
                 // Validar si el campo está vacío al cambiar el valor
                 validarCampoRequerido(valor, setErrorDireccionResidencia);
               }}
@@ -800,7 +868,10 @@ const EditarDatosProfesional = () => {
                   const newValue = e.target.value;
                   setSelectedServiciosQueNoCuentan(newValue);
                   // Validar si el campo está vacío al cambiar el valor
-                  validarCampoRequerido(newValue, setErrorServiciosQueNoCuentan); // Asegúrate de tener un setErrorFactoresRiesgo para manejar el estado de error
+                  validarCampoRequerido(
+                    newValue,
+                    setErrorServiciosQueNoCuentan
+                  ); // Asegúrate de tener un setErrorFactoresRiesgo para manejar el estado de error
                 }}
                 renderValue={(selected) => {
                   const selectedNames = serviciosQueNoCuentan
@@ -920,14 +991,9 @@ const EditarDatosProfesional = () => {
             </FormControl>
 
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
-              <Button
-                sx={{ backgroundColor: "#202B52", fontFamily: "poppins" }}
-                onClick={guardar}
-                variant="contained"
-                type="submit"
-              >
-                Guardar
-              </Button>
+                <Button sx={{ backgroundColor: "#202B52", fontFamily: 'poppins' }} variant="contained" type="submit">
+                    Guardar
+                </Button>
             </div>
           </form>
         </CardContent>

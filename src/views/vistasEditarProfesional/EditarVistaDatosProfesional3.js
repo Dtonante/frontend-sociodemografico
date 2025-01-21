@@ -291,9 +291,6 @@ const EditarDatosProfesional3 = () => {
             setPrevSelectedAntecedentesMedicos(selectedAntecedentes);
             console.log("Cambios guardados con éxito");
 
-
-
-
         } catch (error) {
             console.error("Error al guardar cambios:", error);
         }
