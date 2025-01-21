@@ -24,7 +24,7 @@ const EditarDatosProfesional2 = () => {
     const [personasArray, setPersonasArray] = useState([]);
 
     useEffect(() => {
-        if (set_tipoMascotas) {
+        if (set_tipoMascotas || set_personasConLasQueVive) {
             //limpiar los ( [" "] ) de los animales
             // const cleanedMascotas = set_tipoMascotas.replace(/[\[\]"]/g, '');
             const cleanedMascotas = set_tipoMascotas.replace(/[\[\]"]/g, '') // Elimina corchetes y comillas
@@ -42,7 +42,7 @@ const EditarDatosProfesional2 = () => {
         }
 
         
-    }, [set_tipoMascotas]);
+    }, [set_tipoMascotas, set_personasConLasQueVive]);
 
     useEffect(() => {
         if (boolean_viveSolo == "true") {
