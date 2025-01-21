@@ -154,19 +154,46 @@ const VistaDatosProfesional8 = () => {
         }
     };
 
-    // Manejar el cambio de la placa extra
-    const manejarCambioPlacaExtra = (event) => {
-        let nuevaPlacaExtra = event.target.value;
+    {habilitarPlaca && (
+        <>
+            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Número de placa:</Typography>
+            <TextField value={placa} onChange={manejarCambioPlaca} fullWidth variant="outlined" sx={{
+                mb: 2, input: {
+                    textTransform: "uppercase", // Fuerza las letras a mostrarse en mayúsculas
+                },
+            }} InputProps={{
+                sx: {
+                    height: "40px",
+                    fontFamily: "Roboto Condensed",
+                    fontSize: "16px",
+                }, inputProps: { maxLength: 7 }
+            }} />
 
-        // Usar la función de validación común
-        nuevaPlacaExtra = validarPlaca(nuevaPlacaExtra);
 
-        // Actualizar el estado con la nueva placa extra
-        setPlacaExtra(nuevaPlacaExtra);
+            {/* Mostrar el segundo campo de placa si se seleccionaron más de uno de los IDs válidos */}
+            {habilitarPlacaExtra && (
+                <>
+                    <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Número de placa extra:</Typography>
 
-        // Actualizar el localStorage con los valores de placa
-        actualizarPlacaEnLocalStorage(placa, nuevaPlacaExtra);
-    };
+                    <TextField
+                        sx={{ input: { textTransform: "uppercase" } }}
+                        value={placaExtra}
+                        onChange={manejarCambioPlacaExtra}
+                        fullWidth
+                        variant="outlined"
+                        InputProps={{
+                            sx: {
+                                height: "40px",
+                                fontFamily: "Roboto Condensed",
+                                fontSize: "16px",
+                            }, inputProps: { maxLength: 7 }
+                        }}
+                    />
+                </>
+            )}
+
+        </>
+    )}
 
 
 
