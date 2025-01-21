@@ -16,9 +16,9 @@ import {
   Typography,
   TextField,
   Button,
+  FormHelperText,
 } from "@mui/material";
 import { showAlert, show_alert } from "../../components/showAlert/alertFuntion"; // Asegúrate de importar las funciones
-
 
 const URI_PROFESIONAL = "http://localhost:3001/profesional/";
 const URI_PROFESIONAL_POR_ID_USUARIO =
@@ -48,21 +48,164 @@ const EditarDatosProfesional = () => {
   const [factoresRiesgoOptions, setFactoresRiesgoOptions] = useState([]);
   const [selectedFactoresRiesgo, setSelectedFactoresRiesgo] = useState([]);
 
+  const [errorDireccionResidencia, setErrorDireccionResidencia] =
+    useState(false);
+  const [errorFactoresRiesgo, setErrorFactoresRiesgo] = useState(false);
+  const [errorServiciosQueNoCuentan, setErrorServiciosQueNoCuentan] = useState(false);
+
+  const [error, setError] = useState(false);
+
   const navigate = useNavigate();
 
   // Obtener el ID desde localStorage
   const id_usuarioPK = localStorage.getItem("id_usuario");
 
-//   // Procedimiento para actualizar
-//   const actualizar = async (e) => {
-//     e.preventDefault();
-    
-    
-//   };
+  //   // Procedimiento para actualizar
+  //   const actualizar = async (e) => {
+  //     e.preventDefault();
+
+  //   };
+
+  // const actualizar = async (e) => {
+  //   e.preventDefault();
+
+  //   e.preventDefault();
+
+  //   // Definimos los campos obligatorios a validar
+  //   const camposObligatorios = [
+  //     { nombre: "direccionResidencia", valor: var_direccionResidencia },
+  //   ];
+
+  //   // Recorremos los campos para validar que no estén vacíos
+  //   let camposValidos = true;
+  //   camposObligatorios.forEach((campo) => {
+  //     // Verificamos si el valor no es nulo o indefinido y si es una cadena
+  //     if (typeof campo.valor === "string" && campo.valor.trim() === "") {
+  //       setError((prevState) => ({
+  //         ...prevState,
+  //         [campo.nombre]: true, // Marcamos el error para el campo específico
+  //       }));
+  //       camposValidos = false;
+  //     } else if (
+  //       campo.valor === null ||
+  //       campo.valor === undefined ||
+  //       campo.valor === ""
+  //     ) {
+  //       setError((prevState) => ({
+  //         ...prevState,
+  //         [campo.nombre]: true, // Marcamos el error para el campo específico
+  //       }));
+  //       camposValidos = false;
+  //     } else {
+  //       setError((prevState) => ({
+  //         ...prevState,
+  //         [campo.nombre]: false, // Si el campo tiene valor, eliminamos el error
+  //       }));
+  //     }
+  //   });
+
+  //   if (!camposValidos) {
+  //     // Si algún campo es inválido, mostramos la alerta y detenemos el proceso
+  //     show_alert("Por favor, completa todos los campos obligatorios.", "info");
+  //     return; // Detenemos el proceso si algún campo requerido está vacío
+  //   }
+
+  //   // Si todos los campos son válidos, mostramos la alerta de confirmación
+  //   showAlert(
+  //     {
+  //       title: "¿Estás seguro?",
+  //       text: "¿Deseas guardar los cambios realizados?",
+  //       icon: "warning",
+  //       showCancelButton: true,
+  //       confirmButtonText: "Sí, guardar",
+  //       cancelButtonText: "Cancelar",
+  //     },
+  //     async () => {
+  //       try {
+  //         // Operaciones de actualización
+  //         await axios.put(URI_PROFESIONAL + id_profesionalPK, {
+  //           var_departamentoResidencia: var_departamentoResidencia,
+  //           var_ciudadResidencia: var_ciudadResidencia,
+  //           var_direccionResidencia: var_direccionResidencia,
+  //           var_estratoVivienda: var_estratoVivienda,
+  //           var_tipoVivienda: var_tipoVivienda,
+  //         });
+
+  //         show_alert("Cambios guardados exitosamente", "success");
+  //         navigate("/app/editarDatosProfesional");
+
+  //         setTimeout(() => {
+  //           navigate("/app/editarDatosProfesional");
+  //         }, 1500);
+  //       } catch (error) {
+  //         show_alert("Error al guardar los cambios", "error");
+  //       }
+  //     },
+  //     () => {
+  //       show_alert("Cambios cancelados", "info");
+  //     }
+  //   );
+  // };
 
   const actualizar = async (e) => {
     e.preventDefault();
-  
+
+    // Definimos los campos obligatorios a validar, incluyendo arrays
+    const camposObligatorios = [
+      { nombre: "direccionResidencia", valor: var_direccionResidencia },
+      { nombre: "factoresRiesgo", valor: selectedFactoresRiesgo }, // Array de factores de riesgo
+      { nombre: "serviciosQueNoCuentan", valor: selectedServiciosQueNoCuentan }, // Array de servicios
+    ];
+
+    // Recorremos los campos para validar que no estén vacíos
+    let camposValidos = true;
+    camposObligatorios.forEach((campo) => {
+      // Si el campo es un array, validamos que no esté vacío
+      if (Array.isArray(campo.valor)) {
+        if (campo.valor.length === 0) {
+          setError((prevState) => ({
+            ...prevState,
+            [campo.nombre]: true, // Marcamos el error para el campo específico
+          }));
+          camposValidos = false;
+        } else {
+          setError((prevState) => ({
+            ...prevState,
+            [campo.nombre]: false, // Eliminamos el error si el campo es válido
+          }));
+        }
+      }
+      // Si el campo es una cadena, validamos que no esté vacío o tenga solo espacios
+      else if (typeof campo.valor === "string" && campo.valor.trim() === "") {
+        setError((prevState) => ({
+          ...prevState,
+          [campo.nombre]: true, // Marcamos el error para el campo específico
+        }));
+        camposValidos = false;
+      } else if (
+        campo.valor === null ||
+        campo.valor === undefined ||
+        campo.valor === ""
+      ) {
+        setError((prevState) => ({
+          ...prevState,
+          [campo.nombre]: true, // Marcamos el error para el campo específico
+        }));
+        camposValidos = false;
+      } else {
+        setError((prevState) => ({
+          ...prevState,
+          [campo.nombre]: false, // Si el campo tiene valor, eliminamos el error
+        }));
+      }
+    });
+
+    if (!camposValidos) {
+      // Si algún campo es inválido, mostramos la alerta y detenemos el proceso
+      show_alert("Por favor, completa todos los campos obligatorios.", "info");
+      return; // Detenemos el proceso si algún campo requerido está vacío
+    }
+
     // Si todos los campos son válidos, mostramos la alerta de confirmación
     showAlert(
       {
@@ -82,12 +225,13 @@ const EditarDatosProfesional = () => {
             var_direccionResidencia: var_direccionResidencia,
             var_estratoVivienda: var_estratoVivienda,
             var_tipoVivienda: var_tipoVivienda,
+            selectedFactoresRiesgo: selectedFactoresRiesgo, // Enviar los factores de riesgo seleccionados
+            selectedServiciosQueNoCuentan: selectedServiciosQueNoCuentan, // Enviar los servicios seleccionados
           });
-  
+
           show_alert("Cambios guardados exitosamente", "success");
           navigate("/app/editarDatosProfesional");
 
-  
           setTimeout(() => {
             navigate("/app/editarDatosProfesional");
           }, 1500);
@@ -100,8 +244,6 @@ const EditarDatosProfesional = () => {
       }
     );
   };
-
-
 
   useEffect(() => {
     getUsuarios();
@@ -346,6 +488,28 @@ const EditarDatosProfesional = () => {
     }
   };
 
+  const validarCampoRequerido = (valor, setError) => {
+    // Si el valor es un array, verificamos si tiene elementos
+    if (Array.isArray(valor)) {
+      if (valor.length === 0) {
+        setError(true); // Marca el error si el array está vacío
+        return false; // Retorna false si el array está vacío
+      } else {
+        setError(false); // El array tiene elementos, no hay error
+        return true; // Retorna true si la validación pasa
+      }
+    }
+
+    // Si el valor es un string, validamos que no esté vacío o contenga solo espacios
+    if (!valor || valor.trim() === "") {
+      setError(true); // Establece el error si el campo está vacío
+      return false; // Retorna false si la validación falla
+    } else {
+      setError(false); // Si el campo tiene valor, quita el error
+      return true; // Retorna true si la validación pasa
+    }
+  };
+
   return (
     <div
       style={{
@@ -488,7 +652,17 @@ const EditarDatosProfesional = () => {
             </Typography>
             <TextField
               value={var_direccionResidencia}
-              onChange={(e) => setVar_direccionResidencia(e.target.value)}
+              // onChange={(e) => setVar_direccionResidencia(e.target.value)}
+              onChange={(e) => {
+                const valor = e.target.value();
+                setVar_direccionResidencia(valor);
+                // Validar si el campo está vacío al cambiar el valor
+                validarCampoRequerido(valor, setErrorDireccionResidencia);
+              }}
+              error={errorDireccionResidencia} // Mostrar borde rojo si hay error
+              helperText={
+                errorDireccionResidencia ? "Este campo es obligatorio" : "" // Mensaje de error
+              }
               fullWidth
               sx={{ mb: 2 }}
               InputProps={{
@@ -619,9 +793,15 @@ const EditarDatosProfesional = () => {
                 multiple
                 name="selectedServiciosQueNoCuentan"
                 value={selectedServiciosQueNoCuentan}
-                onChange={(event) =>
-                  manejarCambioInput(event, "serviciosQueNoCuentan")
-                } // Pasar 'serviciosQueNoCuentan'
+                // onChange={(event) =>
+                //   manejarCambioInput(event, "serviciosQueNoCuentan")
+                // } // Pasar 'serviciosQueNoCuentan'
+                onChange={(e) => {
+                  const newValue = e.target.value;
+                  setSelectedServiciosQueNoCuentan(newValue);
+                  // Validar si el campo está vacío al cambiar el valor
+                  validarCampoRequerido(newValue, setErrorServiciosQueNoCuentan); // Asegúrate de tener un setErrorFactoresRiesgo para manejar el estado de error
+                }}
                 renderValue={(selected) => {
                   const selectedNames = serviciosQueNoCuentan
                     .filter((actividad) =>
@@ -667,6 +847,9 @@ const EditarDatosProfesional = () => {
                   </MenuItem>
                 ))}
               </Select>
+              {errorServiciosQueNoCuentan && (
+                <FormHelperText error>Este campo es obligatorio</FormHelperText>
+              )}
             </FormControl>
 
             <FormControl fullWidth sx={{ mb: 2 }}>
@@ -685,7 +868,12 @@ const EditarDatosProfesional = () => {
                 multiple
                 name="selectedFactoresRiesgo"
                 value={selectedFactoresRiesgo}
-                onChange={(e) => setSelectedFactoresRiesgo(e.target.value)}
+                onChange={(e) => {
+                  const newValue = e.target.value;
+                  setSelectedFactoresRiesgo(newValue);
+                  // Validar si el campo está vacío al cambiar el valor
+                  validarCampoRequerido(newValue, setErrorFactoresRiesgo); // Asegúrate de tener un setErrorFactoresRiesgo para manejar el estado de error
+                }}
                 renderValue={(selected) => {
                   const selectedNames = factoresRiesgoOptions
                     .filter((factor) =>
@@ -726,6 +914,9 @@ const EditarDatosProfesional = () => {
                   </MenuItem>
                 ))}
               </Select>
+              {errorFactoresRiesgo && (
+                <FormHelperText error>Este campo es obligatorio</FormHelperText>
+              )}
             </FormControl>
 
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
