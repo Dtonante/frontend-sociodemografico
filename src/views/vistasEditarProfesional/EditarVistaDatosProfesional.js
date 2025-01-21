@@ -654,8 +654,8 @@ const EditarDatosProfesional = () => {
               value={var_direccionResidencia}
               // onChange={(e) => setVar_direccionResidencia(e.target.value)}
               onChange={(e) => {
-                const valor = e.target.value();
-                setVar_direccionResidencia(valor);
+                const valor = e.target.value;
+                setVar_direccionResidencia(valor);  
                 // Validar si el campo está vacío al cambiar el valor
                 validarCampoRequerido(valor, setErrorDireccionResidencia);
               }}
