@@ -61,93 +61,6 @@ const EditarDatosProfesional = () => {
   // Obtener el ID desde localStorage
   const id_usuarioPK = localStorage.getItem("id_usuario");
 
-  //   // Procedimiento para actualizar
-  //   const actualizar = async (e) => {
-  //     e.preventDefault();
-
-  //   };
-
-  // const actualizar = async (e) => {
-  //   e.preventDefault();
-
-  //   e.preventDefault();
-
-  //   // Definimos los campos obligatorios a validar
-  //   const camposObligatorios = [
-  //     { nombre: "direccionResidencia", valor: var_direccionResidencia },
-  //   ];
-
-  //   // Recorremos los campos para validar que no estén vacíos
-  //   let camposValidos = true;
-  //   camposObligatorios.forEach((campo) => {
-  //     // Verificamos si el valor no es nulo o indefinido y si es una cadena
-  //     if (typeof campo.valor === "string" && campo.valor.trim() === "") {
-  //       setError((prevState) => ({
-  //         ...prevState,
-  //         [campo.nombre]: true, // Marcamos el error para el campo específico
-  //       }));
-  //       camposValidos = false;
-  //     } else if (
-  //       campo.valor === null ||
-  //       campo.valor === undefined ||
-  //       campo.valor === ""
-  //     ) {
-  //       setError((prevState) => ({
-  //         ...prevState,
-  //         [campo.nombre]: true, // Marcamos el error para el campo específico
-  //       }));
-  //       camposValidos = false;
-  //     } else {
-  //       setError((prevState) => ({
-  //         ...prevState,
-  //         [campo.nombre]: false, // Si el campo tiene valor, eliminamos el error
-  //       }));
-  //     }
-  //   });
-
-  //   if (!camposValidos) {
-  //     // Si algún campo es inválido, mostramos la alerta y detenemos el proceso
-  //     show_alert("Por favor, completa todos los campos obligatorios.", "info");
-  //     return; // Detenemos el proceso si algún campo requerido está vacío
-  //   }
-
-  //   // Si todos los campos son válidos, mostramos la alerta de confirmación
-  //   showAlert(
-  //     {
-  //       title: "¿Estás seguro?",
-  //       text: "¿Deseas guardar los cambios realizados?",
-  //       icon: "warning",
-  //       showCancelButton: true,
-  //       confirmButtonText: "Sí, guardar",
-  //       cancelButtonText: "Cancelar",
-  //     },
-  //     async () => {
-  //       try {
-  //         // Operaciones de actualización
-  //         await axios.put(URI_PROFESIONAL + id_profesionalPK, {
-  //           var_departamentoResidencia: var_departamentoResidencia,
-  //           var_ciudadResidencia: var_ciudadResidencia,
-  //           var_direccionResidencia: var_direccionResidencia,
-  //           var_estratoVivienda: var_estratoVivienda,
-  //           var_tipoVivienda: var_tipoVivienda,
-  //         });
-
-  //         show_alert("Cambios guardados exitosamente", "success");
-  //         navigate("/app/editarDatosProfesional");
-
-  //         setTimeout(() => {
-  //           navigate("/app/editarDatosProfesional");
-  //         }, 1500);
-  //       } catch (error) {
-  //         show_alert("Error al guardar los cambios", "error");
-  //       }
-  //     },
-  //     () => {
-  //       show_alert("Cambios cancelados", "info");
-  //     }
-  //   );
-  // };
-
   const actualizar = async (e) => {
     e.preventDefault();
 
@@ -385,48 +298,6 @@ const EditarDatosProfesional = () => {
     }
   };
 
-  // Función para manejar la actualización de los servicios que el profesional no cuenta
-//   const actualizarServiciosQueNoCuentan = async () => {
-//     try {
-//       // Eliminar servicios deseleccionados
-//       const serviciosParaEliminar = prevSelectedServicios.filter(
-//         (id_servicio) => !selectedServiciosQueNoCuentan.includes(id_servicio)
-//       );
-
-//       for (let id_servicio of serviciosParaEliminar) {
-//         await axios.delete(
-//           `http://localhost:3001/profesionalServiciosQueNoCuentan/${id_profesionalPK}/${id_servicio}`
-//         );
-//         console.log(
-//           `Relación eliminada: Profesional ID ${id_profesionalPK}, Servicio Que No Cuentan ID ${id_servicio}`
-//         );
-//       }
-
-//       // Agregar nuevos servicios seleccionados
-//       const serviciosParaAgregar = selectedServiciosQueNoCuentan.filter(
-//         (id_servicio) => !prevSelectedServicios.includes(id_servicio)
-//       );
-
-//       for (let id_servicio of serviciosParaAgregar) {
-//         await axios.post(
-//           `http://localhost:3001/profesionalServiciosQueNoCuentan/`,
-//           {
-//             id_profesionalFK: id_profesionalPK,
-//             id_servicioQueNoCuentaFK: id_servicio,
-//           }
-//         );
-//         console.log(
-//           `Relación creada: Profesional ID ${id_profesionalPK}, Servicio Que No Cuentan ID ${id_servicio}`
-//         );
-//       }
-
-//       // Actualizar el estado previo
-//       setPrevSelectedServicios([...selectedServiciosQueNoCuentan]);
-//     } catch (error) {
-//       console.error("Error al actualizar los servicios:", error);
-//     }
-//   };
-
 const actualizarServiciosQueNoCuentan = async () => {
     try {
         // Eliminar servicios deseleccionados
@@ -484,43 +355,6 @@ const actualizarServiciosQueNoCuentan = async () => {
       setPrevSelectedServicios(serviciosSeleccionados);
     }
   }, [serviciosProfesional]);
-
-//   const guardar = async () => {
-//     // actualizarFactoresDeRiesgo();
-//     actualizarServiciosQueNoCuentan();
-
-//     const factoresParaEliminar = prevSelectedFactoresRiesgo.filter(
-//       (id_factor) => !selectedFactoresRiesgo.includes(id_factor)
-//     );
-//     const factoresParaAgregar = selectedFactoresRiesgo.filter(
-//       (id_factor) => !prevSelectedFactoresRiesgo.includes(id_factor)
-//     );
-
-//     try {
-//       // Eliminar servicios deseleccionados
-//       for (let id_factor of factoresParaEliminar) {
-//         await axios.delete(
-//           `https://evaluacion.esumer.edu.co/api/profesionalFactoresRiesgo/${id_profesionalPK}/${id_factor}`
-//         );
-//         console.log(`factor eliminado: ${id_factor}`);
-//       }
-
-//       // Agregar nuevos servicios seleccionados
-//       for (let id_factor of factoresParaAgregar) {
-//         await axios.post("http://localhost:3001/profesionalFactoresRiesgo/", {
-//           id_profesionalFK: id_profesionalPK,
-//           id_factoresRiesgoFK: id_factor,
-//         });
-//         console.log(`factor agregado: ${id_factor}`);
-//       }
-
-//       // Actualizar el estado previo
-//       setPrevSelectedFactoresRiesgo(selectedFactoresRiesgo);
-//       console.log("Cambios guardados con éxito");
-//     } catch (error) {
-//       console.error("Error al guardar cambios:", error);
-//     }
-//   };
 
   const actualizarFactoresRiesgo = async () => {
     const factoresParaEliminar = prevSelectedFactoresRiesgo.filter(
