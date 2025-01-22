@@ -351,7 +351,7 @@ const CompEditarUsuario = () => {
                 fontFamily: "Roboto Condensed",
               }}
             >
-              <strong>Actualizar informacion de usuario</strong>
+              <strong>Actualizar información de usuario</strong>
             </Typography>
           </Box>
         </Box>

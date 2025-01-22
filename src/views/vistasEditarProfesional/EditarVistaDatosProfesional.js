@@ -451,7 +451,7 @@ const actualizarServiciosQueNoCuentan = async () => {
                 fontFamily: "Roboto Condensed",
               }}
             >
-              <strong>Datos personales</strong>
+              <strong>Actualizar datos profesionales</strong>
             </Typography>
           </Box>
         </Box>

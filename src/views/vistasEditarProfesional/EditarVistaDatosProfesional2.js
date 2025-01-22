@@ -299,7 +299,7 @@ const EditarDatosProfesional2 = () => {
                 fontFamily: "Roboto Condensed",
               }}
             >
-              <strong>Datos personales</strong>
+              <strong>Actualizar datos adicionales</strong>
             </Typography>
           </Box>
         </Box>
