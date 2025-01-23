@@ -124,15 +124,18 @@ const EditarDatosProfesional2 = () => {
   const actualizar = async (e) => {
     e.preventDefault();
 
-    // Definimos los campos obligatorios a validar, incluyendo arrays
-    const camposObligatorios = [
-      { nombre: "personasArray", valor: personasArray },
-      { nombre: "mascotasArray", valor: mascotasArray },
-    ];
+  // Definimos los campos obligatorios a validar, incluyendo arrays y otros campos
+  const camposObligatorios = [
+    { nombre: "personasArray", valor: personasArray, condicion: boolean_viveSolo === "false" }, // Solo validamos si no vive solo
+    { nombre: "mascotasArray", valor: mascotasArray, condicion: boolean_viveConMascotas === "true" }, // Solo validamos si tiene mascotas
+    { nombre: "var_numeroPersonasConLasQueVive", valor: var_numeroPersonasConLasQueVive, condicion: boolean_viveSolo === "false" }, // Validar número de personas si no vive solo
+  ];
 
-    // Recorremos los campos para validar que no estén vacíos
-    let camposValidos = true;
-    camposObligatorios.forEach((campo) => {
+  // Recorremos los campos para validar que no estén vacíos
+  let camposValidos = true;
+  camposObligatorios.forEach((campo) => {
+    // Solo validamos si la condición es verdadera
+    if (campo.condicion) {
       // Si el campo es un array, validamos que no esté vacío
       if (Array.isArray(campo.valor)) {
         if (campo.valor.length === 0) {
@@ -171,13 +174,14 @@ const EditarDatosProfesional2 = () => {
           [campo.nombre]: false, // Si el campo tiene valor, eliminamos el error
         }));
       }
-    });
-
-    if (!camposValidos) {
-      // Si algún campo es inválido, mostramos la alerta y detenemos el proceso
-      show_alert("Por favor, completa todos los campos obligatorios.", "info");
-      return; // Detenemos el proceso si algún campo requerido está vacío
     }
+  });
+
+  if (!camposValidos) {
+    // Si algún campo es inválido, mostramos la alerta y detenemos el proceso
+    show_alert("Por favor, completa todos los campos obligatorios.", "info");
+    return; // Detenemos el proceso si algún campo requerido está vacío
+  }
 
     showAlert(
       {
