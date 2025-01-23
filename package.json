@@ -32,7 +32,8 @@
     "react-router-dom": "^6.27.0",
     "sweetalert2-react-content": "^5.0.7",
     "tempo": "^0.2.7",
-    "vite-plugin-svgr": "^4.0.0"
+    "vite-plugin-svgr": "^4.0.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
