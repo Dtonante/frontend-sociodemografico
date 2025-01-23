@@ -48,6 +48,40 @@ const EditarDatosProfesional = () => {
   const [factoresRiesgoOptions, setFactoresRiesgoOptions] = useState([]);
   const [selectedFactoresRiesgo, setSelectedFactoresRiesgo] = useState([]);
 
+  //Datos para los campos de la direccion
+  const [direccion, setDireccion] = useState({
+    tipoVia: "",
+    numeroPrincipal: "",
+    letraPrincipal: "",
+    bisGuion: "",
+    letraSecundaria: "",
+    orientacion: "",
+    numeroSecundario: "",
+    letraAdicional: "",
+    numeroFinal: "",
+    orientacionFinal: "",
+    detalle: "",
+  });
+
+  // Generar las letras de la A a la Z dinámicamente
+  const letras = Array.from({ length: 26 }, (_, i) =>
+    String.fromCharCode(65 + i)
+  );
+  // Generar los números del 1 al 200
+  const numeros = Array.from({ length: 999 }, (_, i) => i + 1);
+
+  // Función para manejar el cambio de los inputs de dirección
+  const manejarCambioDireccion = (event) => {
+    const { name, value } = event.target;
+    setDireccion({ ...direccion, [name]: value });
+
+    // Construir la dirección completa
+    const direccionCompleta = `${direccion.tipoVia} ${direccion.numeroPrincipal} ${direccion.letraPrincipal} ${direccion.bisGuion} ${direccion.letraSecundaria} ${direccion.orientacion} No. ${direccion.numeroSecundario} ${direccion.letraAdicional} - ${direccion.numeroFinal} ${direccion.orientacionFinal} ${direccion.detalle}`;
+    setVar_direccionResidencia(direccionCompleta);
+
+    console.log("direccionCompleta", direccionCompleta);
+  };
+
   const [errorDireccionResidencia, setErrorDireccionResidencia] =
     useState(false);
   const [errorFactoresRiesgo, setErrorFactoresRiesgo] = useState(false);
@@ -298,37 +332,46 @@ const EditarDatosProfesional = () => {
     }
   };
 
-const actualizarServiciosQueNoCuentan = async () => {
+  const actualizarServiciosQueNoCuentan = async () => {
     try {
-        // Eliminar servicios deseleccionados
-        const serviciosParaEliminar = prevSelectedServicios.filter(
-            (id_servicio) => !selectedServiciosQueNoCuentan.includes(id_servicio)
+      // Eliminar servicios deseleccionados
+      const serviciosParaEliminar = prevSelectedServicios.filter(
+        (id_servicio) => !selectedServiciosQueNoCuentan.includes(id_servicio)
+      );
+
+      for (let id_servicio of serviciosParaEliminar) {
+        await axios.delete(
+          `http://localhost:3001/profesionalServiciosQueNoCuentan/${id_profesionalPK}/${id_servicio}`
         );
-
-        for (let id_servicio of serviciosParaEliminar) {
-            await axios.delete(`http://localhost:3001/profesionalServiciosQueNoCuentan/${id_profesionalPK}/${id_servicio}`);
-            console.log(`Relación eliminada: Profesional ID ${id_profesionalPK}, Servicio Que No Cuentan ID ${id_servicio}`);
-        }
-
-        // Agregar nuevos servicios seleccionados
-        const serviciosParaAgregar = selectedServiciosQueNoCuentan.filter(
-            (id_servicio) => !prevSelectedServicios.includes(id_servicio)
+        console.log(
+          `Relación eliminada: Profesional ID ${id_profesionalPK}, Servicio Que No Cuentan ID ${id_servicio}`
         );
+      }
 
-        for (let id_servicio of serviciosParaAgregar) {
-            await axios.post(`http://localhost:3001/profesionalServiciosQueNoCuentan/`, {
-                id_profesionalFK: id_profesionalPK,
-                id_servicioQueNoCuentaFK: id_servicio,
-            });
-            console.log(`Relación creada: Profesional ID ${id_profesionalPK}, Servicio Que No Cuentan ID ${id_servicio}`);
-        }
+      // Agregar nuevos servicios seleccionados
+      const serviciosParaAgregar = selectedServiciosQueNoCuentan.filter(
+        (id_servicio) => !prevSelectedServicios.includes(id_servicio)
+      );
 
-        // Actualizar el estado previo
-        setPrevSelectedServicios([...selectedServiciosQueNoCuentan]);
+      for (let id_servicio of serviciosParaAgregar) {
+        await axios.post(
+          `http://localhost:3001/profesionalServiciosQueNoCuentan/`,
+          {
+            id_profesionalFK: id_profesionalPK,
+            id_servicioQueNoCuentaFK: id_servicio,
+          }
+        );
+        console.log(
+          `Relación creada: Profesional ID ${id_profesionalPK}, Servicio Que No Cuentan ID ${id_servicio}`
+        );
+      }
+
+      // Actualizar el estado previo
+      setPrevSelectedServicios([...selectedServiciosQueNoCuentan]);
     } catch (error) {
-        console.error('Error al actualizar los servicios:', error);
+      console.error("Error al actualizar los servicios:", error);
     }
-};
+  };
 
   // fectch para los factores de riesgo
   useEffect(() => {
@@ -819,15 +862,16 @@ const actualizarServiciosQueNoCuentan = async () => {
                   </MenuItem>
                 ))}
               </Select>
-              {errorFactoresRiesgo && (
-                <FormHelperText error>Este campo es obligatorio</FormHelperText>
-              )}
             </FormControl>
 
             <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                <Button sx={{ backgroundColor: "#202B52", fontFamily: 'poppins' }} variant="contained" type="submit">
-                    Guardar
-                </Button>
+              <Button
+                sx={{ backgroundColor: "#202B52", fontFamily: "poppins" }}
+                variant="contained"
+                type="submit"
+              >
+                Guardar
+              </Button>
             </div>
           </form>
         </CardContent>
