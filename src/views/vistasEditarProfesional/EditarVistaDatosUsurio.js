@@ -48,7 +48,7 @@ const CompEditarUsuario = () => {
     useState(false);
   const [errorTelefonoEmergencia, setErrorTelefonoEmergencia] = useState(false);
 
-  const [error,setError] = useState(false);
+  const [error, setError] = useState(false);
 
   // Obtener el ID desde localStorage
   const id_usuarioPK = localStorage.getItem("id_usuario");
@@ -56,7 +56,7 @@ const CompEditarUsuario = () => {
   // Procedimiento para actualizar
   const actualizar = async (e) => {
     e.preventDefault();
-  
+
     // Definimos los campos obligatorios a validar
     const camposObligatorios = [
       { nombre: "fechaNacimiento", valor: date_fechaNacimiento },
@@ -71,18 +71,22 @@ const CompEditarUsuario = () => {
       { nombre: "grupoEtnico", valor: var_grupoEtnico },
       { nombre: "rh", valor: var_rh },
     ];
-  
+
     // Recorremos los campos para validar que no estén vacíos
     let camposValidos = true;
     camposObligatorios.forEach((campo) => {
       // Verificamos si el valor no es nulo o indefinido y si es una cadena
-      if (typeof campo.valor === 'string' && campo.valor.trim() === "") {
+      if (typeof campo.valor === "string" && campo.valor.trim() === "") {
         setError((prevState) => ({
           ...prevState,
           [campo.nombre]: true, // Marcamos el error para el campo específico
         }));
         camposValidos = false;
-      } else if (campo.valor === null || campo.valor === undefined || campo.valor === "") {
+      } else if (
+        campo.valor === null ||
+        campo.valor === undefined ||
+        campo.valor === ""
+      ) {
         setError((prevState) => ({
           ...prevState,
           [campo.nombre]: true, // Marcamos el error para el campo específico
@@ -95,23 +99,23 @@ const CompEditarUsuario = () => {
         }));
       }
     });
-  
+
     if (!camposValidos) {
       // Si algún campo es inválido, mostramos la alerta y detenemos el proceso
       show_alert("Por favor, completa todos los campos obligatorios.", "info");
       return; // Detenemos el proceso si algún campo requerido está vacío
     }
-  
+
     // Validación de la fecha (mínimo 18 años)
     const selectedDate = new Date(date_fechaNacimiento);
     const today = new Date();
     const minDate = new Date(today.setFullYear(today.getFullYear() - 18));
-  
+
     if (selectedDate > minDate) {
       show_alert("Debes tener mínimo 18 años para el registro.", "info");
       return; // Detener el proceso si la fecha es inválida
     }
-  
+
     // Si todos los campos son válidos, mostramos la alerta de confirmación
     showAlert(
       {
@@ -135,16 +139,16 @@ const CompEditarUsuario = () => {
             var_correoElectronicoPersonal: var_correoElectronicoPersonal,
             var_contactoEmergencia: var_contactoEmergencia,
           });
-  
+
           await axios.put(URI_PROFESIONAL + id_profesionalPK, {
             date_fechaNacimiento: date_fechaNacimiento,
             var_grupoEtnico: var_grupoEtnico,
             var_rh: var_rh,
             var_telefonoEmergencia: var_telefonoEmergencia,
           });
-  
+
           show_alert("Cambios guardados exitosamente", "success");
-  
+
           setTimeout(() => {
             navigate("/app/editarUsuario");
           }, 1500);
@@ -157,9 +161,6 @@ const CompEditarUsuario = () => {
       }
     );
   };
-  
-  
-  
 
   useEffect(() => {
     getUsuarios();
@@ -235,6 +236,9 @@ const CompEditarUsuario = () => {
     ) {
       // Solo permitimos letras (incluyendo acentos y ñ) y espacios
       regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/;
+    } else if (fieldName === "var_correoElectronicoPersonal") {
+      // Validar formato de correo electrónico
+      regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     }
 
     // Verificamos si se ha definido una expresión regular para el campo
@@ -285,28 +289,25 @@ const CompEditarUsuario = () => {
   const validarCampoRequerido = (valor, setError) => {
     if (!valor || valor.trim() === "") {
       setError(true); // Establece el error si el campo está vacío
-      return false;  // Retorna false para indicar que la validación falló
+      return false; // Retorna false para indicar que la validación falló
     } else {
       setError(false); // Si el campo tiene valor, quita el error
-      return true;  // Retorna true si la validación pasa
+      return true; // Retorna true si la validación pasa
     }
   };
-
-  
-  
 
   const handleDateChange = (event) => {
     const { value } = event.target; // Obtenemos la fecha seleccionada por el usuario
     const selectedDate = new Date(value); // Convertimos la fecha en un objeto Date
     const today = new Date();
     const minDate = new Date(today.setFullYear(today.getFullYear() - 18)); // Fecha mínima para 18 años
-  
+
     // Validación en tiempo real
     if (selectedDate > minDate) {
       show_alert("Debes tener mínimo 18 años para el registro.", "info"); // Mostrar la alerta
       return; // No actualizamos el estado si la fecha no es válida
     }
-  
+
     // Si la fecha es válida, la almacenamos en el estado
     setDate_fechaNacimiento(value);
   };
@@ -346,7 +347,7 @@ const CompEditarUsuario = () => {
                 fontFamily: "Roboto Condensed",
               }}
             >
-              <strong>Actualizar Usuario</strong>
+              <strong>Actualizar información de usuario</strong>
             </Typography>
           </Box>
         </Box>
@@ -445,7 +446,6 @@ const CompEditarUsuario = () => {
             </Typography>
             <TextField
               value={var_numeroDocumento}
-              //   onChange={(e) => setVar_numeroDocumento(e.target.value)}
               onChange={(e) => {
                 const valor = e.target.value.toUpperCase();
                 setVar_numeroDocumento(valor);
@@ -467,8 +467,12 @@ const CompEditarUsuario = () => {
                   fontFamily: "Roboto Condensed",
                   fontSize: "16px",
                 },
+                inputProps: {
+                  maxLength: 10, // Definir el máximo de caracteres (ajusta el número según lo que necesites)
+                },
               }}
             />
+
             <Typography
               variant="h6"
               sx={{
@@ -494,7 +498,6 @@ const CompEditarUsuario = () => {
                 },
               }}
             />
-           
 
             <Typography
               variant="h6"
@@ -630,13 +633,28 @@ const CompEditarUsuario = () => {
                 const valor = e.target.value;
                 setVar_correoElectronicoPersonal(valor);
 
-                // Validar si el campo está vacío al cambiar el valor
-                validarCampoRequerido(valor, setErrorCorreoElectronico);
+                // Validar si el campo está vacío o tiene un formato incorrecto
+                const esCorreoValido =
+                  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(
+                    valor
+                  );
+
+                if (!valor) {
+                  setErrorCorreoElectronico(true); // Si el campo está vacío, hay error
+                } else if (!esCorreoValido) {
+                  setErrorCorreoElectronico(true); // Si el formato no es válido, hay error
+                } else {
+                  setErrorCorreoElectronico(false); // Si el correo es válido, no hay error
+                }
               }}
               fullWidth
               error={errorCorreoElectronico} // Mostrar borde rojo si hay error
               helperText={
-                errorCorreoElectronico ? "Este campo es obligatorio" : ""
+                errorCorreoElectronico
+                  ? var_correoElectronicoPersonal
+                    ? "Formato de correo no válido" // Mostrar error de formato si no es válido
+                    : "Este campo es obligatorio" // Mostrar error si está vacío
+                  : ""
               } // Mensaje de error
               sx={{ mb: 2 }}
               InputProps={{
@@ -647,6 +665,7 @@ const CompEditarUsuario = () => {
                 },
               }}
             />
+
             <Typography
               variant="h6"
               sx={{
@@ -710,12 +729,14 @@ const CompEditarUsuario = () => {
               onKeyPress={(event) =>
                 handleKeyPress(event, "var_telefonoEmergencia")
               } // Validación de solo letras
-              sx={{ mb: 2 }}
               InputProps={{
                 sx: {
                   height: "40px",
                   fontFamily: "Roboto Condensed",
                   fontSize: "16px",
+                },
+                inputProps: {
+                  maxLength: 10, // Definir el máximo de caracteres (ajusta el número según lo que necesites)
                 },
               }}
             />
