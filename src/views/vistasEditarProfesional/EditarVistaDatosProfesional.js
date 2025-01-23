@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import departamentosCiudades from '../vistas formulario/departamentosCiudades.json';
 
-import { Card, CardContent, Divider, Box, FormControl, Checkbox, ListItemText, Select, MenuItem, Typography, TextField, Button } from "@mui/material";
+import { Card, CardContent, Divider, Box, FormControl, Checkbox, Grid, ListItemText, Select, MenuItem, Typography, TextField, Button } from "@mui/material";
 
 const URI_PROFESIONAL = 'http://localhost:3001/profesional/';
 const URI_PROFESIONAL_POR_ID_USUARIO = 'http://localhost:3001/profesional/porUsuario/';
@@ -27,6 +27,40 @@ const EditarDatosProfesional = () => {
     const [factoresRiesgoOptions, setFactoresRiesgoOptions] = useState([]);
     const [selectedFactoresRiesgo, setSelectedFactoresRiesgo] = useState([]);
 
+    //Datos para los campos de la direccion
+    const [direccion, setDireccion] = useState({
+        tipoVia: "",
+        numeroPrincipal: "",
+        letraPrincipal: "",
+        bisGuion: "",
+        letraSecundaria: "",
+        orientacion: "",
+        numeroSecundario: "",
+        letraAdicional: "",
+        numeroFinal: "",
+        orientacionFinal: "",
+        detalle: ""
+    });
+
+     // Generar las letras de la A a la Z dinámicamente
+     const letras = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
+     // Generar los números del 1 al 200
+     const numeros = Array.from({ length: 999 }, (_, i) => i + 1);
+
+    // Función para manejar el cambio de los inputs de dirección
+    const manejarCambioDireccion = (event) => {
+        const { name, value } = event.target;
+        setDireccion({ ...direccion, [name]: value });
+
+
+        // Construir la dirección completa
+        const direccionCompleta = `${direccion.tipoVia} ${direccion.numeroPrincipal} ${direccion.letraPrincipal} ${direccion.bisGuion} ${direccion.letraSecundaria} ${direccion.orientacion} No. ${direccion.numeroSecundario} ${direccion.letraAdicional} - ${direccion.numeroFinal} ${direccion.orientacionFinal} ${direccion.detalle}`;
+        setVar_direccionResidencia(direccionCompleta);
+
+        console.log('direccionCompleta', direccionCompleta);
+
+    };
+
 
 
 
@@ -46,7 +80,7 @@ const EditarDatosProfesional = () => {
             var_tipoVivienda: var_tipoVivienda,
 
         });
-        
+
         actualizarServiciosQueNoCuentan();
         actualizarFactoresRiesgo()
         navigate('/app/editarDatosProfesional');
@@ -240,7 +274,7 @@ const EditarDatosProfesional = () => {
     }, [serviciosProfesional]);
 
 
-    
+
 
     // Función para manejar la actualización de los servicios que el profesional no cuenta
     const actualizarFactoresRiesgo = async () => {
@@ -341,6 +375,159 @@ const EditarDatosProfesional = () => {
                             sx={{ mb: 2 }}
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
+
+                        <Grid container spacing={2} sx={{ mb: 2 }}>
+                            <Grid item xs={3}>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Tipo de Vía:</Typography>
+                                <TextField select name="tipoVia" value={direccion.tipoVia} onChange={manejarCambioDireccion} fullWidth InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Roboto Condensed",
+                                        fontSize: "16px"
+                                    },
+                                }}>
+                                    {["Autopista", "Avenida", "Avenida Calle", "Avenida Carrera", "Bulevar", "Calle", "Carrera", "Circular", "Circunvalar", "Cuentas Corridas", "Diagonal", "Pasaje", "Paseo", "Peatonal", "Transversal", "Troncal", "Variante", "Via"].map(via => (
+                                        <MenuItem key={via} value={via}>{via}</MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Número Principal:</Typography>
+                                <TextField select name="numeroPrincipal" value={direccion.numeroPrincipal} onChange={manejarCambioDireccion} fullWidth InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Roboto Condensed",
+                                        fontSize: "16px"
+                                    },
+                                }}>
+                                    {numeros.map(numero => (
+                                        <MenuItem key={numero} value={numero}>{numero}</MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={2}>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Letra:</Typography>
+                                <TextField select name="letraPrincipal" value={direccion.letraPrincipal} onChange={manejarCambioDireccion} fullWidth InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Roboto Condensed",
+                                        fontSize: "16px"
+                                    },
+                                }}>
+                                    {["", ...letras].map(letra => (
+                                        <MenuItem key={letra} value={letra}>{letra}</MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={2}>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Bis:</Typography>
+                                <TextField select name="bisGuion" value={direccion.bisGuion} onChange={manejarCambioDireccion} fullWidth InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Roboto Condensed",
+                                        fontSize: "16px"
+                                    },
+                                }}>
+                                    {["", "Bis", "-"].map(bis => (
+                                        <MenuItem key={bis} value={bis}>{bis}</MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={2}>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Letra Secundaria:</Typography>
+                                <TextField select name="letraSecundaria" value={direccion.letraSecundaria} onChange={manejarCambioDireccion} fullWidth InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Roboto Condensed",
+                                        fontSize: "16px"
+                                    },
+                                }}>
+                                    {["", ...letras].map(letra => (
+                                        <MenuItem key={letra} value={letra}>{letra}</MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={2}>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Orientación:</Typography>
+                                <TextField select name="orientacion" value={direccion.orientacion} onChange={manejarCambioDireccion} fullWidth InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Roboto Condensed",
+                                        fontSize: "16px"
+                                    },
+                                }}>
+                                    {["", "Norte", "Sur", "Este", "Oeste"].map(orient => (
+                                        <MenuItem key={orient} value={orient}>{orient}</MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Número Secundario:</Typography>
+                                <TextField select name="numeroSecundario" value={direccion.numeroSecundario} onChange={manejarCambioDireccion} fullWidth InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Roboto Condensed",
+                                        fontSize: "16px"
+                                    },
+                                }}>
+                                    {numeros.map(numero => (
+                                        <MenuItem key={numero} value={numero}>{numero}</MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={2}>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Letra Adicional:</Typography>
+                                <TextField select name="letraAdicional" value={direccion.letraAdicional} onChange={manejarCambioDireccion} fullWidth InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Roboto Condensed",
+                                        fontSize: "16px"
+                                    },
+                                }}>
+                                    {["", ...letras].map(letra => (
+                                        <MenuItem key={letra} value={letra}>{letra}</MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Número Final:</Typography>
+                                <TextField select name="numeroFinal" value={direccion.numeroFinal} onChange={manejarCambioDireccion} fullWidth InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Roboto Condensed",
+                                        fontSize: "16px"
+                                    },
+                                }} >
+                                    {numeros.map(numero => (
+                                        <MenuItem key={numero} value={numero}>{numero}</MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={2}>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Orientación Final:</Typography>
+                                <TextField select name="orientacionFinal" value={direccion.orientacionFinal} onChange={manejarCambioDireccion} fullWidth InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Roboto Condensed",
+                                        fontSize: "16px"
+                                    },
+                                }}>
+                                    {["", "Norte", "Sur", "Este", "Oeste"].map(orient => (
+                                        <MenuItem key={orient} value={orient}>{orient}</MenuItem>
+                                    ))}
+                                </TextField>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Detalle de la Dirección (Ej. Edificio, Apartamento):</Typography>
+                                <TextField name="detalle" value={direccion.detalle} onChange={manejarCambioDireccion} fullWidth InputProps={{
+                                    sx: {
+                                        height: "40px",
+                                        fontFamily: "Roboto Condensed",
+                                        fontSize: "16px"
+                                    },
+                                }} />
+                            </Grid>
+                        </Grid>
 
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Zona de la vivienda:</Typography>
                         <TextField select name="var_zonaVivienda" value={var_zonaVivienda} onChange={(e) => setVar_zonaVivienda(e.target.value)} fullWidth sx={{ mb: 2 }} FormHelperTextProps={{
