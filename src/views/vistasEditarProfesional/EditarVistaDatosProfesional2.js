@@ -264,95 +264,41 @@ const EditarDatosProfesional2 = () => {
     }
   };
 
-  return (
-    <div
-      style={{
-        backgroundColor: "#F2F2F2",
-        paddingTop: "3%",
-        paddingBottom: "3%",
-      }}
-    >
-      <div
-        style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }}
-      >
-        <img
-          src="public/fondo_form.png"
-          alt="Descripción de la imagen"
-          style={{ width: "20%", height: "auto" }}
-        />
-      </div>
-      <Card
-        variant="outlined"
-        sx={{
-          p: 0,
-          width: "100%",
-          maxWidth: 800,
-          margin: "auto",
-          backgroundColor: "#F2F2F2",
-          borderColor: "#202B52",
-        }}
-      >
-        <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
-          <Box flexGrow={1}>
-            <Typography
-              sx={{
-                fontSize: "18px",
-                fontWeight: "500",
-                textAlign: "center",
-                color: "#202B52",
-                fontFamily: "Roboto Condensed",
-              }}
-            >
-              <strong>Actualizar datos adicionales</strong>
-            </Typography>
-          </Box>
-        </Box>
-        <Divider
-          style={{
-            marginLeft: "5%",
-            marginRight: "5%",
-            borderColor: "#202B52",
-          }}
-        />
-        <CardContent sx={{ padding: "30px" }}>
-          <form onSubmit={actualizar}>
-            <Typography
-              variant="h6"
-              sx={{
-                fontFamily: "Roboto Condensed",
-                color: "#202B52",
-                fontSize: "16px",
-              }}
-            >
-              Estado Civil:
-            </Typography>
-            <TextField
-              select
-              name="var_estadoCivil"
-              variant="outlined"
-              value={var_estadoCivil}
-              onChange={(e) => setVar_estadoCivil(e.target.value)}
-              fullWidth
-              sx={{ mb: 2 }}
-              FormHelperTextProps={{
-                sx: {
-                  marginLeft: 0,
-                },
-              }}
-              InputProps={{
-                sx: {
-                  height: "40px",
-                  fontFamily: "Roboto Condensed",
-                  fontSize: "16px",
-                },
-              }}
-            >
-              <MenuItem value="Soltero">Soltero</MenuItem>
-              <MenuItem value="Casado">Casado</MenuItem>
-              <MenuItem value="Divorciado">Divorciado</MenuItem>
-              <MenuItem value="Viudo">Viudo</MenuItem>
-              <MenuItem value="Union libre">Unión libre</MenuItem>
-            </TextField>
+    return (
+        <div style={{ backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%" }}>
+            <div style={{ textAlign: "center", marginBottom: "1%", marginTop: "-3%" }}>
+            <p> Edita la información necesaria y al final del formulario pulsa el botón GUARDAR para conservar los cambios.</p>
+            </div>
+            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: "#F2F2F2", borderColor: "#202B52" }}>
+                <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
+                    <Box flexGrow={1}>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: "center", color: "#202B52", fontFamily: "Roboto Condensed" }}>
+                            <strong>Datos personales</strong>
+                        </Typography>
+                    </Box>
+                </Box>
+                <Divider style={{ marginLeft: "5%", marginRight: "5%", borderColor: "#202B52" }} />
+                <CardContent sx={{ padding: "30px" }}>
+                    <form onSubmit={actualizar}>
+
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Estado Civil:</Typography>
+                        <TextField select name="var_estadoCivil" variant="outlined" value={var_estadoCivil} onChange={(e) => setVar_estadoCivil(e.target.value)} fullWidth sx={{ mb: 2 }} FormHelperTextProps={{
+                            sx: {
+                                marginLeft: 0,
+                            },
+                        }} InputProps={{
+                            sx: {
+                                height: "40px",
+                                fontFamily: "Roboto Condensed",
+                                fontSize: "16px"
+                            },
+                        }}  >
+                            <MenuItem value="Soltero">Soltero</MenuItem>
+                            <MenuItem value="Casado">Casado</MenuItem>
+                            <MenuItem value="Divorciado">Divorciado</MenuItem>
+                            <MenuItem value="Viudo">Viudo</MenuItem>
+                            <MenuItem value="Union libre">Unión libre</MenuItem>
+                        </TextField>
 
             <Typography
               variant="h6"

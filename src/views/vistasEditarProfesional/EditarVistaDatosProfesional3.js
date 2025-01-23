@@ -444,87 +444,60 @@ const EditarDatosProfesional3 = () => {
     }
   };
 
-  return (
-    <div
-      style={{
-        backgroundColor: "#F2F2F2",
-        paddingTop: "3%",
-        paddingBottom: "3%",
-      }}
-    >
-      <div
-        style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }}
-      >
-        <img
-          src="public/fondo_form.png"
-          alt="Descripción de la imagen"
-          style={{ width: "20%", height: "auto" }}
-        />
-      </div>
-      <Card
-        variant="outlined"
-        sx={{
-          p: 0,
-          width: "100%",
-          maxWidth: 800,
-          margin: "auto",
-          backgroundColor: "#F2F2F2",
-          borderColor: "#202B52",
-        }}
-      >
-        <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
-          <Box flexGrow={1}>
-            <Typography
-              sx={{
-                fontSize: "18px",
-                fontWeight: "500",
-                textAlign: "center",
-                color: "#202B52",
-                fontFamily: "Roboto Condensed",
-              }}
-            >
-              <strong>Datos personales</strong>
-            </Typography>
-          </Box>
-        </Box>
-        <Divider
-          style={{
-            marginLeft: "5%",
-            marginRight: "5%",
-            borderColor: "#202B52",
-          }}
-        />
-        <CardContent sx={{ padding: "30px" }}>
-          <form onSubmit={actualizar}>
-            <FormControl sx={{ mb: 2 }}>
-              <Typography
-                variant="h6"
-                sx={{
-                  fontFamily: "Roboto Condensed",
-                  color: "#202B52",
-                  fontSize: "16px",
-                }}
-              >
-                ¿Ha cambiado de EPS o AFP?:
-              </Typography>
-              <RadioGroup
-                row
-                value={boolean_cambioEpsOArl}
-                onChange={(e) => setBoolean_cambioEpsOArl(e.target.value)}
-                sx={{
-                  height: "40px",
-                  fontFamily: "Roboto Condensed",
-                  fontSize: "16px",
-                }}
-              >
-                <FormControlLabel value={true} control={<Radio />} label="Sí" />
-                <FormControlLabel
-                  value={false}
-                  control={<Radio />}
-                  label="No"
-                />
-              </RadioGroup>
-            </FormControl>
+    return (
+        <div style={{ backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%" }}>
+            <div style={{ textAlign: "center", marginBottom: "1%", marginTop: "-3%" }}>
+            <p> Edita la información necesaria y al final del formulario pulsa el botón GUARDAR para conservar los cambios.</p>
+            </div>
+            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: "#F2F2F2", borderColor: "#202B52" }}>
+                <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
+                    <Box flexGrow={1}>
+                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: "center", color: "#202B52", fontFamily: "Roboto Condensed" }}>
+                            <strong>Datos personales</strong>
+                        </Typography>
+                    </Box>
+                </Box>
+                <Divider style={{ marginLeft: "5%", marginRight: "5%", borderColor: "#202B52" }} />
+                <CardContent sx={{ padding: "30px" }}>
+                    <form onSubmit={actualizar}>
+
+                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>¿Ha cambiado de EPS o AFP?:</Typography>
+                        <TextField
+                            value={boolean_cambioEpsOArl}
+                            onChange={(e) => setBoolean_cambioEpsOArl(e.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
+                        />
+
+                        <FormControl sx={{ mb: 2 }} >
+                            <Typography
+                                variant="h6"
+                                sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}
+                            >
+                                ¿Ha cambiado de EPS o AFP?:
+                            </Typography>
+                            <RadioGroup
+                                row
+                                value={boolean_cambioEpsOArl}
+                                onChange={(e) => setBoolean_cambioEpsOArl(e.target.value)}
+
+                                sx={{
+                                    height: "40px",
+                                    fontFamily: "Roboto Condensed",
+                                    fontSize: "16px",
+                                }}
+                            >
+                                <FormControlLabel value={true} control={<Radio />} label="Sí" />
+                                <FormControlLabel
+                                    value={false}
+                                    control={<Radio />}
+                                    label="No"
+                                />
+                            </RadioGroup>
+
+                           
+                        </FormControl>
 
             <Typography
               variant="h6"
