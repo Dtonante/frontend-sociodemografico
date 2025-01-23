@@ -303,8 +303,8 @@ const EditarDatosProfesional3 = () => {
 
     return (
         <div style={{ backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%" }}>
-            <div style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }}>
-                <img src="public/fondo_form.png" alt="Descripción de la imagen" style={{ width: "20%", height: "auto" }} />
+            <div style={{ textAlign: "center", marginBottom: "1%", marginTop: "-3%" }}>
+            <p> Edita la información necesaria y al final del formulario pulsa el botón GUARDAR para conservar los cambios.</p>
             </div>
             <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: "#F2F2F2", borderColor: "#202B52" }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">

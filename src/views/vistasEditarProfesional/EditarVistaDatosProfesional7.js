@@ -73,72 +73,72 @@ const EditarDatosProfesional7 = () => {
     }, []);
 
     useEffect(() => {
-    const fetchActividadTiempoLibreProfesional = async () => {
-        if (id_profesionalPK) {
-            console.log("id_profesionalPK:", id_profesionalPK);
-            try {
-                const response = await axios.get(`https://evaluacion.esumer.edu.co/api/profesionalTiempoLibre/${id_profesionalPK}`);
+        const fetchActividadTiempoLibreProfesional = async () => {
+            if (id_profesionalPK) {
+                console.log("id_profesionalPK:", id_profesionalPK);
+                try {
+                    const response = await axios.get(`https://evaluacion.esumer.edu.co/api/profesionalTiempoLibre/${id_profesionalPK}`);
 
-                //Extraer los ids de los tiempos libres
-                const tiempoLibreIds = response.data.map(
-                    (tiempo) => tiempo.id_tiempoLibreFK
-                );
+                    //Extraer los ids de los tiempos libres
+                    const tiempoLibreIds = response.data.map(
+                        (tiempo) => tiempo.id_tiempoLibreFK
+                    );
 
-                console.log("libre ids", tiempoLibreIds)
+                    console.log("libre ids", tiempoLibreIds)
 
-                //sincronizar el estado de los tiempos seleccionados
+                    //sincronizar el estado de los tiempos seleccionados
 
-                setSelectedActividadTiempoLibre(tiempoLibreIds)
-                setPrevSelectedActividadTiempoLibre(tiempoLibreIds)
+                    setSelectedActividadTiempoLibre(tiempoLibreIds)
+                    setPrevSelectedActividadTiempoLibre(tiempoLibreIds)
 
-                console.log("Datos obtenidos:", response.data);
-            } catch (error) {
-                console.error('Error al obtener las actividades de tiempo libre del profesional:', error);
+                    console.log("Datos obtenidos:", response.data);
+                } catch (error) {
+                    console.error('Error al obtener las actividades de tiempo libre del profesional:', error);
+                }
+            } else {
+                console.log("No hay id_profesionalPK");
             }
-        } else {
-            console.log("No hay id_profesionalPK");
+        };
+
+        fetchActividadTiempoLibreProfesional();
+    }, [id_profesionalPK]);
+
+    // Guardar cambios en el servidor
+    const guardarCambios = async () => {
+        const tiempoParaEliminar = prevSelectedActividadTiempoLibre.filter(
+            (tiempo) => !selectedActividadTiempoLibre.includes(tiempo)
+        );
+        const tiempoParaAgregar = selectedActividadTiempoLibre.filter(
+            (tiempo) => !prevSelectedActividadTiempoLibre.includes(tiempo)
+        );
+
+        try {
+            // Eliminar servicios deseleccionados
+            for (let id_tiempo of tiempoParaEliminar) {
+                await axios.delete(
+                    `https://evaluacion.esumer.edu.co/api/profesionalTiempoLibre/${id_profesionalPK}/${id_tiempo}`
+                );
+                console.log(`Servicio eliminado: ${id_tiempo}`);
+            }
+
+            // Agregar nuevos servicios seleccionados
+            for (let id_tiempo of tiempoParaAgregar) {
+                await axios.post("http://localhost:3001/profesionalTiempoLibre/", {
+                    id_profesionalFK: id_profesionalPK,
+                    id_tiempoLibreFK: id_tiempo,
+                });
+                console.log(`Servicio agregado: ${id_tiempo}`);
+            }
+
+            // Actualizar el estado previo
+            setPrevSelectedActividadTiempoLibre(selectedActividadTiempoLibre);
+            console.log("Cambios guardados con éxito de tiempo");
+
+
+        } catch (error) {
+            console.error("Error al guardar cambios de tiempo:", error);
         }
     };
-
-    fetchActividadTiempoLibreProfesional();
-}, [id_profesionalPK]);
-
-// Guardar cambios en el servidor
-const guardarCambios = async () => {
-    const tiempoParaEliminar = prevSelectedActividadTiempoLibre.filter(
-        (tiempo) => !selectedActividadTiempoLibre.includes(tiempo)
-    );
-    const tiempoParaAgregar = selectedActividadTiempoLibre.filter(
-        (tiempo) => !prevSelectedActividadTiempoLibre.includes(tiempo)
-    );
-
-    try {
-        // Eliminar servicios deseleccionados
-        for (let id_tiempo of tiempoParaEliminar) {
-            await axios.delete(
-                `https://evaluacion.esumer.edu.co/api/profesionalTiempoLibre/${id_profesionalPK}/${id_tiempo}`
-            );
-            console.log(`Servicio eliminado: ${id_tiempo}`);
-        }
-
-        // Agregar nuevos servicios seleccionados
-        for (let id_tiempo of tiempoParaAgregar) {
-            await axios.post("http://localhost:3001/profesionalTiempoLibre/", {
-                id_profesionalFK: id_profesionalPK,
-                id_tiempoLibreFK: id_tiempo,
-            });
-            console.log(`Servicio agregado: ${id_tiempo}`);
-        }
-
-        // Actualizar el estado previo
-        setPrevSelectedActividadTiempoLibre(selectedActividadTiempoLibre);
-        console.log("Cambios guardados con éxito de tiempo");
-
-        
-    } catch (error) {
-        console.error("Error al guardar cambios de tiempo:", error);
-    }
-};
 
 
 
@@ -252,8 +252,8 @@ const guardarCambios = async () => {
     };
     return (
         <div style={{ backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%" }}>
-            <div style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }}>
-                <img src="public/fondo_form.png" alt="Edita la información necesaria y al final del formulario pulsa el botón GUARDAR para conservar los cambios." style={{ width: "20%", height: "auto" }} />
+            <div style={{ textAlign: "center", marginBottom: "1%", marginTop: "-3%" }}>
+                <p> Edita la información necesaria y al final del formulario pulsa el botón GUARDAR para conservar los cambios.</p>
             </div>
             <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: "#F2F2F2", borderColor: "#202B52" }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">

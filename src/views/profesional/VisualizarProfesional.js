@@ -200,46 +200,47 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                     </Grid>
                 </Paper>
 
+                {!isHiddenForUser && (
 
-                {/* Grupo 2: Datos personales */}
-                <Paper sx={{ p: 3, mb: 2, bgcolor: "#F2F2F2", borderRadius: 2, border: "1px solid #202B53", boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.25)" }}>
-                    <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold", fontFamily: 'Roboto Condensed' }}>
-                        Datos Personales
-                    </Typography>
 
-                    {/* Divider estilizado */}
-                    <Divider sx={{ mb: 3, borderBottomWidth: 2, borderRadius: 2, borderColor: "#202B53" }} />
+                    < Paper sx={{ p: 3, mb: 2, bgcolor: "#F2F2F2", borderRadius: 2, border: "1px solid #202B53", boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.25)" }}>
+                        <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: "bold", fontFamily: 'Roboto Condensed' }}>
+                            Datos Personales
+                        </Typography>
 
-                    <Grid container spacing={3}>
-                        {[
-                            { label: 'Departamento', value: datosProfesional?.var_departamentoResidencia },
-                            { label: 'Ciudad', value: datosProfesional?.var_ciudadResidencia },
-                            { label: 'Dirección', value: datosProfesional?.var_direccionResidencia },
-                            { label: 'Estrato', value: datosProfesional?.var_estratoVivienda },
-                            { label: 'Tipo de Vivienda', value: datosProfesional?.var_tipoVivienda },
-                            { label: 'Zona de la vivienda', value: datosProfesional?.var_zonaVivienda },
-                        ].map((item, index) => (
-                            <Grid item xs={12} sm={4} key={index}>
-                                <Paper sx={{
-                                    p: 2,
-                                    bgcolor: "#F2F2F2",
-                                    borderRadius: 2,
-                                    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.15)",
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    justifyContent: "center",
-                                    alignItems: "flex-start",
-                                }}>
-                                    <Typography sx={{ fontFamily: 'Roboto Condensed' }}><strong>{item.label}:</strong></Typography>
-                                    {item.value || 'No disponible'}
-                                </Paper>
-                            </Grid>
-                        ))}
-                    </Grid>
 
-                    {!isHiddenForUser && (
+                        <Divider sx={{ mb: 3, borderBottomWidth: 2, borderRadius: 2, borderColor: "#202B53" }} />
 
-                        // {/* Campo de "Servicios con los que no cuentan" fuera del map principal */}
+                        <Grid container spacing={3}>
+                            {[
+                                { label: 'Departamento', value: datosProfesional?.var_departamentoResidencia },
+                                { label: 'Ciudad', value: datosProfesional?.var_ciudadResidencia },
+                                { label: 'Dirección', value: datosProfesional?.var_direccionResidencia },
+                                { label: 'Estrato', value: datosProfesional?.var_estratoVivienda },
+                                { label: 'Tipo de Vivienda', value: datosProfesional?.var_tipoVivienda },
+                                { label: 'Zona de la vivienda', value: datosProfesional?.var_zonaVivienda },
+                            ].map((item, index) => (
+                                <Grid item xs={12} sm={4} key={index}>
+                                    <Paper sx={{
+                                        p: 2,
+                                        bgcolor: "#F2F2F2",
+                                        borderRadius: 2,
+                                        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.15)",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        justifyContent: "center",
+                                        alignItems: "flex-start",
+                                    }}>
+                                        <Typography sx={{ fontFamily: 'Roboto Condensed' }}><strong>{item.label}:</strong></Typography>
+                                        {item.value || 'No disponible'}
+                                    </Paper>
+                                </Grid>
+                            ))}
+                        </Grid>
+
+
+
+
                         <Grid container spacing={3} sx={{ mt: 2, justifyContent: "center" }}>
                             <Grid item xs={12}>
                                 <Paper sx={{
@@ -282,12 +283,12 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                 </Paper>
                             </Grid>
                         </Grid>
-                    )}
 
 
-                    {!isHiddenForUser && (
 
-                        // {/* Campo de "factores de riesgo" fuera del map principal */}
+
+
+
                         <Grid container spacing={3} sx={{ mt: 2, justifyContent: "center" }}>
                             <Grid item xs={12}>
                                 <Paper sx={{
@@ -330,9 +331,16 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                 </Paper>
                             </Grid>
                         </Grid>
-                    )}
 
-                </Paper>
+
+                    </Paper>
+
+
+                )}
+
+
+
+
 
 
 
@@ -352,13 +360,13 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                     <Grid container spacing={3}>
                         {[
                             { label: 'Estado civil', value: datosProfesional?.var_estadoCivil },
-                            { label: 'Vive solo', value: datosProfesional?.boolean_viveSolo ? "Si" : "No" },
+                            { label: 'Vive solo', value: datosProfesional?.boolean_viveSolo ? "Si" : "No", hideFor: "Contabilidad" },
                             { label: 'Numero de personas con las que vive', value: datosProfesional?.var_numeroPersonasConLasQueVive },
-                            { label: 'Personas con las que vive', value: datosProfesional?.set_personasConLasQueVive },
-                            { label: 'Tiene mascotas', value: datosProfesional?.boolean_viveConMascotas ? "Si" : "No" },
+                            { label: 'Personas con las que vive', value: datosProfesional?.set_personasConLasQueVive, hideFor: "Contabilidad" },
+                            { label: 'Tiene mascotas', value: datosProfesional?.boolean_viveConMascotas ? "Si" : "No", hideFor: "Contabilidad" },
                             { label: 'Tipos de mascotas', value: datosProfesional?.set_tipoMascotas, hideFor: "Contabilidad" },
-                            { label: 'Personas que dependen de ti', value: datosProfesional?.var_personasDependeciaEconimica },
-                            { label: 'Total ingresos familiares', value: datosProfesional?.var_totalIngresosPropiosYGrupoFamiliar },
+                            { label: 'Personas que dependen de ti', value: datosProfesional?.var_personasDependeciaEconimica, hideFor: "Contabilidad" },
+                            { label: 'Total ingresos familiares', value: datosProfesional?.var_totalIngresosPropiosYGrupoFamiliar, hideFor: "Contabilidad" },
                         ].map((item, index) => (
                             !(item.hideFor && userRole === item.hideFor) && (
                                 <Grid item xs={12} sm={4} key={index}>
@@ -395,25 +403,26 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                             { label: 'cambio de EPS o AFP', value: datosProfesional?.boolean_cambioEpsOArl ? "Si" : "No" },
                             { label: 'EPS actual', value: datosProfesional?.Eps?.var_nombreEps },
                             { label: 'Fonde de pension', value: datosProfesional?.FondoDePension?.var_nombreFondoPension },
-                            { label: 'Estrato', value: datosProfesional?.var_estratoVivienda },
-                            { label: 'Tipo de Vivienda', value: datosProfesional?.var_tipoVivienda },
-                            { label: 'Tipos de mascotas', value: datosProfesional?.set_tipoMascotas },
-                            { label: 'Zona de la vivienda', value: datosProfesional?.var_zonaVivienda },
+                            { label: 'Estrato', value: datosProfesional?.var_estratoVivienda, hideFor: "Contabilidad" },
+                            { label: 'Tipo de Vivienda', value: datosProfesional?.var_tipoVivienda, hideFor: "Contabilidad" },
+                            { label: 'Zona de la vivienda', value: datosProfesional?.var_zonaVivienda, hideFor: "Contabilidad" },
                         ].map((item, index) => (
-                            <Grid item xs={12} sm={4} key={index}>
-                                <Paper sx={{
-                                    p: 2,
-                                    bgcolor: "#F2F2F2",
-                                    borderRadius: 2,
-                                    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.15)",
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    justifyContent: "center",
-                                    alignItems: "flex-start",
-                                }}>
-                                    <Typography sx={{ fontFamily: 'Roboto Condensed' }}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
-                                </Paper>
-                            </Grid>
+                            !(item.hideFor && userRole === item.hideFor) && (
+                                <Grid item xs={12} sm={4} key={index}>
+                                    <Paper sx={{
+                                        p: 2,
+                                        bgcolor: "#F2F2F2",
+                                        borderRadius: 2,
+                                        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.15)",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        justifyContent: "center",
+                                        alignItems: "flex-start",
+                                    }}>
+                                        <Typography sx={{ fontFamily: 'Roboto Condensed' }}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
+                                    </Paper>
+                                </Grid>
+                            )
                         ))}
                     </Grid>
 
@@ -560,7 +569,6 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                             { label: 'Correo institucional', value: datosProfesional?.var_correoElectronicoInstitucional },
                             { label: 'Tipo de contrato', value: datosProfesional?.var_tipoContrato },
                             { label: 'Salario', value: datosProfesional?.var_salario },
-                            { label: 'Estrato', value: datosProfesional?.var_estratoVivienda },
                             { label: 'Fecha de Ingreso', value: datosProfesional?.date_fechaIngresoInstitucion ? format(new Date(datosProfesional.date_fechaIngresoInstitucion), "dd/MM/yyyy") : 'No disponible' },
                             { label: 'Antigüedad en la Institución (días)', value: datosProfesional?.var_antiguedadInstitucion },
                             { label: 'Área laboral a la que pertenece', value: datosProfesional?.EstructuraOrganizacional?.var_nombreArea },
@@ -568,23 +576,25 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                             { label: 'Jefe Inmediato', value: datosProfesional?.var_jefeInmediato },
                             { label: 'Sede', value: datosProfesional?.var_sede },
                         ].map((item, index) => (
-                            <Grid item xs={12} sm={4} key={index}>
-                                <Paper sx={{
-                                    p: 2,
-                                    bgcolor: "#F2F2F2",
-                                    borderRadius: 2,
-                                    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.15)",
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    justifyContent: "center",
-                                    alignItems: "flex-start",
-                                    fontFamily: "Roboto Condensed",
-                                    fontSize: '16px'
+                            !(item.hideFor && userRole === item.hideFor) && (
+                                <Grid item xs={12} sm={4} key={index}>
+                                    <Paper sx={{
+                                        p: 2,
+                                        bgcolor: "#F2F2F2",
+                                        borderRadius: 2,
+                                        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.15)",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        justifyContent: "center",
+                                        alignItems: "flex-start",
+                                        fontFamily: "Roboto Condensed",
+                                        fontSize: '16px'
 
-                                }}>
-                                    <Typography sx={{ fontFamily: 'Roboto Condensed' }}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
-                                </Paper>
-                            </Grid>
+                                    }}>
+                                        <Typography sx={{ fontFamily: 'Roboto Condensed' }}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
+                                    </Paper>
+                                </Grid>
+                            )
                         ))}
                     </Grid>
                 </Paper>
@@ -620,7 +630,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                             </Grid>
                         ))}
                     </Grid>
-                    
+
                 </Paper>
 
                 {!isHiddenForUser && (
@@ -794,7 +804,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                         </Grid>
                     </Paper>
                 )}
-                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 3, fontFamily: 'Roboto Condensed'}}>
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 3, fontFamily: 'Roboto Condensed' }}>
                     <Button
                         variant="contained"
                         sx={{ backgroundColor: '#202B52' }}
@@ -805,7 +815,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                 </Box>
 
             </Box>
-        </Modal>
+        </Modal >
     );
 };
 
