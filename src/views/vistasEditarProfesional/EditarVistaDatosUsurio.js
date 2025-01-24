@@ -714,6 +714,7 @@ const CompEditarUsuario = () => {
             </Typography>
             <TextField
               value={var_telefonoEmergencia}
+              sx={{ mb: 2 }}
               fullWidth
               onChange={(e) => {
                 const valor = e.target.value;

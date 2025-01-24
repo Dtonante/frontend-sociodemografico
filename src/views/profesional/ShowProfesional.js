@@ -26,13 +26,11 @@ const CompShowProfesional = () => {
 
     useEffect(() => {
         getProfesional();
-        console.log("jeje", userRole)
     }, []);
 
     const getProfesional = async () => {
         const res = await axios.get(URI_PROFESIONAL);
         setProfesional(res.data);
-        console.log("puto", res.data)
     };
 
     const visualizar = (prof) => {

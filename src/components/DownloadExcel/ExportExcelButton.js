@@ -100,7 +100,7 @@ const ExportExcelButton = ({ data }) => {
 
   // Aplanar los datos y seleccionar solo las columnas deseadas
   const flattenedData = data.map((prof) => {
-  
+
     const flatProf = {
       ...prof,
       ...prof.Usuario,
@@ -162,21 +162,76 @@ const ExportExcelButton = ({ data }) => {
       placement="top"
       sx={{
         '& .MuiTooltip-tooltip': {
-          fontSize: '0.75rem',
+          fontSize: '0.875rem', // Tamaño de fuente un poco más grande
+          backgroundColor: '#333', // Fondo oscuro para el tooltip
+          color: '#fff', // Texto blanco
+          borderRadius: '4px', // Bordes redondeados
+          padding: '8px 12px', // Espaciado interno
         },
         '& .MuiTooltip-arrow': {
-          color: '#ff0003',
+          color: '#333', // Color de la flecha que coincide con el fondo del tooltip
         },
       }}
     >
       <Button
         type="button"
         onClick={handleDownloadExcel}
-        style={{ backgroundColor: '#4CAF50' }} // Cambia el color a verde para diferenciarlo
+        sx={{
+          backgroundColor: '#fff', // Fondo blanco
+          color: '#202B52', // Texto en color #202B52
+          border: '2px solid #202B52', // Borde de color #202B52
+          padding: '8px 16px', // Espaciado interno
+          borderRadius: '8px', // Bordes redondeados
+          textTransform: 'none', // Evita que el texto se transforme a mayúsculas
+          fontSize: '0.875rem', // Tamaño de fuente
+          fontWeight: '500', // Grosor de la fuente
+          display: 'flex', // Activa Flexbox
+          alignItems: 'center', // Centra verticalmente
+          justifyContent: 'center', // Centra horizontalmente
+          '&:hover': {
+            backgroundColor: '#f0f0f0', // Color de fondo más claro al hacer hover
+            borderColor: '#202B52', // Mantener el borde en hover
+          },
+          '& svg': {
+            width: '20px', // Tamaño del ícono
+            height: '20px', // Tamaño del ícono
+            fill: '#202B52', // Color del ícono (mismo que el texto)
+          },
+        }}
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-file-earmark-excel" viewBox="0 0 16 16">
-          <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
-          <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+        <svg
+          version="1.1"
+          id="Layer_1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
+          x="0px"
+          y="0px"
+          viewBox="0 0 309.529 309.529"
+          style={{ enableBackground: 'new 0 0 309.529 309.529' }}
+          xmlSpace="preserve"
+        >
+          <g>
+            <path
+              style={{ fill: '#3DB39E' }}
+              d="M179.728,251.279c0-39.586,32.096-71.682,71.682-71.682c6.698,0,13.173,0.995,19.329,2.716V86.711 L183.69,0H19.46C8.79,0,0.13,8.65,0.13,19.329v270.609c0,10.679,8.659,19.329,19.329,19.329h189.929 C191.441,296.239,179.728,275.161,179.728,251.279z"
+            />
+            <path
+              style={{ fill: '#2F8A78' }}
+              d="M270.46,86.981h-67.372c-10.67,0-19.329-8.659-19.329-19.329V0.193L270.46,86.981z"
+            />
+            <path
+              style={{ fill: '#3DB39E' }}
+              d="M251.41,193.553c32.028,0,57.988,25.969,57.988,57.988c0,32.009-25.959,57.988-57.988,57.988 c-32.009,0-57.988-25.978-57.988-57.988C193.422,219.522,219.401,193.553,251.41,193.553z"
+            />
+            <path
+              style={{ fill: '#FFFFFF' }}
+              d="M270.74,241.876h-9.665v-9.665c0-5.345-4.32-9.665-9.665-9.665c-5.345,0-9.665,4.32-9.665,9.665 v9.665h-9.665c-5.345,0-9.665,4.32-9.665,9.665c0,5.354,4.32,9.665,9.665,9.665h9.665v9.665c0,5.354,4.32,9.665,9.665,9.665 c5.344,0,9.665-4.31,9.665-9.665v-9.665h9.665c5.345,0,9.665-4.31,9.665-9.665C280.404,246.206,276.085,241.876,270.74,241.876z"
+            />
+            <path
+              style={{ fill: '#8BD1C5' }}
+              d="M183.758,228.026v-5.741h2.252c1.508-3.373,3.267-6.601,5.258-9.665h-7.509V193.3h19.329v5.422 c3.006-2.754,6.224-5.258,9.665-7.471V125.64H58.118v125.64h121.619C179.776,243.123,181.216,235.333,183.758,228.026z M183.758,135.304h19.329v19.329h-19.329V135.304z M183.758,164.308h19.329v19.32h-19.329V164.308z M87.112,241.625H67.783v-19.339 h19.329V241.625z M87.112,212.621H67.783v-19.32h19.329V212.621z M87.112,183.627H67.783v-19.32h19.329V183.627z M87.112,154.634 H67.783v-19.329h19.329V154.634z M116.106,241.625h-19.33v-19.339h19.329L116.106,241.625L116.106,241.625z M116.106,212.621 h-19.33v-19.32h19.329L116.106,212.621L116.106,212.621z M116.106,183.627h-19.33v-19.32h19.329L116.106,183.627L116.106,183.627z M116.106,154.634h-19.33v-19.329h19.329L116.106,154.634L116.106,154.634z M145.099,241.625H125.77v-19.339h19.329V241.625z M145.099,212.621H125.77v-19.32h19.329V212.621z M145.099,183.627H125.77v-19.32h19.329V183.627z M145.099,154.634H125.77v-19.329 h19.329V154.634z M174.093,241.625h-19.329v-19.339h19.329V241.625z M174.093,212.621h-19.329v-19.32h19.329V212.621z M174.093,183.627h-19.329v-19.32h19.329V183.627z M154.764,154.634v-19.329h19.329v19.329H154.764z"
+            />
+          </g>
         </svg>
       </Button>
     </Tooltip>
@@ -185,192 +240,3 @@ const ExportExcelButton = ({ data }) => {
 
 export default ExportExcelButton;
 
-
-// import React from 'react';
-// import { Button } from '@mui/material';
-// import Tooltip from '@mui/material/Tooltip';
-// import ExcelJS from 'exceljs';
-
-// const ExportExcelButton = ({ data }) => {
-//   // Define las columnas que deseas descargar
-//   const columnsToDownload = [
-//     "var_nombreCompleto",
-//     "var_nombreDocumento",
-//     "var_numeroDocumento",
-//     "var_genero",
-//     "date_fechaNacimiento",
-//     "var_correoElectronicoPersonal",
-//     "date_fechaIngresoInstitucion",
-//     "var_celular",
-//     "var_contactoEmergencia",
-//     "var_telefonoEmergencia",
-//     "var_estadoCivil",
-//     "var_numeroPersonasConLasQueVive",
-//     "var_nombreEps",
-//     "var_nombreFondoPension",
-//     "var_nombreCuentaBancaria",
-//     "var_tipoCuenta",
-//     "var_numeroCuenta",
-//     "var_tipoContrato",
-//     "var_salario",
-//     "date_fechaIngresoInstitucion",
-//     "var_antiguedadInstitucion",
-//     "var_nombreArea",
-//     "var_cargo",
-//     "var_jefeInmediato",
-//     "var_sede",
-//   ];
-
-//   // Mapeo de nombres de columnas
-//   const columnNamesMapping = {
-//     var_nombreCompleto: "Nombre Completo",
-//     var_nombreDocumento: "Tipo de Documento",
-//     var_numeroDocumento: "Número de Documento",
-//     var_genero: "Género",
-//     date_fechaNacimiento: "Fecha de Nacimiento",
-//     var_correoElectronicoPersonal: "Correo Electrónico Personal",
-//     date_fechaIngresoInstitucion: "Fecha de Ingreso a la Institución",
-//     var_celular: "Celular",
-//     var_contactoEmergencia: "Contacto de Emergencia",
-//     var_telefonoEmergencia: "Teléfono de Emergencia",
-//     var_estadoCivil: "Estado Civil",
-//     var_numeroPersonasConLasQueVive: "Número de Personas con las que Vive",
-//     var_nombreEps: "EPS",
-//     var_nombreFondoPension: "Fondo de Pensión",
-//     var_nombreCuentaBancaria: "Cuenta Bancaria",
-//     var_tipoCuenta: "Tipo de Cuenta",
-//     var_numeroCuenta: "Número de Cuenta",
-//     var_tipoContrato: "Tipo de Contrato",
-//     var_salario: "Salario",
-//     var_antiguedadInstitucion: "Antigüedad en la Institución",
-//     var_nombreArea: "Área",
-//     var_cargo: "Cargo",
-//     var_jefeInmediato: "Jefe Inmediato",
-//     var_sede: "Sede"
-//   };
-
-//   // Función para formatear fechas
-//   const formatDate = (dateString) => {
-//     if (!dateString) return "N/A";
-
-//     const date = new Date(dateString);
-//     if (isNaN(date.getTime())) {
-//       console.warn("Fecha no válida:", dateString);
-//       return "N/A";
-//     }
-
-//     const year = date.getFullYear();
-//     const month = String(date.getMonth() + 1).padStart(2, '0');
-//     const day = String(date.getDate()).padStart(2, '0');
-//     return `${year}-${month}-${day}`;
-//   };
-
-//   // Función para formatear la sede
-//   const formatSede = (sede) => {
-//     if (!sede) return "N/A";
-
-//     if (sede.includes("premium_plaza")) {
-//       if (sede.includes("robledo_")) {
-//         return "Robledo y Premium Plaza";
-//       } else {
-//         return "Premium Plaza";
-//       }
-//     }
-
-//     return sede;
-//   };
-
-//   // Aplanar los datos y seleccionar solo las columnas deseadas
-//   const flattenedData = data.map((prof) => {
-//     const flatProf = {
-//       ...prof,
-//       ...prof.Usuario,
-//       var_nombreDocumento: prof.Usuario.TipoDocumento?.var_nombreDocumento || "N/A",
-//       date_fechaNacimiento: formatDate(prof.Usuario.date_fechaNacimiento),
-//       date_fechaIngresoInstitucion: formatDate(prof.date_fechaIngresoInstitucion),
-//       var_sede: formatSede(prof.var_sede),
-//       ...prof.Eps,
-//       ...prof.FondoDePension,
-//       ...prof.CuentaBancaria,
-//       ...prof.EstructuraOrganizacional,
-//     };
-
-//     const filteredProf = {};
-//     columnsToDownload.forEach((column) => {
-//       if (flatProf[column] !== undefined) {
-//         filteredProf[column] = flatProf[column];
-//       }
-//     });
-
-//     return filteredProf;
-//   });
-
-//   const handleDownloadExcel = async () => {
-//     // Crear un nuevo libro de Excel
-//     const workbook = new ExcelJS.Workbook();
-//     const worksheet = workbook.addWorksheet('Profesionales');
-
-//     // Estilo para los encabezados (negrita)
-//     const headerStyle = {
-//       font: { bold: true }, // Negrita
-//       alignment: { vertical: 'middle', horizontal: 'center' }, // Centrado
-//     };
-
-//     // Agregar encabezados con estilos
-//     worksheet.columns = columnsToDownload.map((column) => ({
-//       header: columnNamesMapping[column],
-//       key: column,
-//       width: 20,
-//     }));
-
-//     // Aplicar estilo solo a las celdas de los encabezados
-//     const headerRow = worksheet.getRow(1);
-//     headerRow.eachCell((cell) => {
-//       cell.style = headerStyle; // Aplicar estilo solo a los encabezados
-//     });
-
-//     // Agregar datos sin estilos especiales
-//     flattenedData.forEach((prof) => {
-//       worksheet.addRow(prof);
-//     });
-
-//     // Escribir el archivo Excel y descargarlo
-//     const buffer = await workbook.xlsx.writeBuffer();
-//     const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-//     const url = URL.createObjectURL(blob);
-//     const link = document.createElement('a');
-//     link.href = url;
-//     link.download = 'Profesionales.xlsx';
-//     link.click();
-//     URL.revokeObjectURL(url);
-//   };
-
-//   return (
-//     <Tooltip
-//       title="Descargar Excel"
-//       arrow
-//       placement="top"
-//       sx={{
-//         '& .MuiTooltip-tooltip': {
-//           fontSize: '0.75rem',
-//         },
-//         '& .MuiTooltip-arrow': {
-//           color: '#ff0003',
-//         },
-//       }}
-//     >
-//       <Button
-//         type="button"
-//         onClick={handleDownloadExcel}
-//         style={{ backgroundColor: '#4CAF50' }}
-//       >
-//         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-file-earmark-excel" viewBox="0 0 16 16">
-//           <path d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z"/>
-//           <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
-//         </svg>
-//       </Button>
-//     </Tooltip>
-//   );
-// };
-
-// export default ExportExcelButton;
