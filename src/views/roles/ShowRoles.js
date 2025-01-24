@@ -159,7 +159,7 @@ const CompShowrol = () => {
           <Box display="flex" alignItems="center">
             <Box flex="1" display="flex">
               <Link
-                to="/crear"
+                to="/app/crearRol"
                 style={{ textDecoration: "none", marginRight: "10px" }}
               >
                 <Button

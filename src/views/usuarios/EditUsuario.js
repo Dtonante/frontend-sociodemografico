@@ -125,15 +125,6 @@ const CompEditarUsuario = () => {
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Contraseña:</Typography>
-                        <TextField
-                            value={var_contrasena}
-                            onChange={(e) => setVar_contrasena(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
                         <div style={{ display: "flex", justifyContent: "flex-end" }}>
                             <Button sx={{ backgroundColor: "#202B52", fontFamily: 'poppins' }} variant="contained" type="submit">
                                 Guardar

@@ -111,6 +111,7 @@ const CompShowUsuarios = lazy(() => import("../views/usuarios/ShowUsuarios.js"))
 //inicio ruta roles
 const CompShowrol = lazy(() => import("../views/roles/ShowRoles.js"));
 const CompEditarRol = lazy(() => import("../views/roles/EditRol.js"));
+const CompCrearRol = lazy(() => import("../views/roles/CreateRol.js"));
 //fin ruta roles
 
 //----------------------------- vista de la tabla profesionales
@@ -126,6 +127,9 @@ const VistaProvisional = lazy(() => import("../views/vistaProvisional/vistaProvi
 //inicio ruta editar usuario
 const CompEditarUsuario = lazy(() => import("../views/vistasEditarProfesional/EditarVistaDatosUsurio.js"));
 //fin ruta editar usuario
+//inicio ruta editar usuario admin
+const CompEditarUsuarioAdmin = lazy(() => import("../views/usuarios/EditUsuario.js"));
+//fin ruta editar usuario admin
 //inicio ruta editar profecional
 const EditarDatosProfesional = lazy(() => import("../views/vistasEditarProfesional/EditarVistaDatosProfesional.js"));
 //fin ruta editar profecional
@@ -222,10 +226,14 @@ const ThemeRoutes = [
       //CRUD roles
       { path: "roles", exact: true, element: <CompShowrol /> },
       { path: "editarRol/:id_rolPK", exact: true, element: <CompEditarRol /> },
+      { path: "crearRol", exact: true, element: <CompCrearRol /> },
+
       //ruta de la tabla profesionales
       { path: "profesional", exact: true, element: <CompShowProfesional /> },
       //ruta de la tabla usuarios
       { path: "usuarios", exact: true, element: <CompShowUsuarios /> },
+      { path: "editarUsuarioAdmin/:id_usuarioPK", exact: true, element: <CompEditarUsuarioAdmin /> },
+
       //Vistas de los formularios para editar la informacion de un administrativo
       { path: "editarUsuario", exact: true, element: <CompEditarUsuario /> },
       { path: "editarDatosProfesional", exact: true, element: <EditarDatosProfesional /> },

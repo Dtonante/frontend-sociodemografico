@@ -27,7 +27,7 @@ import {
 
 const Menuitems = [
   {
-    title: "Profesionales",
+    title: "Administrativos",
     icon: RecentActorsIcon,
     href: "profesional",
     rolesAllowed: ["Contabilidad", "Gestion Humana", "SuperAdmin"], 
@@ -36,55 +36,55 @@ const Menuitems = [
     title: "datos de usuario",
     icon: AccountCircleIcon,
     href: "editarUsuario",
-    rolesAllowed: ["Administrativo"], 
+    rolesAllowed: ["Administrativo", "Contabilidad", "Gestion Humana"], 
   },
   {
     title: "datos profesional",
     icon: WorkIcon,
     href: "editarDatosProfesional",
-    rolesAllowed: ["Administrativo"], 
+    rolesAllowed: ["Administrativo", "Contabilidad", "Gestion Humana"], 
   },
   {
     title: "datos adicionales",
     icon: InfoIcon,
     href: "editarDatosProfesional2",
-    rolesAllowed: ["Administrativo"], 
+    rolesAllowed: ["Administrativo", "Contabilidad", "Gestion Humana"], 
   },
   {
     title: "seguridad social",
     icon: SecurityIcon,
     href: "editarDatosProfesional3",
-    rolesAllowed: ["Administrativo"], 
+    rolesAllowed: ["Administrativo", "Contabilidad", "Gestion Humana"], 
   },
   {
     title: "Información bancaria",
     icon: AccountBalanceIcon,
     href: "editarDatosProfesional4",
-    rolesAllowed: ["Administrativo"], 
+    rolesAllowed: ["Administrativo", "Contabilidad", "Gestion Humana"], 
   },
   {
     title: "Información laboral",
     icon: BusinessCenterIcon,
     href: "editarDatosProfesional5",
-    rolesAllowed: ["Administrativo"], 
+    rolesAllowed: ["Administrativo", "Contabilidad", "Gestion Humana"], 
   },
   {
     title: "Formación académica",
     icon: SchoolIcon,
     href: "editarDatosProfesional6",
-    rolesAllowed: ["Administrativo"], 
+    rolesAllowed: ["Administrativo", "Contabilidad", "Gestion Humana"], 
   },
   {
     title: "Salud Fisica",
     icon: FitnessCenterIcon,
     href: "editarDatosProfesional7",
-    rolesAllowed: ["Administrativo"], 
+    rolesAllowed: ["Administrativo", "Contabilidad", "Gestion Humana"], 
   },
   {
     title: "Medios de transporte utilizado",
     icon: DirectionsCarIcon,
     href: "editarDatosProfesional8",
-    rolesAllowed: ["Administrativo"], 
+    rolesAllowed: ["Administrativo", "Contabilidad", "Gestion Humana"], 
   },
   {
     title: "roles",

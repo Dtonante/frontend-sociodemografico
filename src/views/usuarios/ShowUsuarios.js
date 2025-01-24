@@ -241,7 +241,7 @@ const CompShowUsuarios = () => {
                       {usuario.boolean_estado ? "Activo" : "Inactivo"}
                     </TableCell>
                     <TableCell align="center">
-                      <Link to={`/editar/${usuario.id_usuarioPK}`}>
+                      <Link to={`/app/editarUsuarioAdmin/${usuario.id_usuarioPK}`}>
                         <IconButton color="info">
                           <EditIcon />
                         </IconButton>
