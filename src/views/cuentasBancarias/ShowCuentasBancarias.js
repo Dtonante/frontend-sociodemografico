@@ -153,7 +153,7 @@ const CompShowCuentasBancarias = () => {
           </Typography>
           <Box display="flex" alignItems="center">
             <Link
-              to="/crear"
+              to="/app/crearCuentasBancarias"
               style={{ textDecoration: "none", marginRight: "10px" }}
             >
               <Button

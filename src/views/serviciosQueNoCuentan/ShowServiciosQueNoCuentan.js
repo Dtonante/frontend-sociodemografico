@@ -155,7 +155,7 @@ const CompShowServiciosQueNoCuentan = () => {
           </Typography>
           <Box display="flex" alignItems="center">
             <Link
-              to="/crear"
+              to="/app/crearServiciosQueNoCuentan"
               style={{ textDecoration: "none", marginRight: "10px" }}
             >
               <Button

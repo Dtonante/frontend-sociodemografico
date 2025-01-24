@@ -154,7 +154,7 @@ const CompShowEps = () => {
           </Typography>
           <Box display="flex" alignItems="center">
             <Link
-              to="/crear"
+              to="/app/crearEps"
               style={{ textDecoration: "none", marginRight: "10px" }}
             >
               <Button

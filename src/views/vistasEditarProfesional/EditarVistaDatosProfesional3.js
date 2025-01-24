@@ -461,15 +461,6 @@ const EditarDatosProfesional3 = () => {
                 <CardContent sx={{ padding: "30px" }}>
                     <form onSubmit={actualizar}>
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>¿Ha cambiado de EPS o AFP?:</Typography>
-                        <TextField
-                            value={boolean_cambioEpsOArl}
-                            onChange={(e) => setBoolean_cambioEpsOArl(e.target.value)}
-                            fullWidth
-                            sx={{ mb: 2 }}
-                            InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
-                        />
-
                         <FormControl sx={{ mb: 2 }} >
                             <Typography
                                 variant="h6"

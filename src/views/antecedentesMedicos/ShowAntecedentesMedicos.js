@@ -158,7 +158,7 @@ const CompShowAntecedentesMedicos = () => {
           </Typography>
           <Box display="flex" alignItems="center">
             <Link
-              to="/crear"
+              to="/app/crearAntecedentesMedicos"
               style={{ textDecoration: "none", marginRight: "10px" }}
             >
               <Button

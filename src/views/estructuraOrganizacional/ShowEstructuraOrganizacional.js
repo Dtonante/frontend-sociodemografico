@@ -156,7 +156,7 @@ const CompShowEstructuraOrganizacional = () => {
           </Typography>
           <Box display="flex" alignItems="center">
             <Link
-              to="/crear"
+              to="/app/crearEstructuraOrganizacional"
               style={{ textDecoration: "none", marginRight: "10px" }}
             >
               <Button

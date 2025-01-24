@@ -8,6 +8,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import CompVisualizarProfesional from './VisualizarProfesional';
 import ExportExcelButton from '../../components/DownloadExcel/ExportExcelButton.js';
+import ExportExcelButtonGestionHumana from '../../components/DownloadExcel/ExportExcelButtonGestionHumana.js';
 
 const URI_PROFESIONAL = 'http://localhost:3001/profesional/';
 
@@ -104,6 +105,9 @@ const CompShowProfesional = () => {
 
                         {userRole === "Contabilidad" && (
                             < ExportExcelButton data={filteredData} />
+                        )}
+                        {userRole === "Gestion Humana" || userRole === "SuperAdmin" && (
+                            < ExportExcelButtonGestionHumana data={filteredData} />
                         )}
 
                     </Box>

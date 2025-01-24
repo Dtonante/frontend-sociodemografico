@@ -156,7 +156,7 @@ const CompShowFondoDePension = () => {
           </Typography>
           <Box display="flex" alignItems="center">
             <Link
-              to="/crear"
+              to="/app/crearFondoPension"
               style={{ textDecoration: "none", marginRight: "10px" }}
             >
               <Button
