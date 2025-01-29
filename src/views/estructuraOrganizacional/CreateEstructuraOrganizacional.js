@@ -1,35 +1,131 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {  Card,  CardContent,  Divider, Box, Typography, TextField,  Button,  } from "@mui/material";
+
 
 const URI_ESTRUCTURA_ORGANIZACIONAL = 'http://localhost:3001/estructuraOrganizacional/'
 
 const CompCrearEstructuraOrganizacional = () => {
-    const [var_nombreArea, setVar_nombreVar_nombreArea] = useState('')
+    const [var_nombreArea, setVar_nombreArea] = useState('')
 
     const navigate = useNavigate()
 
     //procedimiento para guardar
     const guardar = async (e) => {
         e.preventDefault()
-        await axios.post(URI_ESTRUCTURA_ORGANIZACIONAL, {var_nombreArea: var_nombreArea})
-        navigate('/')
+        await axios.post(URI_ESTRUCTURA_ORGANIZACIONAL, { var_nombreArea: var_nombreArea })
+        navigate('/app/estructuraOrganizacional')
     }
-    
+
+
+    const handleGoBack = () => {
+        navigate("/app/estructuraOrganizacional");
+    };
 
     return (
-        <div>
-            <h3>crear espacio del hogar</h3>
-            <form onSubmit={guardar}>
-                <div className="mb-3">
-                    <laber className="form-label" >nombre del espacio del hogar</laber>
-                    <input value={var_nombreArea} onChange={ (e)=> setVar_nombreVar_nombreArea(e.target.value)} className="form-control" />
+        <div
+            style={{
+                backgroundColor: "#F2F2F2",
+                paddingTop: "3%",
+                paddingBottom: "3%",
+            }}
+        >
+            <div
+                style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }}
+            >
+                <img
+                    src="public/fondo_form.png"
+                    alt="Descripción de la imagen"
+                    style={{ width: "20%", height: "auto" }}
+                />
+            </div>
+            <Card
+                variant="outlined"
+                sx={{
+                    p: 0,
+                    width: "100%",
+                    maxWidth: 800,
+                    margin: "auto",
+                    backgroundColor: "#F2F2F2",
+                    borderColor: "#202B52",
+                }}
+            >
+                <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
+                    <Box flexGrow={1}>
+                        <Typography
+                            sx={{
+                                fontSize: "30px",
+                                fontWeight: "500",
+                                textAlign: "center",
+                                color: "#202B52",
+                                fontFamily: "Roboto Condensed",
+                            }}
+                        >
+                            <strong>Crear Area </strong>
+                        </Typography>
+                    </Box>
+                </Box>
+                <Divider
+                    style={{
+                        marginLeft: "5%",
+                        marginRight: "5%",
+                        borderColor: "#202B52",
+                    }}
+                />
+                <CardContent sx={{ padding: "30px" }}>
+                    <form onSubmit={guardar}>
+                        <Typography
+                            variant="h6"
+                            sx={{
+                                fontFamily: "Roboto Condensed",
+                                color: "#202B52",
+                                fontSize: "16px",
+                            }}
+                        >
+                            Nombre Area:
+                        </Typography>
+                        <TextField
+                            value={var_nombreArea}
+                            onChange={(e) => setVar_nombreArea(e.target.value)}
+                            fullWidth
+                            sx={{ mb: 2 }}
+                            InputProps={{
+                                sx: {
+                                    height: "40px",
+                                    fontFamily: "Roboto Condensed",
+                                    fontSize: "16px",
+                                },
+                            }}
+                        />
 
-                </div>
-                <button type="submit" className="btn btn-primary" >guardar</button>
-            </form>
+                        <div
+                            style={{
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                gap: "10px",
+                            }}
+                        >
+                            <Button
+                                sx={{ backgroundColor: "#202B52", fontFamily: "poppins" }}
+                                variant="contained"
+                                type="submit"
+                            >
+                                Crear
+                            </Button>
+                            <Button
+                                sx={{ backgroundColor: "#ff0000", fontFamily: "poppins" }}
+                                variant="contained"
+                                onClick={handleGoBack}
+                            >
+                                Volver
+                            </Button>
+                        </div>
+                    </form>
+                </CardContent>
+            </Card>
         </div>
-    )
+    );
 }
 
 export default CompCrearEstructuraOrganizacional

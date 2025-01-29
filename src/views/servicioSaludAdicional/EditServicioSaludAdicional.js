@@ -61,7 +61,7 @@ const CompEditarServiciosDeSaludAdicional = () => {
     
                         <div style={{ display: "flex", justifyContent: "flex-end", gap:"10px" }}>
                             <Button sx={{ backgroundColor: "#202B52", fontFamily: 'poppins' }} variant="contained" type="submit">
-                                Guardar
+                                Actualizar
                             </Button>
                             <Button
                                 sx={{ backgroundColor: "#ff0000", fontFamily: "poppins" }}

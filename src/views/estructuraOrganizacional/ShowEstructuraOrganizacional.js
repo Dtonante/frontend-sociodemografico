@@ -26,7 +26,7 @@ import '../../css/alertStyles.css';
 
 
 const URI_ESTRUCTURA_ORGANIZACIONAL =
-  "https://evaluacion.esumer.edu.co/api/estructuraOrganizacional/";
+  "http://localhost:3001/estructuraOrganizacional/";
 
 const CompShowEstructuraOrganizacional = () => {
   const [estructuraOrganizacional, setEstructuraOrganizacional] = useState([]);
@@ -59,6 +59,7 @@ const CompShowEstructuraOrganizacional = () => {
         confirmButton: "swal-button-confirm",
         cancelButton: "swal-button-cancel"
       },
+      
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {

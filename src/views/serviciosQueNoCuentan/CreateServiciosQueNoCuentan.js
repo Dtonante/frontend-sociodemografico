@@ -108,7 +108,7 @@ style={{
           variant="contained"
           type="submit"
         >
-          Guardar
+          Crear
         </Button>
         <Button
           sx={{ backgroundColor: "#ff0000", fontFamily: "poppins" }}

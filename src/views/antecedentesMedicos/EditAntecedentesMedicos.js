@@ -28,10 +28,6 @@ const CompEditarAntecedentesMedicos = () => {
     navigate("/app/antecedentesMedicos");
   };
 
-  const handleGoBack = () => {
-    navigate("/app/antecedentesMedicos");
-  };
-
   useEffect(() => {
     getAntecedenteMedicoPorId();
   }, []);
@@ -42,6 +38,12 @@ const CompEditarAntecedentesMedicos = () => {
     );
     setVar_nombreAntecedenteMedico(res.data.var_nombreAntecedenteMedico);
   };
+
+
+  const handleGoBack = () => {
+    navigate("/app/antecedentesMedicos");
+  };
+
   return (
     <div
       style={{
@@ -130,7 +132,7 @@ const CompEditarAntecedentesMedicos = () => {
                 variant="contained"
                 type="submit"
               >
-                Guardar
+                Actualizar
               </Button>
               <Button
                 sx={{ backgroundColor: "#ff0000", fontFamily: "poppins" }}

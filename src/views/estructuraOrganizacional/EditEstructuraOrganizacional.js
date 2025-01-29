@@ -40,6 +40,7 @@ const CompEditarEstructuraOrganizacional = () => {
   const handleGoBack = () => {
     navigate("/app/estructuraOrganizacional");
   };
+  
   return (
     <div
       style={{
@@ -128,7 +129,7 @@ const CompEditarEstructuraOrganizacional = () => {
                 variant="contained"
                 type="submit"
               >
-                Guardar
+                Actualizar
               </Button>
               <Button
                 sx={{ backgroundColor: "#ff0000", fontFamily: "poppins" }}

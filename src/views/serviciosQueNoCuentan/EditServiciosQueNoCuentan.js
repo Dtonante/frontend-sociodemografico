@@ -125,7 +125,7 @@ const CompEditarServiciosQueNoCuentan = () => {
                 variant="contained"
                 type="submit"
               >
-                Guardar
+                Actualizar
               </Button>
               <Button
                 sx={{ backgroundColor: "#ff0000", fontFamily: "poppins" }}
