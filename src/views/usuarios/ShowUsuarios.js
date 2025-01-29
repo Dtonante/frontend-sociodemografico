@@ -165,28 +165,7 @@ const CompShowUsuarios = () => {
             Lista de Usuarios
           </Typography>
           <Box display="flex" alignItems="center">
-            <Link
-              to="/crear"
-              style={{ textDecoration: "none", marginRight: "10px" }}
-            >
-              <Button
-                variant="contained"
-                startIcon={<AddIcon />}
-                sx={{
-                  backgroundColor: "#F2F2F2",
-                  color: "#202B52",
-                  border: "2px solid rgba(0, 0, 0, 0.12)",
-                  borderRadius: "7px",
-                  "&:hover": {
-                    borderColor: "#000000",
-                    backgroundColor: "#F2F2F2",
-                    boxShadow: "none",
-                  },
-                }}
-              >
-                Registrar usuario
-              </Button>
-            </Link>
+            
             <TextField
               label="Buscar"
               variant="outlined"
@@ -246,12 +225,7 @@ const CompShowUsuarios = () => {
                           <EditIcon />
                         </IconButton>
                       </Link>
-                      <IconButton
-                        color="error"
-                        onClick={() => deleteUsuario(usuario.id_usuarioPK)}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
+                      
                     </TableCell>
                   </TableRow>
                 ))}

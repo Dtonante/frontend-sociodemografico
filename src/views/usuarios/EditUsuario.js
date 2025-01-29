@@ -34,7 +34,7 @@ const CompEditarUsuario = () => {
             var_contrasena: var_contrasena,
             var_contactoEmergencia: var_contactoEmergencia,
         });
-        navigate('/');
+        navigate('/app/usuarios');
     };
 
     useEffect(() => {
@@ -52,6 +52,10 @@ const CompEditarUsuario = () => {
         setVar_correoElectronicoPersonal(res.data.var_correoElectronicoPersonal);
         setVar_contrasena(res.data.var_contrasena);
         setVar_contactoEmergencia(res.data.var_contactoEmergencia);
+    };
+
+    const handleGoBack = () => {
+        navigate("/app/usuarios");
     };
     
     return (
@@ -125,9 +129,16 @@ const CompEditarUsuario = () => {
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
                         />
 
-                        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                        <div style={{ display: "flex", justifyContent: "flex-end", gap:"10px" }}>
                             <Button sx={{ backgroundColor: "#202B52", fontFamily: 'poppins' }} variant="contained" type="submit">
                                 Guardar
+                            </Button>
+                            <Button
+                                sx={{ backgroundColor: "#ff0000", fontFamily: "poppins" }}
+                                variant="contained"
+                                onClick={handleGoBack}
+                            >
+                                Volver
                             </Button>
                         </div>
                     </form>

@@ -42,19 +42,6 @@ const CompEditarServiciosQueNoCuentan = () => {
     );
     setVar_nombreServicioQueNoCuenta(res.data.var_nombreServicioQueNoCuenta);
   };
-  // return (
-  //     <div>
-  //         <h3>editar transporte</h3>
-  //         <form onSubmit={actualizar}>
-  //             <div className="mb-3">
-  //                 <laber className="form-label" >nombre del transporte</laber>
-  //                 <input  className="form-control" />
-
-  //             </div>
-  //             <button type="submit" className="btn btn-primary" >guardar</button>
-  //         </form>
-  //     </div>
-  // )
 
   return (
     <div
@@ -132,7 +119,7 @@ const CompEditarServiciosQueNoCuentan = () => {
               }}
             />
 
-            <div style={{ display: "flex", justifyContent: "flex-end" , gap: "10px" }}>
+            <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px" }}>
               <Button
                 sx={{ backgroundColor: "#202B52", fontFamily: "poppins" }}
                 variant="contained"

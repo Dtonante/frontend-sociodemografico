@@ -1,23 +1,241 @@
+
+
 import React from 'react';
 import { Button } from '@mui/material';
 import Tooltip from '@mui/material/Tooltip';
 import * as XLSX from 'xlsx';
 
 const ExportExcelButton = ({ data }) => {
-  // Aplanar los datos
+  // Define las columnas que deseas descargar
+  const columnsToDownload = [
+    "var_nombreCompleto",
+    "var_nombreDocumento",
+    "var_numeroDocumento",
+    "var_genero",
+    "var_grupoEtnico",
+    "var_rh",
+    "date_fechaNacimiento",
+    "var_correoElectronicoPersonal",
+    "date_fechaIngresoInstitucion",
+    "var_celular",
+    "var_contactoEmergencia",
+    "var_telefonoEmergencia",
+    "var_departamentoResidencia",
+    "var_ciudadResidencia",
+    "var_direccionResidencia",
+    "var_estratoVivienda",
+    "var_zonaVivienda",
+    "var_tipoVivienda",
+    "var_estadoCivil",
+    "boolean_viveSolo",
+    "var_numeroPersonasConLasQueVive",
+    "set_personasConLasQueVive",
+    "boolean_viveConMascotas",
+    "set_tipoMascotas",
+    "var_personasDependeciaEconimica",
+    "var_totalIngresosPropiosYGrupoFamiliar",
+    "var_nombreEps",
+    "var_nombreFondoPension",
+    "var_nombreCuentaBancaria",
+    "boolean_cambioEpsOArl",
+    "var_tipoCuenta",
+    "var_numeroCuenta",
+    "var_tipoContrato",
+    "var_salario",
+    "date_fechaIngresoInstitucion",
+    "var_antiguedadInstitucion",
+    "var_nombreArea",
+    "var_cargo",
+    "var_jefeInmediato",
+    "var_sede",
+    "var_nivelEscolaridad",
+    "boolean_actualmenteEstudia",
+    "var_nombreCarrera",
+    "boolean_actividadFisica",
+    "var_frecuenciaActividadFisica",
+    "boolean_fuma",
+    "var_frecuenciaFuma",
+    "boolean_toma",
+    "var_frecuenciaToma", 
+    "boolean_sustanciasPsicoactivas", 
+    "var_frecuenciaSustanciasPsicoactivas", 
+    "boolean_usaLentes", 
+    "boolean_bebidasEnergizantes", 
+    "var_frecuenciaBebidasEnergeticas", 
+    "set_mediosTransportePublico", 
+    "set_pasoMayorTiempoLibre", 
+    "var_peso", 
+    "var_altura", 
+   
+  ];
+
+  // Mapeo de nombres de columnas
+  const columnNamesMapping = {
+    var_nombreCompleto: "Nombre Completo",
+    var_nombreDocumento: "Tipo de Documento",
+    var_numeroDocumento: "Número de Documento",
+    var_genero: "Género",
+    var_grupoEtnico: "var_grupoEtnico",
+    var_rh: "var_rh",
+    date_fechaNacimiento: "Fecha de Nacimiento",
+    var_correoElectronicoPersonal: "Correo Electrónico Personal",
+    date_fechaIngresoInstitucion: "Fecha de Ingreso a la Institución",
+    var_celular: "Celular",
+    var_contactoEmergencia: "Contacto de Emergencia",
+    var_telefonoEmergencia: "Teléfono de Emergencia",
+    var_departamentoResidencia: "Departamento de Residencia",
+    var_ciudadResidencia: "Ciudad de Residencia",
+    var_direccionResidencia: "Direccion de Residencia",
+    var_estratoVivienda: "Estrato de Vivienda",
+    var_zonaVivienda: "Zona Vivienda",
+    var_tipoVivienda: "Tipo de Vivienda",
+    var_estadoCivil: "Estado Civil",
+    boolean_viveSolo: "Vive Solo",
+    var_numeroPersonasConLasQueVive: "Número de Personas con las que Vive",
+    set_personasConLasQueVive: "Personas Con Las Que Vive",
+    boolean_viveConMascotas: "Vive Con Mas cotas",
+    set_tipoMascotas: "Tipo Mascotas",
+    var_personasDependeciaEconimica: "Personas que Dependen Economicamente de Usted",
+    var_totalIngresosPropiosYGrupoFamiliar: "Total Ingresos Propios Y Grupo Familiar",
+    var_nombreEps: "Eps",
+    var_nombreFondoPension: "Fondo de Pensión",
+    var_nombreCuentaBancaria: "Cuenta Bancaria",
+    boolean_cambioEpsOArl: "boolean_cambioEpsOArl",
+    var_tipoCuenta: "Tipo de Cuenta",
+    var_numeroCuenta: "Número de Cuenta",
+    var_tipoContrato: "Tipo de Contrato",
+    var_salario: "Salario",
+    var_antiguedadInstitucion: "Antigüedad en la Institución",
+    var_nombreArea: "Área",
+    var_cargo: "Cargo",
+    var_jefeInmediato: "Jefe Inmediato",
+    var_sede: "Sede",
+    var_nivelEscolaridad: "Nivel de Escolaridad",
+    boolean_actualmenteEstudia: "Actualmente Estudia",
+    var_nombreCarrera: "Nombre de la Carrera",
+    boolean_actividadFisica: "Actividad Fisica",
+    var_frecuenciaActividadFisica: "Frecuencia de Actividad Fisica",
+    boolean_fuma: "Fuma o vapea",
+    var_frecuenciaFuma: "Frecuencia Fuma",
+    boolean_toma: "Toma",
+    var_frecuenciaToma: "Frecuencia Toma", 
+    boolean_sustanciasPsicoactivas: "Sustancias Psicoactivas",
+    var_frecuenciaSustanciasPsicoactivas: "Frecuencia Sustancias Psicoactivas",
+    boolean_usaLentes: "Usa Lentes",
+    boolean_bebidasEnergizantes: "Bebidas Energizantes",
+    var_frecuenciaBebidasEnergeticas: "Frecuencia Bebidas Energeticas",
+    set_mediosTransportePublico: "Medios de Transporte Publico",
+    set_pasoMayorTiempoLibre: "Paso Mayor Tiempo Libre",
+    var_peso: "Peso",
+    var_altura: "Altura",
+    
+
+
+
+  };
+
+  // Función para formatear fechas
+  const formatDate = (dateString) => {
+    if (!dateString) return "N/A"; // Si no hay fecha, devolver "N/A"
+
+    // Intentar crear un objeto Date
+    const date = new Date(dateString);
+
+    // Verificar si la fecha es válida
+    if (isNaN(date.getTime())) {
+      console.warn("Fecha no válida:", dateString); // Depuración: Verificar fechas no válidas
+      return "N/A"; // Si la fecha no es válida, devolver "N/A"
+    }
+
+    // Formatear la fecha
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses van de 0 a 11, sumamos 1
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  // Función para formatear la sede
+  const formatSede = (sede) => {
+    if (!sede) return "N/A"; // Si no hay sede, devolver "N/A"
+
+    // Formatear la sede
+    if (sede.includes("premium_plaza")) {
+      if (sede.includes("robledo_")) {
+        return "Robledo y Premium Plaza";
+      } else {
+        return "Premium Plaza";
+      }
+    }
+
+    return sede; // Devolver el valor original si no coincide con los casos anteriores
+  };
+
+  // Aplanar los datos y seleccionar solo las columnas deseadas
   const flattenedData = data.map((prof) => {
-    return {
-      ...prof, // Incluye todas las propiedades del profesional
-      ...prof.Usuario, // Incluye todas las propiedades del objeto Usuario
+
+    const flatProf = {
+      ...prof,
+      ...prof.Usuario,
+      var_nombreDocumento: prof.Usuario.TipoDocumento?.var_nombreDocumento || "N/A",
+      date_fechaNacimiento: formatDate(prof.date_fechaNacimiento),
+      date_fechaIngresoInstitucion: formatDate(prof.date_fechaIngresoInstitucion),
+      var_sede: formatSede(prof.var_sede), // Formatear la sede
+
+      ...prof.Eps,
+      ...prof.FondoDePension,
+      ...prof.CuentaBancaria,
+      ...prof.EstructuraOrganizacional,
+      set_tipoMascotas: prof.set_tipoMascotas?.replace(/[\[\]"]/g, "") || "N/A",
+      boolean_viveConMascotas: prof.boolean_viveConMascotas ? "Sí" : "No",
+      boolean_cambioEpsOArl: prof.boolean_cambioEpsOArl ? "Sí" : "No",
+      boolean_actualmenteEstudia: prof.boolean_actualmenteEstudia ? "Sí" : "No",
+      boolean_actividadFisica: prof.boolean_actividadFisica ? "Sí" : "No",
+      boolean_fuma: prof.boolean_fuma ? "Sí" : "No",
+      boolean_toma: prof.boolean_toma ? "Sí" : "No",
+      boolean_sustanciasPsicoactivas: prof.boolean_sustanciasPsicoactivas ? "Sí" : "No",
+      boolean_usaLentes: prof.boolean_usaLentes ? "Sí" : "No",
+      boolean_bebidasEnergizantes: prof.boolean_bebidasEnergizantes ? "Sí" : "No",
+      boolean_viveSolo: prof.boolean_viveSolo ? "Sí" : "No",
+      set_personasConLasQueVive: prof.set_personasConLasQueVive === '["N/A"]'
+      ? 'N/A' 
+      : prof.set_personasConLasQueVive,
+      var_personasDependeciaEconimica: prof.var_personasDependeciaEconimica === 'N/A'
+      ? '0' 
+      : prof.var_personasDependeciaEconimica,
     };
+
+    const filteredProf = {};
+    columnsToDownload.forEach((column) => {
+      if (flatProf[column] !== undefined) {
+        filteredProf[column] = flatProf[column];
+      }
+    });
+
+    return filteredProf;
   });
 
-  // Imprimir los datos aplanados en la consola
-  console.log("Datos aplanados:", flattenedData);
-
   const handleDownloadExcel = () => {
-    // Crear una hoja de trabajo (worksheet) con los datos aplanados
+    // Crear una hoja de trabajo (worksheet) con los datos aplanados y filtrados
     const ws = XLSX.utils.json_to_sheet(flattenedData);
+
+    // Renombrar las columnas y aplicar negrita
+    const range = XLSX.utils.decode_range(ws['!ref']);
+    for (let C = range.s.c; C <= range.e.c; ++C) {
+      const headerCell = XLSX.utils.encode_cell({ r: range.s.r, c: C });
+      const originalHeader = ws[headerCell].v;
+
+      if (columnNamesMapping[originalHeader]) {
+        // Cambiar el nombre de la columna
+        ws[headerCell].v = columnNamesMapping[originalHeader];
+
+        // Aplicar estilo de negrita
+        ws[headerCell].s = {
+          font: {
+            bold: true, // Texto en negrita
+          },
+        };
+      }
+    }
 
     // Crear un libro de trabajo (workbook) y agregar la hoja de trabajo
     const wb = XLSX.utils.book_new();
@@ -34,10 +252,14 @@ const ExportExcelButton = ({ data }) => {
       placement="top"
       sx={{
         '& .MuiTooltip-tooltip': {
-          fontSize: '0.75rem',
+          fontSize: '0.875rem', // Tamaño de fuente un poco más grande
+          backgroundColor: '#333', // Fondo oscuro para el tooltip
+          color: '#fff', // Texto blanco
+          borderRadius: '4px', // Bordes redondeados
+          padding: '8px 12px', // Espaciado interno
         },
         '& .MuiTooltip-arrow': {
-          color: '#ff0003',
+          color: '#333', // Color de la flecha que coincide con el fondo del tooltip
         },
       }}
     >
@@ -107,3 +329,4 @@ const ExportExcelButton = ({ data }) => {
 };
 
 export default ExportExcelButton;
+

@@ -14,145 +14,130 @@ import {
 const URI_EPS = 'http://localhost:3001/eps/'
 
 const CompEditarEps = () => {
-    const [var_nombreEps, setVar_nombreEps] = useState('')
-    const navigate = useNavigate()
-    const {id_epsPK} = useParams()
+  const [var_nombreEps, setVar_nombreEps] = useState('')
+  const navigate = useNavigate()
+  const { id_epsPK } = useParams()
 
-    //procedimiento para actualizar
-    const actualizar = async (e) => {
-        e.preventDefault()
-        await axios.put(URI_EPS+id_epsPK, {
-            var_nombreEps: var_nombreEps
-        })
-        navigate('/app/eps')
-    }
+  //procedimiento para actualizar
+  const actualizar = async (e) => {
+    e.preventDefault()
+    await axios.put(URI_EPS + id_epsPK, {
+      var_nombreEps: var_nombreEps
+    })
+    navigate('/app/eps')
+  }
 
-    useEffect( ()=>{
-        getEpsPorId()
-    }, [])
+  useEffect(() => {
+    getEpsPorId()
+  }, [])
 
-    const getEpsPorId = async ()=> {
-        const res = await axios.get(URI_EPS+id_epsPK)
-        setVar_nombreEps(res.data.var_nombreEps)
-    }
-
-
-    const handleGoBack = () => {
-        navigate("/app/cuentasBancarias");
-      };
+  const getEpsPorId = async () => {
+    const res = await axios.get(URI_EPS + id_epsPK)
+    setVar_nombreEps(res.data.var_nombreEps)
+  }
 
 
-    // return (
-    //     <div>
-    //         <h3>editar eps</h3>
-    //         <form onSubmit={actualizar}>
-    //             <div className="mb-3">
-    //                 <laber className="form-label" >nombre e la eps</laber>
-    //                 <input value={var_nombreEps} onChange={ (e)=> setVar_nombreEps(e.target.value)} className="form-control" />
-    //             </div>
-    //             <button type="submit" className="btn btn-primary" >guardar</button>
-    //         </form>
-    //     </div>
-    // )
+  const handleGoBack = () => {
+    navigate("/app/eps");
+  };
 
-
-    return (
-        <div
+  return (
+    <div
+      style={{
+        backgroundColor: "#F2F2F2",
+        paddingTop: "3%",
+        paddingBottom: "3%",
+      }}
+    >
+      <div
+        style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }}
+      >
+        <img
+          src="public/fondo_form.png"
+          alt="Descripción de la imagen"
+          style={{ width: "20%", height: "auto" }}
+        />
+      </div>
+      <Card
+        variant="outlined"
+        sx={{
+          p: 0,
+          width: "100%",
+          maxWidth: 800,
+          margin: "auto",
+          backgroundColor: "#F2F2F2",
+          borderColor: "#202B52",
+        }}
+      >
+        <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
+          <Box flexGrow={1}>
+            <Typography
+              sx={{
+                fontSize: "30px",
+                fontWeight: "500",
+                textAlign: "center",
+                color: "#202B52",
+                fontFamily: "Roboto Condensed",
+              }}
+            >
+              <strong>Editar eps</strong>
+            </Typography>
+          </Box>
+        </Box>
+        <Divider
           style={{
-            backgroundColor: "#F2F2F2",
-            paddingTop: "3%",
-            paddingBottom: "3%",
+            marginLeft: "5%",
+            marginRight: "5%",
+            borderColor: "#202B52",
           }}
-        >
-          <div
-            style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }}
-          >
-            <img
-              src="public/fondo_form.png"
-              alt="Descripción de la imagen"
-              style={{ width: "20%", height: "auto" }}
-            />
-          </div>
-          <Card
-            variant="outlined"
-            sx={{
-              p: 0,
-              width: "100%",
-              maxWidth: 800,
-              margin: "auto",
-              backgroundColor: "#F2F2F2",
-              borderColor: "#202B52",
-            }}
-          >
-            <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
-              <Box flexGrow={1}>
-                <Typography
-                  sx={{
-                    fontSize: "30px",
-                    fontWeight: "500",
-                    textAlign: "center",
-                    color: "#202B52",
-                    fontFamily: "Roboto Condensed",
-                  }}
-                >
-                  <strong>Editar eps</strong>
-                </Typography>
-              </Box>
-            </Box>
-            <Divider
-              style={{
-                marginLeft: "5%",
-                marginRight: "5%",
-                borderColor: "#202B52",
+        />
+        <CardContent sx={{ padding: "30px" }}>
+          <form onSubmit={actualizar}>
+            <Typography
+              variant="h6"
+              sx={{
+                fontFamily: "Roboto Condensed",
+                color: "#202B52",
+                fontSize: "16px",
+              }}
+            >
+              Nombre de la eps:
+            </Typography>
+            <TextField
+              value={var_nombreEps}
+              onChange={(e) => setVar_nombreEps(e.target.value)}
+              fullWidth
+              sx={{ mb: 2 }}
+              InputProps={{
+                sx: {
+                  height: "40px",
+                  fontFamily: "Roboto Condensed",
+                  fontSize: "16px",
+                },
               }}
             />
-            <CardContent sx={{ padding: "30px" }}>
-              <form onSubmit={actualizar}>
-                <Typography
-                  variant="h6"
-                  sx={{
-                    fontFamily: "Roboto Condensed",
-                    color: "#202B52",
-                    fontSize: "16px",
-                  }}
-                >
-                  Nombre de la eps:
-                </Typography>
-                <TextField
-                  value={var_nombreEps}
-                  onChange={ (e)=> setVar_nombreEps(e.target.value)}
-                  fullWidth
-                  sx={{ mb: 2 }}
-                  InputProps={{
-                    sx: {
-                      height: "40px",
-                      fontFamily: "Roboto Condensed",
-                      fontSize: "16px",
-                    },
-                  }}
-                />
-    
-                <div style={{ display: "flex", justifyContent: "flex-end" , gap: "10px" }}>
-                  <Button
-                    sx={{ backgroundColor: "#202B52", fontFamily: "poppins" }}
-                    variant="contained"
-                    type="submit"
-                  >
-                    Guardar
-                  </Button>
-                  <Button
-                    sx={{ backgroundColor: "#ff0000", fontFamily: "poppins" }}
-                    variant="contained"
-                    onClick={handleGoBack}
-                  >
-                    Volver
-                  </Button>
-                </div>
-              </form>
-            </CardContent>
-          </Card>
-        </div>
-      );
+
+            <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px" }}>
+              <Button
+                sx={{ backgroundColor: "#202B52", fontFamily: "poppins" }}
+                variant="contained"
+                type="submit"
+              >
+                Guardar
+              </Button>
+              <Button
+                sx={{ backgroundColor: "#ff0000", fontFamily: "poppins" }}
+                variant="contained"
+                onClick={handleGoBack}
+              >
+                Volver
+              </Button>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  );
 
 }
 
