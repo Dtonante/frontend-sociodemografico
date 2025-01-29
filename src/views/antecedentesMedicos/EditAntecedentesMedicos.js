@@ -52,15 +52,6 @@ const CompEditarAntecedentesMedicos = () => {
         paddingBottom: "3%",
       }}
     >
-      <div
-        style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }}
-      >
-        <img
-          src="public/fondo_form.png"
-          alt="Descripción de la imagen"
-          style={{ width: "20%", height: "auto" }}
-        />
-      </div>
       <Card
         variant="outlined"
         sx={{
