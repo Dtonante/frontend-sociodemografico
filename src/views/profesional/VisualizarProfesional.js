@@ -20,7 +20,62 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
     const [antecedentesMedicos, setAntecedentesMedicos] = useState(null);
     const [tiempoLibreMap, setTiempoLibre] = useState(null);
     const [transportesPropios, setTransportePropio] = useState(null);
+    const [url, setUrl] = useState();
     const userRole = localStorage.getItem("rol");
+    const [pdfUrl, setPdfUrl] = useState(null);
+
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (datosProfesional?.var_urlDatosAdjuntos) {
+                const fileName = datosProfesional.var_urlDatosAdjuntos.split("\\").pop();
+                setUrl(fileName);
+                clearInterval(interval); // Detener el intervalo cuando ya tenga el dato
+            }
+        }, 1000); // Verifica cada segundo
+
+        return () => clearInterval(interval); // Limpia el intervalo al desmontar el componente
+    }, [datosProfesional]);
+
+    useEffect(() => {
+        if (url) {
+            enviarPeticion(); // Llamar a la función cuando url tenga un valor válido
+        } else {
+            setPdfUrl("N/A")
+        }
+    }, [url]);
+
+
+    //peticion para traer los pdfs
+    const enviarPeticion = async () => {
+        if (!url) {
+            console.log("Esperando archivo...");
+            return; // No hace nada si url aún no tiene valor
+        }
+
+        try {
+            // La URL ahora es relativa, no necesitas especificar el dominio
+            const response = await axios.post("/get-pdf", {
+                nombre: url, // Solo el nombre del archivo
+            }, {
+                headers: { "Content-Type": "application/json" },
+                responseType: "blob", // Asegura que la respuesta sea un blob
+            });
+
+            console.log("Respuesta del servidor:", response.data);
+            const file = response.data;
+            // Crear una URL de objeto para mostrar el PDF
+            const fileUrl = URL.createObjectURL(file);
+            setPdfUrl(fileUrl); // Establecer la URL del archivo en el estado
+        } catch (error) {
+            console.error("Error al hacer la petición:", error);
+        }
+    };
+
+
+
+
+
 
 
 
@@ -803,6 +858,24 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                             </Grid>
                         </Grid>
                     </Paper>
+                )}
+
+                {pdfUrl ? (
+                    <div>
+                        <h3>Previsualización del PDF:</h3>
+                        <iframe
+                            src={pdfUrl}
+                            width="600"
+                            height="400"
+                            title="Previsualización PDF"
+                        />
+                        <br />
+                        <a href={pdfUrl} target="_blank" rel="noopener noreferrer">
+                            Abrir PDF
+                        </a>
+                    </div>
+                ) : (
+                    <p>Cargando archivo...</p>
                 )}
                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 3, fontFamily: 'Roboto Condensed' }}>
                     <Button

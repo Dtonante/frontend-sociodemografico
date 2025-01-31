@@ -41,7 +41,14 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/uploadsfiles/, '/uploadsfiles'), // Opcional si necesitas cambiar la ruta
       },
+      '/get-pdf': {
+        target: 'http://10.1.2.24:5001',  // Dirección del backend
+        changeOrigin: true,                // Cambia el origen de la solicitud
+        rewrite: (path) => path.replace(/^\/get-pdf/, '/get-pdf'), // Asegúrate de que esté correctamente configurado
+      },
     },
+
   },
   plugins: [react(), svgr()],
 });
+
