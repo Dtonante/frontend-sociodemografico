@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, Divider, Box, Typography, TextField, Button } from "@mui/material";
+import { soloLetras } from "../../components/validaciones/ValidacionesCrear.js";
+
 
 
 const URI_SERVICIO_QUE_NO_CUENTAN = 'http://localhost:3001/serviciosQueNoCuentan'
@@ -82,7 +84,12 @@ const CompCrearServiciosQueNoCuentan = () => {
                         </Typography>
                         <TextField
                             value={var_nombreServicioQueNoCuenta}
-                            onChange={(e) => setVar_nombreServicioQueNoCuenta(e.target.value)}
+                            onChange={(e) => {
+                                const valor = e.target.value;
+                                if (soloLetras(valor) || valor === "") {
+                                    setVar_nombreServicioQueNoCuenta(valor);
+                                }
+                            }}
                             fullWidth
                             sx={{ mb: 2 }}
                             InputProps={{

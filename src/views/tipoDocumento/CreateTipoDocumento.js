@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {  Card,  CardContent,  Divider, Box, Typography, TextField,  Button,  } from "@mui/material";
+import { soloLetras } from "../../components/validaciones/ValidacionesCrear.js";
+
 
 
 const URI_TIPO_DOCUMENTO = 'http://localhost:3001/tipodocumentos/'
@@ -79,7 +81,12 @@ const CompCrearTipoDocumento = () => {
                         </Typography>
                         <TextField
                             value={var_nombreDocumento}
-                            onChange={(e) => setVar_nombreDocumento(e.target.value)}
+                            onChange={(e) => {
+                                const valor = e.target.value;
+                                if (soloLetras(valor) || valor === "") {
+                                    setVar_nombreDocumento(valor);
+                                }
+                            }}
                             fullWidth
                             sx={{ mb: 2 }}
                             InputProps={{

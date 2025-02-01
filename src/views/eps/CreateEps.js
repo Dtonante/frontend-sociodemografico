@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {  Card,  CardContent,  Divider, Box, Typography, TextField,  Button,  } from "@mui/material";
+import { Card, CardContent, Divider, Box, Typography, TextField, Button, } from "@mui/material";
+import { soloLetras } from "../../components/validaciones/ValidacionesCrear.js";
 
 const URI_EPS = 'http://localhost:3001/eps/'
 
@@ -30,7 +31,7 @@ const CompCrearEps = () => {
                 paddingBottom: "3%",
             }}
         >
-           
+
             <Card
                 variant="outlined"
                 sx={{
@@ -78,7 +79,12 @@ const CompCrearEps = () => {
                         </Typography>
                         <TextField
                             value={var_nombreEps}
-                            onChange={(e) => setVar_nombreEps(e.target.value)}
+                            onChange={(e) => {
+                                const valor = e.target.value;
+                                if (soloLetras(valor) || valor === "") {
+                                    setVar_nombreEps(valor);
+                                }
+                            }}
                             fullWidth
                             sx={{ mb: 2 }}
                             InputProps={{

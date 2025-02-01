@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {  Card,  CardContent,  Divider, Box, Typography, TextField,  Button,  } from "@mui/material";
+import { soloLetras } from "../../components/validaciones/ValidacionesCrear.js";
+
 
 
 const URI_FONDO_PENSION = 'http://localhost:3001/fondoPension/'
@@ -79,7 +81,12 @@ const CompCrearFondoPension = () => {
                 </Typography>
                 <TextField
                   value={var_nombreFondoPension}
-                  onChange={(e) => setVar_nombreFondoPension(e.target.value)}
+                  onChange={(e) => {
+                    const valor = e.target.value;
+                    if (soloLetras(valor) || valor === "") {
+                      setVar_nombreFondoPension(valor);
+                    }
+                }}
                   fullWidth
                   sx={{ mb: 2 }}
                   InputProps={{

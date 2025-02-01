@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {  Card,  CardContent,  Divider, Box, Typography, TextField,  Button,  } from "@mui/material";
+import { soloLetras } from "../../components/validaciones/ValidacionesCrear.js";
+
 
 
 const URI_SERVICIO_SALUD_ADICIONAL = 'http://localhost:3001/servicioSaludAdicional/'
@@ -43,7 +45,12 @@ const CompCrearServicioDeSaludAdicional = () => {
                         <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Nombre del servicio adicional:</Typography>
                         <TextField
                             value={var_nombreServicioDeSaludAdicional}
-                            onChange={(e) => setVar_nombreServicioDeSaludAdicional(e.target.value)}
+                            onChange={(e) => {
+                                const valor = e.target.value;
+                                if (soloLetras(valor) || valor === "") {
+                                    setVar_nombreServicioDeSaludAdicional(valor);
+                                }
+                            }}
                             fullWidth
                             sx={{ mb: 2 }}
                             InputProps={{ sx: { height: "40px", fontFamily: "Roboto Condensed", fontSize: "16px" } }}
