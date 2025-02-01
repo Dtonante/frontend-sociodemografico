@@ -663,6 +663,31 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                     {/* Divider estilizado */}
                     <Divider sx={{ mb: 3, borderBottomWidth: 2, borderRadius: 2, borderColor: "#202B53" }} />
 
+                    {/* <Grid container spacing={3}>
+                        {[
+                            { label: 'Nivel de Escolaridad', value: datosProfesional?.var_nivelEscolaridad },
+                            { label: 'Nombre de la carrera', value: datosProfesional?.var_nombreCarrera },
+                            { label: 'pdf', value: datosProfesional?.var_urlDatosAdjuntos },
+                        ].map((item, index) => (
+                            <Grid item xs={12} sm={4} key={index}>
+                                <Paper sx={{
+                                    p: 2,
+                                    bgcolor: "#F2F2F2",
+                                    borderRadius: 2,
+                                    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.15)",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    justifyContent: "center",
+                                    alignItems: "flex-start",
+                                }}>
+                                    <Typography sx={{ fontFamily: 'Roboto Condensed' }}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
+                                </Paper>
+                            </Grid>
+                        ))}
+
+                      
+                    </Grid> */}
+
                     <Grid container spacing={3}>
                         {[
                             { label: 'Nivel de Escolaridad', value: datosProfesional?.var_nivelEscolaridad },
@@ -684,6 +709,30 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                 </Paper>
                             </Grid>
                         ))}
+
+                        {/* Centrar la vista previa del PDF */}
+                        {pdfUrl && (
+                            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                                <h3>Previsualización del PDF:</h3>
+                                <iframe
+                                    src={pdfUrl}
+                                    width="600"
+                                    height="400"
+                                    title="Previsualización PDF"
+                                />
+                                <br />
+                                <a href={pdfUrl} target="_blank" rel="noopener noreferrer">
+                                    Abrir PDF
+                                </a>
+                            </Grid>
+                        )}
+
+                        {/* Mostrar un mensaje si no hay archivo */}
+                        {!pdfUrl && (
+                            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <p>No hay archivo para mostrar.</p>
+                            </Grid>
+                        )}
                     </Grid>
 
                 </Paper>
