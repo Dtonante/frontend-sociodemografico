@@ -25,6 +25,54 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
     const [pdfUrl, setPdfUrl] = useState(null);
 
 
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         if (datosProfesional?.var_urlDatosAdjuntos) {
+    //             const fileName = datosProfesional.var_urlDatosAdjuntos.split("\\").pop();
+    //             setUrl(fileName);
+    //             clearInterval(interval); // Detener el intervalo cuando ya tenga el dato
+    //         }
+    //     }, 1000); // Verifica cada segundo
+
+    //     return () => clearInterval(interval); // Limpia el intervalo al desmontar el componente
+    // }, [datosProfesional]);
+
+    // useEffect(() => {
+    //     if (url) {
+    //         enviarPeticion(); // Llamar a la función cuando url tenga un valor válido
+    //     } else {
+    //         setPdfUrl("N/A")
+    //     }
+    // }, [url]);
+
+
+    // //peticion para traer los pdfs
+    // const enviarPeticion = async () => {
+    //     if (!url) {
+    //         console.log("Esperando archivo...");
+    //         return; // No hace nada si url aún no tiene valor
+    //     }
+
+    //     try {
+    //         // La URL ahora es relativa, no necesitas especificar el dominio
+    //         const response = await axios.post("/get-pdf", {
+    //             nombre: url, // Solo el nombre del archivo
+    //         }, {
+    //             headers: { "Content-Type": "application/json" },
+    //             responseType: "blob", // Asegura que la respuesta sea un blob
+    //         });
+
+    //         console.log("Respuesta del servidor:", response.data);
+    //         const file = response.data;
+    //         // Crear una URL de objeto para mostrar el PDF
+    //         const fileUrl = URL.createObjectURL(file);
+    //         setPdfUrl(fileUrl); // Establecer la URL del archivo en el estado
+    //     } catch (error) {
+    //         console.error("Error al hacer la petición:", error);
+    //     }
+    // };
+
+
     useEffect(() => {
         const interval = setInterval(() => {
             if (datosProfesional?.var_urlDatosAdjuntos) {
@@ -41,12 +89,11 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
         if (url) {
             enviarPeticion(); // Llamar a la función cuando url tenga un valor válido
         } else {
-            setPdfUrl("N/A")
+            setPdfUrl(null); // Establecer pdfUrl como null si no hay URL válida
         }
     }, [url]);
 
-
-    //peticion para traer los pdfs
+    // Petición para traer los PDFs
     const enviarPeticion = async () => {
         if (!url) {
             console.log("Esperando archivo...");
@@ -69,6 +116,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
             setPdfUrl(fileUrl); // Establecer la URL del archivo en el estado
         } catch (error) {
             console.error("Error al hacer la petición:", error);
+            setPdfUrl(null); // Establecer pdfUrl como null si hay un error
         }
     };
 
@@ -710,8 +758,8 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                             </Grid>
                         ))}
 
-                        {/* Centrar la vista previa del PDF */}
-                        {pdfUrl && (
+                        {/* Mostrar la vista previa del PDF solo si pdfUrl tiene un valor válido */}
+                        {pdfUrl ? (
                             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                                 <h3>Previsualización del PDF:</h3>
                                 <iframe
@@ -725,10 +773,7 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                     Abrir PDF
                                 </a>
                             </Grid>
-                        )}
-
-                        {/* Mostrar un mensaje si no hay archivo */}
-                        {!pdfUrl && (
+                        ) : (
                             <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                                 <p>No hay archivo para mostrar.</p>
                             </Grid>
