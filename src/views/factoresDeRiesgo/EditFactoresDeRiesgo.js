@@ -10,21 +10,20 @@ import {
   TextField,
   Button,
 } from "@mui/material";
-import {showAlert,show_alert} from '../../components/showAlert/alertFuntion';
+import { showAlert, show_alert } from "../../components/showAlert/alertFuntion";
 
-
-const URI_FACTORES_RIESGO = 'http://localhost:3001/factoresRiesgo/'
+const URI_FACTORES_RIESGO = "http://localhost:3001/factoresRiesgo/";
 
 const CompEditarFactorRiesgo = () => {
-  const [var_nombreRiesgo, setvVar_nombreRiesgo] = useState('')
-  const navigate = useNavigate()
-  const { id_factoresRiesgoPK } = useParams()
+  const [var_nombreRiesgo, setvVar_nombreRiesgo] = useState("");
+  const navigate = useNavigate();
+  const { id_factoresRiesgoPK } = useParams();
   const [errorFactorDeRiesgo, setErrorFactorDeRiesgo] = useState(false);
   const [error, setError] = useState(false);
 
   //procedimiento para actualizar
   const actualizar = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const camposObligatorios = [
       {
         nombre: "var_nombreRiesgo",
@@ -78,10 +77,10 @@ const CompEditarFactorRiesgo = () => {
       async () => {
         try {
           await axios.put(URI_FACTORES_RIESGO + id_factoresRiesgoPK, {
-            var_nombreRiesgo: var_nombreRiesgo
+            var_nombreRiesgo: var_nombreRiesgo,
           });
           show_alert("Cambios guardados exitosamente", "success");
-          navigate('/app/factoresRiesgo')
+          navigate("/app/factoresRiesgo");
         } catch (error) {
           show_alert("Error al guardar los cambios", "error");
         }
@@ -90,19 +89,19 @@ const CompEditarFactorRiesgo = () => {
         show_alert("Cambios cancelados", "info");
       }
     );
-  }
+  };
 
   useEffect(() => {
-    getFactorRiesgoPorId()
-  }, [])
+    getFactorRiesgoPorId();
+  }, []);
 
   const getFactorRiesgoPorId = async () => {
-    const res = await axios.get(URI_FACTORES_RIESGO + id_factoresRiesgoPK)
-    setvVar_nombreRiesgo(res.data.var_nombreRiesgo)
-  }
+    const res = await axios.get(URI_FACTORES_RIESGO + id_factoresRiesgoPK);
+    setvVar_nombreRiesgo(res.data.var_nombreRiesgo);
+  };
 
   const handleGoBack = () => {
-    navigate('/app/factoresRiesgo')
+    navigate("/app/factoresRiesgo");
   };
 
   const validarCampoRequerido = (valor, setError) => {
@@ -118,9 +117,7 @@ const CompEditarFactorRiesgo = () => {
   const handleKeyPress = (event, fieldName) => {
     let regex;
 
-    if (
-      fieldName === "var_nombreRiesgo" 
-    ) {
+    if (fieldName === "var_nombreRiesgo") {
       // Solo permitimos letras (incluyendo acentos y ñ) y espacios
       regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/;
     }
@@ -140,7 +137,14 @@ const CompEditarFactorRiesgo = () => {
         paddingBottom: "3%",
       }}
     >
-       
+      <div
+        style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }}
+      >
+        <p>
+          Edita la información necesaria y al final del formulario pulsa el
+          botón GUARDAR para conservar los cambios.
+        </p>
+      </div>
       <Card
         variant="outlined"
         sx={{
@@ -196,7 +200,9 @@ const CompEditarFactorRiesgo = () => {
                 validarCampoRequerido(valor, setErrorFactorDeRiesgo);
               }}
               error={errorFactorDeRiesgo} // Mostrar borde rojo si hay error
-              helperText={errorFactorDeRiesgo ? "Este campo es obligatorio" : ""} // Mensaje de error
+              helperText={
+                errorFactorDeRiesgo ? "Este campo es obligatorio" : ""
+              } // Mensaje de error
               fullWidth
               sx={{ mb: 2 }}
               InputProps={{
@@ -208,7 +214,13 @@ const CompEditarFactorRiesgo = () => {
               }}
             />
 
-            <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px" }}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+                gap: "10px",
+              }}
+            >
               <Button
                 sx={{ backgroundColor: "#202B52", fontFamily: "poppins" }}
                 variant="contained"
@@ -229,7 +241,6 @@ const CompEditarFactorRiesgo = () => {
       </Card>
     </div>
   );
+};
 
-}
-
-export default CompEditarFactorRiesgo
+export default CompEditarFactorRiesgo;

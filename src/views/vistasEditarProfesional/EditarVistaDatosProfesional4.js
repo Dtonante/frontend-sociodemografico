@@ -32,7 +32,6 @@ const EditarDatosProfesional4 = () => {
   const [errorNumeroCuenta, setErrorNumeroCuenta] = useState("");
   const [error, setError] = useState(false);
 
-
   const navigate = useNavigate();
 
   // Obtener el ID desde localStorage
@@ -147,7 +146,6 @@ const EditarDatosProfesional4 = () => {
     fetchBancos();
   }, [id_cuentaBancariaFK]);
 
-
   const validarCampoRequerido = (valor, setError) => {
     if (!valor || valor.trim() === "") {
       setError(true); // Establece el error si el campo está vacío
@@ -162,9 +160,7 @@ const EditarDatosProfesional4 = () => {
     let regex;
 
     // Validación para campos como teléfono y número de documento (solo números)
-    if (
-      fieldName === "var_numeroCuenta"
-    ) {
+    if (fieldName === "var_numeroCuenta") {
       // Solo permitimos números
       regex = /^[0-9]*$/;
     }
@@ -173,7 +169,6 @@ const EditarDatosProfesional4 = () => {
       event.preventDefault(); // Evita la entrada de caracteres no válidos
       return; // Salimos de la función si el carácter no es válido
     }
-    
   };
 
   return (
@@ -184,7 +179,16 @@ const EditarDatosProfesional4 = () => {
         paddingBottom: "3%",
       }}
     >
-       
+      <div
+        style={{ textAlign: "center", marginBottom: "1%", marginTop: "-3%" }}
+      >
+        <p>
+          {" "}
+          Edita la información necesaria y al final del formulario pulsa el
+          botón GUARDAR para conservar los cambios.
+        </p>
+      </div>
+
       <Card
         variant="outlined"
         sx={{
@@ -301,10 +305,8 @@ const EditarDatosProfesional4 = () => {
             </Typography>
             <TextField
               value={var_numeroCuenta}
-            //   onChange={(e) => setVar_numeroCuenta(e.target.value)}
-              onKeyPress={(event) =>
-                handleKeyPress(event, "var_numeroCuenta")
-              }
+              //   onChange={(e) => setVar_numeroCuenta(e.target.value)}
+              onKeyPress={(event) => handleKeyPress(event, "var_numeroCuenta")}
               onChange={(e) => {
                 const valor = e.target.value;
                 setVar_numeroCuenta(valor);
@@ -313,9 +315,7 @@ const EditarDatosProfesional4 = () => {
                 validarCampoRequerido(valor, setErrorNumeroCuenta);
               }}
               error={errorNumeroCuenta} // Mostrar borde rojo si hay error
-              helperText={
-                errorNumeroCuenta ? "Este campo es obligatorio" : ""
-              } // Mensaje de error
+              helperText={errorNumeroCuenta ? "Este campo es obligatorio" : ""} // Mensaje de error
               fullWidth
               sx={{ mb: 2 }}
               InputProps={{

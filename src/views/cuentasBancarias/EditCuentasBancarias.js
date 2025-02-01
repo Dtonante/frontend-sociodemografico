@@ -143,6 +143,14 @@ const CompEditarCuentaBancaria = () => {
         paddingBottom: "3%",
       }}
     >
+      <div
+        style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }}
+      >
+        <p>
+          Edita la información necesaria y al final del formulario pulsa el
+          botón GUARDAR para conservar los cambios.
+        </p>
+      </div>
       
       <Card
         variant="outlined"

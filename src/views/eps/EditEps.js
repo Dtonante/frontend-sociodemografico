@@ -117,9 +117,7 @@ const CompEditarEps = () => {
   const handleKeyPress = (event, fieldName) => {
     let regex;
 
-    if (
-      fieldName === "var_nombreEps" 
-    ) {
+    if (fieldName === "var_nombreEps") {
       // Solo permitimos letras (incluyendo acentos y ñ) y espacios
       regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/;
     }
@@ -139,6 +137,14 @@ const CompEditarEps = () => {
         paddingBottom: "3%",
       }}
     >
+      <div
+        style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }}
+      >
+        <p>
+          Edita la información necesaria y al final del formulario pulsa el
+          botón GUARDAR para conservar los cambios.
+        </p>
+      </div>
       <Card
         variant="outlined"
         sx={{
@@ -186,7 +192,6 @@ const CompEditarEps = () => {
             </Typography>
             <TextField
               value={var_nombreEps}
-
               onKeyPress={(event) => handleKeyPress(event, "var_nombreEps")}
               onChange={(e) => {
                 const valor = e.target.value;

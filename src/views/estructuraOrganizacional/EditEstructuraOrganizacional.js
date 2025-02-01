@@ -10,7 +10,7 @@ import {
   TextField,
   Button,
 } from "@mui/material";
-import {showAlert,show_alert} from '../../components/showAlert/alertFuntion';
+import { showAlert, show_alert } from "../../components/showAlert/alertFuntion";
 
 const URI_ESTRUCTURA_ORGANIZACIONAL =
   "http://localhost:3001/estructuraOrganizacional/";
@@ -90,8 +90,6 @@ const CompEditarEstructuraOrganizacional = () => {
         show_alert("Cambios cancelados", "info");
       }
     );
-    
-    
   };
 
   useEffect(() => {
@@ -120,9 +118,7 @@ const CompEditarEstructuraOrganizacional = () => {
   const handleKeyPress = (event, fieldName) => {
     let regex;
 
-    if (
-      fieldName === "var_nombreArea" 
-    ) {
+    if (fieldName === "var_nombreArea") {
       // Solo permitimos letras (incluyendo acentos y ñ) y espacios
       regex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]*$/;
     }
@@ -133,7 +129,7 @@ const CompEditarEstructuraOrganizacional = () => {
       return; // Salimos de la función si el carácter no es válido
     }
   };
-  
+
   return (
     <div
       style={{
@@ -142,7 +138,14 @@ const CompEditarEstructuraOrganizacional = () => {
         paddingBottom: "3%",
       }}
     >
-       
+      <div
+        style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }}
+      >
+        <p>
+          Edita la información necesaria y al final del formulario pulsa el
+          botón GUARDAR para conservar los cambios.
+        </p>
+      </div>
       <Card
         variant="outlined"
         sx={{
