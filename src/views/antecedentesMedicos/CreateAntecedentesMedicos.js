@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, Divider, Box, Typography, TextField, Button, } from "@mui/material";
 import { soloLetras } from "../../components/validaciones/ValidacionesCrear.js";
+import show_alert from "../../components/showAlert/alertFuntion.jsx"; 
 
 
 const URI_ANTECEDENTE_MEDICO = 'http://localhost:3001/antecedentesMedicos'
@@ -14,8 +15,21 @@ const CompCrearAntecedentesMedicos = () => {
     //procedimiento para guardar
     const guardar = async (e) => {
         e.preventDefault()
-        await axios.post(URI_ANTECEDENTE_MEDICO, { var_nombreAntecedenteMedico: var_nombreAntecedenteMedico })
-        navigate('/app/antecedentesMedicos')
+
+        if (!var_nombreAntecedenteMedico.trim()) {
+            show_alert("El campo no puede estar vacío", "error");
+            return;
+        }
+
+        try {
+            await axios.post(URI_ANTECEDENTE_MEDICO, { var_nombreAntecedenteMedico: var_nombreAntecedenteMedico })
+            show_alert("Antecedente medico creado correctamente", "success");
+            setTimeout(() => navigate("/app/antecedentesMedicos"), 1500); // Redirige después de 1.5s
+        } catch (error) {
+            show_alert("Hubo un error al crear el antecedente medico ", "error");
+            console.error(error);
+        }
+        
     }
 
 

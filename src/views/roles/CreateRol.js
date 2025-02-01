@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {  Card,  CardContent,  Divider, Box, Typography, TextField,  Button,  } from "@mui/material";
 import { soloLetras } from "../../components/validaciones/ValidacionesCrear.js";
+import show_alert from "../../components/showAlert/alertFuntion.jsx"; // Importa la alerta personalizada
 
 
 
@@ -16,8 +17,21 @@ const CompCrearRol = () => {
     //procedimiento para guardar
     const guardar = async (e) => {
         e.preventDefault()
-        await axios.post(URI_ROL, { var_nombreRol: var_nombreRol })
-        navigate('/app/roles')
+
+        if (!var_nombreRol.trim()) {
+            show_alert("El campo no puede estar vacío", "error");
+            return;
+        }
+
+        try {
+            await axios.post(URI_ROL, { var_nombreRol })
+            show_alert("ROL creada correctamente", "success");
+            setTimeout(() => navigate("/app/roles"), 1500); // Redirige después de 1.5s
+        } catch (error) {
+            show_alert("Hubo un error al crear el ROL", "error");
+            console.error(error);
+        }
+
     }
 
     const handleGoBack = () => {

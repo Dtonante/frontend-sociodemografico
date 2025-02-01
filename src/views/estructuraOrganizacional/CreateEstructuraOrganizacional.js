@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {  Card,  CardContent,  Divider, Box, Typography, TextField,  Button,  } from "@mui/material";
 import { soloLetras } from "../../components/validaciones/ValidacionesCrear.js";
+import show_alert from "../../components/showAlert/alertFuntion.jsx"; 
 
 
 
@@ -16,8 +17,20 @@ const CompCrearEstructuraOrganizacional = () => {
     //procedimiento para guardar
     const guardar = async (e) => {
         e.preventDefault()
-        await axios.post(URI_ESTRUCTURA_ORGANIZACIONAL, { var_nombreArea: var_nombreArea })
-        navigate('/app/estructuraOrganizacional')
+
+        if (!var_nombreArea.trim()) {
+            show_alert("El campo no puede estar vacío", "error");
+            return;
+        }
+
+        try {
+            await axios.post(URI_ESTRUCTURA_ORGANIZACIONAL, { var_nombreArea: var_nombreArea })
+            show_alert("Area creada correctamente", "success");
+            setTimeout(() => navigate("/app/estructuraOrganizacional"), 1500); // Redirige después de 1.5s
+        } catch (error) {
+            show_alert("Hubo un error al crear el area", "error");
+            console.error(error);
+        }
     }
 
 

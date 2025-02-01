@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, Divider, Box, Typography, TextField, Button, } from "@mui/material";
 import { soloLetras } from "../../components/validaciones/ValidacionesCrear.js";
+import show_alert from "../../components/showAlert/alertFuntion.jsx";
 
 
 
@@ -16,6 +17,21 @@ const CompCrearFactoresRiesgo = () => {
   //procedimiento para guardar
   const guardar = async (e) => {
     e.preventDefault()
+
+    if (!var_nombreRiesgo.trim()) {
+      show_alert("El campo no puede estar vacío", "error");
+      return;
+    }
+
+    try {
+      await axios.post(URI_FACTORES_RIESGO, { var_nombreRiesgo: var_nombreRiesgo })
+      show_alert("Factor de riesgo creado correctamente", "success");
+      setTimeout(() => navigate("/app/factoresRiesgo"), 1500); // Redirige después de 1.5s
+    } catch (error) {
+      show_alert("Hubo un error al crear el factor de riesgo", "error");
+      console.error(error);
+    }
+
     await axios.post(URI_FACTORES_RIESGO, { var_nombreRiesgo: var_nombreRiesgo })
     navigate('/app/factoresRiesgo')
   }

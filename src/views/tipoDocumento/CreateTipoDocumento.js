@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {  Card,  CardContent,  Divider, Box, Typography, TextField,  Button,  } from "@mui/material";
 import { soloLetras } from "../../components/validaciones/ValidacionesCrear.js";
-
+import show_alert from "../../components/showAlert/alertFuntion.jsx"; 
 
 
 const URI_TIPO_DOCUMENTO = 'http://localhost:3001/tipodocumentos/'
@@ -16,13 +16,25 @@ const CompCrearTipoDocumento = () => {
     //procedimiento para guardar
     const guardar = async (e) => {
         e.preventDefault()
-        await axios.post(URI_TIPO_DOCUMENTO, { var_nombreDocumento: var_nombreDocumento })
-        navigate('/app/transportePropio')
+
+        if (!var_nombreDocumento.trim()) {
+            show_alert("El campo no puede estar vacío", "error");
+            return;
+        }
+
+        try {
+            await axios.post(URI_TIPO_DOCUMENTO, { var_nombreDocumento: var_nombreDocumento })
+            show_alert("Tipo documento creado correctamente", "success");
+            setTimeout(() => navigate("/app/tipoDocumento"), 1500); // Redirige después de 1.5s
+        } catch (error) {
+            show_alert("Hubo un error al crear el tipo de documento", "error");
+            console.error(error);
+        }
     }
 
 
     const handleGoBack = () => {
-        navigate("/app/transportePropio");
+        navigate("/app/tipoDocumento");
     };
 
     return (

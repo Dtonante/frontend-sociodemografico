@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {  Card,  CardContent,  Divider, Box, Typography, TextField,  Button,  } from "@mui/material";
 import { soloLetras } from "../../components/validaciones/ValidacionesCrear.js";
-
+import show_alert from "../../components/showAlert/alertFuntion.jsx"; 
 
 
 const URI_SERVICIO_SALUD_ADICIONAL = 'http://localhost:3001/servicioSaludAdicional/'
@@ -19,8 +19,22 @@ const CompCrearServicioDeSaludAdicional = () => {
     //procedimiento para guardar
     const guardar = async (e) => {
         e.preventDefault()
-        await axios.post(URI_SERVICIO_SALUD_ADICIONAL, { var_nombreServicioDeSaludAdicional: var_nombreServicioDeSaludAdicional })
-        navigate('/app/serviciosSaludAdicional')
+
+        if (!var_nombreServicioDeSaludAdicional.trim()) {
+            show_alert("El campo no puede estar vacío", "error");
+            return;
+        }
+
+        try {
+            await axios.post(URI_SERVICIO_SALUD_ADICIONAL, { var_nombreServicioDeSaludAdicional: var_nombreServicioDeSaludAdicional })
+            show_alert("Servicio adicional creado correctamente", "success");
+            setTimeout(() => navigate("/app/serviciosSaludAdicional"), 1500); // Redirige después de 1.5s
+        } catch (error) {
+            show_alert("Hubo un error al crear el servicio adicional", "error");
+            console.error(error);
+        }
+
+        
     }
 
     const handleGoBack = () => {

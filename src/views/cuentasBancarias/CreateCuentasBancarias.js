@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {  Card,  CardContent,  Divider, Box, Typography, TextField,  Button,  } from "@mui/material";
 import { soloLetras } from "../../components/validaciones/ValidacionesCrear.js";
+import show_alert from "../../components/showAlert/alertFuntion.jsx"; 
 
 
 
@@ -15,8 +16,20 @@ const CompCrearCuentaBancaria = () => {
     //procedimiento para guardar
     const guardar = async (e) => {
         e.preventDefault()
-        await axios.post(URI_CUENTAS_BANCARIAS, { var_nombreCuentaBancaria: var_nombreCuentaBancaria })
-        navigate('/app/cuentasBancarias')
+
+        if (!var_nombreCuentaBancaria.trim()) {
+            show_alert("El campo no puede estar vacío", "error");
+            return;
+        }
+
+        try {
+            await axios.post(URI_CUENTAS_BANCARIAS, { var_nombreCuentaBancaria: var_nombreCuentaBancaria })
+            show_alert("Banco creado correctamente", "success");
+            setTimeout(() => navigate("/app/cuentasBancarias"), 1500); // Redirige después de 1.5s
+        } catch (error) {
+            show_alert("Hubo un error al crear el banco", "error");
+            console.error(error);
+        }
     }
 
 
