@@ -28,10 +28,6 @@ const CompEditarAntecedentesMedicos = () => {
     navigate("/app/antecedentesMedicos");
   };
 
-  const handleGoBack = () => {
-    navigate("/app/antecedentesMedicos");
-  };
-
   useEffect(() => {
     getAntecedenteMedicoPorId();
   }, []);
@@ -42,6 +38,12 @@ const CompEditarAntecedentesMedicos = () => {
     );
     setVar_nombreAntecedenteMedico(res.data.var_nombreAntecedenteMedico);
   };
+
+
+  const handleGoBack = () => {
+    navigate("/app/antecedentesMedicos");
+  };
+
   return (
     <div
       style={{
@@ -50,15 +52,6 @@ const CompEditarAntecedentesMedicos = () => {
         paddingBottom: "3%",
       }}
     >
-      <div
-        style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }}
-      >
-        <img
-          src="public/fondo_form.png"
-          alt="Descripción de la imagen"
-          style={{ width: "20%", height: "auto" }}
-        />
-      </div>
       <Card
         variant="outlined"
         sx={{
@@ -130,7 +123,7 @@ const CompEditarAntecedentesMedicos = () => {
                 variant="contained"
                 type="submit"
               >
-                Guardar
+                Actualizar
               </Button>
               <Button
                 sx={{ backgroundColor: "#ff0000", fontFamily: "poppins" }}

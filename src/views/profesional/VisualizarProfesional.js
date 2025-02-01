@@ -20,7 +20,110 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
     const [antecedentesMedicos, setAntecedentesMedicos] = useState(null);
     const [tiempoLibreMap, setTiempoLibre] = useState(null);
     const [transportesPropios, setTransportePropio] = useState(null);
+    const [url, setUrl] = useState();
     const userRole = localStorage.getItem("rol");
+    const [pdfUrl, setPdfUrl] = useState(null);
+
+
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         if (datosProfesional?.var_urlDatosAdjuntos) {
+    //             const fileName = datosProfesional.var_urlDatosAdjuntos.split("\\").pop();
+    //             setUrl(fileName);
+    //             clearInterval(interval); // Detener el intervalo cuando ya tenga el dato
+    //         }
+    //     }, 1000); // Verifica cada segundo
+
+    //     return () => clearInterval(interval); // Limpia el intervalo al desmontar el componente
+    // }, [datosProfesional]);
+
+    // useEffect(() => {
+    //     if (url) {
+    //         enviarPeticion(); // Llamar a la función cuando url tenga un valor válido
+    //     } else {
+    //         setPdfUrl("N/A")
+    //     }
+    // }, [url]);
+
+
+    // //peticion para traer los pdfs
+    // const enviarPeticion = async () => {
+    //     if (!url) {
+    //         console.log("Esperando archivo...");
+    //         return; // No hace nada si url aún no tiene valor
+    //     }
+
+    //     try {
+    //         // La URL ahora es relativa, no necesitas especificar el dominio
+    //         const response = await axios.post("/get-pdf", {
+    //             nombre: url, // Solo el nombre del archivo
+    //         }, {
+    //             headers: { "Content-Type": "application/json" },
+    //             responseType: "blob", // Asegura que la respuesta sea un blob
+    //         });
+
+    //         console.log("Respuesta del servidor:", response.data);
+    //         const file = response.data;
+    //         // Crear una URL de objeto para mostrar el PDF
+    //         const fileUrl = URL.createObjectURL(file);
+    //         setPdfUrl(fileUrl); // Establecer la URL del archivo en el estado
+    //     } catch (error) {
+    //         console.error("Error al hacer la petición:", error);
+    //     }
+    // };
+
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (datosProfesional?.var_urlDatosAdjuntos) {
+                const fileName = datosProfesional.var_urlDatosAdjuntos.split("\\").pop();
+                setUrl(fileName);
+                clearInterval(interval); // Detener el intervalo cuando ya tenga el dato
+            }
+        }, 1000); // Verifica cada segundo
+
+        return () => clearInterval(interval); // Limpia el intervalo al desmontar el componente
+    }, [datosProfesional]);
+
+    useEffect(() => {
+        if (url) {
+            enviarPeticion(); // Llamar a la función cuando url tenga un valor válido
+        } else {
+            setPdfUrl(null); // Establecer pdfUrl como null si no hay URL válida
+        }
+    }, [url]);
+
+    // Petición para traer los PDFs
+    const enviarPeticion = async () => {
+        if (!url) {
+            console.log("Esperando archivo...");
+            return; // No hace nada si url aún no tiene valor
+        }
+
+        try {
+            // La URL ahora es relativa, no necesitas especificar el dominio
+            const response = await axios.post("/get-pdf", {
+                nombre: url, // Solo el nombre del archivo
+            }, {
+                headers: { "Content-Type": "application/json" },
+                responseType: "blob", // Asegura que la respuesta sea un blob
+            });
+
+            console.log("Respuesta del servidor:", response.data);
+            const file = response.data;
+            // Crear una URL de objeto para mostrar el PDF
+            const fileUrl = URL.createObjectURL(file);
+            setPdfUrl(fileUrl); // Establecer la URL del archivo en el estado
+        } catch (error) {
+            console.error("Error al hacer la petición:", error);
+            setPdfUrl(null); // Establecer pdfUrl como null si hay un error
+        }
+    };
+
+
+
+
+
 
 
 
@@ -608,6 +711,31 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                     {/* Divider estilizado */}
                     <Divider sx={{ mb: 3, borderBottomWidth: 2, borderRadius: 2, borderColor: "#202B53" }} />
 
+                    {/* <Grid container spacing={3}>
+                        {[
+                            { label: 'Nivel de Escolaridad', value: datosProfesional?.var_nivelEscolaridad },
+                            { label: 'Nombre de la carrera', value: datosProfesional?.var_nombreCarrera },
+                            { label: 'pdf', value: datosProfesional?.var_urlDatosAdjuntos },
+                        ].map((item, index) => (
+                            <Grid item xs={12} sm={4} key={index}>
+                                <Paper sx={{
+                                    p: 2,
+                                    bgcolor: "#F2F2F2",
+                                    borderRadius: 2,
+                                    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.15)",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    justifyContent: "center",
+                                    alignItems: "flex-start",
+                                }}>
+                                    <Typography sx={{ fontFamily: 'Roboto Condensed' }}><strong>{item.label}:</strong> {item.value || 'No disponible'}</Typography>
+                                </Paper>
+                            </Grid>
+                        ))}
+
+                      
+                    </Grid> */}
+
                     <Grid container spacing={3}>
                         {[
                             { label: 'Nivel de Escolaridad', value: datosProfesional?.var_nivelEscolaridad },
@@ -629,6 +757,27 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                                 </Paper>
                             </Grid>
                         ))}
+
+                        {/* Mostrar la vista previa del PDF solo si pdfUrl tiene un valor válido */}
+                        {pdfUrl ? (
+                            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                                <h3>Previsualización del PDF:</h3>
+                                <iframe
+                                    src={pdfUrl}
+                                    width="600"
+                                    height="400"
+                                    title="Previsualización PDF"
+                                />
+                                <br />
+                                <a href={pdfUrl} target="_blank" rel="noopener noreferrer">
+                                    Abrir PDF
+                                </a>
+                            </Grid>
+                        ) : (
+                            <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                                <p>No hay archivo para mostrar.</p>
+                            </Grid>
+                        )}
                     </Grid>
 
                 </Paper>
@@ -803,6 +952,24 @@ const CompVisualizarProfesional = ({ open, handleClose, profesional }) => {
                             </Grid>
                         </Grid>
                     </Paper>
+                )}
+
+                {pdfUrl ? (
+                    <div>
+                        <h3>Previsualización del PDF:</h3>
+                        <iframe
+                            src={pdfUrl}
+                            width="600"
+                            height="400"
+                            title="Previsualización PDF"
+                        />
+                        <br />
+                        <a href={pdfUrl} target="_blank" rel="noopener noreferrer">
+                            Abrir PDF
+                        </a>
+                    </div>
+                ) : (
+                    <p>Cargando archivo...</p>
                 )}
                 <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 3, fontFamily: 'Roboto Condensed' }}>
                     <Button

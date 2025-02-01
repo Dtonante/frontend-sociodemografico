@@ -24,7 +24,7 @@ import Swal from "sweetalert2";
 import "../../css/alertStyles.css";
 
 const URI_CUENTAS_BANCARIAS =
-  "https://evaluacion.esumer.edu.co/api/cuentasBancarias/";
+  "http://localhost:3001/cuentasBancarias/";
 
 const CompShowCuentasBancarias = () => {
   const [cuentaBancaria, setCuentaBancaria] = useState([]);

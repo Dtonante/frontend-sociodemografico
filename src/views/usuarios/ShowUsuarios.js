@@ -225,7 +225,12 @@ const CompShowUsuarios = () => {
                           <EditIcon />
                         </IconButton>
                       </Link>
-                      
+                      <IconButton
+                        color="error"
+                        onClick={() => deleteUsuario(usuario.id_usuarioPK)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
                     </TableCell>
                   </TableRow>
                 ))}

@@ -15,6 +15,7 @@ import {showAlert,show_alert} from '../../components/showAlert/alertFuntion';
 const URI_TIPO_DOCUMENTO = "http://localhost:3001/tipodocumentos/";
 
 const CompEditarTipoDocumento = () => {
+<<<<<<< HEAD
   const [var_nombreDocumento, setVar_nombreDocumento] = useState("");
   const navigate = useNavigate();
   const { id_tipoDocumentoPK } = useParams();
@@ -136,6 +137,34 @@ const CompEditarTipoDocumento = () => {
 
   
 
+=======
+  const [var_nombreDocumento, setVar_nombreDocumento] = useState('')
+  const navigate = useNavigate()
+  const { id_tipoDocumentoPK } = useParams()
+
+  //procedimiento para actualizar
+  const actualizar = async (e) => {
+    e.preventDefault()
+    await axios.put(URI_TIPO_DOCUMENTO + id_tipoDocumentoPK, {
+      var_nombreDocumento: var_nombreDocumento
+    })
+    navigate('/app/transportePropio')
+  }
+
+  useEffect(() => {
+    getTipoDocumentoPorId()
+  }, [])
+
+  const getTipoDocumentoPorId = async () => {
+    const res = await axios.get(URI_TIPO_DOCUMENTO + id_tipoDocumentoPK)
+    setVar_nombreDocumento(res.data.var_nombreDocumento)
+  }
+
+  const handleGoBack = () => {
+    navigate("/app/transportePropio");
+  };
+
+>>>>>>> ea3cf1462f650f680d2be512dc3c80e215cb20dd
   return (
     <div
       style={{
@@ -144,6 +173,7 @@ const CompEditarTipoDocumento = () => {
         paddingBottom: "3%",
       }}
     >
+<<<<<<< HEAD
       <div
         style={{ textAlign: "center", marginBottom: "1%", marginTop: "-1%" }}
       >
@@ -153,6 +183,9 @@ const CompEditarTipoDocumento = () => {
           style={{ width: "20%", height: "auto" }}
         />
       </div>
+=======
+       
+>>>>>>> ea3cf1462f650f680d2be512dc3c80e215cb20dd
       <Card
         variant="outlined"
         sx={{
@@ -200,6 +233,7 @@ const CompEditarTipoDocumento = () => {
             </Typography>
             <TextField
               value={var_nombreDocumento}
+<<<<<<< HEAD
               // onChange={(e) => setVar_nombreDocumento(e.target.value)}
               onKeyPress={(event) => handleKeyPress(event, "var_nombreDocumento")}
               onChange={(e) => {
@@ -211,6 +245,9 @@ const CompEditarTipoDocumento = () => {
               }}
               error={errorTipoDocumento} // Mostrar borde rojo si hay error
               helperText={errorTipoDocumento ? "Este campo es obligatorio" : ""} // Mensaje de error
+=======
+              onChange={(e) => setVar_nombreDocumento(e.target.value)}
+>>>>>>> ea3cf1462f650f680d2be512dc3c80e215cb20dd
               fullWidth
               sx={{ mb: 2 }}
               InputProps={{
@@ -221,6 +258,31 @@ const CompEditarTipoDocumento = () => {
                 },
               }}
             />
+<<<<<<< HEAD
+=======
+
+            <div style={{ display: "flex", justifyContent: "flex-end", gap: "10px" }}>
+              <Button
+                sx={{ backgroundColor: "#202B52", fontFamily: "poppins" }}
+                variant="contained"
+                type="submit"
+              >
+                Actualizar
+              </Button>
+              <Button
+                sx={{ backgroundColor: "#ff0000", fontFamily: "poppins" }}
+                variant="contained"
+                onClick={handleGoBack}
+              >
+                Volver
+              </Button>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  );
+>>>>>>> ea3cf1462f650f680d2be512dc3c80e215cb20dd
 
             <div
               style={{
