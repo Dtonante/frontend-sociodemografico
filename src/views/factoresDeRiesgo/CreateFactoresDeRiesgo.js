@@ -7,7 +7,7 @@ import show_alert from "../../components/showAlert/alertFuntion.jsx";
 
 
 
-const URI_FACTORES_RIESGO = 'http://localhost:3001/factoresRiesgo/'
+const URI_FACTORES_RIESGO = 'https://evaluacion.esumer.edu.co/api/factoresRiesgo/'
 
 const CompCrearFactoresRiesgo = () => {
   const [var_nombreRiesgo, setVar_nombreRiesgo] = useState('')

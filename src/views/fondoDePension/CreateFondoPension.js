@@ -7,7 +7,7 @@ import show_alert from "../../components/showAlert/alertFuntion.jsx";
 
 
 
-const URI_FONDO_PENSION = 'http://localhost:3001/fondoPension/'
+const URI_FONDO_PENSION = 'https://evaluacion.esumer.edu.co/api/fondoPension/'
 
 const CompCrearFondoPension = () => {
     const [var_nombreFondoPension, setVar_nombreFondoPension] = useState('')

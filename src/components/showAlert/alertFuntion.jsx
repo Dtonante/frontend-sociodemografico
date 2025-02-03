@@ -87,7 +87,7 @@ style.innerHTML = `
 
     /* Estilo de la alerta personalizada */
     .swal2-custom-popup {
-        background-color: #f1f1f1 !important; /* Blanco de oficina */
+        background-color:rgb(255, 255, 255) !important; /* Blanco de oficina */
             color: #333 !important; /* Color de texto oscuro para contraste */
             font-family: 'Poppins', sans-serif !important; /* Aplica la fuente Poppins */
         border-radius: 15px !important; /* Bordes curveados */

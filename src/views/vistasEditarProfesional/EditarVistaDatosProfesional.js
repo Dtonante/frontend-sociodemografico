@@ -20,9 +20,8 @@ import {
 } from "@mui/material";
 import { showAlert, show_alert } from "../../components/showAlert/alertFuntion"; // Asegúrate de importar las funciones
 
-const URI_PROFESIONAL = "http://localhost:3001/profesional/";
-const URI_PROFESIONAL_POR_ID_USUARIO =
-  "http://localhost:3001/profesional/porUsuario/";
+const URI_PROFESIONAL = "https://evaluacion.esumer.edu.co/api/profesional/";
+const URI_PROFESIONAL_POR_ID_USUARIO = "https://evaluacion.esumer.edu.co/api/porUsuario/";
 
 const EditarDatosProfesional = () => {
   const [id_profesionalPK, setId_profesionalPK] = useState();
@@ -253,7 +252,7 @@ const EditarDatosProfesional = () => {
       try {
         console.log("veremos", id_profesionalPK);
         const response = await axios.get(
-          `http://localhost:3001/profesionalServiciosQueNoCuentan/${id_profesionalPK}`
+          `https://evaluacion.esumer.edu.co/api/profesionalServiciosQueNoCuentan/${id_profesionalPK}`
         );
         setServiciosProfesional(response.data);
 
@@ -280,7 +279,7 @@ const EditarDatosProfesional = () => {
 
       try {
         const response = await axios.get(
-          `http://localhost:3001/profesionalFactoresRiesgo/${id_profesionalPK}`
+          `https://evaluacion.esumer.edu.co/api/profesionalFactoresRiesgo/${id_profesionalPK}`
         );
 
         console.log("esto trae es ", response.data);
@@ -342,7 +341,7 @@ const EditarDatosProfesional = () => {
 
       for (let id_servicio of serviciosParaEliminar) {
         await axios.delete(
-          `http://localhost:3001/profesionalServiciosQueNoCuentan/${id_profesionalPK}/${id_servicio}`
+          `https://evaluacion.esumer.edu.co/api/profesionalServiciosQueNoCuentan/${id_profesionalPK}/${id_servicio}`
         );
         console.log(
           `Relación eliminada: Profesional ID ${id_profesionalPK}, Servicio Que No Cuentan ID ${id_servicio}`
@@ -356,7 +355,7 @@ const EditarDatosProfesional = () => {
 
       for (let id_servicio of serviciosParaAgregar) {
         await axios.post(
-          `http://localhost:3001/profesionalServiciosQueNoCuentan/`,
+          `https://evaluacion.esumer.edu.co/api/profesionalServiciosQueNoCuentan/`,
           {
             id_profesionalFK: id_profesionalPK,
             id_servicioQueNoCuentaFK: id_servicio,
@@ -419,7 +418,7 @@ const EditarDatosProfesional = () => {
 
       // Agregar nuevos servicios seleccionados
       for (let id_factor of factoresParaAgregar) {
-        await axios.post("http://localhost:3001/profesionalFactoresRiesgo/", {
+        await axios.post("https://evaluacion.esumer.edu.co/api/profesionalFactoresRiesgo/", {
           id_profesionalFK: id_profesionalPK,
           id_factoresRiesgoFK: id_factor,
         });

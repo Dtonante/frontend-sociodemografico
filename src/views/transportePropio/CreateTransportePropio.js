@@ -5,7 +5,7 @@ import {  Card,  CardContent,  Divider, Box, Typography, TextField,  Button,  } 
 import { soloLetras } from "../../components/validaciones/ValidacionesCrear.js";
 import show_alert from "../../components/showAlert/alertFuntion.jsx"; 
 
-const URI_TRANSPORTE_PROPIO = 'http://localhost:3001/transportePropio'
+const URI_TRANSPORTE_PROPIO = 'https://evaluacion.esumer.edu.co/api/transportePropio'
 
 
 const CompCrearTransportePropio = () => {

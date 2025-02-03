@@ -3,7 +3,7 @@ import {  Grid, Card, CardContent, Typography,  TextField,  Button, Box, Link, }
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const URI_LOGEO = 'http://localhost:3001/login/'
+const URI_LOGEO = 'https://evaluacion.esumer.edu.co/api/login/'
 
 const Login = () => {
   const [formData, setFormData] = useState({ var_correoElectronicoPersonal: "", var_contrasena: "" });

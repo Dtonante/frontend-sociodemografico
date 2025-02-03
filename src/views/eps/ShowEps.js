@@ -22,7 +22,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Swal from "sweetalert2";
 import '../../css/alertStyles.css';
 
-const URI_EPS = "http://localhost:3001/eps/";
+const URI_EPS = "https://evaluacion.esumer.edu.co/api/eps/";
 
 
 const CompShowEps = () => {

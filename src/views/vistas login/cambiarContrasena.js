@@ -12,7 +12,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import show_alert from "../../components/showAlert/alertFuntion";
 import axios from "axios";
 
-const URI_USUARIO = "http://localhost:3001/usuarios/";
+const URI_USUARIO = "https://evaluacion.esumer.edu.co/api/usuarios/";
 
 const CambiarContrasena = () => {
   const [formData, setFormData] = useState({

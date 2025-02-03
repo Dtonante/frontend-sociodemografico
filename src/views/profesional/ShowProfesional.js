@@ -10,7 +10,7 @@ import CompVisualizarProfesional from './VisualizarProfesional';
 import ExportExcelButton from '../../components/DownloadExcel/ExportExcelButton.js';
 import ExportExcelButtonGestionHumana from '../../components/DownloadExcel/ExportExcelButtonGestionHumana.js';
 
-const URI_PROFESIONAL = 'http://localhost:3001/profesional/';
+const URI_PROFESIONAL = 'https://evaluacion.esumer.edu.co/api/profesional/';
 
 const CompShowProfesional = () => {
     const [profesional, setProfesional] = useState([]);

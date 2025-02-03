@@ -7,7 +7,7 @@ import show_alert from "../../components/showAlert/alertFuntion.jsx";
 
 
 
-const URI_ESTRUCTURA_ORGANIZACIONAL = 'http://localhost:3001/estructuraOrganizacional/'
+const URI_ESTRUCTURA_ORGANIZACIONAL = 'https://evaluacion.esumer.edu.co/api/estructuraOrganizacional/'
 
 const CompCrearEstructuraOrganizacional = () => {
     const [var_nombreArea, setVar_nombreArea] = useState('')

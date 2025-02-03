@@ -29,14 +29,9 @@ const VistaProvisional = () => {
                     Importante
                 </Typography>
                 <Typography variant="body1" sx={{ mb: 2, fontFamily: 'Roboto Condensed' }}>
-                    Por el momento, para el rol de **Administrativo de Esumer**, no está habilitada la opción para poder editar los campos de la información ya solicitada. 
+                    En el menú izquierdo encontrarás las diferentes vistas para poder editar la información presente en los formularios del perfil sociodemografíco.
                 </Typography>
-                <Typography variant="body1" sx={{ mb: 2, fontFamily: 'Roboto Condensed' }}>
-                    En próximos días, esta opción se habilitará. 
-                </Typography>
-                <Typography variant="body1" sx={{  fontFamily: 'Roboto Condensed' }}>
-                    Muchas gracias y mil disculpas. Gracias por ser Esumer.
-                </Typography>
+                
             </Paper>
         </Box>
     );

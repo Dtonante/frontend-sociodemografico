@@ -26,7 +26,7 @@ import '../../css/alertStyles.css';
 
 
 const URI_ESTRUCTURA_ORGANIZACIONAL =
-  "http://localhost:3001/estructuraOrganizacional/";
+  "https://evaluacion.esumer.edu.co/api/estructuraOrganizacional/";
 
 const CompShowEstructuraOrganizacional = () => {
   const [estructuraOrganizacional, setEstructuraOrganizacional] = useState([]);

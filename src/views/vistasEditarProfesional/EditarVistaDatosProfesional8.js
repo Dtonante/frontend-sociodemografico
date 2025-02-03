@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, Divider, Box, Typography, TextField, ListItemText, Checkbox, FormControl, Select, MenuItem, Button } from "@mui/material";
 
-const URI_PROFESIONAL = 'http://localhost:3001/profesional/';
-const URI_PROFESIONAL_POR_ID_USUARIO = 'http://localhost:3001/profesional/porUsuario/';
+const URI_PROFESIONAL = 'https://evaluacion.esumer.edu.co/api/profesional/';
+const URI_PROFESIONAL_POR_ID_USUARIO = 'https://evaluacion.esumer.edu.co/api/profesional/porUsuario/';
 
 const editarDatosProfesional8 = () => {
     const [id_profesionalPK, setId_profesionalPK] = useState()
@@ -144,7 +144,7 @@ const editarDatosProfesional8 = () => {
 
             // Agregar nuevos servicios seleccionados
             for (let id_transportePropio of transporteParaAgregar) {
-                await axios.post("http://localhost:3001/profesionalTransportePropio/", {
+                await axios.post("https://evaluacion.esumer.edu.co/api/profesionalTransportePropio/", {
                     id_profesionalFK: id_profesionalPK,
                     id_transportePropioFK: id_transportePropio,
                 });
@@ -154,7 +154,7 @@ const editarDatosProfesional8 = () => {
             // Actualizar las placas
             const nuevasPlacas =  `${placas}--${placaExtra}`; 
             await axios.put(
-                `http://localhost:3001/profesionalTransportePropio/editarprofesionalTransportePropio/${id_profesionalPK}`,
+                `https://evaluacion.esumer.edu.co/api/profesionalTransportePropio/editarprofesionalTransportePropio/${id_profesionalPK}`,
                 {
                     var_numeroPlaca: nuevasPlacas,
                 }

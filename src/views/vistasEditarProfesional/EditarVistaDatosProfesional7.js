@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, Divider, Box, Typography, Select, Checkbox, ListItemText, RadioGroup, FormControlLabel, Radio, FormControl, MenuItem, TextField, Button } from "@mui/material";
 
-const URI_PROFESIONAL = 'http://localhost:3001/profesional/';
-const URI_PROFESIONAL_POR_ID_USUARIO = 'http://localhost:3001/profesional/porUsuario/';
+const URI_PROFESIONAL = 'https://evaluacion.esumer.edu.co/api/profesional/';
+const URI_PROFESIONAL_POR_ID_USUARIO = 'https://evaluacion.esumer.edu.co/api/profesional/porUsuario/';
 
 const EditarDatosProfesional7 = () => {
     const [id_profesionalPK, setId_profesionalPK] = useState()
@@ -123,7 +123,7 @@ const EditarDatosProfesional7 = () => {
 
             // Agregar nuevos servicios seleccionados
             for (let id_tiempo of tiempoParaAgregar) {
-                await axios.post("http://localhost:3001/profesionalTiempoLibre/", {
+                await axios.post("https://evaluacion.esumer.edu.co/api/profesionalTiempoLibre/", {
                     id_profesionalFK: id_profesionalPK,
                     id_tiempoLibreFK: id_tiempo,
                 });

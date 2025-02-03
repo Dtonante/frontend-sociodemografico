@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, Divider, Box, MenuItem, FormControl, Select, Typography, TextField, Button } from "@mui/material";
 
-const URI_PROFESIONAL = 'http://localhost:3001/profesional/';
-const URI_PROFESIONAL_POR_ID_USUARIO = 'http://localhost:3001/profesional/porUsuario/';
+const URI_PROFESIONAL = 'https://evaluacion.esumer.edu.co/api/profesional/';
+const URI_PROFESIONAL_POR_ID_USUARIO = 'https://evaluacion.esumer.edu.co/api/profesional/porUsuario/';
 
 const EditarDatosProfesional5 = () => {
     const [afiliado, setAfiliado] = useState("si");

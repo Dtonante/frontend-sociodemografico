@@ -7,7 +7,7 @@ import show_alert from "../../components/showAlert/alertFuntion.jsx";
 
 
 
-const URI_CUENTAS_BANCARIAS = 'http://localhost:3001/cuentasBancarias/'
+const URI_CUENTAS_BANCARIAS = 'https://evaluacion.esumer.edu.co/api/cuentasBancarias/'
 
 const CompCrearCuentaBancaria = () => {
     const [var_nombreCuentaBancaria, setVar_nombreCuentaBancaria] = useState('')

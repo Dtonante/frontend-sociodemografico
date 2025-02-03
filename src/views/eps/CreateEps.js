@@ -4,7 +4,7 @@
 // import { Card, CardContent, Divider, Box, Typography, TextField, Button, } from "@mui/material";
 // import { soloLetras } from "../../components/validaciones/ValidacionesCrear.js";
 
-// const URI_EPS = 'http://localhost:3001/eps/'
+// const URI_EPS = 'https://evaluacion.esumer.edu.co/api/eps/'
 
 // const CompCrearEps = () => {
 //     const [var_nombreEps, setVar_nombreEps] = useState('')
@@ -134,7 +134,7 @@ import { Card, CardContent, Divider, Box, Typography, TextField, Button } from "
 import { soloLetras } from "../../components/validaciones/ValidacionesCrear.js";
 import show_alert from "../../components/showAlert/alertFuntion.jsx"; 
 
-const URI_EPS = "http://localhost:3001/eps/";
+const URI_EPS = "https://evaluacion.esumer.edu.co/api/eps/";
 
 const CompCrearEps = () => {
     const [var_nombreEps, setVar_nombreEps] = useState("");

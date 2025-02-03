@@ -21,9 +21,9 @@ import {
 } from "@mui/material";
 import { showAlert, show_alert } from "../../components/showAlert/alertFuntion"; // Asegúrate de importar las funciones
 
-const URI_PROFESIONAL = "http://localhost:3001/profesional/";
+const URI_PROFESIONAL = "https://evaluacion.esumer.edu.co/api/profesional/";
 const URI_PROFESIONAL_POR_ID_USUARIO =
-  "http://localhost:3001/profesional/porUsuario/";
+  "https://evaluacion.esumer.edu.co/api/profesional/porUsuario/";
 
 const EditarDatosProfesional3 = () => {
   const [id_profesionalPK, setId_profesionalPK] = useState();
@@ -379,7 +379,7 @@ const EditarDatosProfesional3 = () => {
       // Agregar nuevos servicios seleccionados
       for (let id_servicio of serviciosParaAgregar) {
         await axios.post(
-          "http://localhost:3001/profesionalServicioSaludAdicional/",
+          "https://evaluacion.esumer.edu.co/api/profesionalServicioSaludAdicional/",
           {
             id_profesionalFK: id_profesionalPK,
             id_ServicioDeSaludAdicionalFK: id_servicio,
@@ -405,7 +405,7 @@ const EditarDatosProfesional3 = () => {
       // Agregar nuevos servicios seleccionados
       for (let id_antecedente of antecedenteParaAgregar) {
         await axios.post(
-          "http://localhost:3001/profesionalAntecedenteMedico/",
+          "https://evaluacion.esumer.edu.co/api/profesionalAntecedenteMedico/",
           {
             id_profesionalFK: id_profesionalPK,
             id_antecedenteMedicoFK: id_antecedente,

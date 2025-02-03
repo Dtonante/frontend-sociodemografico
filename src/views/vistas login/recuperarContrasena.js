@@ -4,7 +4,7 @@ import { Grid, Box, Typography, Card, CardContent, TextField, Button } from "@mu
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const URI_RECUPERAR_CONTRASENA = "http://localhost:3001/usuarios/correo/";
+const URI_RECUPERAR_CONTRASENA = "https://evaluacion.esumer.edu.co/api/usuarios/correo/";
 
 const RecuperarContrasena = () => {
   const [formData, setFormData] = useState({

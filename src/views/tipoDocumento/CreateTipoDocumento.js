@@ -6,7 +6,7 @@ import { soloLetras } from "../../components/validaciones/ValidacionesCrear.js";
 import show_alert from "../../components/showAlert/alertFuntion.jsx"; 
 
 
-const URI_TIPO_DOCUMENTO = 'http://localhost:3001/tipodocumentos/'
+const URI_TIPO_DOCUMENTO = 'https://evaluacion.esumer.edu.co/api/tipodocumentos/'
 
 const CompCrearTipoDocumento = () => {
     const [var_nombreDocumento, setVar_nombreDocumento] = useState('')

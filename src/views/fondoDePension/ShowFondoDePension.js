@@ -23,7 +23,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Swal from "sweetalert2";
 import "../../css/alertStyles.css";
 
-const URI_FONDO_PENSION = "http://localhost:3001/fondoPension/";
+const URI_FONDO_PENSION = "https://evaluacion.esumer.edu.co/api/fondoPension/";
 
 const CompShowFondoDePension = () => {
   const [fondoDePension, setFondoDePension] = useState([]);

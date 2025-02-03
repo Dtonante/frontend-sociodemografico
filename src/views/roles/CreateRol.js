@@ -7,7 +7,7 @@ import show_alert from "../../components/showAlert/alertFuntion.jsx"; // Importa
 
 
 
-const URI_ROL = 'http://localhost:3001/roles/'
+const URI_ROL = 'https://evaluacion.esumer.edu.co/api/roles/'
 
 const CompCrearRol = () => {
     const [var_nombreRol, setVar_nombreRol] = useState('')

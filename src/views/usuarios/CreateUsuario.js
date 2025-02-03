@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const URI_USUARIOS = 'http://localhost:3001/usuarios/'
+const URI_USUARIOS = 'https://evaluacion.esumer.edu.co/api/usuarios/'
 
 
 const CompCrearUsuario = () => {

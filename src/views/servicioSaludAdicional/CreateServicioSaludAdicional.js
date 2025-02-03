@@ -6,7 +6,7 @@ import { soloLetras } from "../../components/validaciones/ValidacionesCrear.js";
 import show_alert from "../../components/showAlert/alertFuntion.jsx"; 
 
 
-const URI_SERVICIO_SALUD_ADICIONAL = 'http://localhost:3001/servicioSaludAdicional/'
+const URI_SERVICIO_SALUD_ADICIONAL = 'https://evaluacion.esumer.edu.co/api/servicioSaludAdicional/'
 
 
 

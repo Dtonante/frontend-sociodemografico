@@ -6,7 +6,7 @@ import { soloLetras } from "../../components/validaciones/ValidacionesCrear.js";
 import show_alert from "../../components/showAlert/alertFuntion.jsx"; 
 
 
-const URI_SERVICIO_QUE_NO_CUENTAN = 'http://localhost:3001/serviciosQueNoCuentan'
+const URI_SERVICIO_QUE_NO_CUENTAN = 'https://evaluacion.esumer.edu.co/api/serviciosQueNoCuentan'
 
 
 

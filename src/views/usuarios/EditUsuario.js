@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, Divider, Box, Typography, TextField, Button } from "@mui/material";
 
-const URI_USUARIOS = 'http://localhost:3001/usuarios/';
+const URI_USUARIOS = 'https://evaluacion.esumer.edu.co/api/usuarios/';
 
 const CompEditarUsuario = () => {
     const [id_rolFK, setId_rolFK] = useState('');

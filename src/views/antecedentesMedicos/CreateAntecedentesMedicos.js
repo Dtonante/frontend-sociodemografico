@@ -6,7 +6,7 @@ import { soloLetras } from "../../components/validaciones/ValidacionesCrear.js";
 import show_alert from "../../components/showAlert/alertFuntion.jsx"; 
 
 
-const URI_ANTECEDENTE_MEDICO = 'http://localhost:3001/antecedentesMedicos'
+const URI_ANTECEDENTE_MEDICO = 'https://evaluacion.esumer.edu.co/api/antecedentesMedicos'
 
 const CompCrearAntecedentesMedicos = () => {
     const [var_nombreAntecedenteMedico, setVar_nombreAntecedenteMedico] = useState('')
