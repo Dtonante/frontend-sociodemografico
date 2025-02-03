@@ -123,21 +123,45 @@ const EditarDatosProfesional2 = () => {
   const actualizar = async (e) => {
     e.preventDefault();
 
-  // Definimos los campos obligatorios a validar, incluyendo arrays y otros campos
-  const camposObligatorios = [
-    { nombre: "personasArray", valor: personasArray, condicion: boolean_viveSolo === "false" }, // Solo validamos si no vive solo
-    { nombre: "mascotasArray", valor: mascotasArray, condicion: boolean_viveConMascotas === "true" }, // Solo validamos si tiene mascotas
-    { nombre: "var_numeroPersonasConLasQueVive", valor: var_numeroPersonasConLasQueVive, condicion: boolean_viveSolo === "false" }, // Validar número de personas si no vive solo
-  ];
+    // Definimos los campos obligatorios a validar, incluyendo arrays y otros campos
+    const camposObligatorios = [
+      { nombre: "personasArray", valor: personasArray, condicion: boolean_viveSolo === "false" }, // Solo validamos si no vive solo
+      { nombre: "mascotasArray", valor: mascotasArray, condicion: boolean_viveConMascotas === "true" }, // Solo validamos si tiene mascotas
+      { nombre: "var_numeroPersonasConLasQueVive", valor: var_numeroPersonasConLasQueVive, condicion: boolean_viveSolo === "false" }, // Validar número de personas si no vive solo
+    ];
 
-  // Recorremos los campos para validar que no estén vacíos
-  let camposValidos = true;
-  camposObligatorios.forEach((campo) => {
-    // Solo validamos si la condición es verdadera
-    if (campo.condicion) {
-      // Si el campo es un array, validamos que no esté vacío
-      if (Array.isArray(campo.valor)) {
-        if (campo.valor.length === 0) {
+    // Recorremos los campos para validar que no estén vacíos
+    let camposValidos = true;
+    camposObligatorios.forEach((campo) => {
+      // Solo validamos si la condición es verdadera
+      if (campo.condicion) {
+        // Si el campo es un array, validamos que no esté vacío
+        if (Array.isArray(campo.valor)) {
+          if (campo.valor.length === 0) {
+            setError((prevState) => ({
+              ...prevState,
+              [campo.nombre]: true, // Marcamos el error para el campo específico
+            }));
+            camposValidos = false;
+          } else {
+            setError((prevState) => ({
+              ...prevState,
+              [campo.nombre]: false, // Eliminamos el error si el campo es válido
+            }));
+          }
+        }
+        // Si el campo es una cadena, validamos que no esté vacío o tenga solo espacios
+        else if (typeof campo.valor === "string" && campo.valor.trim() === "") {
+          setError((prevState) => ({
+            ...prevState,
+            [campo.nombre]: true, // Marcamos el error para el campo específico
+          }));
+          camposValidos = false;
+        } else if (
+          campo.valor === null ||
+          campo.valor === undefined ||
+          campo.valor === ""
+        ) {
           setError((prevState) => ({
             ...prevState,
             [campo.nombre]: true, // Marcamos el error para el campo específico
@@ -146,41 +170,17 @@ const EditarDatosProfesional2 = () => {
         } else {
           setError((prevState) => ({
             ...prevState,
-            [campo.nombre]: false, // Eliminamos el error si el campo es válido
+            [campo.nombre]: false, // Si el campo tiene valor, eliminamos el error
           }));
         }
       }
-      // Si el campo es una cadena, validamos que no esté vacío o tenga solo espacios
-      else if (typeof campo.valor === "string" && campo.valor.trim() === "") {
-        setError((prevState) => ({
-          ...prevState,
-          [campo.nombre]: true, // Marcamos el error para el campo específico
-        }));
-        camposValidos = false;
-      } else if (
-        campo.valor === null ||
-        campo.valor === undefined ||
-        campo.valor === ""
-      ) {
-        setError((prevState) => ({
-          ...prevState,
-          [campo.nombre]: true, // Marcamos el error para el campo específico
-        }));
-        camposValidos = false;
-      } else {
-        setError((prevState) => ({
-          ...prevState,
-          [campo.nombre]: false, // Si el campo tiene valor, eliminamos el error
-        }));
-      }
-    }
-  });
+    });
 
-  if (!camposValidos) {
-    // Si algún campo es inválido, mostramos la alerta y detenemos el proceso
-    show_alert("Por favor, completa todos los campos obligatorios.", "info");
-    return; // Detenemos el proceso si algún campo requerido está vacío
-  }
+    if (!camposValidos) {
+      // Si algún campo es inválido, mostramos la alerta y detenemos el proceso
+      show_alert("Por favor, completa todos los campos obligatorios.", "info");
+      return; // Detenemos el proceso si algún campo requerido está vacío
+    }
 
     showAlert(
       {
@@ -239,6 +239,8 @@ const EditarDatosProfesional2 = () => {
       res.data.boolean_viveConMascotas ? "true" : "false"
     );
     setSet_personasConLasQueVive(res.data.set_personasConLasQueVive);
+
+    console.log("aaaaaaaaaaaaaaaa", res.data)
   };
 
   const validarCampoRequerido = (valor, setError) => {
@@ -263,41 +265,41 @@ const EditarDatosProfesional2 = () => {
     }
   };
 
-    return (
-        <div style={{ backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%" }}>
-            <div style={{ textAlign: "center", marginBottom: "1%", marginTop: "-3%" }}>
-            <p> Edita la información necesaria y al final del formulario pulsa el botón GUARDAR para conservar los cambios.</p>
-            </div>
-            <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: "#F2F2F2", borderColor: "#202B52" }}>
-                <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
-                    <Box flexGrow={1}>
-                        <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: "center", color: "#202B52", fontFamily: "Roboto Condensed" }}>
-                            <strong>Datos personales</strong>
-                        </Typography>
-                    </Box>
-                </Box>
-                <Divider style={{ marginLeft: "5%", marginRight: "5%", borderColor: "#202B52" }} />
-                <CardContent sx={{ padding: "30px" }}>
-                    <form onSubmit={actualizar}>
+  return (
+    <div style={{ backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%" }}>
+      <div style={{ textAlign: "center", marginBottom: "1%", marginTop: "-3%" }}>
+        <p> Edita la información necesaria y al final del formulario pulsa el botón GUARDAR para conservar los cambios.</p>
+      </div>
+      <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: "#F2F2F2", borderColor: "#202B52" }}>
+        <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">
+          <Box flexGrow={1}>
+            <Typography sx={{ fontSize: "18px", fontWeight: "500", textAlign: "center", color: "#202B52", fontFamily: "Roboto Condensed" }}>
+              <strong>Datos personales</strong>
+            </Typography>
+          </Box>
+        </Box>
+        <Divider style={{ marginLeft: "5%", marginRight: "5%", borderColor: "#202B52" }} />
+        <CardContent sx={{ padding: "30px" }}>
+          <form onSubmit={actualizar}>
 
-                        <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Estado Civil:</Typography>
-                        <TextField select name="var_estadoCivil" variant="outlined" value={var_estadoCivil} onChange={(e) => setVar_estadoCivil(e.target.value)} fullWidth sx={{ mb: 2 }} FormHelperTextProps={{
-                            sx: {
-                                marginLeft: 0,
-                            },
-                        }} InputProps={{
-                            sx: {
-                                height: "40px",
-                                fontFamily: "Roboto Condensed",
-                                fontSize: "16px"
-                            },
-                        }}  >
-                            <MenuItem value="Soltero">Soltero</MenuItem>
-                            <MenuItem value="Casado">Casado</MenuItem>
-                            <MenuItem value="Divorciado">Divorciado</MenuItem>
-                            <MenuItem value="Viudo">Viudo</MenuItem>
-                            <MenuItem value="Union libre">Unión libre</MenuItem>
-                        </TextField>
+            <Typography variant="h6" sx={{ fontFamily: 'Roboto Condensed', color: '#202B52', fontSize: '16px' }}>Estado Civil:</Typography>
+            <TextField select name="var_estadoCivil" variant="outlined" value={var_estadoCivil} onChange={(e) => setVar_estadoCivil(e.target.value)} fullWidth sx={{ mb: 2 }} FormHelperTextProps={{
+              sx: {
+                marginLeft: 0,
+              },
+            }} InputProps={{
+              sx: {
+                height: "40px",
+                fontFamily: "Roboto Condensed",
+                fontSize: "16px"
+              },
+            }}  >
+              <MenuItem value="Soltero">Soltero</MenuItem>
+              <MenuItem value="Casado">Casado</MenuItem>
+              <MenuItem value="Divorciado">Divorciado</MenuItem>
+              <MenuItem value="Viudo">Viudo</MenuItem>
+              <MenuItem value="Union libre">Unión libre</MenuItem>
+            </TextField>
 
             <Typography
               variant="h6"
