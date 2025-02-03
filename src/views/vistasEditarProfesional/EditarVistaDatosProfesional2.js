@@ -18,8 +18,7 @@ import {
 import { showAlert, show_alert } from "../../components/showAlert/alertFuntion";
 
 const URI_PROFESIONAL = "https://evaluacion.esumer.edu.co/api/profesional/";
-const URI_PROFESIONAL_POR_ID_USUARIO =
-  "https://evaluacion.esumer.edu.co/api/profesional/porUsuario/";
+const URI_PROFESIONAL_POR_ID_USUARIO = "https://evaluacion.esumer.edu.co/api/profesional/porUsuario/";
 
 const EditarDatosProfesional2 = () => {
   const [id_profesionalPK, setId_profesionalPK] = useState("");
