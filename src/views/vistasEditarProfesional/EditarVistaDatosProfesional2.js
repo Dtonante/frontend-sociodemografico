@@ -45,7 +45,6 @@ const EditarDatosProfesional2 = () => {
   const [personasArray, setPersonasArray] = useState([]);
   const [errorPersonas, setErrorPersonas] = useState(false);
   const [errorMascotas, setErrorMascotas] = useState(false);
-
   const [error, setError] = useState(false);
 
   useEffect(() => {
