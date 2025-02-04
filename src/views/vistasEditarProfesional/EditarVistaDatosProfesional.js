@@ -91,7 +91,7 @@ const EditarDatosProfesional = () => {
     console.log("direccionCompleta", direccionCompleta);
   };
 
- 
+
 
   const [errorDireccionResidencia, setErrorDireccionResidencia] =
     useState(false);
@@ -330,7 +330,7 @@ const EditarDatosProfesional = () => {
     fetchServiciosQueNoCuentan();
   }, []);
 
-  
+
 
   const actualizarServiciosQueNoCuentan = async () => {
     try {
