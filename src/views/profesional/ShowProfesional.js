@@ -106,7 +106,7 @@ const CompShowProfesional = () => {
                         {userRole === "Contabilidad" && (
                             < ExportExcelButton data={filteredData} />
                         )}
-                        {userRole === "Gestion Humana" || userRole === "SuperAdmin" && (
+                        {(userRole === "Gestion Humana" || userRole === "SuperAdmin") && (
                             < ExportExcelButtonGestionHumana data={filteredData} />
                         )}
 

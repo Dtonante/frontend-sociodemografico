@@ -139,8 +139,8 @@ const EditarDatosProfesional5 = () => {
 
     return (
         <div style={{ backgroundColor: "#F2F2F2", paddingTop: "3%", paddingBottom: "3%" }}>
-            <div style={{ textAlign: "center", marginBottom: "1%", marginTop: "-3%" }}>
-            <p> Edita la información necesaria y al final del formulario pulsa el botón GUARDAR para conservar los cambios.</p>
+            <div style={{ textAlign: "center", marginBottom: "1%", marginTop: "-3%", fontFamily: "Poppins", fontSize: "14.8px" }}>
+            <p>Edita la información necesaria y al final del formulario pulsa el botón <b>GUARDAR</b> para conservar los cambios.</p>
             </div>
             <Card variant="outlined" sx={{ p: 0, width: "100%", maxWidth: 800, margin: "auto", backgroundColor: "#F2F2F2", borderColor: "#202B52" }}>
                 <Box sx={{ padding: "15px 30px" }} display="flex" alignItems="center">

@@ -321,9 +321,9 @@ const CompEditarUsuario = () => {
       }}
     >
       <div
-        style={{ textAlign: "center", marginBottom: "1%", marginTop: "-3%" }}
+        style={{ textAlign: "center", marginBottom: "1%", marginTop: "-3%", fontFamily: "Poppins", fontSize: "14.8px" }}
       >
-        <p> Edita la información necesaria y al final del formulario pulsa el botón GUARDAR para conservar los cambios.</p>
+        <p>Edita la información necesaria y al final del formulario pulsa el botón <b>GUARDAR</b> para conservar los cambios.</p>
       </div>
       <Card
         variant="outlined"
